@@ -26,28 +26,47 @@ function App() {
 
   return (
     <div className="app">
-      <NavBar items={navItems} />
+      <div className="noise-layer" />
+      <div className="scan-layer" />
 
       <Hero
         title="ESCOBAR"
-        subtitle="Underground Sound • Vinyl • Fire Nights"
+        subtitle="AARHUS • DENMARK"
+        tagline="ROCK • METAL • BEER • COMMUNITY"
       />
 
-      <main className="layout">
-        <section id="vinyl" className="layout-block">
-          <VinylPanel vinyl={vinyl} />
+      <NavBar items={navItems} />
+
+      <main className="shell">
+        <section id="home" className="feature-grid">
+          <div className="feature-main">
+            <VinylPanel vinyl={vinyl} />
+          </div>
+
+          <div className="feature-side">
+            <RadioPanel tracks={radioTracks} />
+          </div>
         </section>
 
-        <section id="radio" className="layout-block">
-          <RadioPanel tracks={radioTracks} />
-        </section>
-
-        <section id="events" className="layout-block">
+        <section id="events" className="stack-section">
           <EventsPanel events={events} />
         </section>
 
-        <section id="merch" className="layout-block">
+        <section id="merch" className="stack-section">
           <MerchPanel items={merch} />
+        </section>
+
+        <section id="contact" className="contact-strip panel frame-panel">
+          <div className="panel-heading">
+            <span className="panel-heading__line" />
+            <h3>Contact</h3>
+            <span className="panel-heading__line" />
+          </div>
+
+          <div className="contact-strip__content">
+            <p>666.rock</p>
+            <span>ESCOBAR UNDERGROUND CLUB • AARHUS, DK</span>
+          </div>
         </section>
       </main>
     </div>

@@ -6,9 +6,13 @@ interface Props {
 
 export const NavBar = ({ items }: Props) => {
   return (
-    <nav className="navbar">
-      {items.map((item) => (
-        <a key={item.href} href={item.href}>
+    <nav className="nav shell">
+      {items.map((item, index) => (
+        <a
+          key={item.href}
+          href={item.href}
+          className={index === 0 ? "nav__link nav__link--active" : "nav__link"}
+        >
           {item.label}
         </a>
       ))}
