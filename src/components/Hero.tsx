@@ -15,23 +15,23 @@ export const Hero = ({ title, subtitle }: Props) => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         ".hero h1",
-        { y: 50, opacity: 0 },
+        { y: 40, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 1,
+          duration: 0.9,
           ease: "power3.out",
         }
       );
 
       gsap.fromTo(
         ".hero p",
-        { y: 24, opacity: 0 },
+        { y: 20, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          delay: 0.15,
-          duration: 0.8,
+          delay: 0.14,
+          duration: 0.7,
           ease: "power3.out",
         }
       );

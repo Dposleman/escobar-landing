@@ -34,19 +34,19 @@ function App() {
       />
 
       <main className="layout">
-        <section id="vinyl">
+        <section id="vinyl" className="layout-block">
           <VinylPanel vinyl={vinyl} />
         </section>
 
-        <section id="radio">
+        <section id="radio" className="layout-block">
           <RadioPanel tracks={radioTracks} />
         </section>
 
-        <section id="events">
+        <section id="events" className="layout-block">
           <EventsPanel events={events} />
         </section>
 
-        <section id="merch">
+        <section id="merch" className="layout-block">
           <MerchPanel items={merch} />
         </section>
       </main>
