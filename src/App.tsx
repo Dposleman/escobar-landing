@@ -19,13 +19,8 @@ import { createEmbers } from "./utils/embers";
 
 function App() {
   useEffect(() => {
-    // GSAP scroll reveal
     revealPanels();
-
-    // Glow interactivo con mouse
     initMouseGlow();
-
-    // Partículas (embers)
     createEmbers();
   }, []);
 
@@ -39,10 +34,21 @@ function App() {
       />
 
       <main className="layout">
-        <VinylPanel vinyl={vinyl} />
-        <RadioPanel tracks={radioTracks} />
-        <EventsPanel events={events} />
-        <MerchPanel items={merch} />
+        <section id="vinyl">
+          <VinylPanel vinyl={vinyl} />
+        </section>
+
+        <section id="radio">
+          <RadioPanel tracks={radioTracks} />
+        </section>
+
+        <section id="events">
+          <EventsPanel events={events} />
+        </section>
+
+        <section id="merch">
+          <MerchPanel items={merch} />
+        </section>
       </main>
     </div>
   );

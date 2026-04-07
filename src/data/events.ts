@@ -1,8 +1,16 @@
-import type { EventItem } from "../types/event";
+import type { Event } from "../types/event";
 
-export const events: EventItem[] = [
-  { title: "METAL KARAOKE NIGHT", date: "FRIDAY, MAY 10" },
-  { title: "VINYL ROCK NIGHT", date: "SATURDAY, MAY 18" },
-  { title: "DANISH UNDERGROUND BANDS", date: "SUNDAY, JUNE 1" },
-  { title: "HALLOWEEN METAL PARTY", date: "THURSDAY, OCT 31" },
+export const events: Event[] = [
+  {
+    id: "1",
+    title: "Fire Night Vol.1",
+    date: "Aug 23",
+    location: "CDMX",
+  },
+  {
+    id: "2",
+    title: "Underground Session",
+    date: "Sep 02",
+    location: "Bogotá",
+  },
 ];

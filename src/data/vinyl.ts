@@ -1,10 +1,6 @@
-import type { VinylOfTheNight } from "../types/vinyl";
+import type { Vinyl } from "../types/vinyl";
 
-export const vinylOfTheNight: VinylOfTheNight = {
-  sectionTitle: "VINYL OF THE NIGHT",
-  artist: "Black Sabbath",
-  album: "PARANOID",
-  meta: ["Released 1970", "Playing tonight at Escobar"],
-  coverTitle: "Black Sabbath",
-  coverSubtitle: "PARANOID",
+export const vinyl: Vinyl = {
+  title: "Underground Flames",
+  artist: "ESCOBAR",
 };

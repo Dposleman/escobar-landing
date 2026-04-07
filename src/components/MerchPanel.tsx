@@ -1,4 +1,4 @@
-import { MerchItem } from "../types/merch";
+import type { MerchItem } from "../types/merch";
 
 interface Props {
   items: MerchItem[];
@@ -8,6 +8,7 @@ export const MerchPanel = ({ items }: Props) => {
   return (
     <div className="panel merch">
       <h3>Merch</h3>
+
       <div className="grid">
         {items.map((item) => (
           <div key={item.id} className="merch-item">

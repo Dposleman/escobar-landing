@@ -4,16 +4,24 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export const revealPanels = () => {
-  gsap.utils.toArray(".panel").forEach((panel: any) => {
-    gsap.from(panel, {
-      opacity: 0,
-      y: 80,
-      duration: 1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: panel,
-        start: "top 85%",
+  gsap.utils.toArray<HTMLElement>(".panel").forEach((panel) => {
+    gsap.fromTo(
+      panel,
+      {
+        y: 40,
+        opacity: 0,
       },
-    });
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.9,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: panel,
+          start: "top 85%",
+          once: true,
+        },
+      }
+    );
   });
 };

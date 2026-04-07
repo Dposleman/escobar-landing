@@ -7,23 +7,34 @@ interface Props {
 }
 
 export const Hero = ({ title, subtitle }: Props) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
 
   useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".hero h1", {
-        y: 80,
-        opacity: 0,
-        duration: 1.2,
-        ease: "power4.out",
-      });
+    if (!ref.current) return;
 
-      gsap.from(".hero p", {
-        y: 40,
-        opacity: 0,
-        delay: 0.3,
-        duration: 1,
-      });
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".hero h1",
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+        }
+      );
+
+      gsap.fromTo(
+        ".hero p",
+        { y: 24, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          delay: 0.15,
+          duration: 0.8,
+          ease: "power3.out",
+        }
+      );
     }, ref);
 
     return () => ctx.revert();

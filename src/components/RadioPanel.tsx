@@ -1,4 +1,4 @@
-import { RadioTrack } from "../types/radio";
+import type { RadioTrack } from "../types/radio";
 
 interface Props {
   tracks: RadioTrack[];
@@ -7,19 +7,24 @@ interface Props {
 export const RadioPanel = ({ tracks }: Props) => {
   return (
     <div className="panel radio">
-      <h3>Radio</h3>
-      <ul>
-        {tracks.map((track) => (
-          <li key={track.id}>
-            {track.title} — {track.artist}
-          </li>
-        ))}
-      </ul>
+      <div>
+        <h3>Radio</h3>
+
+        <ul>
+          {tracks.map((track) => (
+            <li key={track.id}>
+              {track.title} — {track.artist}
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <div className="equalizer">
-  <span />
-  <span />
-  <span />
-  <span />
-</div>
+        <span />
+        <span />
+        <span />
+        <span />
+      </div>
+    </div>
   );
 };
