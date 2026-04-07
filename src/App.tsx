@@ -1,62 +1,51 @@
-export default function App() {
+import { useEffect } from "react";
+
+import { NavBar } from "./components/NavBar";
+import { Hero } from "./components/Hero";
+import { VinylPanel } from "./components/VinylPanel";
+import { RadioPanel } from "./components/RadioPanel";
+import { EventsPanel } from "./components/EventsPanel";
+import { MerchPanel } from "./components/MerchPanel";
+
+import { navItems } from "./data/nav";
+import { events } from "./data/events";
+import { merch } from "./data/merch";
+import { radioTracks } from "./data/radio";
+import { vinyl } from "./data/vinyl";
+
+import { revealPanels } from "./animations/animations";
+import { initMouseGlow } from "./utils/mouseGlow";
+import { createEmbers } from "./utils/embers";
+
+function App() {
+  useEffect(() => {
+    // GSAP scroll reveal
+    revealPanels();
+
+    // Glow interactivo con mouse
+    initMouseGlow();
+
+    // Partículas (embers)
+    createEmbers();
+  }, []);
+
   return (
-    <div className="container">
+    <div className="app">
+      <NavBar items={navItems} />
 
-      <div className="panel" style={{ textAlign: "center" }}>
-        <h1 className="fire" style={{ fontSize: 60 }}>ESCOBAR</h1>
-        <p>AARHUS · DENMARK</p>
-      </div>
+      <Hero
+        title="ESCOBAR"
+        subtitle="Underground Sound • Vinyl • Fire Nights"
+      />
 
-      <div className="panel nav">
-        <a>HOME</a>
-        <a>RADIO</a>
-        <a>EVENTS</a>
-        <a>MERCH</a>
-        <a>CONTACT</a>
-      </div>
-
-      <div className="grid">
-        <div className="panel">
-          <h2 className="fire">VINYL OF THE NIGHT</h2>
-          <h1>BLACK SABBATH</h1>
-          <h2 className="fire">PARANOID</h2>
-        </div>
-
-        <div className="panel">
-          <h2 className="fire">RADIO</h2>
-          <p>Motörhead - Ace of Spades</p>
-        </div>
-      </div>
-
-      <div className="panel">
-        <h2 className="fire">EVENTS</h2>
-
-        <div className="event">
-          <span>Metal Karaoke</span>
-          <span>May 10</span>
-        </div>
-
-        <div className="event">
-          <span>Rock Night</span>
-          <span>May 18</span>
-        </div>
-      </div>
-
-      <div className="panel">
-        <h2 className="fire">MERCH</h2>
-
-        <div className="merch-grid">
-          <div>TEE</div>
-          <div>MUG</div>
-          <div>STICKERS</div>
-          <div>PATCH</div>
-        </div>
-
-        <button className="btn" style={{ marginTop: 20 }}>
-          SHOP
-        </button>
-      </div>
-
+      <main className="layout">
+        <VinylPanel vinyl={vinyl} />
+        <RadioPanel tracks={radioTracks} />
+        <EventsPanel events={events} />
+        <MerchPanel items={merch} />
+      </main>
     </div>
   );
 }
+
+export default App;
