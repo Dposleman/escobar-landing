@@ -1810,3 +1810,38 @@ img {
     grid-template-columns: 1fr;
   }
 }
+/* FOOTER */
+
+.site-footer {
+  margin-top: 2rem;
+  padding: 1.5rem;
+}
+
+.site-footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: center;
+}
+
+.site-footer-powered,
+.site-footer-promo {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  color: var(--text-1);
+}
+
+.site-footer-link {
+  color: var(--ember);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  transition: all 0.2s ease;
+}
+
+.site-footer-link:hover {
+  color: var(--ember-bright);
+  opacity: 0.9;
+}
