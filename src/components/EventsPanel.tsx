@@ -1,80 +1,85 @@
-import type { EventItem } from "../types";
 
-type EventsPanelProps = {
-  events: EventItem[];
-};
+type EventStatus = "upcoming" | "live" | "ended";
 
-function getEventStatus(event: EventItem): string {
-  const now = Date.now();
-  const startsAt = new Date(event.startsAt).getTime();
-  const endsAt = event.endsAt ? new Date(event.endsAt).getTime() : null;
-
-  if (!Number.isNaN(startsAt) && now >= startsAt && (!endsAt || now <= endsAt)) {
-    return "SUCEDIENDO AHORA";
-  }
-
-  if (endsAt && now > endsAt) {
-    return "TERMINADO";
-  }
-
-  return "PRÓXIMAMENTE";
+interface Event {
+  date: string;
+  title: string;
+  description: string;
+  location: string;
+  city: string;
+  status: EventStatus;
 }
 
-export function EventsPanel({ events }: EventsPanelProps) {
-  const visibleEvents = events.filter((event) => event.status === "published");
+const statusMap: Record<EventStatus, string> = {
+  upcoming: "COMING SOON",
+  live: "LIVE",
+  ended: "ENDED",
+};
 
+const events: Event[] = [
+  {
+    date: "Friday, May 10",
+    title: "Metal Karaoke Night",
+    description: "Riffs, smoke and late-night signal pressure.",
+    location: "Escobar Main Hall",
+    city: "Aarhus · Denmark",
+    status: "upcoming",
+  },
+  {
+    date: "Saturday, May 18",
+    title: "Vinyl Rock Night",
+    description: "Needle dust, amber glow and hard-cut selection.",
+    location: "Escobar Radio Room",
+    city: "Aarhus · Denmark",
+    status: "live",
+  },
+  {
+    date: "June 1",
+    title: "Danish Underground Bands",
+    description: "Dark room showcase with raw local sound.",
+    location: "Escobar Main Hall",
+    city: "Aarhus · Denmark",
+    status: "live",
+  },
+  {
+    date: "Thursday, October 31",
+    title: "Halloween Metal Party",
+    description: "Full grunge decor, heavy set and burn-orange light.",
+    location: "Escobar Main Hall",
+    city: "Aarhus · Denmark",
+    status: "live",
+  },
+];
+
+export default function EventsPanel() {
   return (
-    <section className="events-panel metal-panel battered-panel js-reveal" id="events">
-      <div className="section-title">
-        <span />
-        <h3>UPCOMING EVENTS</h3>
-        <span />
-      </div>
+    <section className="events-panel">
+      <div className="events-grid">
+        {events.map((event, index) => (
+          <div key={index} className="event-card">
+            <div className="event-image">
+              <span className="event-status">
+                {statusMap[event.status]}
+              </span>
+            </div>
 
-      <div className="events-card-grid">
-        {visibleEvents.map((event) => {
-          const status = getEventStatus(event);
+            <div className="event-content">
+              <div className="event-date">{event.date}</div>
+              <h3 className="event-title">{event.title}</h3>
+              <p className="event-description">{event.description}</p>
 
-          return (
-            <article className="event-card" key={event.id}>
-              <div className="event-card-media">
-                <div
-                  className={`event-card-cover${event.coverImage ? " has-image" : ""}`}
-                  style={event.coverImage ? { backgroundImage: `url(${event.coverImage})` } : undefined}
-                />
-                <span className={`event-status event-status-${status.toLowerCase().replace(/\s+/g, "-")}`}>
-                  {status}
-                </span>
+              <div className="event-footer">
+                <span>{event.location}</span>
+                <span>{event.city}</span>
               </div>
 
-              <div className="event-card-copy">
-                <div className="event-card-topline">
-                  <span>{event.date}</span>
-                  <strong>{event.isFeatured ? "FEATURED" : "LIVE"}</strong>
-                </div>
-
-                <h4>{event.title}</h4>
-                <p>{event.excerpt}</p>
-
-                <div className="event-card-meta">
-                  <span>{event.venue}</span>
-                  <span>
-                    {event.city} · {event.country}
-                  </span>
-                </div>
+              <div className="event-actions">
+                <button className="btn-primary">Open</button>
+                <button className="btn-secondary">Gallery</button>
               </div>
-
-              <div className="event-card-actions">
-                <a className="event-row-link" href={event.ticketUrl || "#"} target="_blank" rel="noreferrer">
-                  OPEN
-                </a>
-                <a className="event-row-link" href="#gallery">
-                  GALLERY
-                </a>
-              </div>
-            </article>
-          );
-        })}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
