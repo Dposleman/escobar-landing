@@ -1,104 +1,22 @@
 .dynamic-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+  grid-template-columns: 1fr;
   gap: 22px;
+  margin-top: 22px;
+}
+
+.member-access-wrap {
   margin-top: 22px;
 }
 
 .gallery-panel,
 .auth-panel,
-.chat-panel {
+.chat-panel,
+.news-panel,
+.events-panel,
+.merch-panel {
   position: relative;
   overflow: hidden;
-}
-
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.gallery-card {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.gallery-card p {
-  margin: 0;
-  color: var(--text-1);
-  font-size: 0.82rem;
-  letter-spacing: 0.08em;
-}
-
-.gallery-media {
-  position: relative;
-  min-height: 238px;
-  border: 1px solid rgba(255, 162, 88, 0.22);
-  background:
-    linear-gradient(145deg, rgba(255, 182, 128, 0.05), rgba(0, 0, 0, 0.3)),
-    radial-gradient(circle at 20% 18%, rgba(255, 145, 66, 0.18), transparent 20%),
-    linear-gradient(180deg, rgba(38, 15, 13, 0.95), rgba(11, 5, 5, 0.96));
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 200, 152, 0.05),
-    0 16px 28px rgba(0, 0, 0, 0.45);
-  overflow: hidden;
-}
-
-.gallery-media::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    repeating-linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.025) 0 1px,
-      transparent 1px 4px
-    ),
-    radial-gradient(circle at 80% 16%, rgba(255, 177, 120, 0.16), transparent 18%);
-  mix-blend-mode: screen;
-  opacity: 0.8;
-}
-
-.gallery-media.has-image {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.gallery-media-overlay,
-.album-cover-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: 6px;
-  padding: 16px;
-  background: linear-gradient(180deg, transparent 25%, rgba(0, 0, 0, 0.72) 100%);
-}
-
-.gallery-media-overlay span,
-.album-cover-overlay span {
-  color: var(--text-1);
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
-}
-
-.gallery-media-overlay strong,
-.album-cover-overlay strong {
-  color: var(--text-0);
-}
-
-.auth-panel {
-  padding-bottom: 18px;
-}
-
-.auth-switch {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 16px;
 }
 
 .auth-switch button,
@@ -106,12 +24,13 @@
 .chat-cta-link,
 .auth-ghost-button,
 .auth-solid-button,
-.event-row-link {
+.event-row-link,
+.news-panel .auth-solid-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 44px;
-  padding: 0 14px;
+  min-height: 46px;
+  padding: 0 16px;
   border: 1px solid rgba(255, 154, 78, 0.34);
   background:
     linear-gradient(180deg, rgba(93, 42, 25, 0.55), rgba(27, 11, 10, 0.92));
@@ -135,7 +54,8 @@
 .chat-cta-link:hover,
 .auth-ghost-button:hover,
 .auth-solid-button:hover,
-.event-row-link:hover {
+.event-row-link:hover,
+.news-panel .auth-solid-button:hover {
   transform: translateY(-1px);
   border-color: rgba(255, 177, 114, 0.58);
   box-shadow:
@@ -164,7 +84,8 @@
 
 .auth-field input,
 .auth-field select,
-.chat-form textarea {
+.chat-form textarea,
+.chat-lock-state textarea {
   width: 100%;
   border: 1px solid rgba(255, 151, 72, 0.22);
   background: rgba(8, 3, 3, 0.78);
@@ -180,17 +101,298 @@
   border-color: rgba(255, 183, 122, 0.52);
 }
 
-.auth-session-card {
+.events-panel {
+  margin-top: 18px;
+  padding: 18px 22px 24px;
+}
+
+.events-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.event-card {
   display: grid;
   gap: 14px;
+  padding: 16px;
+  border: 1px solid rgba(255, 172, 108, 0.16);
+  background:
+    linear-gradient(180deg, rgba(39, 15, 13, 0.94), rgba(12, 5, 5, 0.98));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 226, 197, 0.04),
+    0 18px 30px rgba(0, 0, 0, 0.34);
+}
+
+.event-card-media {
+  position: relative;
+}
+
+.event-card-cover {
+  min-height: 170px;
+  border: 1px solid rgba(255, 171, 106, 0.14);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 136, 48, 0.22), transparent 22%),
+    radial-gradient(circle at 78% 70%, rgba(255, 222, 186, 0.06), transparent 14%),
+    linear-gradient(180deg, rgba(67, 34, 28, 0.86), rgba(11, 5, 5, 0.98));
+}
+
+.event-card-cover.has-image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.event-status {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 184, 129, 0.24);
+  background: rgba(11, 5, 5, 0.86);
+  color: var(--text-0);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+}
+
+.event-card-topline,
+.event-card-meta,
+.event-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.event-card-topline span,
+.event-card-meta span,
+.event-card-topline strong {
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.event-card h4 {
+  margin: 0;
+  font-size: 1.82rem;
+  line-height: 1;
+  color: var(--text-0);
+}
+
+.event-card p {
+  margin: 10px 0 0;
+  color: var(--text-1);
+  line-height: 1.45;
+}
+
+.merch-panel {
+  margin-top: 18px;
+  padding: 18px 18px 28px;
+}
+
+.merch-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.merch-item {
+  display: grid;
+  gap: 10px;
+  text-align: center;
+}
+
+.merch-item-copy {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+}
+
+.merch-item-copy p {
+  margin: 0;
+  min-height: 2.6em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d8cbc0;
+  font-size: 1.42rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.merch-item-copy span {
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+  color: var(--text-0);
+  font-size: 1.16rem;
+}
+
+.merch-cta-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.merch-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 316px;
+  min-height: 78px;
+  padding: 0 28px;
+  border: 1px solid rgba(255, 177, 122, 0.18);
+  color: #efe2d0;
+  font-size: 2rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background:
+    linear-gradient(180deg, rgba(255, 236, 215, 0.06), transparent 16%),
+    linear-gradient(180deg, rgba(67, 34, 28, 0.92), rgba(14, 7, 7, 0.98));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 244, 231, 0.06),
+    0 14px 24px rgba(0, 0, 0, 0.34);
+}
+
+.merch-cta span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  line-height: 1;
+}
+
+.gallery-panel {
+  margin-top: 22px;
+  padding: 18px 20px 22px;
+}
+
+.gallery-carousel-frame {
+  position: relative;
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr) 58px;
+  gap: 14px;
+  align-items: center;
+}
+
+.gallery-carousel-slide {
+  min-width: 0;
+}
+
+.gallery-carousel-media {
+  position: relative;
+  min-height: 480px;
+  border: 1px solid rgba(255, 162, 88, 0.22);
+  background:
+    linear-gradient(145deg, rgba(255, 182, 128, 0.05), rgba(0, 0, 0, 0.3)),
+    radial-gradient(circle at 20% 18%, rgba(255, 145, 66, 0.18), transparent 20%),
+    linear-gradient(180deg, rgba(38, 15, 13, 0.95), rgba(11, 5, 5, 0.96));
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 200, 152, 0.05),
+    0 16px 28px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+.gallery-carousel-media.has-image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.gallery-carousel-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 24px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.02) 14%, rgba(0, 0, 0, 0.78) 100%);
+}
+
+.gallery-carousel-overlay span {
+  color: var(--text-2);
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.gallery-carousel-overlay strong {
+  font-size: 2rem;
+  color: var(--text-0);
+}
+
+.gallery-carousel-overlay p {
+  margin: 0;
+  max-width: 680px;
+  color: var(--text-1);
+  line-height: 1.5;
+}
+
+.gallery-carousel-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  border: 1px solid rgba(255, 154, 78, 0.34);
+  background: linear-gradient(180deg, rgba(93, 42, 25, 0.55), rgba(27, 11, 10, 0.92));
+  color: var(--text-0);
+  font-size: 2rem;
+}
+
+.gallery-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.gallery-carousel-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 176, 112, 0.44);
+  background: rgba(255, 176, 112, 0.12);
+}
+
+.gallery-carousel-dot.is-active {
+  background: rgba(255, 176, 112, 0.92);
+  box-shadow: 0 0 16px rgba(255, 131, 41, 0.28);
+}
+
+.gallery-carousel-empty {
+  display: grid;
+  place-items: center;
+  min-height: 280px;
+  border: 1px solid rgba(255, 162, 88, 0.22);
+  color: var(--text-1);
+  letter-spacing: 0.18em;
+}
+
+.auth-panel {
+  padding: 18px 22px 22px;
+}
+
+.auth-session-card {
+  display: grid;
+  gap: 16px;
   min-height: 240px;
-  align-content: center;
+}
+
+.auth-session-card-centered {
+  justify-items: center;
+  text-align: center;
 }
 
 .auth-session-copy strong {
   display: block;
-  font-size: 1.15rem;
-  letter-spacing: 0.08em;
+  font-size: 1.8rem;
+  letter-spacing: 0.06em;
 }
 
 .auth-session-copy p,
@@ -205,10 +407,72 @@
   flex-wrap: wrap;
 }
 
+.auth-session-actions-centered {
+  justify-content: center;
+}
+
+.news-panel {
+  margin-top: 22px;
+  padding: 18px 20px 22px;
+}
+
+.news-feature-card {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);
+  gap: 18px;
+}
+
+.news-feature-media {
+  min-height: 320px;
+  border: 1px solid rgba(255, 162, 88, 0.22);
+  background:
+    linear-gradient(145deg, rgba(255, 182, 128, 0.05), rgba(0, 0, 0, 0.3)),
+    linear-gradient(180deg, rgba(38, 15, 13, 0.95), rgba(11, 5, 5, 0.96));
+}
+
+.news-feature-media.has-image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.news-feature-copy {
+  display: grid;
+  align-content: center;
+  gap: 12px;
+}
+
+.news-feature-copy > span {
+  color: var(--text-2);
+  font-size: 0.76rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.news-feature-copy h4 {
+  margin: 0;
+  color: var(--text-0);
+  font-size: clamp(2rem, 3vw, 3.1rem);
+  line-height: 0.94;
+}
+
+.news-feature-copy p,
+.news-feature-body p {
+  margin: 0;
+  color: var(--text-1);
+  line-height: 1.6;
+}
+
+.chat-panel {
+  margin-top: 22px;
+  padding: 18px 20px 18px;
+}
+
 .chat-shell {
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(300px, 0.7fr);
+  grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.7fr);
   gap: 18px;
+  align-items: stretch;
 }
 
 .chat-log {
@@ -222,8 +486,7 @@
 .chat-message {
   padding: 14px;
   border: 1px solid rgba(255, 160, 89, 0.18);
-  background:
-    linear-gradient(180deg, rgba(33, 12, 11, 0.92), rgba(14, 6, 6, 0.92));
+  background: linear-gradient(180deg, rgba(33, 12, 11, 0.92), rgba(14, 6, 6, 0.92));
 }
 
 .chat-message-meta {
@@ -253,117 +516,85 @@
   line-height: 1.55;
 }
 
-.chat-form {
-  display: grid;
-  gap: 12px;
+.chat-compose-shell {
+  min-width: 0;
 }
 
-.chat-form textarea {
-  min-height: 180px;
+.chat-form,
+.chat-lock-state {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  height: 100%;
+}
+
+.chat-form textarea,
+.chat-lock-state textarea {
+  min-height: 204px;
   resize: vertical;
 }
 
 .chat-lock-state {
-  display: grid;
-  align-content: center;
-  gap: 12px;
-  padding: 18px;
-  min-height: 220px;
-  border: 1px solid rgba(255, 155, 74, 0.2);
-  background:
-    radial-gradient(circle at 20% 10%, rgba(255, 141, 63, 0.1), transparent 24%),
-    linear-gradient(180deg, rgba(25, 9, 9, 0.92), rgba(9, 4, 4, 0.94));
+  padding: 0;
 }
 
 .chat-lock-state strong {
-  font-size: 1rem;
-  letter-spacing: 0.16em;
+  color: var(--text-0);
+  letter-spacing: 0.12em;
 }
 
 .chat-lock-state p {
   margin: 0;
   color: var(--text-1);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
-.radio-embed-wrap {
-  margin-bottom: 14px;
-  border: 1px solid rgba(255, 153, 73, 0.24);
-  background: rgba(10, 4, 4, 0.72);
-  overflow: hidden;
-}
-
-.radio-embed-frame {
-  display: block;
-  width: 100%;
-  height: 352px;
-  border: 0;
-  background: transparent;
-}
-
-.radio-meta-stack {
-  display: grid;
-  gap: 8px;
-  margin: 14px 0 10px;
-}
-
-.radio-meta-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.radio-meta-row strong {
-  color: var(--text-0);
-  font-size: 0.78rem;
+.admin-login-error {
+  margin: 0;
+  color: #ffb98c;
   letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-.radio-link-action {
-  text-decoration: none;
-}
-
-.radio-controls {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-
-.vinyl-status-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 14px;
-}
-
-.album-cover.has-image {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.album-cover.has-image .album-cover-overlay {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.08) 18%, rgba(0, 0, 0, 0.7) 100%);
-}
-
-@media (max-width: 980px) {
-  .dynamic-grid,
+@media (max-width: 1080px) {
+  .events-card-grid,
+  .merch-grid,
+  .news-feature-card,
   .chat-shell {
     grid-template-columns: 1fr;
   }
 
-  .gallery-grid {
-    grid-template-columns: 1fr;
+  .gallery-carousel-frame {
+    grid-template-columns: 48px minmax(0, 1fr) 48px;
   }
 }
 
-@media (max-width: 720px) {
-  .radio-embed-frame {
-    height: 300px;
+@media (max-width: 820px) {
+  .events-panel,
+  .merch-panel,
+  .gallery-panel,
+  .auth-panel,
+  .news-panel,
+  .chat-panel {
+    padding-left: 14px;
+    padding-right: 14px;
   }
 
-  .radio-controls {
-    grid-template-columns: 1fr;
+  .merch-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gallery-carousel-media {
+    min-height: 320px;
+  }
+
+  .gallery-carousel-frame {
+    grid-template-columns: 40px minmax(0, 1fr) 40px;
+    gap: 8px;
+  }
+
+  .merch-cta {
+    min-width: 100%;
+    font-size: 1.4rem;
   }
 }

@@ -31,14 +31,14 @@ export function AuthPanel({ session, onLogin, onRegister, onLogout }: AuthPanelP
           <span />
         </div>
 
-        <div className="auth-session-card">
+        <div className="auth-session-card auth-session-card-centered">
           <div className="auth-session-copy">
             <strong>{session.user.displayName}</strong>
             <p>@{session.user.username}</p>
             <span>{session.user.role.toUpperCase()}</span>
           </div>
 
-          <div className="auth-session-actions">
+          <div className="auth-session-actions auth-session-actions-centered">
             <a className="auth-ghost-button" href="#chat">
               OPEN CHAT
             </a>
@@ -55,7 +55,7 @@ export function AuthPanel({ session, onLogin, onRegister, onLogout }: AuthPanelP
     <section className="auth-panel metal-panel battered-panel js-reveal" id="auth">
       <div className="section-title">
         <span />
-        <h3>REGISTER / LOGIN</h3>
+        <h3>MEMBER ACCESS</h3>
         <span />
       </div>
 

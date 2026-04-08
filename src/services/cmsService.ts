@@ -7,6 +7,7 @@ import type {
   LandingCmsState,
   LoginPayload,
   MerchItem,
+  NewsItem,
   RadioState,
   RegisterPayload,
   ReorderPayload,
@@ -19,13 +20,14 @@ const CMS_STORAGE_KEY = "escobar-landing-cms";
 const ADMIN_EMAIL = "dio.escobar.aarhus@gmail.com";
 const ADMIN_PASSWORD = "Rasmus123";
 
-type CollectionKey = "events" | "merch" | "gallery" | "users";
+type CollectionKey = "events" | "merch" | "gallery" | "users" | "news";
 
 type CollectionMap = {
   events: EventItem;
   merch: MerchItem;
   gallery: GalleryImage;
   users: UserRecord;
+  news: NewsItem;
 };
 
 function readState(): LandingCmsState {
@@ -35,11 +37,9 @@ function readState(): LandingCmsState {
 
   try {
     const raw = window.localStorage.getItem(CMS_STORAGE_KEY);
-
     if (!raw) {
       return initialAppState;
     }
-
     return JSON.parse(raw) as LandingCmsState;
   } catch {
     return initialAppState;
@@ -50,7 +50,6 @@ function writeState(state: LandingCmsState): LandingCmsState {
   if (typeof window !== "undefined") {
     window.localStorage.setItem(CMS_STORAGE_KEY, JSON.stringify(state));
   }
-
   return state;
 }
 
@@ -74,7 +73,7 @@ function toSessionUser(user: UserRecord): SessionUser {
 }
 
 function sortByOrder<T extends { order: number }>(items: T[]): T[] {
-  return [...items].sort((left, right) => left.order - right.order);
+  return [...items].sort((a, b) => a.order - b.order);
 }
 
 function reorderItems<T extends { order: number; updatedAt: string }>(
@@ -88,15 +87,14 @@ function reorderItems<T extends { order: number; updatedAt: string }>(
     return list;
   }
 
-  list.splice(payload.toIndex, 0, moved);
+  const safeIndex = Math.max(0, Math.min(payload.toIndex, list.length));
+  list.splice(safeIndex, 0, moved);
 
-  return list.map((item, index) => {
-    return {
-      ...item,
-      order: index,
-      updatedAt: new Date().toISOString(),
-    };
-  });
+  return list.map((item, index) => ({
+    ...item,
+    order: index,
+    updatedAt: new Date().toISOString(),
+  }));
 }
 
 function ensurePrimaryAdmin(state: LandingCmsState): LandingCmsState {
@@ -106,7 +104,7 @@ function ensurePrimaryAdmin(state: LandingCmsState): LandingCmsState {
   );
 
   if (existingIndex >= 0) {
-    const nextUsers: UserRecord[] = state.users.map((user, index): UserRecord => {
+    const users = state.users.map((user, index): UserRecord => {
       if (index !== existingIndex) {
         return user;
       }
@@ -123,62 +121,57 @@ function ensurePrimaryAdmin(state: LandingCmsState): LandingCmsState {
 
     return {
       ...state,
-      users: sortByOrder(nextUsers),
+      users: sortByOrder(users),
     };
   }
 
-  const nextAdmin: UserRecord = {
-    id: "user-admin-dio",
-    order: state.users.length,
-    createdAt: now,
-    updatedAt: now,
-    email: ADMIN_EMAIL,
-    username: "dio_escobar",
-    displayName: "Dio Escobar",
-    password: ADMIN_PASSWORD,
-    role: "admin",
-    avatar: "",
-    isBlocked: false,
-  };
-
   return {
     ...state,
-    users: [...state.users, nextAdmin],
+    users: [
+      ...state.users,
+      {
+        id: "user-admin-dio",
+        order: state.users.length,
+        createdAt: now,
+        updatedAt: now,
+        email: ADMIN_EMAIL,
+        username: "dio_escobar",
+        displayName: "Dio Escobar",
+        password: ADMIN_PASSWORD,
+        role: "admin",
+        avatar: "",
+        isBlocked: false,
+      },
+    ],
   };
 }
 
 class CmsService {
-  private listeners: Array<(state: LandingCmsState) => void>;
-
-  constructor() {
-    this.listeners = [];
-  }
+  private listeners: Array<(state: LandingCmsState) => void> = [];
 
   getState(): LandingCmsState {
     return readState();
   }
 
   bootstrap(): LandingCmsState {
-    const raw =
-      typeof window !== "undefined"
-        ? window.localStorage.getItem(CMS_STORAGE_KEY)
-        : null;
+    const raw = typeof window !== "undefined" ? window.localStorage.getItem(CMS_STORAGE_KEY) : null;
 
     if (!raw) {
       return writeState(ensurePrimaryAdmin(initialAppState));
     }
 
-    const hydratedState = ensurePrimaryAdmin(readState());
-    return writeState(hydratedState);
+    const hydrated = ensurePrimaryAdmin(readState());
+
+    return writeState({
+      ...hydrated,
+      news: hydrated.news ?? [],
+    });
   }
 
   subscribe(listener: (state: LandingCmsState) => void): () => void {
     this.listeners.push(listener);
-
     return () => {
-      this.listeners = this.listeners.filter(
-        (currentListener) => currentListener !== listener
-      );
+      this.listeners = this.listeners.filter((current) => current !== listener);
     };
   }
 
@@ -201,7 +194,8 @@ class CmsService {
     updater: (items: CollectionMap[K][]) => CollectionMap[K][]
   ): LandingCmsState {
     const state = this.getState();
-    const nextItems = sortByOrder(updater(state[key] as CollectionMap[K][]));
+    const current = (state[key] ?? []) as CollectionMap[K][];
+    const nextItems = sortByOrder(updater(current));
 
     return this.save({
       ...state,
@@ -217,7 +211,7 @@ class CmsService {
       const now = new Date().toISOString();
 
       const nextItem = {
-        ...payload,
+        ...(payload as CollectionMap[K]),
         id: createId(key),
         order: items.length,
         createdAt: now,
@@ -233,42 +227,33 @@ class CmsService {
     id: string,
     payload: Partial<Omit<CollectionMap[K], "id" | "order" | "createdAt">>
   ): LandingCmsState {
-    return this.updateCollection(key, (items) => {
-      return items.map((item) => {
-        if (item.id !== id) {
-          return item;
-        }
-
-        return {
-          ...item,
-          ...payload,
-          updatedAt: new Date().toISOString(),
-        };
-      });
-    });
+    return this.updateCollection(key, (items) =>
+      items.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              ...(payload as Partial<CollectionMap[K]>),
+              updatedAt: new Date().toISOString(),
+            }
+          : item
+      )
+    );
   }
 
   deleteItem<K extends CollectionKey>(key: K, id: string): LandingCmsState {
-    return this.updateCollection(key, (items) => {
-      return items
+    return this.updateCollection(key, (items) =>
+      items
         .filter((item) => item.id !== id)
-        .map((item, index) => {
-          return {
-            ...item,
-            order: index,
-            updatedAt: new Date().toISOString(),
-          };
-        });
-    });
+        .map((item, index) => ({
+          ...item,
+          order: index,
+          updatedAt: new Date().toISOString(),
+        }))
+    );
   }
 
-  reorderCollection<K extends CollectionKey>(
-    key: K,
-    payload: ReorderPayload
-  ): LandingCmsState {
-    return this.updateCollection(key, (items) =>
-      reorderItems(items, payload)
-    );
+  reorderCollection<K extends CollectionKey>(key: K, payload: ReorderPayload): LandingCmsState {
+    return this.updateCollection(key, (items) => reorderItems(items, payload));
   }
 
   updateRadio(payload: UpdateRadioPayload): LandingCmsState {
@@ -301,7 +286,6 @@ class CmsService {
     }
 
     const now = new Date().toISOString();
-
     const nextUser: UserRecord = {
       id: createId("user"),
       order: state.users.length,
@@ -378,7 +362,6 @@ class CmsService {
     }
 
     const now = new Date().toISOString();
-
     const nextMessage: ChatMessage = {
       id: createId("chat"),
       order: state.chat.messages.length,

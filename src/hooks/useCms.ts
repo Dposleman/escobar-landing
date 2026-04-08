@@ -6,6 +6,7 @@ import type {
   LandingCmsState,
   LoginPayload,
   MerchItem,
+  NewsItem,
   RegisterPayload,
   ReorderPayload,
   UpdateRadioPayload,
@@ -23,31 +24,42 @@ export function useCms() {
     return unsubscribe;
   }, []);
 
-  const api = useMemo(() => {
+  return useMemo(() => {
     return {
       state,
+
       resetState: () => setState(cmsService.resetState()),
+
       login: (payload: LoginPayload) => setState(cmsService.login(payload)),
       register: (payload: RegisterPayload) => setState(cmsService.register(payload)),
       logout: () => setState(cmsService.logout()),
+
       sendMessage: (text: string) => setState(cmsService.sendMessage(text)),
       updateRadio: (payload: UpdateRadioPayload) => setState(cmsService.updateRadio(payload)),
+
       createEvent: (payload: Omit<EventItem, "id" | "order" | "createdAt" | "updatedAt">) =>
         setState(cmsService.createItem("events", payload)),
-      updateEvent: (id: string, payload: Partial<Omit<EventItem, "id" | "order" | "createdAt">>) =>
-        setState(cmsService.updateItem("events", id, payload)),
+      updateEvent: (
+        id: string,
+        payload: Partial<Omit<EventItem, "id" | "order" | "createdAt">>
+      ) => setState(cmsService.updateItem("events", id, payload)),
       deleteEvent: (id: string) => setState(cmsService.deleteItem("events", id)),
       reorderEvents: (payload: ReorderPayload) =>
         setState(cmsService.reorderCollection("events", payload)),
+
       createMerch: (payload: Omit<MerchItem, "id" | "order" | "createdAt" | "updatedAt">) =>
         setState(cmsService.createItem("merch", payload)),
-      updateMerch: (id: string, payload: Partial<Omit<MerchItem, "id" | "order" | "createdAt">>) =>
-        setState(cmsService.updateItem("merch", id, payload)),
+      updateMerch: (
+        id: string,
+        payload: Partial<Omit<MerchItem, "id" | "order" | "createdAt">>
+      ) => setState(cmsService.updateItem("merch", id, payload)),
       deleteMerch: (id: string) => setState(cmsService.deleteItem("merch", id)),
       reorderMerch: (payload: ReorderPayload) =>
         setState(cmsService.reorderCollection("merch", payload)),
-      createGalleryItem: (payload: Omit<GalleryImage, "id" | "order" | "createdAt" | "updatedAt">) =>
-        setState(cmsService.createItem("gallery", payload)),
+
+      createGalleryItem: (
+        payload: Omit<GalleryImage, "id" | "order" | "createdAt" | "updatedAt">
+      ) => setState(cmsService.createItem("gallery", payload)),
       updateGalleryItem: (
         id: string,
         payload: Partial<Omit<GalleryImage, "id" | "order" | "createdAt">>
@@ -55,15 +67,26 @@ export function useCms() {
       deleteGalleryItem: (id: string) => setState(cmsService.deleteItem("gallery", id)),
       reorderGallery: (payload: ReorderPayload) =>
         setState(cmsService.reorderCollection("gallery", payload)),
+
+      createNewsItem: (payload: Omit<NewsItem, "id" | "order" | "createdAt" | "updatedAt">) =>
+        setState(cmsService.createItem("news", payload)),
+      updateNewsItem: (
+        id: string,
+        payload: Partial<Omit<NewsItem, "id" | "order" | "createdAt">>
+      ) => setState(cmsService.updateItem("news", id, payload)),
+      deleteNewsItem: (id: string) => setState(cmsService.deleteItem("news", id)),
+      reorderNews: (payload: ReorderPayload) =>
+        setState(cmsService.reorderCollection("news", payload)),
+
       createUser: (payload: Omit<UserRecord, "id" | "order" | "createdAt" | "updatedAt">) =>
         setState(cmsService.createItem("users", payload)),
-      updateUser: (id: string, payload: Partial<Omit<UserRecord, "id" | "order" | "createdAt">>) =>
-        setState(cmsService.updateItem("users", id, payload)),
+      updateUser: (
+        id: string,
+        payload: Partial<Omit<UserRecord, "id" | "order" | "createdAt">>
+      ) => setState(cmsService.updateItem("users", id, payload)),
       deleteUser: (id: string) => setState(cmsService.deleteItem("users", id)),
       reorderUsers: (payload: ReorderPayload) =>
         setState(cmsService.reorderCollection("users", payload)),
     };
   }, [state]);
-
-  return api;
 }

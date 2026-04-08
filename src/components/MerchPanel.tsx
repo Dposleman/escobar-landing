@@ -14,7 +14,7 @@ export function MerchPanel({ merch }: MerchPanelProps) {
       </div>
 
       <div className="merch-grid">
-        {merch.map((item) => (
+        {merch.filter((item) => item.status === "published").map((item) => (
           <article className="merch-item" key={item.id}>
             <div className={`merch-visual ${item.variant}`} aria-hidden="true">
               <div className="merch-glow" />
@@ -38,7 +38,7 @@ export function MerchPanel({ merch }: MerchPanelProps) {
 
       <div className="merch-cta-wrap">
         <a className="merch-cta" href="#auth">
-          MEMBERS ACCESS
+          <span>MEMBERS ACCESS</span>
         </a>
       </div>
     </section>

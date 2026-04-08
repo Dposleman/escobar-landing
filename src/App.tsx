@@ -5,6 +5,7 @@ import { Hero } from "./components/Hero";
 import { AuthPanel } from "./components/AuthPanel";
 import { MerchPanel } from "./components/MerchPanel";
 import { NavBar } from "./components/NavBar";
+import { NewsPanel } from "./components/NewsPanel";
 import { RadioPanel } from "./components/RadioPanel";
 import { ChatPanel } from "./components/ChatPanel";
 import { VinylPanel } from "./components/VinylPanel";
@@ -16,17 +17,10 @@ import { initMouseGlow } from "./utils/mouseGlow";
 import { AdminPage } from "./pages/AdminPage";
 
 function App() {
-  const {
-    state,
-    login,
-    register,
-    logout,
-    sendMessage,
-  } = useCms();
+  const cms = useCms();
 
   const isAdminRoute =
-    typeof window !== "undefined" &&
-    window.location.pathname === "/admin";
+    typeof window !== "undefined" && window.location.pathname === "/admin";
 
   useEffect(() => {
     const cleanupReveal = revealPanels();
@@ -38,7 +32,7 @@ function App() {
       cleanupGlow();
       cleanupEmbers();
     };
-  }, [state]);
+  }, [cms.state]);
 
   if (isAdminRoute) {
     return <AdminPage />;
@@ -60,30 +54,32 @@ function App() {
 
       <main className="page-content">
         <Hero />
-        <NavBar items={state.nav} />
+        <NavBar items={cms.state.nav} />
 
         <section className="feature-grid">
-          <VinylPanel vinyl={buildVinylViewModel(state.radio)} />
-          <RadioPanel radio={state.radio} />
+          <VinylPanel vinyl={buildVinylViewModel(cms.state.radio)} />
+          <RadioPanel radio={cms.state.radio} />
         </section>
 
-        <EventsPanel events={state.events} />
-        <MerchPanel merch={state.merch} />
+        <EventsPanel events={cms.state.events} />
+        <MerchPanel merch={cms.state.merch} />
+        <GalleryPanel images={cms.state.gallery} />
 
-        <section className="dynamic-grid">
-          <GalleryPanel images={state.gallery} />
+        <section className="member-access-wrap">
           <AuthPanel
-            session={state.auth}
-            onLogin={login}
-            onRegister={register}
-            onLogout={logout}
+            session={cms.state.auth}
+            onLogin={cms.login}
+            onRegister={cms.register}
+            onLogout={cms.logout}
           />
         </section>
 
+        <NewsPanel />
+
         <ChatPanel
-          session={state.auth}
-          messages={state.chat.messages}
-          onSendMessage={sendMessage}
+          session={cms.state.auth}
+          messages={cms.state.chat.messages}
+          onSendMessage={cms.sendMessage}
         />
       </main>
     </div>

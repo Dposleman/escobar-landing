@@ -1,85 +1,31 @@
 import { useMemo, useState } from "react";
 import { AdminDashboard } from "../components/admin/AdminDashboard";
 import { useCms } from "../hooks/useCms";
-import type { LoginPayload } from "../types";
 
-const initialLoginForm: LoginPayload = {
-  email: "",
-  password: "",
-};
+const ADMIN_EMAIL = "dio.escobar.aarhus@gmail.com";
+const ADMIN_PASSWORD = "Rasmus123";
 
 export function AdminPage() {
-  const {
-    state,
-    login,
-    logout,
-    createEvent,
-    updateEvent,
-    deleteEvent,
-    reorderEvents,
-    createMerch,
-    updateMerch,
-    deleteMerch,
-    reorderMerch,
-    createGalleryItem,
-    updateGalleryItem,
-    deleteGalleryItem,
-    reorderGallery,
-    createUser,
-    updateUser,
-    deleteUser,
-    reorderUsers,
-    updateRadio,
-  } = useCms();
-
-  const [form, setForm] = useState<LoginPayload>(initialLoginForm);
+  const cms = useCms();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const isAdminAuthenticated = useMemo(() => {
-    return state.auth.isAuthenticated && state.auth.user?.role === "admin";
-  }, [state.auth]);
-
-  const handleAdminLogin = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const beforeToken = state.auth.token;
-    login(form);
-
-    const nextState = window.localStorage.getItem("escobar-landing-cms");
-    if (!nextState) {
-      setError("ADMIN ACCESS DENIED");
-      return;
-    }
-
-    const parsed = JSON.parse(nextState) as typeof state;
-    const isAdmin =
-      parsed.auth.isAuthenticated &&
-      parsed.auth.user?.role === "admin" &&
-      parsed.auth.user.email.toLowerCase() === "dio.escobar.aarhus@gmail.com";
-
-    if (!isAdmin) {
-      const tokenChanged = beforeToken !== parsed.auth.token;
-
-      if (tokenChanged) {
-        logout();
-      }
-
-      setError("ONLY THE ADMIN ACCOUNT CAN ACCESS THIS PANEL");
-      return;
-    }
-
-    setError("");
-  };
-
-  if (!isAdminAuthenticated) {
+  const isAuthorized = useMemo(() => {
     return (
-      <div className="app-shell admin-route-shell">
+      cms.state.auth.isAuthenticated &&
+      cms.state.auth.user?.role === "admin" &&
+      cms.state.auth.user.email.toLowerCase() === ADMIN_EMAIL
+    );
+  }, [cms.state.auth]);
+
+  if (!isAuthorized) {
+    return (
+      <div className="app-shell">
         <div className="page-base" aria-hidden="true" />
         <div className="page-rust" aria-hidden="true" />
         <div className="page-noise" aria-hidden="true" />
         <div className="page-vignette" aria-hidden="true" />
-        <div className="page-burn page-burn-top" aria-hidden="true" />
-        <div className="page-burn page-burn-bottom" aria-hidden="true" />
         <div className="mouse-glow" aria-hidden="true" />
 
         <main className="page-content">
@@ -90,18 +36,26 @@ export function AdminPage() {
               <span />
             </div>
 
-            <form className="auth-form" onSubmit={handleAdminLogin}>
+            <form
+              className="auth-form"
+              onSubmit={(event) => {
+                event.preventDefault();
+
+                if (email.trim().toLowerCase() !== ADMIN_EMAIL || password !== ADMIN_PASSWORD) {
+                  setError("INVALID ADMIN CREDENTIALS");
+                  return;
+                }
+
+                cms.login({ email, password });
+                setError("");
+              }}
+            >
               <label className="auth-field">
                 <span>ADMIN EMAIL</span>
                 <input
                   type="email"
-                  value={form.email}
-                  onChange={(event) =>
-                    setForm({
-                      ...form,
-                      email: event.target.value,
-                    })
-                  }
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
                 />
               </label>
 
@@ -109,13 +63,8 @@ export function AdminPage() {
                 <span>PASSWORD</span>
                 <input
                   type="password"
-                  value={form.password}
-                  onChange={(event) =>
-                    setForm({
-                      ...form,
-                      password: event.target.value,
-                    })
-                  }
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
                 />
               </label>
 
@@ -132,39 +81,42 @@ export function AdminPage() {
   }
 
   return (
-    <div className="app-shell admin-route-shell">
+    <div className="app-shell">
       <div className="page-base" aria-hidden="true" />
       <div className="page-rust" aria-hidden="true" />
       <div className="page-noise" aria-hidden="true" />
       <div className="page-vignette" aria-hidden="true" />
-      <div className="page-burn page-burn-top" aria-hidden="true" />
-      <div className="page-burn page-burn-bottom" aria-hidden="true" />
       <div className="mouse-glow" aria-hidden="true" />
 
       <main className="page-content">
         <AdminDashboard
-          events={state.events}
-          merch={state.merch}
-          gallery={state.gallery}
-          radio={state.radio}
-          users={state.users}
-          onCreateEvent={createEvent}
-          onUpdateEvent={updateEvent}
-          onDeleteEvent={deleteEvent}
-          onReorderEvents={(fromIndex, toIndex) => reorderEvents({ fromIndex, toIndex })}
-          onCreateMerch={createMerch}
-          onUpdateMerch={updateMerch}
-          onDeleteMerch={deleteMerch}
-          onReorderMerch={(fromIndex, toIndex) => reorderMerch({ fromIndex, toIndex })}
-          onCreateGalleryItem={createGalleryItem}
-          onUpdateGalleryItem={updateGalleryItem}
-          onDeleteGalleryItem={deleteGalleryItem}
-          onReorderGallery={(fromIndex, toIndex) => reorderGallery({ fromIndex, toIndex })}
-          onCreateUser={createUser}
-          onUpdateUser={updateUser}
-          onDeleteUser={deleteUser}
-          onReorderUsers={(fromIndex, toIndex) => reorderUsers({ fromIndex, toIndex })}
-          onUpdateRadio={updateRadio}
+          events={cms.state.events}
+          merch={cms.state.merch}
+          gallery={cms.state.gallery}
+          news={cms.state.news}
+          radio={cms.state.radio}
+          users={cms.state.users}
+          onCreateEvent={cms.createEvent}
+          onUpdateEvent={cms.updateEvent}
+          onDeleteEvent={cms.deleteEvent}
+          onReorderEvents={(fromIndex, toIndex) => cms.reorderEvents({ fromIndex, toIndex })}
+          onCreateMerch={cms.createMerch}
+          onUpdateMerch={cms.updateMerch}
+          onDeleteMerch={cms.deleteMerch}
+          onReorderMerch={(fromIndex, toIndex) => cms.reorderMerch({ fromIndex, toIndex })}
+          onCreateGalleryItem={cms.createGalleryItem}
+          onUpdateGalleryItem={cms.updateGalleryItem}
+          onDeleteGalleryItem={cms.deleteGalleryItem}
+          onReorderGallery={(fromIndex, toIndex) => cms.reorderGallery({ fromIndex, toIndex })}
+          onCreateNewsItem={cms.createNewsItem}
+          onUpdateNewsItem={cms.updateNewsItem}
+          onDeleteNewsItem={cms.deleteNewsItem}
+          onReorderNews={(fromIndex, toIndex) => cms.reorderNews({ fromIndex, toIndex })}
+          onCreateUser={cms.createUser}
+          onUpdateUser={cms.updateUser}
+          onDeleteUser={cms.deleteUser}
+          onReorderUsers={(fromIndex, toIndex) => cms.reorderUsers({ fromIndex, toIndex })}
+          onUpdateRadio={cms.updateRadio}
         />
       </main>
     </div>

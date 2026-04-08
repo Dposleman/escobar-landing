@@ -4,7 +4,25 @@ type EventsPanelProps = {
   events: EventItem[];
 };
 
+function getEventStatus(event: EventItem): string {
+  const now = Date.now();
+  const startsAt = new Date(event.startsAt).getTime();
+  const endsAt = event.endsAt ? new Date(event.endsAt).getTime() : null;
+
+  if (!Number.isNaN(startsAt) && now >= startsAt && (!endsAt || now <= endsAt)) {
+    return "SUCEDIENDO AHORA";
+  }
+
+  if (endsAt && now > endsAt) {
+    return "TERMINADO";
+  }
+
+  return "PRÓXIMAMENTE";
+}
+
 export function EventsPanel({ events }: EventsPanelProps) {
+  const visibleEvents = events.filter((event) => event.status === "published");
+
   return (
     <section className="events-panel metal-panel battered-panel js-reveal" id="events">
       <div className="section-title">
@@ -13,27 +31,50 @@ export function EventsPanel({ events }: EventsPanelProps) {
         <span />
       </div>
 
-      <div className="events-board">
-        <div className="events-rail" aria-hidden="true">
-          <div className="events-thumb events-thumb-top" />
-          <div className="events-thumb events-thumb-bottom" />
-        </div>
+      <div className="events-card-grid">
+        {visibleEvents.map((event) => {
+          const status = getEventStatus(event);
 
-        <div className="events-list">
-          {events.map((event) => (
-            <article className="event-row" key={event.id}>
-              <div className="event-row-copy">
-                <h4>{event.title}</h4>
-                <p>{event.dateLabel}</p>
-                <span>{event.venue} · {event.city}</span>
+          return (
+            <article className="event-card" key={event.id}>
+              <div className="event-card-media">
+                <div
+                  className={`event-card-cover${event.coverImage ? " has-image" : ""}`}
+                  style={event.coverImage ? { backgroundImage: `url(${event.coverImage})` } : undefined}
+                />
+                <span className={`event-status event-status-${status.toLowerCase().replace(/\s+/g, "-")}`}>
+                  {status}
+                </span>
               </div>
 
-              <a className="event-row-link" href={event.ticketUrl}>
-                TICKETS
-              </a>
+              <div className="event-card-copy">
+                <div className="event-card-topline">
+                  <span>{event.date}</span>
+                  <strong>{event.isFeatured ? "FEATURED" : "LIVE"}</strong>
+                </div>
+
+                <h4>{event.title}</h4>
+                <p>{event.excerpt}</p>
+
+                <div className="event-card-meta">
+                  <span>{event.venue}</span>
+                  <span>
+                    {event.city} · {event.country}
+                  </span>
+                </div>
+              </div>
+
+              <div className="event-card-actions">
+                <a className="event-row-link" href={event.ticketUrl || "#"} target="_blank" rel="noreferrer">
+                  OPEN
+                </a>
+                <a className="event-row-link" href="#gallery">
+                  GALLERY
+                </a>
+              </div>
             </article>
-          ))}
-        </div>
+          );
+        })}
       </div>
     </section>
   );

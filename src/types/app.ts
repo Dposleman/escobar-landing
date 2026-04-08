@@ -48,9 +48,21 @@ export interface MerchItem extends BaseEntity {
 
 export interface GalleryImage extends BaseEntity {
   title: string;
+  galleryName: string;
   image: string;
   alt: string;
   caption: string;
+  status: EntityStatus;
+}
+
+export interface NewsItem extends BaseEntity {
+  title: string;
+  excerpt: string;
+  body: string;
+  image: string;
+  ctaLabel: string;
+  ctaUrl: string;
+  publishedAt: string;
   status: EntityStatus;
 }
 
@@ -124,6 +136,7 @@ export interface LandingCmsState {
   events: EventItem[];
   merch: MerchItem[];
   gallery: GalleryImage[];
+  news: NewsItem[];
   radio: RadioState;
   users: UserRecord[];
   chat: ChatState;

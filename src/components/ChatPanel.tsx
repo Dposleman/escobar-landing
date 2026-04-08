@@ -10,6 +10,8 @@ type ChatPanelProps = {
 export function ChatPanel({ session, messages, onSendMessage }: ChatPanelProps) {
   const [message, setMessage] = useState("");
 
+  const isWriterEnabled = session.isAuthenticated;
+
   return (
     <section className="chat-panel metal-panel battered-panel js-reveal" id="chat">
       <div className="section-title">
@@ -32,33 +34,39 @@ export function ChatPanel({ session, messages, onSendMessage }: ChatPanelProps) 
           ))}
         </div>
 
-        {session.isAuthenticated ? (
-          <form
-            className="chat-form"
-            onSubmit={(event) => {
-              event.preventDefault();
-              onSendMessage(message);
-              setMessage("");
-            }}
-          >
-            <textarea
-              value={message}
-              placeholder="Write into the signal..."
-              onChange={(event) => setMessage(event.target.value)}
-            />
-            <button className="auth-solid-button" type="submit">
-              SEND MESSAGE
-            </button>
-          </form>
-        ) : (
-          <div className="chat-lock-state">
-            <strong>CHAT LOCKED</strong>
-            <p>Only registered COMMON, VIP or ADMIN users can write in live chat.</p>
-            <a className="auth-solid-button chat-cta-link" href="#auth">
-              REGISTER / LOGIN
-            </a>
-          </div>
-        )}
+        <div className="chat-compose-shell">
+          {isWriterEnabled ? (
+            <form
+              className="chat-form"
+              onSubmit={(event) => {
+                event.preventDefault();
+                if (!message.trim()) {
+                  return;
+                }
+                onSendMessage(message);
+                setMessage("");
+              }}
+            >
+              <textarea
+                value={message}
+                placeholder="Write into the signal..."
+                onChange={(event) => setMessage(event.target.value)}
+              />
+              <button className="auth-solid-button" type="submit">
+                SEND MESSAGE
+              </button>
+            </form>
+          ) : (
+            <div className="chat-lock-state chat-lock-state-inline">
+              <textarea disabled value="" placeholder="Log in to write into the signal..." />
+              <strong>READ ONLY MODE</strong>
+              <p>Guests can read the live chat, but only logged-in members can post messages.</p>
+              <a className="auth-solid-button chat-cta-link" href="#auth">
+                REGISTER / LOGIN
+              </a>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
