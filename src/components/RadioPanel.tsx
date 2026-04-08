@@ -8,7 +8,7 @@ export function RadioPanel({ tracks }: RadioPanelProps) {
   const nowPlaying = tracks[0];
 
   return (
-    <aside className="radio-panel metal-panel battered-panel js-reveal js-pulse">
+    <aside className="radio-panel metal-panel battered-panel js-reveal js-pulse" id="radio">
       <div className="radio-header">
         <h3>RADIO ESCOBAR</h3>
         <span>NOW PLAYING LIVE</span>
@@ -47,7 +47,7 @@ export function RadioPanel({ tracks }: RadioPanelProps) {
 
       <div className="radio-controls">
         <button type="button" aria-label="Shuffle">
-          ✕
+          ×
         </button>
         <button type="button" aria-label="Previous">
           ◀
@@ -61,6 +61,13 @@ export function RadioPanel({ tracks }: RadioPanelProps) {
         <button type="button" aria-label="Repeat">
           ↻
         </button>
+      </div>
+
+      <div className="radio-footer-strip" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+        <span />
       </div>
 
       <button className="radio-more" type="button">

@@ -31,12 +31,15 @@ function App() {
     <div className="app-shell">
       <div className="page-noise" aria-hidden="true" />
       <div className="page-vignette" aria-hidden="true" />
+      <div className="page-burn page-burn-top" aria-hidden="true" />
+      <div className="page-burn page-burn-bottom" aria-hidden="true" />
       <div className="mouse-glow" aria-hidden="true" />
-
-      <NavBar items={navItems} />
+      <div className="decor-chain decor-chain-left" aria-hidden="true" />
+      <div className="decor-chain decor-chain-right" aria-hidden="true" />
 
       <main className="page-content">
         <Hero />
+        <NavBar items={navItems} />
 
         <section className="feature-grid">
           <VinylPanel vinyl={vinyl} />

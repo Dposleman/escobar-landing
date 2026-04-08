@@ -16,12 +16,12 @@ export function MerchPanel({ merch }: MerchPanelProps) {
       <div className="merch-grid">
         {merch.map((item) => (
           <article className="merch-item" key={item.name}>
-            <div className={`merch-visual ${item.variant}`}>
+            <div className={`merch-visual ${item.variant}`} aria-hidden="true">
               <div className="merch-glow" />
               <div className="merch-graphic">
                 {item.variant === "tee" ? <span className="tee-mark">ESCOBAR</span> : null}
                 {item.variant === "mug" ? <span className="mug-mark">ESCOBAR</span> : null}
-                {item.variant === "stickers" ? <span className="sticker-mark">666</span> : null}
+                {item.variant === "stickers" ? <span className="sticker-mark">66</span> : null}
                 {item.variant === "patch" ? <span className="patch-mark">ESCOBAR</span> : null}
               </div>
             </div>

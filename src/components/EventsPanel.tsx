@@ -14,7 +14,7 @@ export function EventsPanel({ events }: EventsPanelProps) {
       </div>
 
       <div className="events-board">
-        <div className="events-rail">
+        <div className="events-rail" aria-hidden="true">
           <div className="events-thumb events-thumb-top" />
           <div className="events-thumb events-thumb-bottom" />
         </div>

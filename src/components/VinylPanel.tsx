@@ -6,12 +6,7 @@ type VinylPanelProps = {
 
 export function VinylPanel({ vinyl }: VinylPanelProps) {
   return (
-    <section className="vinyl-panel metal-panel battered-panel js-reveal js-pulse">
-      <div className="panel-rivet panel-rivet-a" aria-hidden="true" />
-      <div className="panel-rivet panel-rivet-b" aria-hidden="true" />
-      <div className="panel-rivet panel-rivet-c" aria-hidden="true" />
-      <div className="panel-rivet panel-rivet-d" aria-hidden="true" />
-
+    <section className="vinyl-panel metal-panel battered-panel js-reveal js-pulse" aria-label="Vinyl of the night">
       <div className="panel-title panel-title-left">
         <span />
         <h2>{vinyl.kicker}</h2>
@@ -34,28 +29,34 @@ export function VinylPanel({ vinyl }: VinylPanelProps) {
         </div>
 
         <div className="turntable-body">
-          <div className="turntable-top" />
+          <div className="turntable-lid" />
+          <div className="turntable-plinth" />
           <div className="platter-shadow" />
           <div className="platter-ring" />
           <div className="vinyl-record">
+            <div className="vinyl-grooves" />
             <div className="vinyl-label">
               <div className="vinyl-label-core" />
             </div>
           </div>
 
-          <div className="deck-screws deck-screws-left" />
-          <div className="deck-screws deck-screws-right" />
+          <div className="deck-screw deck-screw-a" />
+          <div className="deck-screw deck-screw-b" />
+          <div className="deck-screw deck-screw-c" />
+          <div className="deck-screw deck-screw-d" />
 
           <div className="tonearm-base" />
           <div className="tonearm-pivot" />
           <div className="tonearm-bar" />
           <div className="tonearm-head" />
           <div className="tonearm-needle" />
+          <div className="tonearm-weight" />
 
           <div className="control control-a" />
           <div className="control control-b" />
           <div className="slider-track" />
           <div className="slider-knob" />
+          <div className="power-light" />
         </div>
       </div>
     </section>
