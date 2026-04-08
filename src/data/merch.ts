@@ -1,28 +1,8 @@
-import type { MerchItem } from "../types/merch";
+import type { MerchItem } from "../types";
 
 export const merch: MerchItem[] = [
-  {
-    id: "1",
-    name: "ESCOBAR METAL TEE",
-    price: "YOU ROCK",
-    image: "",
-  },
-  {
-    id: "2",
-    name: "ESCOBAR BEER MUG",
-    price: "FROSTED GLASS",
-    image: "",
-  },
-  {
-    id: "3",
-    name: "STICKER PACK",
-    price: "6G / SKULL DROP",
-    image: "",
-  },
-  {
-    id: "4",
-    name: "ESCOBAR PATCH",
-    price: "HEAVY STITCH",
-    image: "",
-  },
+  { name: "ESCOBAR METAL TEE", variant: "tee" },
+  { name: "ESCOBAR BEER MUG", variant: "mug" },
+  { name: "STICKER PACK", variant: "stickers" },
+  { name: "ESCOBAR PATCH", variant: "patch" },
 ];

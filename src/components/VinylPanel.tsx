@@ -1,74 +1,44 @@
-import type { Vinyl } from "../types/vinyl";
-import { useLayoutEffect, useRef } from "react";
-import { gsap } from "gsap";
+import type { Vinyl } from "../types";
 
-interface Props {
+type VinylPanelProps = {
   vinyl: Vinyl;
-}
-
-export const VinylPanel = ({ vinyl }: Props) => {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useLayoutEffect(() => {
-    if (!ref.current) return;
-
-    const record = ref.current.querySelector<HTMLElement>(".turntable__record");
-    const light = ref.current.querySelector<HTMLElement>(".turntable__light");
-
-    if (!record || !light) return;
-
-    const ctx = gsap.context(() => {
-      gsap.to(record, {
-        rotate: 360,
-        duration: 4.8,
-        ease: "linear",
-        repeat: -1,
-        transformOrigin: "50% 50%",
-      });
-
-      gsap.to(light, {
-        opacity: 1,
-        duration: 1.2,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
-    }, ref);
-
-    return () => ctx.revert();
-  }, []);
-
-  return (
-    <div ref={ref} className="panel frame-panel vinyl-panel">
-      <div className="panel-heading">
-        <span className="panel-heading__line" />
-        <h3>Vinyl of the Night</h3>
-        <span className="panel-heading__line" />
-      </div>
-
-      <div className="vinyl-panel__body">
-        <div className="vinyl-panel__copy">
-          <h4>{vinyl.artist}</h4>
-          <div className="vinyl-panel__accent">{vinyl.title}</div>
-          <p>Released 1970</p>
-          <span>Playing tonight at Escobar</span>
-        </div>
-
-        <div className="vinyl-panel__cover frame-inset">
-          <div className="vinyl-panel__cover-title">{vinyl.artist}</div>
-          <div className="vinyl-panel__cover-subtitle">{vinyl.title}</div>
-          <div className="vinyl-panel__cover-art" />
-        </div>
-      </div>
-
-      <div className="turntable">
-        <div className="turntable__base" />
-        <div className="turntable__record">
-          <div className="turntable__record-center" />
-        </div>
-        <div className="turntable__arm" />
-        <div className="turntable__light" />
-      </div>
-    </div>
-  );
 };
+
+export function VinylPanel({ vinyl }: VinylPanelProps) {
+  return (
+    <article className="panel metal-card chain-card vinyl-panel">
+      <div className="panel__title-row">
+        <div className="panel__title-line" />
+        <h2 className="panel__title">VINYL OF THE NIGHT</h2>
+        <div className="panel__title-line" />
+      </div>
+
+      <div className="vinyl-panel__content">
+        <div className="vinyl-panel__copy">
+          <h3 className="vinyl-panel__band">{vinyl.artist}</h3>
+          <div className="vinyl-panel__album">{vinyl.album}</div>
+          <p className="vinyl-panel__meta">Released {vinyl.year}</p>
+          <p className="vinyl-panel__meta">{vinyl.tagline}</p>
+        </div>
+
+        <div className="vinyl-panel__cover-wrap">
+          <div className="vinyl-panel__cover">
+            <div className="vinyl-panel__cover-art" />
+            <div className="vinyl-panel__cover-text">
+              <span>{vinyl.artist}</span>
+              <strong>{vinyl.album}</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="vinyl-panel__turntable">
+        <div className="vinyl-panel__disc">
+          <div className="vinyl-panel__disc-center" />
+        </div>
+        <div className="vinyl-panel__arm" />
+        <div className="vinyl-panel__switch" />
+      </div>
+    </article>
+  );
+}

@@ -1,10 +1,17 @@
 export const initMouseGlow = () => {
-  document.querySelectorAll<HTMLElement>(".panel").forEach((panel) => {
-    panel.addEventListener("mousemove", (event: MouseEvent) => {
-      const rect = panel.getBoundingClientRect();
+  if (typeof window === "undefined") return () => undefined;
 
-      panel.style.setProperty("--x", `${event.clientX - rect.left}px`);
-      panel.style.setProperty("--y", `${event.clientY - rect.top}px`);
-    });
-  });
+  const glow = document.querySelector<HTMLElement>(".mouse-glow");
+  if (!glow) return () => undefined;
+
+  const handleMove = (event: MouseEvent) => {
+    glow.style.setProperty("--glow-x", `${event.clientX}px`);
+    glow.style.setProperty("--glow-y", `${event.clientY}px`);
+  };
+
+  window.addEventListener("mousemove", handleMove, { passive: true });
+
+  return () => {
+    window.removeEventListener("mousemove", handleMove);
+  };
 };

@@ -1,36 +1,32 @@
-import type { MerchItem } from "../types/merch";
+import type { MerchItem } from "../types";
 
-interface Props {
+type MerchPanelProps = {
   items: MerchItem[];
-}
+};
 
-export const MerchPanel = ({ items }: Props) => {
+export function MerchPanel({ items }: MerchPanelProps) {
   return (
-    <div className="panel frame-panel merch-panel">
-      <div className="panel-heading panel-heading--center">
-        <span className="panel-heading__line" />
-        <h3>Escobar Merch Store</h3>
-        <span className="panel-heading__line" />
+    <div className="merch-panel">
+      <div className="section-title-wrap">
+        <div className="section-rule" />
+        <h2 className="section-title">ESCOBAR MERCH STORE</h2>
+        <div className="section-rule" />
       </div>
 
-      <div className="merch-grid">
-        {items.map((item, index) => (
-          <div key={item.id} className="merch-card">
-            <div className={`merch-card__art merch-card__art--${index + 1}`}>
-              <span className="merch-card__mark">ESCOBAR</span>
-            </div>
-
-            <div className="merch-card__title">{item.name}</div>
-            <div className="merch-card__price">{item.price}</div>
-          </div>
+      <div className="merch-panel__grid">
+        {items.map((item) => (
+          <article key={item.name} className="merch-card metal-card chain-card">
+            <div className={`merch-card__art merch-card__art--${item.variant}`} />
+            <div className="merch-card__name">{item.name}</div>
+          </article>
         ))}
       </div>
 
-      <div className="merch-panel__cta">
-        <a href="#contact" className="ember-button ember-button--large">
-          Shop Merch
+      <div className="merch-panel__cta-wrap">
+        <a href="#contact" className="merch-panel__cta">
+          SHOP MERCH
         </a>
       </div>
     </div>
   );
-};
+}

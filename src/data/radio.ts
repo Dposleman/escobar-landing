@@ -1,19 +1,8 @@
-import type { RadioTrack } from "../types/radio";
+import type { RadioTrack } from "../types";
 
 export const radioTracks: RadioTrack[] = [
-  {
-    id: "1",
-    title: "Ace of Spades",
-    artist: "Motorhead",
-  },
-  {
-    id: "2",
-    title: "Heaven and Hell",
-    artist: "Black Sabbath",
-  },
-  {
-    id: "3",
-    title: "Breaking the Law",
-    artist: "Judas Priest",
-  },
+  { artist: "Motorhead", title: "Ace of Spades" },
+  { artist: "Black Sabbath", title: "Paranoid" },
+  { artist: "Judas Priest", title: "Painkiller" },
+  { artist: "Danzig", title: "Mother" },
 ];

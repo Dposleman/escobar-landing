@@ -1,21 +1,40 @@
-import type { NavItem } from "../types/nav";
+import type { NavItem } from "../types";
 
-interface Props {
+type NavBarProps = {
   items: NavItem[];
-}
-
-export const NavBar = ({ items }: Props) => {
-  return (
-    <nav className="nav shell">
-      {items.map((item, index) => (
-        <a
-          key={item.href}
-          href={item.href}
-          className={index === 0 ? "nav__link nav__link--active" : "nav__link"}
-        >
-          {item.label}
-        </a>
-      ))}
-    </nav>
-  );
 };
+
+export function NavBar({ items }: NavBarProps) {
+  return (
+    <header className="topbar reveal-panel">
+      <div className="topbar__status">
+        <span className="topbar__status-label">IS ESCOBAR BUILT?</span>
+        <span className="topbar__status-value">YES</span>
+        <span className="topbar__counter">327</span>
+      </div>
+
+      <div className="brand-row">
+        <div className="brand-row__emblem">
+          <span />
+        </div>
+
+        <div className="hero__logo-frame brand-row__logo">
+          <div className="brand-row__logo-plate">ESCOBAR</div>
+        </div>
+
+        <div className="brand-row__site">666.rock</div>
+      </div>
+
+      <div className="brand-row__meta">AARHUS · DENMARK</div>
+      <div className="brand-row__tags">ROCK · METAL · BEER · COMMUNITY</div>
+
+      <nav className="nav-frame">
+        {items.map((item) => (
+          <a key={item.href} href={item.href} className="nav-frame__link">
+            {item.label}
+          </a>
+        ))}
+      </nav>
+    </header>
+  );
+}

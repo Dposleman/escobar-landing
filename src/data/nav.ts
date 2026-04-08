@@ -1,4 +1,4 @@
-import type { NavItem } from "../types/nav";
+import type { NavItem } from "../types";
 
 export const navItems: NavItem[] = [
   { label: "HOME", href: "#home" },

@@ -1,34 +1,33 @@
-import type { Event } from "../types/event";
+import type { EventItem } from "../types";
 
-interface Props {
-  events: Event[];
-}
+type EventsPanelProps = {
+  events: EventItem[];
+};
 
-export const EventsPanel = ({ events }: Props) => {
+export function EventsPanel({ events }: EventsPanelProps) {
   return (
-    <div className="panel frame-panel events-panel">
-      <div className="panel-heading panel-heading--center">
-        <span className="panel-heading__line" />
-        <h3>Upcoming Events</h3>
-        <span className="panel-heading__line" />
+    <div className="events-panel">
+      <div className="section-title-wrap">
+        <div className="section-rule" />
+        <h2 className="section-title">UPCOMING EVENTS</h2>
+        <div className="section-rule" />
       </div>
 
-      <div className="events-panel__body">
-        <div className="events-panel__thumbs">
-          <div className="events-panel__thumb events-panel__thumb--crowd" />
-          <div className="events-panel__thumb events-panel__thumb--vinyl" />
+      <div className="events-panel__card metal-card chain-card">
+        <div className="events-panel__aside">
+          <div className="events-panel__aside-image events-panel__aside-image--crowd" />
+          <div className="events-panel__aside-image events-panel__aside-image--vinyl" />
         </div>
 
         <div className="events-panel__list">
           {events.map((event) => (
-            <div key={event.id} className="event-row">
-              <h4>{event.title}</h4>
-              <p>{event.date}</p>
-              <span>{event.location}</span>
+            <div key={`${event.title}-${event.date}`} className="events-panel__row">
+              <span className="events-panel__name">{event.title}</span>
+              <span className="events-panel__date">{event.date}</span>
             </div>
           ))}
         </div>
       </div>
     </div>
   );
-};
+}

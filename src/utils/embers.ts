@@ -1,15 +1,23 @@
 export const createEmbers = () => {
-  document.querySelectorAll(".ember").forEach((element) => element.remove());
+  if (typeof window === "undefined") return () => undefined;
 
-  const container = document.body;
+  const page = document.querySelector(".app-shell");
+  if (!page) return () => undefined;
 
-  for (let index = 0; index < 46; index += 1) {
-    const ember = document.createElement("div");
+  const embers = Array.from({ length: 22 }, (_, index) => {
+    const ember = document.createElement("span");
     ember.className = "ember";
-    ember.style.left = `${Math.random() * 100}vw`;
-    ember.style.animationDuration = `${5 + Math.random() * 7}s`;
-    ember.style.animationDelay = `${Math.random() * 2.5}s`;
-    ember.style.opacity = `${0.2 + Math.random() * 0.55}`;
-    container.appendChild(ember);
-  }
+    ember.style.left = `${Math.random() * 100}%`;
+    ember.style.bottom = `${-8 - Math.random() * 20}px`;
+    ember.style.animationDelay = `${index * 0.35}s`;
+    ember.style.animationDuration = `${6 + Math.random() * 7}s`;
+    ember.style.opacity = `${0.25 + Math.random() * 0.65}`;
+    ember.style.transform = `scale(${0.6 + Math.random() * 1.1})`;
+    page.appendChild(ember);
+    return ember;
+  });
+
+  return () => {
+    embers.forEach((ember) => ember.remove());
+  };
 };

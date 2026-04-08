@@ -1,6 +1,8 @@
-import type { Vinyl } from "../types/vinyl";
+import type { Vinyl } from "../types";
 
 export const vinyl: Vinyl = {
-  title: "PARANOID",
   artist: "Black Sabbath",
+  album: "PARANOID",
+  year: 1970,
+  tagline: "Playing tonight at Escobar",
 };
