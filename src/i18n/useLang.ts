@@ -1,8 +1,8 @@
 import { UI } from "./ui";
 
-export type Lang = "en" | "da";
+export type Lang = keyof typeof UI;
 
-let currentLang: Lang = "en";
+let currentLang: Lang = "da";
 
 export function setLang(lang: Lang) {
   currentLang = lang;

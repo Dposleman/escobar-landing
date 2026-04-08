@@ -6,18 +6,19 @@ export const UI = {
     live: "LIVE",
     ended: "ENDED",
 
-    // NAV
     home: "Home",
     events: "Events",
     about: "About",
     contact: "Contact",
 
-    // HERO
-    heroTitle: "Escobar",
-    heroSubtitle: "Underground sound. Raw nights.",
-
-    // FOOTER
-    allRights: "All rights reserved",
+    heroTitle: "ESCOBAR",
+    heroLocation: "AARHUS · DENMARK",
+    heroTagline: "ROCK · METAL · BEER · COMMUNITY",
+    heroSubtitle: "Underground sound. Cold beer. Loud nights.",
+    heroCounterLine1: "RAW NIGHTS",
+    heroCounterLine2: "BUILT FOR THE CROWD",
+    heroCounterValue: "327",
+    heroDomain: "666.rock",
   },
 
   da: {
@@ -27,17 +28,18 @@ export const UI = {
     live: "LIVE",
     ended: "AFSLUTTET",
 
-    // NAV
     home: "Hjem",
     events: "Events",
     about: "Om",
     contact: "Kontakt",
 
-    // HERO
-    heroTitle: "Escobar",
-    heroSubtitle: "Undergrundslyd. Rå nætter.",
-
-    // FOOTER
-    allRights: "Alle rettigheder forbeholdes",
+    heroTitle: "ESCOBAR",
+    heroLocation: "AARHUS · DANMARK",
+    heroTagline: "ROCK · METAL · ØL · FÆLLESSKAB",
+    heroSubtitle: "Undergrundslyd. Kolde øl. Høje nætter.",
+    heroCounterLine1: "RÅ AFTENER",
+    heroCounterLine2: "BYGGET TIL PUBLIKUM",
+    heroCounterValue: "327",
+    heroDomain: "666.rock",
   },
-};
+} as const;
