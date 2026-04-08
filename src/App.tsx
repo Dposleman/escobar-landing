@@ -15,6 +15,9 @@ import { buildVinylViewModel } from "./utils/spotify";
 import { createEmbers } from "./utils/embers";
 import { initMouseGlow } from "./utils/mouseGlow";
 import { AdminPage } from "./pages/AdminPage";
+import { setLang } from "./i18n/useLang";
+
+setLang("da");
 
 function App() {
   const cms = useCms();

@@ -1,85 +1,95 @@
+import type { EventItem } from "../types";
+import { useLang } from "../i18n/useLang";
 
-type EventStatus = "upcoming" | "live" | "ended";
-
-interface Event {
-  date: string;
-  title: string;
-  description: string;
-  location: string;
-  city: string;
-  status: EventStatus;
-}
-
-const statusMap: Record<EventStatus, string> = {
-  upcoming: "COMING SOON",
-  live: "LIVE",
-  ended: "ENDED",
+type EventsPanelProps = {
+  events: EventItem[];
 };
 
-const events: Event[] = [
-  {
-    date: "Friday, May 10",
-    title: "Metal Karaoke Night",
-    description: "Riffs, smoke and late-night signal pressure.",
-    location: "Escobar Main Hall",
-    city: "Aarhus · Denmark",
-    status: "upcoming",
-  },
-  {
-    date: "Saturday, May 18",
-    title: "Vinyl Rock Night",
-    description: "Needle dust, amber glow and hard-cut selection.",
-    location: "Escobar Radio Room",
-    city: "Aarhus · Denmark",
-    status: "live",
-  },
-  {
-    date: "June 1",
-    title: "Danish Underground Bands",
-    description: "Dark room showcase with raw local sound.",
-    location: "Escobar Main Hall",
-    city: "Aarhus · Denmark",
-    status: "live",
-  },
-  {
-    date: "Thursday, October 31",
-    title: "Halloween Metal Party",
-    description: "Full grunge decor, heavy set and burn-orange light.",
-    location: "Escobar Main Hall",
-    city: "Aarhus · Denmark",
-    status: "live",
-  },
-];
+function getEventStatus(event: EventItem): "comingSoon" | "live" | "ended" {
+  const now = Date.now();
+  const startsAt = new Date(event.startsAt).getTime();
+  const endsAt = event.endsAt ? new Date(event.endsAt).getTime() : null;
 
-export default function EventsPanel() {
+  if (!Number.isNaN(startsAt) && now >= startsAt && (!endsAt || now <= endsAt)) {
+    return "live";
+  }
+
+  if (endsAt && now > endsAt) {
+    return "ended";
+  }
+
+  return "comingSoon";
+}
+
+export function EventsPanel({ events }: EventsPanelProps) {
+  const t = useLang();
+
+  const visibleEvents = events.filter((event) => event.status === "published");
+
+  const statusLabelMap = {
+    comingSoon: t.comingSoon,
+    live: t.live,
+    ended: t.ended,
+  };
+
   return (
-    <section className="events-panel">
-      <div className="events-grid">
-        {events.map((event, index) => (
-          <div key={index} className="event-card">
-            <div className="event-image">
-              <span className="event-status">
-                {statusMap[event.status]}
-              </span>
-            </div>
+    <section className="events-panel metal-panel battered-panel js-reveal" id="events">
+      <div className="section-title">
+        <span />
+        <h3>UPCOMING EVENTS</h3>
+        <span />
+      </div>
 
-            <div className="event-content">
-              <div className="event-date">{event.date}</div>
-              <h3 className="event-title">{event.title}</h3>
-              <p className="event-description">{event.description}</p>
+      <div className="events-card-grid">
+        {visibleEvents.map((event) => {
+          const statusKey = getEventStatus(event);
+          const statusLabel = statusLabelMap[statusKey];
 
-              <div className="event-footer">
-                <span>{event.location}</span>
-                <span>{event.city}</span>
+          return (
+            <article className="event-card" key={event.id}>
+              <div className="event-card-media">
+                <div
+                  className={`event-card-cover${event.coverImage ? " has-image" : ""}`}
+                  style={event.coverImage ? { backgroundImage: `url(${event.coverImage})` } : undefined}
+                />
+                <span className={`event-status event-status-${statusKey}`}>
+                  {statusLabel}
+                </span>
               </div>
 
-              <div className="event-actions">
-                <button className="btn-primary">Open</button>
-                <button className="btn-secondary">Gallery</button>
+              <div className="event-card-copy">
+                <div className="event-card-topline">
+                  <span>{event.date}</span>
+                  <strong>{event.isFeatured ? "FEATURED" : t.live}</strong>
+                </div>
+
+                <h4>{event.title}</h4>
+                <p>{event.excerpt}</p>
+
+                <div className="event-card-meta">
+                  <span>{event.venue}</span>
+                  <span>
+                    {event.city} · {event.country}
+                  </span>
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
+
+              <div className="event-card-actions">
+                <a
+                  className="event-row-link"
+                  href={event.ticketUrl || "#"}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {t.open}
+                </a>
+                <a className="event-row-link" href="#gallery">
+                  {t.gallery}
+                </a>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
   );
