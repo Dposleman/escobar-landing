@@ -6,26 +6,25 @@ type EventsPanelProps = {
 
 export function EventsPanel({ events }: EventsPanelProps) {
   return (
-    <section className="events-section js-reveal" id="events">
+    <section className="events-panel metal-panel battered-panel js-reveal" id="events">
       <div className="section-title">
         <span />
         <h3>UPCOMING EVENTS</h3>
         <span />
       </div>
 
-      <div className="events-panel metal-panel battered-panel">
-        <div className="events-thumb-grid" aria-hidden="true">
-          <div className="event-thumb event-thumb-crowd" />
-          <div className="event-thumb event-thumb-vinyl" />
+      <div className="events-board">
+        <div className="events-rail">
+          <div className="events-thumb events-thumb-top" />
+          <div className="events-thumb events-thumb-bottom" />
         </div>
 
         <div className="events-list">
           {events.map((event) => (
-            <div key={event.id} className="event-row">
-              <span className="event-title">{event.title}</span>
-              <span className="event-dot">•</span>
-              <span className="event-date">{event.date}</span>
-            </div>
+            <article className="event-row" key={event.title}>
+              <h4>{event.title}</h4>
+              <p>{event.date}</p>
+            </article>
           ))}
         </div>
       </div>

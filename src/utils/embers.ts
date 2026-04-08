@@ -1,28 +1,24 @@
-export function createEmbers(): () => void {
-  const existing = document.querySelector(".embers");
-  if (existing) {
-    return () => undefined;
-  }
+type Cleanup = () => void;
 
-  const embers = document.createElement("div");
-  embers.className = "embers";
+export function createEmbers(): Cleanup {
+  const container = document.createElement("div");
+  container.className = "embers-layer";
+  document.body.appendChild(container);
 
-  const total = 18;
-
-  for (let index = 0; index < total; index += 1) {
+  const particles = Array.from({ length: 18 }, (_, index) => {
     const ember = document.createElement("span");
-    ember.className = "ember";
-    ember.style.left = `${Math.random() * 100}%`;
+    ember.className = "ember-particle";
+    ember.style.left = `${(index / 18) * 100}%`;
     ember.style.animationDelay = `${Math.random() * 8}s`;
-    ember.style.animationDuration = `${8 + Math.random() * 10}s`;
-    ember.style.opacity = `${0.15 + Math.random() * 0.45}`;
-    ember.style.transform = `scale(${0.55 + Math.random() * 1.2})`;
-    embers.appendChild(ember);
-  }
-
-  document.body.appendChild(embers);
+    ember.style.animationDuration = `${7 + Math.random() * 7}s`;
+    ember.style.opacity = `${0.24 + Math.random() * 0.4}`;
+    ember.style.transform = `translateY(0) scale(${0.5 + Math.random() * 1.1})`;
+    container.appendChild(ember);
+    return ember;
+  });
 
   return () => {
-    embers.remove();
+    particles.forEach((particle) => particle.remove());
+    container.remove();
   };
 }

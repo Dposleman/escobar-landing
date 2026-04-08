@@ -1,32 +1,8 @@
 import type { MerchItem } from "../types";
 
 export const merch: MerchItem[] = [
-  {
-    id: "tee",
-    name: "ESCOBAR METAL TEE",
-    subtitle: "YOU ROCK",
-    price: "€29",
-    badge: "limited",
-  },
-  {
-    id: "mug",
-    name: "ESCOBAR BEER MUG",
-    subtitle: "HEAVY GLASS",
-    price: "€22",
-    badge: "best seller",
-  },
-  {
-    id: "stickers",
-    name: "STICKER PACK",
-    subtitle: "666 / HORNS / SKULL",
-    price: "€12",
-    badge: "new",
-  },
-  {
-    id: "patch",
-    name: "ESCOBAR PATCH",
-    subtitle: "UNDERGROUND CLUB",
-    price: "€16",
-    badge: "cult",
-  },
+  { name: "ESCOBAR METAL TEE", variant: "tee" },
+  { name: "ESCOBAR BEER MUG", variant: "mug" },
+  { name: "STICKER PACK", variant: "stickers" },
+  { name: "ESCOBAR PATCH", variant: "patch" },
 ];

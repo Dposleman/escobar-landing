@@ -1,34 +1,33 @@
 export type NavItem = {
-  id: string;
   label: string;
   href: string;
+  isActive?: boolean;
 };
 
 export type EventItem = {
-  id: string;
   title: string;
   date: string;
-  image: string;
 };
 
 export type RadioTrack = {
-  id: string;
+  station: string;
   artist: string;
   title: string;
+  progress: number;
   duration: string;
 };
 
-export type Vinyl = {
+export type VinylRecord = {
+  kicker: string;
   artist: string;
   album: string;
-  year: number;
-  tagline: string;
+  release: string;
+  playing: string;
 };
 
+export type MerchVariant = "tee" | "mug" | "stickers" | "patch";
+
 export type MerchItem = {
-  id: string;
   name: string;
-  subtitle: string;
-  price: string;
-  badge: string;
+  variant: MerchVariant;
 };

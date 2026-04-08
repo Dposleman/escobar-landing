@@ -1,18 +1,18 @@
 import { useEffect } from "react";
-import { NavBar } from "./components/NavBar";
-import { Hero } from "./components/Hero";
-import { VinylPanel } from "./components/VinylPanel";
-import { RadioPanel } from "./components/RadioPanel";
 import { EventsPanel } from "./components/EventsPanel";
+import { Hero } from "./components/Hero";
 import { MerchPanel } from "./components/MerchPanel";
-import { navItems } from "./data/nav";
+import { NavBar } from "./components/NavBar";
+import { RadioPanel } from "./components/RadioPanel";
+import { VinylPanel } from "./components/VinylPanel";
+import { revealPanels } from "./animations/animations";
 import { events } from "./data/events";
 import { merch } from "./data/merch";
+import { navItems } from "./data/nav";
 import { radioTracks } from "./data/radio";
 import { vinyl } from "./data/vinyl";
-import { revealPanels } from "./animations/animations";
-import { initMouseGlow } from "./utils/mouseGlow";
 import { createEmbers } from "./utils/embers";
+import { initMouseGlow } from "./utils/mouseGlow";
 
 function App() {
   useEffect(() => {
@@ -56,19 +56,19 @@ function App() {
           <div className="contact-grid">
             <div className="contact-block">
               <span className="contact-label">DOMAIN</span>
-              <a href="https://666.rock" className="contact-link">
+              <a href="https://666.rock" className="contact-link" target="_blank" rel="noreferrer">
                 666.rock
               </a>
             </div>
 
             <div className="contact-block">
               <span className="contact-label">LOCATION</span>
-              <p>ESCOBAR UNDERGROUND CLUB • AARHUS, DK</p>
+              <p className="contact-copy">Aarhus · Denmark</p>
             </div>
 
             <div className="contact-block">
-              <span className="contact-label">BOOKINGS</span>
-              <p>radio@escobar.dk</p>
+              <span className="contact-label">MESSAGE</span>
+              <p className="contact-copy">Rock · Metal · Beer · Community</p>
             </div>
           </div>
         </section>

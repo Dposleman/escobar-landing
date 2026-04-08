@@ -5,66 +5,67 @@ type RadioPanelProps = {
 };
 
 export function RadioPanel({ tracks }: RadioPanelProps) {
-  const currentTrack = tracks[0];
+  const nowPlaying = tracks[0];
 
   return (
-    <section className="feature-panel radio-panel metal-panel battered-panel js-reveal" id="radio">
-      <div className="panel-heading panel-heading-inline">
+    <aside className="radio-panel metal-panel battered-panel js-reveal js-pulse">
+      <div className="radio-header">
         <h3>RADIO ESCOBAR</h3>
-        <span className="live-pill">NOW PLAYING LIVE</span>
+        <span>NOW PLAYING LIVE</span>
       </div>
 
-      <div className="radio-card">
-        <div className="radio-card-top">
-          <div className="radio-avatar">☠</div>
-          <div className="radio-now">
-            <strong>Escobar Radio</strong>
-            <span>
-              {currentTrack.artist} - {currentTrack.title}
-            </span>
+      <div className="radio-screen">
+        <div className="radio-avatar" aria-hidden="true">
+          <div className="radio-skull">
+            <span className="skull-eye skull-eye-left" />
+            <span className="skull-eye skull-eye-right" />
+            <span className="skull-nose" />
+            <span className="skull-jaw" />
           </div>
-          <button className="radio-fav" type="button" aria-label="Favorite current track">
-            ♥
-          </button>
         </div>
 
-        <div className="radio-progress">
-          <span className="radio-progress-bar" />
-          <span className="radio-duration">{currentTrack.duration}</span>
+        <div className="radio-track">
+          <strong>{nowPlaying.station}</strong>
+          <p>
+            {nowPlaying.artist} - {nowPlaying.title}
+          </p>
         </div>
 
-        <div className="radio-controls" aria-hidden="true">
-          <button type="button">✕</button>
-          <button type="button">⏮</button>
-          <button type="button" className="radio-play">
-            ▶
-          </button>
-          <button type="button">⏭</button>
-          <button type="button">↻</button>
-        </div>
-
-        <div className="radio-eq" aria-hidden="true">
-          <span className="radio-eq-bar" />
-          <span className="radio-eq-bar" />
-          <span className="radio-eq-bar" />
-          <span className="radio-eq-bar" />
-          <span className="radio-eq-bar" />
-        </div>
+        <button className="radio-favorite" type="button" aria-label="Favorite">
+          ♥
+        </button>
       </div>
 
-      <div className="radio-list">
-        {tracks.map((track) => (
-          <div key={track.id} className="radio-track">
-            <span className="radio-track-artist">{track.artist}</span>
-            <span className="radio-track-title">{track.title}</span>
-            <span className="radio-track-duration">{track.duration}</span>
-          </div>
-        ))}
+      <div className="radio-progress">
+        <span className="radio-progress-fill" style={{ width: `${nowPlaying.progress}%` }} />
       </div>
 
-      <a href="#events" className="panel-button">
+      <div className="radio-time">
+        <span />
+        <span>{nowPlaying.duration}</span>
+      </div>
+
+      <div className="radio-controls">
+        <button type="button" aria-label="Shuffle">
+          ✕
+        </button>
+        <button type="button" aria-label="Previous">
+          ◀
+        </button>
+        <button type="button" className="radio-play" aria-label="Play">
+          ▶
+        </button>
+        <button type="button" aria-label="Next">
+          ▶
+        </button>
+        <button type="button" aria-label="Repeat">
+          ↻
+        </button>
+      </div>
+
+      <button className="radio-more" type="button">
         MORE EVENTS
-      </a>
-    </section>
+      </button>
+    </aside>
   );
 }

@@ -1,8 +1,9 @@
-import type { Vinyl } from "../types";
+import type { VinylRecord } from "../types";
 
-export const vinyl: Vinyl = {
+export const vinyl: VinylRecord = {
+  kicker: "VINYL OF THE NIGHT",
   artist: "Black Sabbath",
   album: "PARANOID",
-  year: 1970,
-  tagline: "Playing tonight at Escobar",
+  release: "Released 1970",
+  playing: "Playing tonight at Escobar",
 };

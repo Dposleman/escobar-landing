@@ -6,34 +6,34 @@ type MerchPanelProps = {
 
 export function MerchPanel({ merch }: MerchPanelProps) {
   return (
-    <section className="merch-section js-reveal" id="merch">
+    <section className="merch-panel metal-panel battered-panel js-reveal" id="merch">
       <div className="section-title">
         <span />
         <h3>ESCOBAR MERCH STORE</h3>
         <span />
       </div>
 
-      <div className="merch-panel metal-panel battered-panel">
-        <div className="merch-grid">
-          {merch.map((item) => (
-            <article key={item.id} className={`merch-card merch-card-${item.id}`}>
-              <div className="merch-visual">
-                <div className={`merch-illustration merch-illustration-${item.id}`} />
+      <div className="merch-grid">
+        {merch.map((item) => (
+          <article className="merch-item" key={item.name}>
+            <div className={`merch-visual ${item.variant}`}>
+              <div className="merch-glow" />
+              <div className="merch-graphic">
+                {item.variant === "tee" ? <span className="tee-mark">ESCOBAR</span> : null}
+                {item.variant === "mug" ? <span className="mug-mark">ESCOBAR</span> : null}
+                {item.variant === "stickers" ? <span className="sticker-mark">666</span> : null}
+                {item.variant === "patch" ? <span className="patch-mark">ESCOBAR</span> : null}
               </div>
+            </div>
+            <p>{item.name}</p>
+          </article>
+        ))}
+      </div>
 
-              <div className="merch-meta">
-                <span className="merch-badge">{item.badge}</span>
-                <h4>{item.name}</h4>
-                <p>{item.subtitle}</p>
-                <span className="merch-price">{item.price}</span>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        <a href="#contact" className="shop-button">
+      <div className="merch-cta-wrap">
+        <button className="merch-cta" type="button">
           SHOP MERCH
-        </a>
+        </button>
       </div>
     </section>
   );
