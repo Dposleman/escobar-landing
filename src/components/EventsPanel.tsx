@@ -5,6 +5,13 @@ type EventsPanelProps = {
   events: EventItem[];
 };
 
+const EVENT_FALLBACKS = [
+  "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1501612780327-45045538702b?auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1200&q=80",
+];
+
 function getEventStatus(event: EventItem): "comingSoon" | "live" | "ended" {
   const now = Date.now();
   const startsAt = new Date(event.startsAt).getTime();
@@ -19,6 +26,14 @@ function getEventStatus(event: EventItem): "comingSoon" | "live" | "ended" {
   }
 
   return "comingSoon";
+}
+
+function getEventImage(event: EventItem, index: number) {
+  if (event.coverImage?.trim()) {
+    return event.coverImage;
+  }
+
+  return EVENT_FALLBACKS[index % EVENT_FALLBACKS.length];
 }
 
 export function EventsPanel({ events }: EventsPanelProps) {
@@ -41,34 +56,32 @@ export function EventsPanel({ events }: EventsPanelProps) {
       </div>
 
       <div className="events-card-grid">
-        {visibleEvents.map((event) => {
+        {visibleEvents.map((event, index) => {
           const statusKey = getEventStatus(event);
           const statusLabel = statusLabelMap[statusKey];
-          const hasImage = Boolean(event.coverImage);
+          const mediaSrc = getEventImage(event, index);
 
           return (
             <article className="event-card" key={event.id}>
               <div className="event-card-media">
-                <div
-                  className={`event-card-cover${hasImage ? " has-image" : ""}`}
-                  style={hasImage ? { backgroundImage: `url(${event.coverImage})` } : undefined}
-                >
-                  {!hasImage ? (
-                    <div className="event-card-fallback" aria-hidden="true">
-                      <span className="event-card-glow event-card-glow-a" />
-                      <span className="event-card-glow event-card-glow-b" />
-                      <span className="event-card-stage" />
-                    </div>
-                  ) : null}
-                </div>
+                <img
+                  className="event-card-image"
+                  src={mediaSrc}
+                  alt={event.title}
+                  loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.src = EVENT_FALLBACKS[index % EVENT_FALLBACKS.length];
+                  }}
+                />
 
+                <div className="event-card-media-overlay" />
                 <span className={`event-status event-status-${statusKey}`}>{statusLabel}</span>
               </div>
 
               <div className="event-card-copy">
                 <div className="event-card-topline">
                   <span>{event.date}</span>
-                  <strong>{event.isFeatured ? "FEATURED" : t.live}</strong>
+                  <strong>{event.isFeatured ? "FEATURED" : "LIVE"}</strong>
                 </div>
 
                 <h4>{event.title}</h4>

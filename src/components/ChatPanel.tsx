@@ -21,17 +21,19 @@ export function ChatPanel({ session, messages, onSendMessage }: ChatPanelProps) 
       </div>
 
       <div className="chat-shell">
-        <div className="chat-log">
-          {messages.map((item) => (
-            <article className="chat-message" key={item.id}>
-              <div className="chat-message-meta">
-                <strong>{item.displayName}</strong>
-                <span>{item.role.toUpperCase()}</span>
-                <time>{new Date(item.sentAt).toLocaleString()}</time>
-              </div>
-              <p>{item.text}</p>
-            </article>
-          ))}
+        <div className="chat-log-shell">
+          <div className="chat-log">
+            {messages.map((item) => (
+              <article className="chat-message" key={item.id}>
+                <div className="chat-message-meta">
+                  <strong>{item.displayName}</strong>
+                  <span>{item.role.toUpperCase()}</span>
+                  <time>{new Date(item.sentAt).toLocaleString()}</time>
+                </div>
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
         </div>
 
         <div className="chat-compose-shell">
@@ -47,6 +49,7 @@ export function ChatPanel({ session, messages, onSendMessage }: ChatPanelProps) 
                 setMessage("");
               }}
             >
+              <label className="chat-compose-label">WRITE INTO THE SIGNAL</label>
               <textarea
                 value={message}
                 placeholder="Write into the signal..."
@@ -58,8 +61,9 @@ export function ChatPanel({ session, messages, onSendMessage }: ChatPanelProps) 
             </form>
           ) : (
             <div className="chat-lock-state chat-lock-state-inline">
+              <label className="chat-compose-label">READ ONLY MODE</label>
               <textarea disabled value="" placeholder="Log in to write into the signal..." />
-              <strong>READ ONLY MODE</strong>
+              <strong>MEMBERS ONLY</strong>
               <p>Guests can read the live chat, but only logged-in members can post messages.</p>
               <a className="auth-solid-button chat-cta-link" href="#auth">
                 REGISTER / LOGIN

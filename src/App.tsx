@@ -78,13 +78,14 @@ function App() {
           />
         </section>
 
-        <NewsPanel />
+        <NewsPanel news={cms.state.news} />
 
         <ChatPanel
           session={cms.state.auth}
           messages={cms.state.chat.messages}
           onSendMessage={cms.sendMessage}
         />
+
         <Footer />
       </main>
     </div>
