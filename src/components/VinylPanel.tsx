@@ -1,7 +1,7 @@
-import type { VinylRecord } from "../types";
+import type { VinylViewModel } from "../types";
 
 type VinylPanelProps = {
-  vinyl: VinylRecord;
+  vinyl: VinylViewModel;
 };
 
 export function VinylPanel({ vinyl }: VinylPanelProps) {
@@ -12,51 +12,63 @@ export function VinylPanel({ vinyl }: VinylPanelProps) {
         <h2>{vinyl.kicker}</h2>
       </div>
 
-      <div className="vinyl-copy">
-        <h3>{vinyl.artist}</h3>
-        <h4>{vinyl.album}</h4>
-        <p>{vinyl.release}</p>
-        <p>{vinyl.playing}</p>
-      </div>
-
-      <div className="turntable-scene" aria-hidden="true">
-        <div className="album-card">
-          <div className="album-cover">
-            <span>{vinyl.artist}</span>
-            <strong>{vinyl.album}</strong>
-            <div className="album-figure" />
+      <div className="vinyl-layout">
+        <div className="vinyl-copy">
+          <h3>{vinyl.artist}</h3>
+          <h4>{vinyl.album}</h4>
+          <p>{vinyl.release}</p>
+          <p>{vinyl.playing}</p>
+          <div className="vinyl-status-row">
+            <span>{vinyl.provider.toUpperCase()}</span>
+            <span>{vinyl.isLive ? "LIVE SIGNAL" : "OFFLINE"}</span>
+            <span>{vinyl.hasTrackMeta ? "SYNC READY" : "FALLBACK MODE"}</span>
           </div>
         </div>
 
-        <div className="turntable-body">
-          <div className="turntable-lid" />
-          <div className="turntable-plinth" />
-          <div className="platter-shadow" />
-          <div className="platter-ring" />
-          <div className="vinyl-record">
-            <div className="vinyl-grooves" />
-            <div className="vinyl-label">
-              <div className="vinyl-label-core" />
+        <div className="turntable-scene" aria-hidden="true">
+          <div className="album-card">
+            <div
+              className={`album-cover${vinyl.coverImage ? " has-image" : ""}`}
+              style={vinyl.coverImage ? { backgroundImage: `url(${vinyl.coverImage})` } : undefined}
+            >
+              <div className="album-cover-overlay">
+                <span>{vinyl.artist}</span>
+                <strong>{vinyl.album}</strong>
+                <div className="album-figure" />
+              </div>
             </div>
           </div>
 
-          <div className="deck-screw deck-screw-a" />
-          <div className="deck-screw deck-screw-b" />
-          <div className="deck-screw deck-screw-c" />
-          <div className="deck-screw deck-screw-d" />
+          <div className="turntable-body">
+            <div className="turntable-lid" />
+            <div className="turntable-plinth" />
+            <div className="platter-shadow" />
+            <div className="platter-ring" />
+            <div className="vinyl-record">
+              <div className="vinyl-grooves" />
+              <div className="vinyl-label">
+                <div className="vinyl-label-core" />
+              </div>
+            </div>
 
-          <div className="tonearm-base" />
-          <div className="tonearm-pivot" />
-          <div className="tonearm-bar" />
-          <div className="tonearm-head" />
-          <div className="tonearm-needle" />
-          <div className="tonearm-weight" />
+            <div className="deck-screw deck-screw-a" />
+            <div className="deck-screw deck-screw-b" />
+            <div className="deck-screw deck-screw-c" />
+            <div className="deck-screw deck-screw-d" />
 
-          <div className="control control-a" />
-          <div className="control control-b" />
-          <div className="slider-track" />
-          <div className="slider-knob" />
-          <div className="power-light" />
+            <div className="tonearm-base" />
+            <div className="tonearm-pivot" />
+            <div className="tonearm-bar" />
+            <div className="tonearm-head" />
+            <div className="tonearm-needle" />
+            <div className="tonearm-weight" />
+
+            <div className="control control-a" />
+            <div className="control control-b" />
+            <div className="slider-track" />
+            <div className="slider-knob" />
+            <div className="power-light" />
+          </div>
         </div>
       </div>
     </section>

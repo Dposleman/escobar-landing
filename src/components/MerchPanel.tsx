@@ -15,7 +15,7 @@ export function MerchPanel({ merch }: MerchPanelProps) {
 
       <div className="merch-grid">
         {merch.map((item) => (
-          <article className="merch-item" key={item.name}>
+          <article className="merch-item" key={item.id}>
             <div className={`merch-visual ${item.variant}`} aria-hidden="true">
               <div className="merch-glow" />
               <div className="merch-graphic">
@@ -23,17 +23,23 @@ export function MerchPanel({ merch }: MerchPanelProps) {
                 {item.variant === "mug" ? <span className="mug-mark">ESCOBAR</span> : null}
                 {item.variant === "stickers" ? <span className="sticker-mark">66</span> : null}
                 {item.variant === "patch" ? <span className="patch-mark">ESCOBAR</span> : null}
+                {item.variant === "poster" ? <span className="patch-mark">LIVE</span> : null}
+                {item.variant === "vinyl" ? <span className="sticker-mark">LP</span> : null}
               </div>
             </div>
-            <p>{item.name}</p>
+
+            <div className="merch-item-copy">
+              <p>{item.title}</p>
+              <span>{item.price}</span>
+            </div>
           </article>
         ))}
       </div>
 
       <div className="merch-cta-wrap">
-        <button className="merch-cta" type="button">
-          SHOP MERCH
-        </button>
+        <a className="merch-cta" href="#auth">
+          MEMBERS ACCESS
+        </a>
       </div>
     </section>
   );

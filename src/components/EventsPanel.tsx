@@ -21,9 +21,16 @@ export function EventsPanel({ events }: EventsPanelProps) {
 
         <div className="events-list">
           {events.map((event) => (
-            <article className="event-row" key={event.title}>
-              <h4>{event.title}</h4>
-              <p>{event.date}</p>
+            <article className="event-row" key={event.id}>
+              <div className="event-row-copy">
+                <h4>{event.title}</h4>
+                <p>{event.dateLabel}</p>
+                <span>{event.venue} · {event.city}</span>
+              </div>
+
+              <a className="event-row-link" href={event.ticketUrl}>
+                TICKETS
+              </a>
             </article>
           ))}
         </div>

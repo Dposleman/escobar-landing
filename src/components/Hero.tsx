@@ -19,6 +19,8 @@ export function Hero() {
         <div className="hero-logo-block">
           <div className="hero-logo-frame">
             <div className="hero-logo-inner">
+              <span className="hero-logo-bar hero-logo-bar-top" aria-hidden="true" />
+              <span className="hero-logo-bar hero-logo-bar-bottom" aria-hidden="true" />
               <div className="hero-logo-horns hero-logo-horns-left" aria-hidden="true" />
               <div className="hero-logo-horns hero-logo-horns-right" aria-hidden="true" />
               <h1 className="hero-logo-text">ESCOBAR</h1>
