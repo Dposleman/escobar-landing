@@ -1,22 +1,21 @@
-import type { LandingNavItem } from "../types";
-
-type NavBarProps = {
-  items: LandingNavItem[];
-};
-
-export function NavBar({ items }: NavBarProps) {
+export function NavBar() {
   return (
-    <nav className="nav-shell js-reveal" aria-label="Primary navigation">
-      <div className="nav-strip metal-panel battered-panel">
-        {items.map((item) => (
-          <a
-            key={item.id}
-            className={`nav-link${item.isActive ? " is-active" : ""}`}
-            href={item.href}
-          >
-            {item.label}
-          </a>
-        ))}
+    <nav className="navbar">
+      <div className="nav-inner">
+        <a href="#vinyl">VINYL</a>
+        <a href="#radio">RADIO</a>
+        <a href="#events">EVENTS</a>
+        <a href="#merch">MERCH</a>
+        <a href="#gallery">GALLERY</a>
+
+        <a
+          href="/admin"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="admin-link"
+        >
+          ADMIN
+        </a>
       </div>
     </nav>
   );

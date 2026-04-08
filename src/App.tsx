@@ -8,38 +8,19 @@ import { NavBar } from "./components/NavBar";
 import { RadioPanel } from "./components/RadioPanel";
 import { ChatPanel } from "./components/ChatPanel";
 import { VinylPanel } from "./components/VinylPanel";
-import { AdminDashboard } from "./components/admin/AdminDashboard";
 import { revealPanels } from "./animations/animations";
 import { useCms } from "./hooks/useCms";
 import { buildVinylViewModel } from "./utils/spotify";
 import { createEmbers } from "./utils/embers";
 import { initMouseGlow } from "./utils/mouseGlow";
+import { AdminPage } from "./pages/AdminPage";
 
 function App() {
-  const {
-    state,
-    login,
-    register,
-    logout,
-    sendMessage,
-    createEvent,
-    updateEvent,
-    deleteEvent,
-    reorderEvents,
-    createMerch,
-    updateMerch,
-    deleteMerch,
-    reorderMerch,
-    createGalleryItem,
-    updateGalleryItem,
-    deleteGalleryItem,
-    reorderGallery,
-    createUser,
-    updateUser,
-    deleteUser,
-    reorderUsers,
-    updateRadio,
-  } = useCms();
+  const { state, login, register, logout, sendMessage } = useCms();
+
+  const isAdminRoute =
+    typeof window !== "undefined" &&
+    window.location.pathname === "/admin";
 
   useEffect(() => {
     const cleanupReveal = revealPanels();
@@ -52,6 +33,10 @@ function App() {
       cleanupEmbers();
     };
   }, [state]);
+
+  if (isAdminRoute) {
+    return <AdminPage />;
+  }
 
   return (
     <div className="app-shell">
@@ -69,7 +54,7 @@ function App() {
 
       <main className="page-content">
         <Hero />
-        <NavBar items={state.nav} />
+        <NavBar />
 
         <section className="feature-grid">
           <VinylPanel vinyl={buildVinylViewModel(state.radio)} />
@@ -93,31 +78,6 @@ function App() {
           session={state.auth}
           messages={state.chat.messages}
           onSendMessage={sendMessage}
-        />
-
-        <AdminDashboard
-          events={state.events}
-          merch={state.merch}
-          gallery={state.gallery}
-          radio={state.radio}
-          users={state.users}
-          onCreateEvent={createEvent}
-          onUpdateEvent={updateEvent}
-          onDeleteEvent={deleteEvent}
-          onReorderEvents={(fromIndex, toIndex) => reorderEvents({ fromIndex, toIndex })}
-          onCreateMerch={createMerch}
-          onUpdateMerch={updateMerch}
-          onDeleteMerch={deleteMerch}
-          onReorderMerch={(fromIndex, toIndex) => reorderMerch({ fromIndex, toIndex })}
-          onCreateGalleryItem={createGalleryItem}
-          onUpdateGalleryItem={updateGalleryItem}
-          onDeleteGalleryItem={deleteGalleryItem}
-          onReorderGallery={(fromIndex, toIndex) => reorderGallery({ fromIndex, toIndex })}
-          onCreateUser={createUser}
-          onUpdateUser={updateUser}
-          onDeleteUser={deleteUser}
-          onReorderUsers={(fromIndex, toIndex) => reorderUsers({ fromIndex, toIndex })}
-          onUpdateRadio={updateRadio}
         />
       </main>
     </div>
