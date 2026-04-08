@@ -16,7 +16,13 @@ import { initMouseGlow } from "./utils/mouseGlow";
 import { AdminPage } from "./pages/AdminPage";
 
 function App() {
-  const { state, login, register, logout, sendMessage } = useCms();
+  const {
+    state,
+    login,
+    register,
+    logout,
+    sendMessage,
+  } = useCms();
 
   const isAdminRoute =
     typeof window !== "undefined" &&
@@ -54,7 +60,7 @@ function App() {
 
       <main className="page-content">
         <Hero />
-        <NavBar />
+        <NavBar items={state.nav} />
 
         <section className="feature-grid">
           <VinylPanel vinyl={buildVinylViewModel(state.radio)} />

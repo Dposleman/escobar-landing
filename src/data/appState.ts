@@ -19,7 +19,7 @@ const nav: LandingNavItem[] = [
   { id: "nav-merch", label: "MERCH STORE", href: "#merch" },
   { id: "nav-gallery", label: "GALLERY", href: "#gallery" },
   { id: "nav-chat", label: "LIVE CHAT", href: "#chat" },
-  { id: "nav-admin", label: "ADMIN", href: "#admin" },
+  { id: "nav-admin", label: "ADMIN", href: "/admin" },
 ];
 
 const events: EventItem[] = [
@@ -223,14 +223,14 @@ const radio: RadioState = {
 
 const users: UserRecord[] = [
   {
-    id: "user-admin",
+    id: "user-admin-dio",
     order: 0,
     createdAt: now,
     updatedAt: now,
-    email: "admin@escobar.fm",
-    username: "escobar_admin",
-    displayName: "Escobar Admin",
-    password: "admin123",
+    email: "dio.escobar.aarhus@gmail.com",
+    username: "dio_escobar",
+    displayName: "Dio Escobar",
+    password: "Rasmus123",
     role: "admin",
     avatar: "",
     isBlocked: false,
@@ -271,9 +271,9 @@ const chat: ChatState = {
       order: 0,
       createdAt: now,
       updatedAt: now,
-      userId: "user-admin",
-      username: "escobar_admin",
-      displayName: "Escobar Admin",
+      userId: "user-admin-dio",
+      username: "dio_escobar",
+      displayName: "Dio Escobar",
       role: "admin",
       text: "Welcome to the signal. Registered users can join the live chat.",
       sentAt: now,
