@@ -44,17 +44,25 @@ export function EventsPanel({ events }: EventsPanelProps) {
         {visibleEvents.map((event) => {
           const statusKey = getEventStatus(event);
           const statusLabel = statusLabelMap[statusKey];
+          const hasImage = Boolean(event.coverImage);
 
           return (
             <article className="event-card" key={event.id}>
               <div className="event-card-media">
                 <div
-                  className={`event-card-cover${event.coverImage ? " has-image" : ""}`}
-                  style={event.coverImage ? { backgroundImage: `url(${event.coverImage})` } : undefined}
-                />
-                <span className={`event-status event-status-${statusKey}`}>
-                  {statusLabel}
-                </span>
+                  className={`event-card-cover${hasImage ? " has-image" : ""}`}
+                  style={hasImage ? { backgroundImage: `url(${event.coverImage})` } : undefined}
+                >
+                  {!hasImage ? (
+                    <div className="event-card-fallback" aria-hidden="true">
+                      <span className="event-card-glow event-card-glow-a" />
+                      <span className="event-card-glow event-card-glow-b" />
+                      <span className="event-card-stage" />
+                    </div>
+                  ) : null}
+                </div>
+
+                <span className={`event-status event-status-${statusKey}`}>{statusLabel}</span>
               </div>
 
               <div className="event-card-copy">

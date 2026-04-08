@@ -5,16 +5,12 @@ type GalleryPanelProps = {
   images: GalleryImage[];
 };
 
-function createFallbackSlides(images: GalleryImage[]): GalleryImage[] {
-  if (images.length > 0) {
-    return images.filter((image) => image.status === "published");
-  }
-
-  return [];
+function createSlides(images: GalleryImage[]): GalleryImage[] {
+  return images.filter((image) => image.status === "published");
 }
 
 export function GalleryPanel({ images }: GalleryPanelProps) {
-  const slides = useMemo(() => createFallbackSlides(images), [images]);
+  const slides = useMemo(() => createSlides(images), [images]);
   const [activeIndex, setActiveIndex] = useState(0);
 
   if (slides.length === 0) {
@@ -32,6 +28,7 @@ export function GalleryPanel({ images }: GalleryPanelProps) {
   }
 
   const activeSlide = slides[((activeIndex % slides.length) + slides.length) % slides.length];
+  const hasImage = Boolean(activeSlide.image);
 
   return (
     <section className="gallery-panel metal-panel battered-panel js-reveal" id="gallery">
@@ -53,10 +50,22 @@ export function GalleryPanel({ images }: GalleryPanelProps) {
 
         <article className="gallery-carousel-slide">
           <div
-            className={`gallery-carousel-media${activeSlide.image ? " has-image" : ""}`}
-            style={activeSlide.image ? { backgroundImage: `url(${activeSlide.image})` } : undefined}
+            className={`gallery-carousel-media${hasImage ? " has-image" : ""}`}
+            style={hasImage ? { backgroundImage: `url(${activeSlide.image})` } : undefined}
             aria-label={activeSlide.alt}
           >
+            {!hasImage ? (
+              <div className="gallery-fallback-art" aria-hidden="true">
+                <span className="gallery-fallback-light gallery-fallback-light-a" />
+                <span className="gallery-fallback-light gallery-fallback-light-b" />
+                <span className="gallery-fallback-light gallery-fallback-light-c" />
+                <span className="gallery-fallback-stage" />
+                <span className="gallery-fallback-crowd gallery-fallback-crowd-a" />
+                <span className="gallery-fallback-crowd gallery-fallback-crowd-b" />
+                <span className="gallery-fallback-crowd gallery-fallback-crowd-c" />
+              </div>
+            ) : null}
+
             <div className="gallery-carousel-overlay">
               <span>ESCOBAR ARCHIVE</span>
               <strong>{activeSlide.title}</strong>

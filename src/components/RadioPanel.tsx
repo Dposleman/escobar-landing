@@ -17,14 +17,38 @@ export function RadioPanel({ radio }: RadioPanelProps) {
       </div>
 
       {radio.renderMode === "embed" && radio.embedUrl ? (
-        <div className="radio-embed-wrap">
-          <iframe
-            className="radio-embed-frame"
-            src={radio.embedUrl}
-            title="Escobar radio player"
-            loading="lazy"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          />
+        <div className="radio-embed-shell">
+          <div className="radio-embed-mask">
+            <iframe
+              className="radio-embed-frame"
+              src={radio.embedUrl}
+              title="Escobar radio player"
+              loading="lazy"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            />
+            <div className="radio-embed-overlay" aria-hidden="true">
+              <span className="radio-overlay-line radio-overlay-line-top" />
+              <span className="radio-overlay-line radio-overlay-line-bottom" />
+              <span className="radio-overlay-badge">LIVE SIGNAL</span>
+            </div>
+          </div>
+
+          <div className="radio-now-playing">
+            <div className="radio-now-playing-copy">
+              <span>NOW SPINNING</span>
+              <strong>{nowPlaying ? `${nowPlaying.artist} — ${nowPlaying.track}` : "Escobar live signal"}</strong>
+              <p>{nowPlaying?.album || "Spotify broadcast feed"}</p>
+            </div>
+
+            <a
+              className="radio-link-action radio-launch"
+              href={actionHref}
+              target="_blank"
+              rel="noreferrer"
+            >
+              OPEN IN SPOTIFY
+            </a>
+          </div>
         </div>
       ) : (
         <div className="radio-screen">

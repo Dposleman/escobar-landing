@@ -1,12 +1,6 @@
 export function Footer() {
   return (
-    <footer className="site-footer metal-panel battered-panel js-reveal" id="contact">
-      <div className="section-title">
-        <span />
-        <h3>CONTACT</h3>
-        <span />
-      </div>
-
+    <footer className="site-footer metal-panel battered-panel js-reveal">
       <div className="site-footer-content">
         <p className="site-footer-powered">
           Powered by{" "}
