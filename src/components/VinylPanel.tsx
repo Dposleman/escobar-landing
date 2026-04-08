@@ -6,39 +6,41 @@ type VinylPanelProps = {
 
 export function VinylPanel({ vinyl }: VinylPanelProps) {
   return (
-    <article className="panel metal-card chain-card vinyl-panel">
-      <div className="panel__title-row">
-        <div className="panel__title-line" />
-        <h2 className="panel__title">VINYL OF THE NIGHT</h2>
-        <div className="panel__title-line" />
+    <section className="feature-panel vinyl-panel metal-panel battered-panel js-reveal">
+      <div className="panel-heading">
+        <h3>VINYL OF THE NIGHT</h3>
       </div>
 
-      <div className="vinyl-panel__content">
-        <div className="vinyl-panel__copy">
-          <h3 className="vinyl-panel__band">{vinyl.artist}</h3>
-          <div className="vinyl-panel__album">{vinyl.album}</div>
-          <p className="vinyl-panel__meta">Released {vinyl.year}</p>
-          <p className="vinyl-panel__meta">{vinyl.tagline}</p>
+      <div className="vinyl-layout">
+        <div className="vinyl-copy">
+          <h4>{vinyl.artist}</h4>
+          <p className="vinyl-album">{vinyl.album}</p>
+          <p className="vinyl-year">Released {vinyl.year}</p>
+          <p className="vinyl-tagline">{vinyl.tagline}</p>
         </div>
 
-        <div className="vinyl-panel__cover-wrap">
-          <div className="vinyl-panel__cover">
-            <div className="vinyl-panel__cover-art" />
-            <div className="vinyl-panel__cover-text">
+        <div className="vinyl-stage">
+          <div className="turntable">
+            <div className="turntable-plinth" />
+            <div className="vinyl-disc">
+              <div className="vinyl-grooves" />
+              <div className="vinyl-center" />
+            </div>
+            <div className="tonearm">
+              <span className="tonearm-joint" />
+              <span className="tonearm-bar" />
+              <span className="tonearm-needle" />
+            </div>
+          </div>
+
+          <div className="album-card">
+            <div className="album-cover">
               <span>{vinyl.artist}</span>
               <strong>{vinyl.album}</strong>
             </div>
           </div>
         </div>
       </div>
-
-      <div className="vinyl-panel__turntable">
-        <div className="vinyl-panel__disc">
-          <div className="vinyl-panel__disc-center" />
-        </div>
-        <div className="vinyl-panel__arm" />
-        <div className="vinyl-panel__switch" />
-      </div>
-    </article>
+    </section>
   );
 }

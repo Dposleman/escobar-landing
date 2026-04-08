@@ -16,60 +16,59 @@ import { createEmbers } from "./utils/embers";
 
 function App() {
   useEffect(() => {
+    const cleanupReveal = revealPanels();
     const cleanupGlow = initMouseGlow();
     const cleanupEmbers = createEmbers();
-    const cleanupReveal = revealPanels();
 
     return () => {
-      cleanupGlow?.();
-      cleanupEmbers?.();
-      cleanupReveal?.();
+      cleanupReveal();
+      cleanupGlow();
+      cleanupEmbers();
     };
   }, []);
 
   return (
     <div className="app-shell">
-      <div className="noise" aria-hidden="true" />
+      <div className="page-noise" aria-hidden="true" />
+      <div className="page-vignette" aria-hidden="true" />
       <div className="mouse-glow" aria-hidden="true" />
 
       <NavBar items={navItems} />
 
-      <main className="page">
+      <main className="page-content">
         <Hero />
 
-        <section className="feature-grid section-frame reveal-panel">
-          <div className="feature-grid__left">
-            <VinylPanel vinyl={vinyl} />
-          </div>
-
-          <div className="feature-grid__right">
-            <RadioPanel tracks={radioTracks} />
-          </div>
+        <section className="feature-grid">
+          <VinylPanel vinyl={vinyl} />
+          <RadioPanel tracks={radioTracks} />
         </section>
 
-        <section id="events" className="section-frame reveal-panel">
-          <EventsPanel events={events} />
-        </section>
+        <EventsPanel events={events} />
+        <MerchPanel merch={merch} />
 
-        <section id="merch" className="section-frame reveal-panel">
-          <MerchPanel items={merch} />
-        </section>
-
-        <section id="contact" className="contact-panel section-frame reveal-panel">
-          <div className="section-title-wrap">
-            <div className="section-rule" />
-            <h2 className="section-title">CONTACT</h2>
-            <div className="section-rule" />
+        <section className="contact-section metal-panel battered-panel js-reveal" id="contact">
+          <div className="section-title">
+            <span />
+            <h3>CONTACT</h3>
+            <span />
           </div>
 
-          <div className="contact-card metal-card chain-card">
-            <div className="contact-card__inner">
-              <p className="contact-card__kicker">ESCOBAR UNDERGROUND CLUB</p>
-              <p className="contact-card__line">AARHUS · DENMARK</p>
-              <a className="contact-card__mail" href="mailto:666@rock">
+          <div className="contact-grid">
+            <div className="contact-block">
+              <span className="contact-label">DOMAIN</span>
+              <a href="https://666.rock" className="contact-link">
                 666.rock
               </a>
-              <p className="contact-card__line">ROCK · METAL · BEER · COMMUNITY</p>
+            </div>
+
+            <div className="contact-block">
+              <span className="contact-label">LOCATION</span>
+              <p>ESCOBAR UNDERGROUND CLUB • AARHUS, DK</p>
+            </div>
+
+            <div className="contact-block">
+              <span className="contact-label">BOOKINGS</span>
+              <p>radio@escobar.dk</p>
             </div>
           </div>
         </section>

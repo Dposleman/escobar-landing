@@ -1,81 +1,75 @@
-import { gsap } from "gsap";
+import gsap from "gsap";
 
-export const revealPanels = () => {
-  if (typeof window === "undefined") return () => undefined;
-
-  const nodes = gsap.utils.toArray<HTMLElement>(".reveal-panel");
-  const ctx = gsap.context(() => {
-    gsap.set(nodes, { opacity: 0, y: 28 });
-
-    nodes.forEach((node, index) => {
-      gsap.to(node, {
+export function revealPanels(): () => void {
+  const context = gsap.context(() => {
+    gsap.fromTo(
+      ".js-reveal",
+      { opacity: 0, y: 36, scale: 0.985, filter: "blur(8px)" },
+      {
         opacity: 1,
         y: 0,
-        duration: 0.85,
-        delay: 0.08 * index,
+        scale: 1,
+        filter: "blur(0px)",
+        duration: 0.95,
         ease: "power3.out",
-        scrollTrigger: undefined,
-      });
+        stagger: 0.08,
+      },
+    );
+
+    gsap.fromTo(
+      ".chain",
+      { y: -24, opacity: 0.25 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1.6,
+        ease: "sine.out",
+        stagger: 0.05,
+      },
+    );
+
+    gsap.to(".hero-brand-frame", {
+      boxShadow: "0 0 0 1px rgba(255,255,255,.08), 0 0 35px rgba(255,106,0,.15), inset 0 0 40px rgba(255,125,40,.08)",
+      duration: 2.6,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
     });
 
-    const heroLogo = document.querySelector(".hero__logo-frame");
-    const heroGlow = document.querySelector(".hero__glow");
-    const vinylDisc = document.querySelector(".vinyl-panel__disc");
-    const radioNeedle = document.querySelector(".radio-panel__meter-fill");
-
-    if (heroLogo) {
-      gsap.fromTo(
-        heroLogo,
-        { scale: 0.96, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 1.1, ease: "power3.out" }
-      );
-    }
-
-    if (heroGlow) {
-      gsap.to(heroGlow, {
-        opacity: 0.95,
-        scale: 1.05,
-        duration: 2.4,
+    gsap.to(".radio-eq-bar", {
+      scaleY: () => 0.45 + Math.random() * 0.9,
+      transformOrigin: "50% 100%",
+      duration: 0.35,
+      stagger: {
+        each: 0.08,
         repeat: -1,
         yoyo: true,
-        ease: "sine.inOut",
-      });
-    }
+      },
+      ease: "sine.inOut",
+    });
 
-    if (vinylDisc) {
-      gsap.to(vinylDisc, {
-        rotate: 360,
-        transformOrigin: "50% 50%",
-        repeat: -1,
-        ease: "none",
-        duration: 10,
-      });
-    }
+    gsap.to(".vinyl-disc", {
+      rotate: 360,
+      duration: 14,
+      repeat: -1,
+      ease: "none",
+      transformOrigin: "50% 50%",
+    });
 
-    if (radioNeedle) {
-      gsap.to(radioNeedle, {
-        width: "88%",
-        duration: 2,
+    gsap.to(".ember", {
+      y: -18,
+      x: "random(-10, 10)",
+      duration: "random(2.2, 4.8)",
+      stagger: {
+        each: 0.18,
         repeat: -1,
         yoyo: true,
-        ease: "sine.inOut",
-      });
-    }
-
-    gsap.utils.toArray<HTMLElement>(".chain-card").forEach((card, index) => {
-      gsap.fromTo(
-        card,
-        { y: 10, rotateX: 4 },
-        {
-          y: 0,
-          rotateX: 0,
-          duration: 1.2,
-          delay: 0.15 * index,
-          ease: "power2.out",
-        }
-      );
+      },
+      ease: "sine.inOut",
     });
   });
 
-  return () => ctx.revert();
-};
+  return () => {
+    context.revert();
+  };
+}

@@ -1,32 +1,40 @@
 import type { MerchItem } from "../types";
 
 type MerchPanelProps = {
-  items: MerchItem[];
+  merch: MerchItem[];
 };
 
-export function MerchPanel({ items }: MerchPanelProps) {
+export function MerchPanel({ merch }: MerchPanelProps) {
   return (
-    <div className="merch-panel">
-      <div className="section-title-wrap">
-        <div className="section-rule" />
-        <h2 className="section-title">ESCOBAR MERCH STORE</h2>
-        <div className="section-rule" />
+    <section className="merch-section js-reveal" id="merch">
+      <div className="section-title">
+        <span />
+        <h3>ESCOBAR MERCH STORE</h3>
+        <span />
       </div>
 
-      <div className="merch-panel__grid">
-        {items.map((item) => (
-          <article key={item.name} className="merch-card metal-card chain-card">
-            <div className={`merch-card__art merch-card__art--${item.variant}`} />
-            <div className="merch-card__name">{item.name}</div>
-          </article>
-        ))}
-      </div>
+      <div className="merch-panel metal-panel battered-panel">
+        <div className="merch-grid">
+          {merch.map((item) => (
+            <article key={item.id} className={`merch-card merch-card-${item.id}`}>
+              <div className="merch-visual">
+                <div className={`merch-illustration merch-illustration-${item.id}`} />
+              </div>
 
-      <div className="merch-panel__cta-wrap">
-        <a href="#contact" className="merch-panel__cta">
+              <div className="merch-meta">
+                <span className="merch-badge">{item.badge}</span>
+                <h4>{item.name}</h4>
+                <p>{item.subtitle}</p>
+                <span className="merch-price">{item.price}</span>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <a href="#contact" className="shop-button">
           SHOP MERCH
         </a>
       </div>
-    </div>
+    </section>
   );
 }

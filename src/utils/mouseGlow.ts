@@ -1,12 +1,7 @@
-export const initMouseGlow = () => {
-  if (typeof window === "undefined") return () => undefined;
-
-  const glow = document.querySelector<HTMLElement>(".mouse-glow");
-  if (!glow) return () => undefined;
-
-  const handleMove = (event: MouseEvent) => {
-    glow.style.setProperty("--glow-x", `${event.clientX}px`);
-    glow.style.setProperty("--glow-y", `${event.clientY}px`);
+export function initMouseGlow(): () => void {
+  const handleMove = (event: MouseEvent): void => {
+    document.documentElement.style.setProperty("--mouse-x", `${event.clientX}px`);
+    document.documentElement.style.setProperty("--mouse-y", `${event.clientY}px`);
   };
 
   window.addEventListener("mousemove", handleMove, { passive: true });
@@ -14,4 +9,4 @@ export const initMouseGlow = () => {
   return () => {
     window.removeEventListener("mousemove", handleMove);
   };
-};
+}

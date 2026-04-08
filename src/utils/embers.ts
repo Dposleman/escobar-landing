@@ -1,23 +1,28 @@
-export const createEmbers = () => {
-  if (typeof window === "undefined") return () => undefined;
+export function createEmbers(): () => void {
+  const existing = document.querySelector(".embers");
+  if (existing) {
+    return () => undefined;
+  }
 
-  const page = document.querySelector(".app-shell");
-  if (!page) return () => undefined;
+  const embers = document.createElement("div");
+  embers.className = "embers";
 
-  const embers = Array.from({ length: 22 }, (_, index) => {
+  const total = 18;
+
+  for (let index = 0; index < total; index += 1) {
     const ember = document.createElement("span");
     ember.className = "ember";
     ember.style.left = `${Math.random() * 100}%`;
-    ember.style.bottom = `${-8 - Math.random() * 20}px`;
-    ember.style.animationDelay = `${index * 0.35}s`;
-    ember.style.animationDuration = `${6 + Math.random() * 7}s`;
-    ember.style.opacity = `${0.25 + Math.random() * 0.65}`;
-    ember.style.transform = `scale(${0.6 + Math.random() * 1.1})`;
-    page.appendChild(ember);
-    return ember;
-  });
+    ember.style.animationDelay = `${Math.random() * 8}s`;
+    ember.style.animationDuration = `${8 + Math.random() * 10}s`;
+    ember.style.opacity = `${0.15 + Math.random() * 0.45}`;
+    ember.style.transform = `scale(${0.55 + Math.random() * 1.2})`;
+    embers.appendChild(ember);
+  }
+
+  document.body.appendChild(embers);
 
   return () => {
-    embers.forEach((ember) => ember.remove());
+    embers.remove();
   };
-};
+}

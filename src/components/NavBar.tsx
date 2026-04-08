@@ -6,31 +6,42 @@ type NavBarProps = {
 
 export function NavBar({ items }: NavBarProps) {
   return (
-    <header className="topbar reveal-panel">
-      <div className="topbar__status">
-        <span className="topbar__status-label">IS ESCOBAR BUILT?</span>
-        <span className="topbar__status-value">YES</span>
-        <span className="topbar__counter">327</span>
+    <header className="topbar js-reveal" id="home">
+      <div className="topbar-status metal-inset">
+        <span>IS ESCOBAR BUILT?</span>
+        <span>YES</span>
+        <span className="topbar-status-count">327</span>
       </div>
 
-      <div className="brand-row">
-        <div className="brand-row__emblem">
-          <span />
-        </div>
+      <div className="hero-brand-wrap">
+        <div className="chain chain-top chain-top-left" aria-hidden="true" />
+        <div className="chain chain-top chain-top-right" aria-hidden="true" />
 
-        <div className="hero__logo-frame brand-row__logo">
-          <div className="brand-row__logo-plate">ESCOBAR</div>
-        </div>
+        <div className="hero-brand metal-panel hero-brand-panel">
+          <div className="hero-symbol" aria-hidden="true">
+            <span className="hero-symbol-ring">
+              <span className="hero-symbol-hand">🤘</span>
+            </span>
+          </div>
 
-        <div className="brand-row__site">666.rock</div>
+          <div className="hero-brand-content">
+            <div className="hero-brand-frame">
+              <h1 className="hero-logo">ESCOBAR</h1>
+            </div>
+
+            <p className="hero-meta">AARHUS · DENMARK</p>
+            <p className="hero-submeta">ROCK · METAL · BEER · COMMUNITY</p>
+          </div>
+
+          <a className="hero-domain" href="#contact">
+            666.rock
+          </a>
+        </div>
       </div>
 
-      <div className="brand-row__meta">AARHUS · DENMARK</div>
-      <div className="brand-row__tags">ROCK · METAL · BEER · COMMUNITY</div>
-
-      <nav className="nav-frame">
+      <nav className="main-nav metal-panel">
         {items.map((item) => (
-          <a key={item.href} href={item.href} className="nav-frame__link">
+          <a key={item.id} href={item.href} className="main-nav-link">
             {item.label}
           </a>
         ))}

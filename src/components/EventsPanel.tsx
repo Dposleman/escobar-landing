@@ -6,28 +6,29 @@ type EventsPanelProps = {
 
 export function EventsPanel({ events }: EventsPanelProps) {
   return (
-    <div className="events-panel">
-      <div className="section-title-wrap">
-        <div className="section-rule" />
-        <h2 className="section-title">UPCOMING EVENTS</h2>
-        <div className="section-rule" />
+    <section className="events-section js-reveal" id="events">
+      <div className="section-title">
+        <span />
+        <h3>UPCOMING EVENTS</h3>
+        <span />
       </div>
 
-      <div className="events-panel__card metal-card chain-card">
-        <div className="events-panel__aside">
-          <div className="events-panel__aside-image events-panel__aside-image--crowd" />
-          <div className="events-panel__aside-image events-panel__aside-image--vinyl" />
+      <div className="events-panel metal-panel battered-panel">
+        <div className="events-thumb-grid" aria-hidden="true">
+          <div className="event-thumb event-thumb-crowd" />
+          <div className="event-thumb event-thumb-vinyl" />
         </div>
 
-        <div className="events-panel__list">
+        <div className="events-list">
           {events.map((event) => (
-            <div key={`${event.title}-${event.date}`} className="events-panel__row">
-              <span className="events-panel__name">{event.title}</span>
-              <span className="events-panel__date">{event.date}</span>
+            <div key={event.id} className="event-row">
+              <span className="event-title">{event.title}</span>
+              <span className="event-dot">•</span>
+              <span className="event-date">{event.date}</span>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }
