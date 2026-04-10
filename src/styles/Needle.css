@@ -1,0 +1,24 @@
+.needle {
+  position: absolute;
+  top: 20px;
+  left: 180px;
+  width: 120px;
+  height: 120px;
+  pointer-events: none;
+}
+
+.needle-arm {
+  width: 100px;
+  height: 6px;
+  background: linear-gradient(90deg, #777, #222);
+  border-radius: 3px;
+}
+
+.needle-head {
+  width: 12px;
+  height: 12px;
+  background: #ff7a2a;
+  border-radius: 50%;
+  margin-top: 2px;
+  box-shadow: 0 0 6px #ff7a2a;
+}

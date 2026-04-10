@@ -1,4 +1,5 @@
 import Vinyl from "./Vinyl";
+import Needle from "./Needle";
 import "../styles/VinylPanel.css";
 
 type Props = {
@@ -21,6 +22,7 @@ export function VinylPanel({ vinyl }: Props) {
       <div className="vinyl-visual">
         <img src={vinyl.cover} alt="cover" />
         <Vinyl bpm={vinyl.bpm} />
+        <Needle isPlaying />
       </div>
     </div>
   );
