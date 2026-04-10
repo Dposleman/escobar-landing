@@ -9,6 +9,8 @@ export function Hero() {
         <div className="hero-emblem-wrap" aria-hidden="true">
           <div className="hero-emblem-outer">
             <div className="hero-emblem">
+              <span className="emblem-ring emblem-ring-a" />
+              <span className="emblem-ring emblem-ring-b" />
               <span className="emblem-finger emblem-finger-a" />
               <span className="emblem-finger emblem-finger-b" />
               <span className="emblem-finger emblem-finger-c" />

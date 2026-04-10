@@ -17,6 +17,7 @@ import { initMouseGlow } from "./utils/mouseGlow";
 import { AdminPage } from "./pages/AdminPage";
 import { setLang } from "./i18n/useLang";
 import { Footer } from "./components/Footer";
+import "./styles/dynamic-panels.css";
 
 import BackgroundEngine from "./engine/BackgroundEngine";
 import EffectsEngine from "./engine/EffectsEngine";

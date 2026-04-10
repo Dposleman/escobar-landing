@@ -11,30 +11,59 @@ type Props = {
 
 export function RadioPanel({ radio }: Props) {
   return (
-    <div className="radio-panel">
+    <section className="radio-panel metal-panel battered-panel js-reveal" id="radio">
       <div className="radio-header">
         <span>RADIO ESCOBAR</span>
-        <span className="live">NOW PLAYING</span>
+        <span className="live">NOW PLAYING LIVE</span>
       </div>
 
-      <div className="radio-player">
+      <div className="radio-screen">
+        <div className="radio-cover" aria-hidden="true">
+          <div className="radio-cover-skull">
+            <span className="skull-eye skull-eye-left" />
+            <span className="skull-eye skull-eye-right" />
+            <span className="skull-nose" />
+            <span className="skull-jaw" />
+          </div>
+        </div>
+
+        <div className="radio-copy">
+          <strong>{radio.title}</strong>
+          <div className="radio-trackline">{radio.artist} - {radio.track}</div>
+          <div className="radio-progress">
+            <span className="radio-progress-fill" />
+          </div>
+          <div className="radio-time">
+            <span>LIVE</span>
+            <span>4:32</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="radio-controls" aria-hidden="true">
+        <button type="button">✕</button>
+        <button type="button">⏮</button>
+        <button type="button" className="is-primary">▶</button>
+        <button type="button">⏭</button>
+        <button type="button">↻</button>
+      </div>
+
+      <div className="radio-footer">
+        <div className="radio-preview-strip" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
+
         {radio.embedUrl ? (
-          <iframe
-            src={radio.embedUrl}
-            width="100%"
-            height="152"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-          />
+          <a className="radio-listen-link" href={radio.embedUrl} target="_blank" rel="noreferrer">
+            LISTEN ON SPOTIFY
+          </a>
         ) : (
           <div className="radio-fallback">NO SIGNAL</div>
         )}
       </div>
-
-      <div className="radio-meta">
-        <div className="radio-track">{radio.track}</div>
-        <div className="radio-artist">{radio.artist}</div>
-      </div>
-    </div>
+    </section>
   );
 }

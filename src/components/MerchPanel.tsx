@@ -5,6 +5,8 @@ type MerchPanelProps = {
 };
 
 export function MerchPanel({ merch }: MerchPanelProps) {
+  const items = merch.filter((item) => item.status === "published").slice(0, 4);
+
   return (
     <section className="merch-panel metal-panel battered-panel js-reveal" id="merch">
       <div className="section-title">
@@ -14,7 +16,7 @@ export function MerchPanel({ merch }: MerchPanelProps) {
       </div>
 
       <div className="merch-grid">
-        {merch.filter((item) => item.status === "published").map((item) => (
+        {items.map((item) => (
           <article className="merch-item" key={item.id}>
             <div className={`merch-visual ${item.variant}`} aria-hidden="true">
               <div className="merch-glow" />
@@ -38,7 +40,7 @@ export function MerchPanel({ merch }: MerchPanelProps) {
 
       <div className="merch-cta-wrap">
         <a className="merch-cta" href="#auth">
-          <span>MEMBERS ACCESS</span>
+          <span>SHOP MERCH</span>
         </a>
       </div>
     </section>
