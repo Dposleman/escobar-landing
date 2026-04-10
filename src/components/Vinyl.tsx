@@ -1,20 +1,26 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import "./Vinyl.css";
+import "../styles/Vinyl.css";
 
-export default function Vinyl() {
+type Props = {
+  bpm?: number;
+};
+
+export default function Vinyl({ bpm = 120 }: Props) {
   const vinylRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!vinylRef.current) return;
 
+    const duration = 60 / (bpm / 4);
+
     gsap.to(vinylRef.current, {
       rotate: 360,
-      duration: 6,
+      duration,
       ease: "linear",
       repeat: -1,
     });
-  }, []);
+  }, [bpm]);
 
   return (
     <div className="vinyl">

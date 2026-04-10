@@ -1,0 +1,44 @@
+.vinyl-panel {
+  display: flex;
+  gap: 20px;
+  border: 1px solid rgba(255,120,40,0.2);
+  background: #0e0e0e;
+
+  box-shadow:
+    inset 0 0 40px rgba(0,0,0,0.9),
+    0 0 20px rgba(255,120,40,0.2);
+}
+
+.vinyl-info {
+  padding: 20px;
+}
+
+.vinyl-info h2 {
+  color: #fff;
+  font-size: 22px;
+}
+
+.vinyl-info h3 {
+  color: #ff7a2a;
+  font-size: 18px;
+}
+
+.vinyl-visual {
+  position: relative;
+  width: 260px;
+  height: 260px;
+}
+
+.vinyl-visual img {
+  width: 180px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1;
+  filter: contrast(1.1) brightness(0.9);
+}
+
+.vinyl-visual .vinyl {
+  position: relative;
+  z-index: 2;
+}

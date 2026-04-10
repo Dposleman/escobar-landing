@@ -7,9 +7,7 @@ function normalizeSpotifyUrl(url: string): string {
 export function buildSpotifyEmbedUrl(url: string): string {
   const normalizedUrl = normalizeSpotifyUrl(url);
 
-  if (!normalizedUrl) {
-    return "";
-  }
+  if (!normalizedUrl) return "";
 
   if (normalizedUrl.includes("/embed/")) {
     return normalizedUrl;
@@ -19,9 +17,7 @@ export function buildSpotifyEmbedUrl(url: string): string {
     /open\.spotify\.com\/(playlist|album|track|artist|show|episode)\/([a-zA-Z0-9]+)/
   );
 
-  if (!spotifyMatch) {
-    return "";
-  }
+  if (!spotifyMatch) return "";
 
   const [, entityType, entityId] = spotifyMatch;
 
@@ -40,30 +36,40 @@ export function resolveRadioLinkTarget(radio: RadioState): string {
   return "#radio";
 }
 
+/**
+ * 🔥 FASE 3 — VIEWMODEL EXTENDIDO (sync con vinyl + radio UI)
+ */
 export function buildVinylViewModel(radio: RadioState): VinylViewModel {
-  if (radio.nowPlaying) {
-    return {
-      kicker: "VINYL OF THE NIGHT",
-      artist: radio.nowPlaying.artist || "ESCOBAR RADIO",
-      album: radio.nowPlaying.album || radio.title,
-      release: radio.nowPlaying.track || "Live selection",
-      playing: radio.isLive ? "Playing now on Escobar Radio" : "Signal offline",
-      coverImage: radio.nowPlaying.coverImage || radio.fallbackCoverImage,
-      provider: radio.provider,
-      isLive: radio.isLive,
-      hasTrackMeta: true,
-    };
-  }
+  const hasNowPlaying = !!radio.nowPlaying;
+
+  const artist =
+    radio.nowPlaying?.artist || "ESCOBAR RADIO";
+
+  const track =
+    radio.nowPlaying?.track || "Live selection";
+
+  const album =
+    radio.nowPlaying?.album || radio.title;
 
   return {
+    // legacy fields (mantener compatibilidad)
     kicker: "VINYL OF THE NIGHT",
-    artist: "ESCOBAR RADIO",
-    album: radio.title,
-    release: radio.subtitle,
-    playing: radio.isLive ? "Live radio signal active" : "Radio currently offline",
-    coverImage: radio.fallbackCoverImage,
+    artist,
+    album,
+    release: track,
+    playing: radio.isLive
+      ? "Playing now on Escobar Radio"
+      : "Signal offline",
+    coverImage:
+      radio.nowPlaying?.coverImage || radio.fallbackCoverImage,
     provider: radio.provider,
     isLive: radio.isLive,
-    hasTrackMeta: false,
-  };
+    hasTrackMeta: hasNowPlaying,
+
+    // 🔥 nuevos campos FASE 3 (para UI nueva)
+    title: track,
+    cover:
+      radio.nowPlaying?.coverImage || radio.fallbackCoverImage,
+    bpm: 120, // base (luego podemos hacerlo dinámico real)
+  } as unknown as VinylViewModel;
 }

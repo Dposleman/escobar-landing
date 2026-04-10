@@ -4,14 +4,14 @@ import { GalleryPanel } from "./components/GalleryPanel";
 import { Hero } from "./components/Hero";
 import { AuthPanel } from "./components/AuthPanel";
 import { MerchPanel } from "./components/MerchPanel";
-import NavBar from "./components/NavBar"; // ✅ FIX DEFAULT IMPORT
+import NavBar from "./components/NavBar";
 import { NewsPanel } from "./components/NewsPanel";
 import { RadioPanel } from "./components/RadioPanel";
 import { ChatPanel } from "./components/ChatPanel";
 import { VinylPanel } from "./components/VinylPanel";
 import { revealPanels } from "./animations/animations";
 import { useCms } from "./hooks/useCms";
-import { buildVinylViewModel } from "./utils/spotify";
+import { buildVinylViewModel, buildSpotifyEmbedUrl } from "./utils/spotify";
 import { createEmbers } from "./utils/embers";
 import { initMouseGlow } from "./utils/mouseGlow";
 import { AdminPage } from "./pages/AdminPage";
@@ -21,7 +21,7 @@ import { Footer } from "./components/Footer";
 import BackgroundEngine from "./engine/BackgroundEngine";
 import EffectsEngine from "./engine/EffectsEngine";
 import ParticlesEngine from "./engine/ParticlesEngine";
-import LightSystem from "./engine/LightSystem"; // ✅ NEW
+import LightSystem from "./engine/LightSystem";
 
 setLang("da");
 
@@ -53,12 +53,36 @@ function App() {
     return <AdminPage />;
   }
 
+  /**
+   * 🔥 ADAPTADORES FASE 3 (CRÍTICO)
+   */
+
+  const vinylVM = buildVinylViewModel(cms.state.radio);
+
+const vinylProps = {
+  title: vinylVM.release || "Unknown Track",
+  artist: vinylVM.artist || "ESCOBAR RADIO",
+  cover: vinylVM.coverImage || "/fallback.jpg",
+  bpm: 120,
+};
+
+  const radioProps = {
+    title: cms.state.radio.title,
+    track:
+      cms.state.radio.nowPlaying?.track || "Live stream",
+    artist:
+      cms.state.radio.nowPlaying?.artist || "Escobar Radio",
+    embedUrl: buildSpotifyEmbedUrl(
+      cms.state.radio.spotifyUrl || ""
+    ),
+  };
+
   return (
     <>
       <BackgroundEngine />
       <EffectsEngine />
       <ParticlesEngine />
-      <LightSystem /> {/* 🔥 LOCAL LIGHT SYSTEM */}
+      <LightSystem />
 
       <div className="app-shell">
         <div className="page-base" aria-hidden="true" />
@@ -76,12 +100,12 @@ function App() {
         <main className="page-content">
           <Hero />
 
-          {/* 🔥 NAV FIX + SYSTEM */}
           <NavBar />
 
+          {/* 🔥 FIX TIPOS */}
           <section className="feature-grid">
-            <VinylPanel vinyl={buildVinylViewModel(cms.state.radio)} />
-            <RadioPanel radio={cms.state.radio} />
+            <VinylPanel vinyl={vinylProps} />
+            <RadioPanel radio={radioProps} />
           </section>
 
           <EventsPanel events={cms.state.events} />
