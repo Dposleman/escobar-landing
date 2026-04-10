@@ -1,0 +1,37 @@
+.bg-root {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-bg);
+  overflow: hidden;
+}
+
+.bg-base {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 20%, #111 0%, #050507 70%);
+}
+
+.bg-texture {
+  position: absolute;
+  inset: 0;
+  background-image: url("/textures/metal-dark.png");
+  background-size: cover;
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+}
+
+.bg-scratches {
+  position: absolute;
+  inset: 0;
+  background-image: url("/textures/scratches.png");
+  background-size: cover;
+  opacity: var(--scratch-opacity);
+  mix-blend-mode: screen;
+}
+
+.bg-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, transparent 40%, #000 100%);
+}

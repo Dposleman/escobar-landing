@@ -1,0 +1,21 @@
+:root {
+  --bg-deep: #050507;
+  --bg-mid: #0a0b0f;
+  --metal-dark: #1a1b1f;
+  --metal-light: #2a2c31;
+
+  --accent: #ff6a00;
+  --accent-soft: rgba(255, 106, 0, 0.35);
+
+  --glow-strong: 0 0 40px rgba(255, 106, 0, 0.6);
+  --glow-soft: 0 0 20px rgba(255, 106, 0, 0.3);
+
+  --noise-opacity: 0.08;
+  --scratch-opacity: 0.15;
+
+  --z-bg: 0;
+  --z-texture: 1;
+  --z-fx: 2;
+  --z-content: 10;
+  --z-overlay: 20;
+}
