@@ -4,7 +4,7 @@ import { GalleryPanel } from "./components/GalleryPanel";
 import { Hero } from "./components/Hero";
 import { AuthPanel } from "./components/AuthPanel";
 import { MerchPanel } from "./components/MerchPanel";
-import { NavBar } from "./components/NavBar";
+import NavBar from "./components/NavBar"; // ✅ FIX DEFAULT IMPORT
 import { NewsPanel } from "./components/NewsPanel";
 import { RadioPanel } from "./components/RadioPanel";
 import { ChatPanel } from "./components/ChatPanel";
@@ -17,9 +17,11 @@ import { initMouseGlow } from "./utils/mouseGlow";
 import { AdminPage } from "./pages/AdminPage";
 import { setLang } from "./i18n/useLang";
 import { Footer } from "./components/Footer";
+
 import BackgroundEngine from "./engine/BackgroundEngine";
 import EffectsEngine from "./engine/EffectsEngine";
 import ParticlesEngine from "./engine/ParticlesEngine";
+import LightSystem from "./engine/LightSystem"; // ✅ NEW
 
 setLang("da");
 
@@ -27,7 +29,8 @@ function App() {
   const cms = useCms();
 
   const isAdminRoute =
-    typeof window !== "undefined" && window.location.pathname === "/admin";
+    typeof window !== "undefined" &&
+    window.location.pathname === "/admin";
 
   useEffect(() => {
     const cleanupReveal = revealPanels();
@@ -55,6 +58,7 @@ function App() {
       <BackgroundEngine />
       <EffectsEngine />
       <ParticlesEngine />
+      <LightSystem /> {/* 🔥 LOCAL LIGHT SYSTEM */}
 
       <div className="app-shell">
         <div className="page-base" aria-hidden="true" />
@@ -71,7 +75,9 @@ function App() {
 
         <main className="page-content">
           <Hero />
-          <NavBar items={cms.state.nav} />
+
+          {/* 🔥 NAV FIX + SYSTEM */}
+          <NavBar />
 
           <section className="feature-grid">
             <VinylPanel vinyl={buildVinylViewModel(cms.state.radio)} />

@@ -1,0 +1,29 @@
+.merch {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.merch img {
+  width: 100%;
+  transition: transform 0.5s ease;
+}
+
+.merch:hover img {
+  transform: scale(1.1) rotate(-2deg);
+}
+
+.merch__overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, transparent 40%, rgba(255,120,40,0.3));
+  opacity: 0;
+  transition: opacity 0.3s;
+  display: flex;
+  align-items: flex-end;
+  padding: 10px;
+}
+
+.merch:hover .merch__overlay {
+  opacity: 1;
+}

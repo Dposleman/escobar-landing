@@ -1,0 +1,36 @@
+.nav {
+  display: flex;
+  gap: 40px;
+  padding: 10px 20px;
+  border-top: 1px solid rgba(255,120,40,0.2);
+  border-bottom: 1px solid rgba(255,120,40,0.2);
+}
+
+.nav__item {
+  color: #aaa;
+  font-size: 14px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav__item:hover {
+  color: #ff7a2a;
+  text-shadow: 0 0 8px #ff7a2a;
+}
+
+.nav__item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0%;
+  height: 2px;
+  background: #ff7a2a;
+  transition: width 0.3s ease;
+}
+
+.nav__item:hover::after {
+  width: 100%;
+}
