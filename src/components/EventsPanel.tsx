@@ -15,9 +15,13 @@ function getEventImage(event: EventItem, index: number) {
   return EVENT_FALLBACKS[index % EVENT_FALLBACKS.length];
 }
 
+function getEventMeta(event: EventItem) {
+  const parts = [event.venue, event.city, event.country].filter(Boolean);
+  return parts.join(" • ");
+}
+
 export function EventsPanel({ events }: { events: EventItem[] }) {
   const visibleEvents = events.filter((event) => event.status === "published").slice(0, 4);
-  const featureImage = visibleEvents[0] ? getEventImage(visibleEvents[0], 0) : EVENT_FALLBACKS[0];
 
   return (
     <section className="events-panel metal-panel battered-panel js-reveal" id="events">
@@ -28,10 +32,6 @@ export function EventsPanel({ events }: { events: EventItem[] }) {
       </div>
 
       <div className="events-list-shell">
-        <div className="events-feature-image" aria-hidden="true">
-          <img src={featureImage} alt="" />
-        </div>
-
         <div className="events-list">
           {visibleEvents.map((event, index) => (
             <article className="event-row" key={event.id}>
@@ -48,7 +48,10 @@ export function EventsPanel({ events }: { events: EventItem[] }) {
 
               <div className="event-row-copy">
                 <h4>{event.title}</h4>
-                <span>{event.date}</span>
+                <span className="event-row-date">{event.date}</span>
+                {getEventMeta(event) ? (
+                  <span className="event-row-meta">{getEventMeta(event)}</span>
+                ) : null}
               </div>
             </article>
           ))}

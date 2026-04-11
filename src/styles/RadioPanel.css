@@ -1,11 +1,23 @@
 .radio-panel {
   position: relative;
-  min-height: 540px;
+  min-height: 560px;
   padding: 18px 18px 22px;
   overflow: hidden;
 }
 
+.radio-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 16%, rgba(255, 137, 50, 0.12), transparent 22%),
+    radial-gradient(circle at 82% 78%, rgba(255, 123, 40, 0.08), transparent 24%);
+  pointer-events: none;
+}
+
 .radio-header {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -13,7 +25,7 @@
   margin-bottom: 18px;
   color: #f0e0cf;
   font-size: clamp(1.55rem, 2vw, 2.35rem);
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
@@ -21,30 +33,54 @@
   padding: 8px 12px;
   border: 1px solid rgba(255, 157, 85, 0.18);
   color: #ff9f5d;
-  font-size: 1rem;
-  background: rgba(28, 10, 9, 0.78);
-  box-shadow: inset 0 1px 0 rgba(255, 224, 195, 0.05), 0 0 18px rgba(255, 92, 0, 0.14);
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(0, 0, 0, 0.18)),
+    linear-gradient(180deg, rgba(28, 10, 9, 0.9), rgba(10, 4, 4, 0.96));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 224, 195, 0.05),
+    0 0 18px rgba(255, 92, 0, 0.14);
 }
 
 .radio-screen {
+  position: relative;
+  z-index: 1;
   display: grid;
-  grid-template-columns: 118px 1fr;
-  gap: 16px;
-  padding: 12px;
-  border: 1px solid rgba(255, 172, 108, 0.14);
+  grid-template-columns: 132px 1fr;
+  gap: 18px;
+  padding: 14px;
+  border: 1px solid rgba(255, 172, 108, 0.12);
   background:
     radial-gradient(circle at 12% 16%, rgba(255, 137, 50, 0.18), transparent 22%),
-    linear-gradient(180deg, rgba(53, 20, 17, 0.86), rgba(12, 5, 5, 0.97));
+    linear-gradient(180deg, rgba(53, 20, 17, 0.9), rgba(10, 4, 4, 0.98));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 233, 208, 0.04),
+    inset 0 -20px 28px rgba(0, 0, 0, 0.32);
 }
 
 .radio-cover {
   position: relative;
-  min-height: 118px;
-  border: 1px solid rgba(255, 177, 114, 0.16);
+  min-height: 132px;
+  border: 1px solid rgba(255, 177, 114, 0.12);
   background:
     radial-gradient(circle at 50% 30%, rgba(255, 163, 84, 0.34), transparent 34%),
-    linear-gradient(180deg, rgba(74, 32, 25, 0.94), rgba(12, 5, 5, 0.98));
-  box-shadow: inset 0 1px 0 rgba(255, 227, 199, 0.06);
+    linear-gradient(180deg, rgba(64, 28, 21, 0.96), rgba(10, 4, 4, 0.98));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 227, 199, 0.04),
+    0 12px 20px rgba(0, 0, 0, 0.22);
+}
+
+.radio-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/textures/aaa/scratches.png");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.08;
+  mix-blend-mode: screen;
+  pointer-events: none;
 }
 
 .radio-cover-skull {
@@ -52,7 +88,9 @@
   inset: 18px;
   border-radius: 50% 50% 44% 44%;
   background: radial-gradient(circle at 50% 38%, #faf0e4 0%, #b6a18f 64%, #715a4d 100%);
-  box-shadow: 0 0 18px rgba(255, 161, 89, 0.18);
+  box-shadow:
+    0 0 18px rgba(255, 161, 89, 0.14),
+    0 10px 20px rgba(0, 0, 0, 0.26);
 }
 
 .skull-eye,
@@ -69,8 +107,13 @@
   border-radius: 50%;
 }
 
-.skull-eye-left { left: 19px; }
-.skull-eye-right { right: 19px; }
+.skull-eye-left {
+  left: 19px;
+}
+
+.skull-eye-right {
+  right: 19px;
+}
 
 .skull-nose {
   left: 50%;
@@ -98,14 +141,17 @@
 }
 
 .radio-copy strong {
-  color: #f0e2d1;
-  font-size: 2rem;
-  line-height: 1;
+  color: #f1e3d0;
+  font-size: clamp(1.9rem, 3.4vw, 2.5rem);
+  line-height: 0.96;
+  letter-spacing: 0.03em;
 }
 
 .radio-trackline {
   color: #cfbaa4;
-  font-size: 1.04rem;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .radio-progress {
@@ -128,11 +174,14 @@
   display: flex;
   justify-content: space-between;
   color: #bda895;
-  font-size: 0.88rem;
-  letter-spacing: 0.08em;
+  font-size: 0.84rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .radio-controls {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 8px;
@@ -140,23 +189,48 @@
 }
 
 .radio-controls button {
-  min-height: 62px;
-  border: 1px solid rgba(255, 177, 114, 0.12);
+  min-height: 64px;
+  border: 1px solid rgba(255, 177, 114, 0.1);
+  border-radius: 8px;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.2)),
-    linear-gradient(180deg, rgba(44, 16, 14, 0.9), rgba(12, 5, 5, 0.96));
+    linear-gradient(180deg, rgba(44, 16, 14, 0.92), rgba(10, 4, 4, 0.98));
   color: #e8d7c7;
-  font-size: 1.6rem;
-  box-shadow: inset 0 1px 0 rgba(255, 233, 208, 0.04);
+  font-size: 1.5rem;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 233, 208, 0.04),
+    0 8px 18px rgba(0, 0, 0, 0.2);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.radio-controls button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 165, 86, 0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 233, 208, 0.04),
+    0 12px 22px rgba(0, 0, 0, 0.26),
+    0 0 16px rgba(255, 120, 35, 0.08);
 }
 
 .radio-controls .is-primary {
   color: #1a100d;
-  background: radial-gradient(circle at 50% 36%, rgba(255, 232, 207, 0.98), rgba(255, 161, 83, 0.95) 54%, rgba(170, 74, 22, 0.95) 100%);
-  box-shadow: 0 0 24px rgba(255, 131, 41, 0.24);
+  background: radial-gradient(
+    circle at 50% 36%,
+    rgba(255, 232, 207, 0.98),
+    rgba(255, 161, 83, 0.95) 54%,
+    rgba(170, 74, 22, 0.95) 100%
+  );
+  box-shadow:
+    0 0 24px rgba(255, 131, 41, 0.24),
+    0 10px 22px rgba(0, 0, 0, 0.24);
 }
 
 .radio-footer {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 14px;
@@ -170,11 +244,11 @@
 }
 
 .radio-preview-strip span {
-  min-height: 54px;
-  border: 1px solid rgba(255, 176, 112, 0.1);
+  min-height: 58px;
+  border: 1px solid rgba(255, 176, 112, 0.08);
   background:
     radial-gradient(circle at 18% 40%, rgba(255, 141, 53, 0.22), transparent 20%),
-    linear-gradient(180deg, rgba(52, 20, 18, 0.85), rgba(12, 5, 5, 0.94));
+    linear-gradient(180deg, rgba(52, 20, 18, 0.88), rgba(10, 4, 4, 0.96));
 }
 
 .radio-listen-link,
@@ -182,15 +256,25 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 210px;
-  min-height: 54px;
+  min-width: 214px;
+  min-height: 58px;
   padding: 0 18px;
-  border: 1px solid rgba(255, 177, 114, 0.2);
+  border: 1px solid rgba(255, 177, 114, 0.16);
   color: #f0e1d0;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.2)),
-    linear-gradient(180deg, rgba(53, 20, 16, 0.88), rgba(12, 5, 5, 0.98));
+    linear-gradient(180deg, rgba(53, 20, 16, 0.9), rgba(10, 4, 4, 0.98));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 233, 208, 0.04),
+    0 12px 22px rgba(0, 0, 0, 0.18);
+}
+
+.radio-listen-link:hover {
+  color: #fff0e2;
+  border-color: rgba(255, 167, 90, 0.24);
 }
 
 @media (max-width: 720px) {
@@ -206,5 +290,15 @@
   .radio-screen,
   .radio-footer {
     grid-template-columns: 1fr;
+  }
+
+  .radio-controls button {
+    min-height: 56px;
+  }
+
+  .radio-listen-link,
+  .radio-fallback {
+    width: 100%;
+    min-width: 0;
   }
 }

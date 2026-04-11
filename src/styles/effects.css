@@ -1,45 +1,43 @@
-.fx-glow,
-.fx-light-streak,
-.fx-burn-haze,
-.fx-audio-bloom {
+.particles-engine {
   position: fixed;
   inset: 0;
-  z-index: var(--z-fx);
   pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
 }
 
-.fx-glow {
+.particle-ember {
+  position: absolute;
+  bottom: -40px;
+  border-radius: 999px;
   background:
-    radial-gradient(circle 340px at calc(var(--mouse-x, 50vw) + var(--glow-drift-x, 0px)) calc(var(--mouse-y, 32vh) + var(--glow-drift-y, 0px)), rgba(255, 164, 92, 0.2), rgba(255, 107, 24, 0.12) 24%, rgba(255, 76, 8, 0.04) 46%, transparent 74%),
-    radial-gradient(circle at 14% 24%, rgba(255, 108, 24, 0.16), transparent 34%),
-    radial-gradient(circle at 88% 74%, rgba(255, 98, 18, 0.14), transparent 30%);
-  mix-blend-mode: screen;
-  opacity: calc(0.72 * var(--fx-flicker, 1));
+    radial-gradient(circle, rgba(255, 233, 192, 0.95) 0%, rgba(255, 157, 67, 0.9) 36%, rgba(255, 91, 16, 0.28) 72%, transparent 100%);
+  box-shadow:
+    0 0 8px rgba(255, 140, 52, 0.8),
+    0 0 18px rgba(255, 106, 28, 0.3);
+  animation-name: emberFloat;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
 }
 
-.fx-light-streak {
-  background:
-    linear-gradient(102deg, transparent 0%, rgba(255, 205, 154, 0.04) 20%, rgba(255, 122, 34, 0.09) 50%, rgba(255, 205, 154, 0.04) 76%, transparent 100%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 14%, transparent 86%, rgba(255, 166, 110, 0.04));
-  opacity: calc(0.16 + var(--audio-reactive, 0.3) * 0.08);
-  transform: translate3d(calc(var(--burn-shift-x, 0px) * 0.35), calc(var(--burn-shift-y, 0px) * 0.25), 0);
-}
+@keyframes emberFloat {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.7);
+    opacity: 0;
+  }
 
-.fx-burn-haze {
-  background:
-    radial-gradient(circle at 7% 34%, rgba(255, 168, 108, 0.26) 0 0.7%, rgba(255, 117, 34, 0.12) 3%, transparent 12%),
-    radial-gradient(circle at 94% 68%, rgba(255, 168, 108, 0.24) 0 0.7%, rgba(255, 117, 34, 0.1) 3%, transparent 12%),
-    radial-gradient(circle at 18% 78%, rgba(255, 132, 66, 0.12), transparent 22%),
-    radial-gradient(circle at 82% 22%, rgba(255, 132, 66, 0.11), transparent 22%);
-  mix-blend-mode: screen;
-  opacity: calc(0.24 + var(--audio-reactive, 0.3) * 0.1);
-  filter: blur(28px);
-}
+  8% {
+    opacity: 1;
+  }
 
-.fx-audio-bloom {
-  background:
-    radial-gradient(circle 220px at 30% 40%, rgba(255, 198, 148, calc(0.04 + var(--audio-reactive, 0.3) * 0.05)), transparent 70%),
-    radial-gradient(circle 280px at 74% 36%, rgba(255, 145, 86, calc(0.03 + var(--audio-reactive, 0.3) * 0.06)), transparent 74%),
-    radial-gradient(circle 260px at 58% 84%, rgba(255, 118, 42, calc(0.02 + var(--audio-reactive, 0.3) * 0.05)), transparent 76%);
-  mix-blend-mode: screen;
+  50% {
+    transform: translate3d(16px, -46vh, 0) scale(1);
+    opacity: 0.92;
+  }
+
+  100% {
+    transform: translate3d(-18px, -110vh, 0) scale(0.42);
+    opacity: 0;
+  }
 }

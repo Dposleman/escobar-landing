@@ -2466,3 +2466,162 @@ img {
     font-size: 1.4rem;
   }
 }
+
+/* ===== AAA REAL RENDER OVERRIDES ===== */
+:root {
+  --panel-reactive-glow: 0 0 24px rgba(255, 118, 32, 0.18), 0 0 54px rgba(255, 132, 48, 0.08);
+  --zone-top-reactive: 0.54;
+  --zone-mid-reactive: 0.42;
+  --zone-bottom-reactive: 0.7;
+}
+
+body {
+  background:
+    radial-gradient(circle at 50% 12%, rgba(255, 129, 42, 0.08), transparent 20%),
+    radial-gradient(circle at 0% 42%, rgba(255, 123, 41, 0.16), transparent 20%),
+    radial-gradient(circle at 100% 76%, rgba(255, 118, 33, 0.18), transparent 24%),
+    linear-gradient(180deg, #030101 0%, #080302 16%, #100504 34%, #150706 55%, #090404 100%);
+}
+
+.page-content {
+  width: min(1188px, calc(100% - 24px));
+  padding-top: 18px;
+}
+
+.page-base,
+.page-rust,
+.page-noise,
+.page-vignette,
+.page-burn,
+.mouse-glow,
+.decor-chain,
+.side-hooks {
+  display: none;
+}
+
+.metal-panel {
+  background:
+    linear-gradient(180deg, rgba(255, 242, 222, 0.03), rgba(0, 0, 0, 0.36)),
+    linear-gradient(130deg, rgba(255,255,255,0.022) 0%, rgba(255,255,255,0.004) 15%, rgba(0,0,0,0.16) 36%, rgba(255,255,255,0.018) 58%, rgba(0,0,0,0.18) 80%, rgba(255,255,255,0.012) 100%),
+    url("/textures/aaa/metal-detail.png"),
+    url("/textures/aaa/metal-base.png"),
+    linear-gradient(180deg, rgba(84, 45, 32, 0.2), transparent 14%),
+    linear-gradient(180deg, rgba(49, 23, 19, 0.96) 0%, rgba(24, 10, 9, 0.98) 28%, rgba(8, 4, 4, 0.995) 100%);
+  background-size: auto, auto, 1120px 1120px, 1024px 1024px, auto, auto;
+  border: 1px solid rgba(255, 180, 125, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 245, 226, 0.08),
+    inset 0 0 0 1px rgba(255, 220, 186, 0.03),
+    inset 0 -42px 60px rgba(0, 0, 0, 0.42),
+    0 18px 38px rgba(0, 0, 0, 0.5),
+    var(--panel-reactive-glow);
+  backdrop-filter: blur(1.5px);
+}
+
+.metal-panel::before {
+  inset: 8px;
+  border: 1px solid rgba(255, 220, 188, 0.08);
+  background:
+    url("/textures/aaa/frame-overlay.png") center/100% 100% no-repeat,
+    linear-gradient(180deg, rgba(255, 255, 255, 0.016), transparent 16%, transparent 84%, rgba(255, 153, 80, 0.03)),
+    linear-gradient(90deg, rgba(255, 130, 44, 0.04), transparent 10%, transparent 90%, rgba(255, 130, 44, 0.04));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 245, 228, 0.05),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.28);
+}
+
+.metal-panel::after {
+  inset: 0;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(255, 184, 118, 0.16), transparent 14%),
+    radial-gradient(circle at 100% 0%, rgba(255, 184, 118, 0.12), transparent 14%),
+    radial-gradient(circle at 0% 100%, rgba(255, 139, 52, 0.1), transparent 14%),
+    radial-gradient(circle at 100% 100%, rgba(255, 139, 52, 0.12), transparent 14%),
+    linear-gradient(180deg, rgba(255,255,255,0.015), transparent 18%, transparent 82%, rgba(255,160,90,0.03));
+  opacity: 0.88;
+}
+
+.battered-panel::before {
+  inset: 14px 16px;
+  border: 1px solid rgba(255, 132, 44, 0.12);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.42),
+    0 0 22px rgba(255, 126, 42, 0.08),
+    0 0 40px rgba(255, 122, 46, calc(0.04 + var(--audio-reactive) * 0.06));
+}
+
+.hero-panel {
+  min-height: 224px;
+  padding: 24px 30px 20px;
+}
+
+.hero-logo-frame {
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.42),
+    0 0 30px rgba(255, 120, 36, 0.08);
+}
+
+.nav {
+  margin-top: 16px;
+}
+
+.feature-grid {
+  grid-template-columns: minmax(0, 1.36fr) minmax(320px, 0.92fr);
+  gap: 20px;
+  margin-top: 16px;
+}
+
+.auth-panel,
+.chat-panel,
+.news-panel,
+.gallery-panel,
+.site-footer,
+.events-panel,
+.merch-panel,
+.vinyl-panel,
+.radio-panel {
+  box-shadow:
+    inset 0 1px 0 rgba(255,245,226,0.06),
+    inset 0 -32px 40px rgba(0,0,0,0.34),
+    0 16px 34px rgba(0,0,0,0.44),
+    var(--panel-reactive-glow);
+}
+
+.section-title h3,
+.feature-panel-title h2 {
+  letter-spacing: 0.08em;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+}
+
+@media (max-width: 1080px) {
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.hero-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.hero-frame {
+  width: 1200px;
+  padding: 32px;
+}
+.js-reveal {
+  will-change: transform, opacity;
+}
+
+.metal-panel,
+.panel,
+.battered-panel {
+  backdrop-filter: blur(1.6px);
+}
+
+.events-panel,
+.merch-panel,
+.vinyl-panel,
+.radio-panel,
+.hero-panel {
+  isolation: isolate;
+}
