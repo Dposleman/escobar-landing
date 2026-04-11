@@ -20,8 +20,8 @@ import { Footer } from "./components/Footer";
 import "./styles/dynamic-panels.css";
 
 import BackgroundEngine from "./engine/BackgroundEngine";
-import EffectsEngine from "./engine/EffectsEngine";
-import ParticlesEngine from "./engine/ParticlesEngine";
+import { EffectsEngine } from "./engine/EffectsEngine";
+import { ParticlesEngine } from "./engine/ParticlesEngine";
 import LightSystem from "./engine/LightSystem";
 
 setLang("da");
@@ -30,8 +30,7 @@ function App() {
   const cms = useCms();
 
   const isAdminRoute =
-    typeof window !== "undefined" &&
-    window.location.pathname === "/admin";
+    typeof window !== "undefined" && window.location.pathname === "/admin";
 
   useEffect(() => {
     const cleanupReveal = revealPanels();
@@ -54,28 +53,20 @@ function App() {
     return <AdminPage />;
   }
 
-  /**
-   * 🔥 ADAPTADORES FASE 3 (CRÍTICO)
-   */
-
   const vinylVM = buildVinylViewModel(cms.state.radio);
 
-const vinylProps = {
-  title: vinylVM.release || "Unknown Track",
-  artist: vinylVM.artist || "ESCOBAR RADIO",
-  cover: vinylVM.coverImage || "/fallback.jpg",
-  bpm: 120,
-};
+  const vinylProps = {
+    title: vinylVM.release || "Unknown Track",
+    artist: vinylVM.artist || "ESCOBAR RADIO",
+    cover: vinylVM.coverImage || "/fallback.jpg",
+    bpm: 120,
+  };
 
   const radioProps = {
     title: cms.state.radio.title,
-    track:
-      cms.state.radio.nowPlaying?.track || "Live stream",
-    artist:
-      cms.state.radio.nowPlaying?.artist || "Escobar Radio",
-    embedUrl: buildSpotifyEmbedUrl(
-      cms.state.radio.spotifyUrl || ""
-    ),
+    track: cms.state.radio.nowPlaying?.track || "Live stream",
+    artist: cms.state.radio.nowPlaying?.artist || "Escobar Radio",
+    embedUrl: buildSpotifyEmbedUrl(cms.state.radio.spotifyUrl || ""),
   };
 
   return (
@@ -100,10 +91,8 @@ const vinylProps = {
 
         <main className="page-content">
           <Hero />
-
           <NavBar />
 
-          {/* 🔥 FIX TIPOS */}
           <section className="feature-grid">
             <VinylPanel vinyl={vinylProps} />
             <RadioPanel radio={radioProps} />
