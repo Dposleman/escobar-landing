@@ -9,6 +9,8 @@ type Props = {
   };
 };
 
+const EQ_BARS = [0, 1, 2, 3, 4, 5, 6];
+
 export function RadioPanel({ radio }: Props) {
   return (
     <section className="radio-panel metal-panel battered-panel js-reveal" id="radio">
@@ -29,7 +31,20 @@ export function RadioPanel({ radio }: Props) {
 
         <div className="radio-copy">
           <strong>{radio.title}</strong>
-          <div className="radio-trackline">{radio.artist} - {radio.track}</div>
+          <div className="radio-trackline">
+            {radio.artist} - {radio.track}
+          </div>
+
+          <div className="radio-eq" aria-hidden="true">
+            {EQ_BARS.map((bar) => (
+              <span
+                key={bar}
+                className="radio-eq-bar"
+                style={{ ["--bar-index" as string]: bar } as React.CSSProperties}
+              />
+            ))}
+          </div>
+
           <div className="radio-progress">
             <span className="radio-progress-fill" />
           </div>

@@ -22,13 +22,18 @@ export function VinylPanel({ vinyl }: Props) {
 
       <div className="vinyl-panel__layout">
         <div className="vinyl-panel__copy">
+          <span className="vinyl-panel__eyebrow">Tonight&apos;s featured release</span>
           <h3>{vinyl.artist}</h3>
           <h4>{vinyl.title}</h4>
-          <p>Released in heavy rotation</p>
-          <p>Playing tonight at Escobar</p>
+          <div className="vinyl-panel__meta">
+            <p>Released in heavy rotation</p>
+            <p>Playing tonight at Escobar</p>
+          </div>
         </div>
 
         <div className="vinyl-stage">
+          <div className="vinyl-stage-ambient" aria-hidden="true" />
+
           <div className="vinyl-cover-frame">
             <img src={vinyl.cover} alt={`${vinyl.artist} cover`} className="vinyl-cover-art" />
           </div>

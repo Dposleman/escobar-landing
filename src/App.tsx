@@ -18,10 +18,12 @@ import { AdminPage } from "./pages/AdminPage";
 import { setLang } from "./i18n/useLang";
 import { Footer } from "./components/Footer";
 import "./styles/dynamic-panels.css";
+import "./styles/final-polish.css";
 
 import BackgroundEngine from "./engine/BackgroundEngine";
 import { EffectsEngine } from "./engine/EffectsEngine";
 import { ParticlesEngine } from "./engine/ParticlesEngine";
+import { AudioReactiveEngine } from "./engine/AudioReactiveEngine";
 import LightSystem from "./engine/LightSystem";
 
 setLang("da");
@@ -74,6 +76,7 @@ function App() {
       <BackgroundEngine />
       <EffectsEngine />
       <ParticlesEngine />
+      <AudioReactiveEngine />
       <LightSystem />
 
       <div className="app-shell">
