@@ -33,12 +33,17 @@
 
 .bg-metal-base {
   background:
-    linear-gradient(180deg, rgba(255, 241, 225, 0.03), rgba(0, 0, 0, 0.26)),
-    url("/textures/aaa/metal-base.png");
-  background-size: cover, 950px 950px;
+    radial-gradient(circle at 50% 18%, rgba(255, 170, 96, 0.045), transparent 18%),
+    radial-gradient(circle at 18% 28%, rgba(255, 118, 40, 0.05), transparent 20%),
+    radial-gradient(circle at 84% 74%, rgba(255, 118, 40, 0.06), transparent 22%),
+    repeating-linear-gradient(112deg, rgba(255, 255, 255, 0.014) 0 1px, transparent 1px 20px),
+    repeating-linear-gradient(24deg, rgba(0, 0, 0, 0.2) 0 2px, transparent 2px 28px),
+    linear-gradient(180deg, rgba(255, 241, 225, 0.02), rgba(0, 0, 0, 0.28)),
+    linear-gradient(180deg, #24100c 0%, #140806 32%, #0b0403 100%);
+  background-size: auto, auto, auto, auto, auto, auto, auto;
   background-position: center;
   mix-blend-mode: normal;
-  opacity: 0.94;
+  opacity: 0.96;
 }
 
 .bg-metal-detail {
@@ -53,14 +58,17 @@
 
 .bg-grime {
   background:
-    radial-gradient(circle at 12% 84%, rgba(255, 98, 22, 0.16), transparent 18%),
-    radial-gradient(circle at 88% 18%, rgba(255, 98, 22, 0.11), transparent 12%),
-    radial-gradient(circle at 82% 72%, rgba(255, 132, 48, 0.08), transparent 16%),
-    url("/textures/aaa/grime-overlay.png");
-  background-size: cover, cover, cover, 1200px 1200px;
+    radial-gradient(circle at 12% 84%, rgba(255, 98, 22, 0.14), transparent 18%),
+    radial-gradient(circle at 88% 18%, rgba(255, 98, 22, 0.1), transparent 12%),
+    radial-gradient(circle at 82% 72%, rgba(255, 132, 48, 0.07), transparent 16%),
+    radial-gradient(circle at 22% 18%, rgba(0, 0, 0, 0.42) 0 7%, transparent 13%),
+    radial-gradient(circle at 66% 32%, rgba(0, 0, 0, 0.34) 0 10%, transparent 18%),
+    radial-gradient(circle at 74% 82%, rgba(0, 0, 0, 0.36) 0 8%, transparent 14%),
+    radial-gradient(circle at 40% 68%, rgba(90, 30, 16, 0.16) 0 12%, transparent 20%);
+  background-size: auto, auto, auto, auto, auto, auto, auto;
   background-position: center;
   mix-blend-mode: overlay;
-  opacity: 0.58;
+  opacity: 0.5;
 }
 
 .bg-noise {
