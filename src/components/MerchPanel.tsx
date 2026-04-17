@@ -17,7 +17,7 @@ export function MerchPanel({ merch }: MerchPanelProps) {
 
       <div className="merch-grid">
         {items.map((item) => (
-          <article className="merch-item" key={item.id}>
+          <article className={`merch-item merch-item--${item.variant}`} key={item.id}>
             <div className={`merch-visual ${item.variant}`} aria-hidden="true">
               <div className="merch-glow" />
               <div className="merch-graphic">

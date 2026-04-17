@@ -34,6 +34,7 @@ export function VinylPanel({ vinyl }: Props) {
         <div className="vinyl-stage">
           <div className="vinyl-stage-ambient" aria-hidden="true" />
           <div className="vinyl-stage-frame" aria-hidden="true" />
+          <div className="vinyl-stage-burn" aria-hidden="true" />
 
           <div className="vinyl-cover-frame">
             <img src={vinyl.cover} alt={`${vinyl.artist} cover`} className="vinyl-cover-art" />
