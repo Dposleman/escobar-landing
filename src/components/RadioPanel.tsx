@@ -31,12 +31,12 @@ export function RadioPanel({ radio }: Props) {
           </div>
 
           <div className="radio-copy">
-            <div className="radio-copy-topline">{radio.title}</div>
+            <div className="radio-copy-topline">Escobar Radio</div>
 
             <div className="radio-title-block">
-              <strong className="radio-station">{radio.artist}</strong>
+              <strong className="radio-station">{radio.title}</strong>
               <div className="radio-trackline">
-                <span className="radio-track">{radio.track}</span>
+                <span className="radio-track">{radio.artist} - {radio.track}</span>
               </div>
             </div>
 

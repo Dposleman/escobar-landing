@@ -51,9 +51,7 @@ export function EventsPanel({ events }: { events: EventItem[] }) {
                   <h4>{event.title}</h4>
                   <span className="event-row-date">{event.date}</span>
                 </div>
-                {getEventMeta(event) ? (
-                  <span className="event-row-meta">{getEventMeta(event)}</span>
-                ) : null}
+                {getEventMeta(event) ? <span className="event-row-meta">{getEventMeta(event)}</span> : null}
               </div>
             </article>
           ))}
