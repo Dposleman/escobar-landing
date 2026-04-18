@@ -278,3 +278,18 @@
     width: 112px;
   }
 }
+.vinyl-panel {
+  padding: 18px 18px 16px;
+  transform: scale(1.02);
+  transform-origin: top left;
+}
+
+/* tighten internal layout slightly */
+.vinyl-panel__layout {
+  gap: 14px;
+}
+
+/* reinforce stage presence */
+.vinyl-stage {
+  margin-top: 6px;
+}

@@ -5142,3 +5142,20 @@ body::after {
     min-height: 42px;
   }
 }
+.feature-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.72fr) minmax(300px, 0.68fr);
+  gap: 12px;
+  margin-top: 10px;
+  align-items: stretch;
+}
+
+/* HARD LOCK between panels */
+.feature-grid > * {
+  height: 100%;
+}
+
+/* Slight inward compression */
+.feature-grid {
+  transform: translateY(-4px);
+}
