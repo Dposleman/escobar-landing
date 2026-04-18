@@ -4598,3 +4598,127 @@ body::after {
     drop-shadow(0 0 6px rgba(255,120,60,0.4))
     drop-shadow(0 0 12px rgba(255,80,20,0.2));
 }
+/* =========================================
+   PHASE 8.2 — HERO LOGO FRAME ASSET
+========================================= */
+
+.hero-logo-frame {
+  position: relative;
+  width: min(100%, 706px);
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.hero-logo-frame::before,
+.hero-logo-frame::after {
+  display: none;
+}
+
+.escobar-logo-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 49 / 13;
+  filter: drop-shadow(0 12px 14px rgba(0, 0, 0, 0.34));
+}
+
+.escobar-logo-frame::before {
+  content: "";
+  position: absolute;
+  inset: 5.5% 10.5% 22%;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 162, 93, 0.18), transparent 56%),
+    linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.015) 30%, rgba(0,0,0,0.26) 100%);
+  mix-blend-mode: screen;
+  opacity: 0.78;
+  pointer-events: none;
+}
+
+.escobar-logo-frame::after {
+  content: "";
+  position: absolute;
+  inset: 8% 11% 19%;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(255, 208, 167, 0.16) 17%, rgba(255, 132, 43, 0.09) 31%, rgba(255, 132, 43, 0.07) 69%, rgba(255, 208, 167, 0.14) 83%, transparent 100%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.012) 0 1px, transparent 1px 42px);
+  opacity: 0.54;
+  pointer-events: none;
+}
+
+.escobar-logo-frame-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.escobar-logo-frame-title-wrap {
+  position: absolute;
+  inset: 16% 14% 26%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+}
+
+.escobar-logo-frame-title {
+  position: relative;
+  display: block;
+  font-size: clamp(3.8rem, 7vw, 6.15rem);
+  line-height: 0.82;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+  color: #f1e4d2;
+  text-shadow:
+    0 1px 0 rgba(255,255,255,0.22),
+    0 0 20px rgba(255, 138, 54, 0.16),
+    0 6px 16px rgba(0,0,0,0.4);
+}
+
+.escobar-logo-frame-title::before {
+  content: "";
+  position: absolute;
+  left: 1%;
+  right: 1%;
+  top: 56%;
+  height: 34%;
+  background: linear-gradient(180deg, rgba(0,0,0,0), rgba(57, 24, 14, 0.26) 44%, rgba(0,0,0,0));
+  mix-blend-mode: multiply;
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.hero-logo-text {
+  display: none;
+}
+
+.hero-meta {
+  margin-top: 8px;
+}
+
+@media (max-width: 980px) {
+  .hero-logo-frame {
+    width: min(100%, 640px);
+  }
+
+  .escobar-logo-frame-title {
+    letter-spacing: 0.03em;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-logo-frame {
+    width: 100%;
+  }
+
+  .escobar-logo-frame-title-wrap {
+    inset: 18% 12% 28%;
+  }
+
+  .escobar-logo-frame-title {
+    font-size: clamp(2.85rem, 12vw, 4.1rem);
+    letter-spacing: 0.028em;
+  }
+}
