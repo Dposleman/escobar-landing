@@ -1,5 +1,6 @@
 import { useLang } from "../i18n/useLang";
 import EscobarLogoFrame from "./EscobarLogoFrame";
+import EscobarCounter from "./EscobarCounter";
 
 export function Hero() {
   const t = useLang();
@@ -35,12 +36,12 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="hero-counter metal-badge js-pulse">
-          <div className="hero-counter-copy">
-            <span>{t.heroCounterLine1}</span>
-            <span>{t.heroCounterLine2}</span>
-          </div>
-          <strong>{t.heroCounterValue}</strong>
+        <div className="hero-counter">
+          <EscobarCounter
+            value={t.heroCounterValue}
+            line1={t.heroCounterLine1}
+            line2={t.heroCounterLine2}
+          />
         </div>
       </div>
 
