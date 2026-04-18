@@ -1798,10 +1798,11 @@ body::after {
 
 .feature-grid {
   position: relative;
-  grid-template-columns: minmax(0, 1.52fr) minmax(332px, 0.8fr);
-  gap: 14px;
-  margin-top: 12px;
+  grid-template-columns: minmax(0, 1.5fr) minmax(330px, 0.78fr);
+  gap: 16px;
+  margin-top: 14px;
 }
+
 
 .feature-grid::before {
   content: "";
@@ -1819,6 +1820,7 @@ body::after {
   pointer-events: none;
   z-index: 3;
 }
+
 
 .vinyl-panel,
 .radio-panel {
@@ -2703,4 +2705,72 @@ body::after {
     width: 100%;
     min-height: 42px;
   }
+}
+/* === FASE 10 — SHARED TEXTURE + GLOW + VIGNETTE SYSTEM === */
+.page-content {
+  position: relative;
+}
+
+.page-content::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url('/textures/vignette.png') center / cover no-repeat;
+  mix-blend-mode: multiply;
+  opacity: 0.38;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.feature-grid {
+  position: relative;
+}
+
+.feature-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    url('/textures/noise.png'),
+    url('/textures/scratches.png'),
+    url('/textures/grime.png');
+  background-size:
+    140px 140px,
+    420px 420px,
+    600px 600px;
+  background-repeat: repeat;
+  background-position: center;
+  opacity: 0.9;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.feature-grid::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    url('/textures/glow-top.png'),
+    url('/textures/glow-mid.png'),
+    url('/textures/glow-bottom.png');
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-size:
+    100% 36%,
+    100% 42%,
+    100% 38%;
+  background-position:
+    top center,
+    center center,
+    bottom center;
+  opacity: 0.55;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.vinyl-panel,
+.radio-panel {
+  position: relative;
+  z-index: 5;
 }
