@@ -5199,3 +5199,86 @@ body::after {
   pointer-events: none;
   z-index: 0;
 }
+.feature-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.72fr) minmax(300px, 0.68fr);
+  gap: 10px;
+  margin-top: 6px;
+  align-items: start;
+  position: relative;
+  isolation: isolate;
+}
+
+/* =========================
+   🔥 TEXTURA GLOBAL COMPARTIDA
+========================= */
+
+.feature-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  /* 🔥 MISMA TEXTURA PARA AMBOS */
+  background-image:
+    url('/textures/noise.png'),
+    url('/textures/scratches.png');
+
+  background-size:
+    220px 220px,
+    480px 480px;
+
+  background-repeat: repeat;
+
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* =========================
+   🔥 LIGHT SWEEP GLOBAL
+========================= */
+
+.feature-grid::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255, 140, 40, 0.12) 45%,
+    rgba(255, 180, 80, 0.18) 50%,
+    rgba(255, 140, 40, 0.12) 55%,
+    transparent 70%
+  );
+
+  opacity: 0.6;
+  mix-blend-mode: screen;
+
+  pointer-events: none;
+  z-index: 4;
+
+  animation: escobarSweep 6s linear infinite;
+}
+
+/* ANIMACIÓN SUTIL */
+@keyframes escobarSweep {
+  0% {
+    transform: translateX(-40%);
+  }
+  100% {
+    transform: translateX(40%);
+  }
+}
+
+/* =========================
+   BASE SHADOW (mantener)
+========================= */
+
+.feature-grid::marker { content: none; } /* fix raro CSS */
+
+.feature-grid-shadow {
+  position: absolute;
+}
