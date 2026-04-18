@@ -5159,3 +5159,43 @@ body::after {
 .feature-grid {
   transform: translateY(-4px);
 }
+.feature-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.72fr) minmax(300px, 0.68fr);
+  gap: 10px; /* más apretado aún */
+  margin-top: 6px;
+
+  /* 🔥 CLAVE: alineación real */
+  align-items: start;
+}
+
+/* eliminar cualquier drift */
+.feature-grid > * {
+  height: auto;
+  margin: 0;
+}
+
+/* 🔥 PLANO COMPARTIDO */
+.feature-grid {
+  position: relative;
+}
+
+/* sombra base continua */
+.feature-grid::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 18px;
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.25) 40%,
+    transparent 80%
+  );
+
+  pointer-events: none;
+  z-index: 0;
+}

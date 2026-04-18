@@ -400,3 +400,52 @@
   transform: scale(0.96);
   transform-origin: top right;
 }
+.radio-panel {
+  padding: 12px 14px 10px;
+
+  /* ❌ eliminamos scale previo */
+  transform: none;
+
+  position: relative;
+  z-index: 2;
+}
+
+/* 🔥 BORDE SUPERIOR ALINEADO EXACTO */
+.radio-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -4px;
+  right: 0;
+  height: 2px;
+
+  background: linear-gradient(
+    to left,
+    rgba(255, 140, 40, 0.6),
+    rgba(255, 140, 40, 0.2),
+    transparent
+  );
+}
+
+/* 🔥 SOMBRA QUE RECIBE DEL VINYL */
+.radio-panel::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: -6px;
+  width: 18px;
+  height: 85%;
+
+  background: linear-gradient(
+    to left,
+    rgba(0, 0, 0, 0.4),
+    transparent
+  );
+
+  pointer-events: none;
+}
+
+/* 🔥 micro ajuste vertical fino */
+.radio-panel {
+  margin-top: 0;
+}

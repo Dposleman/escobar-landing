@@ -293,3 +293,47 @@
 .vinyl-stage {
   margin-top: 6px;
 }
+.vinyl-panel {
+  padding: 18px 18px 16px;
+
+  /* ❌ quitamos cualquier offset previo */
+  transform: none;
+
+  position: relative;
+  z-index: 2;
+}
+
+/* 🔥 BORDE SUPERIOR DEFINIDO */
+.vinyl-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: -4px;
+  height: 2px;
+
+  background: linear-gradient(
+    to right,
+    rgba(255, 140, 40, 0.6),
+    rgba(255, 140, 40, 0.2),
+    transparent
+  );
+}
+
+/* 🔥 SOMBRA LATERAL COMPARTIDA */
+.vinyl-panel::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  right: -6px;
+  width: 18px;
+  height: 85%;
+
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.35),
+    transparent
+  );
+
+  pointer-events: none;
+}
