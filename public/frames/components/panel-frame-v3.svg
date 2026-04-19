@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="frame" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#482319"/>
+      <stop offset="0.18" stop-color="#d39b68"/>
+      <stop offset="0.5" stop-color="#6f3621"/>
+      <stop offset="0.82" stop-color="#d39b68"/>
+      <stop offset="1" stop-color="#482319"/>
+    </linearGradient>
+  </defs>
+  <rect x="10" y="10" width="1580" height="980" fill="none" stroke="url(#frame)" stroke-opacity="0.52" stroke-width="2.6"/>
+  <rect x="26" y="26" width="1548" height="948" fill="none" stroke="#bb7648" stroke-opacity="0.18" stroke-width="1.2"/>
+  <path d="M56 70h420M1124 70h420M56 930h420M1124 930h420" fill="none" stroke="#dfaa79" stroke-opacity="0.13" stroke-width="1"/>
+  <path d="M10 120h56M10 880h56M1534 120h56M1534 880h56" fill="none" stroke="#c58050" stroke-opacity="0.22" stroke-width="1.1"/>
+  <path d="M74 26h84M1442 26h84M74 974h84M1442 974h84" fill="none" stroke="#f0c7a2" stroke-opacity="0.1" stroke-width="0.9"/>
+  <path d="M24 24l26 0 18 16M1576 24l-26 0 -18 16M24 976l26 0 18 -16M1576 976l-26 0 -18 -16" fill="none" stroke="#d89a6a" stroke-opacity="0.24" stroke-width="1.4" stroke-linecap="round"/>
+</svg>
