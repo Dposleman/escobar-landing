@@ -2504,7 +2504,7 @@ body {
     linear-gradient(180deg, rgba(255, 242, 222, 0.03), rgba(0, 0, 0, 0.36)),
     linear-gradient(130deg, rgba(255,255,255,0.022) 0%, rgba(255,255,255,0.004) 15%, rgba(0,0,0,0.16) 36%, rgba(255,255,255,0.018) 58%, rgba(0,0,0,0.18) 80%, rgba(255,255,255,0.012) 100%),
     url("/textures/aaa/metal-detail.png"),
-    url("/textures/aaa/metal-base.png"),
+    url("/textures/aaa/background-metal-premium.png"),
     linear-gradient(180deg, rgba(84, 45, 32, 0.2), transparent 14%),
     linear-gradient(180deg, rgba(49, 23, 19, 0.96) 0%, rgba(24, 10, 9, 0.98) 28%, rgba(8, 4, 4, 0.995) 100%);
   background-size: auto, auto, 1120px 1120px, 1024px 1024px, auto, auto;
@@ -2533,12 +2533,9 @@ body {
 .metal-panel::after {
   inset: 0;
   background:
-    radial-gradient(circle at 0% 0%, rgba(255, 184, 118, 0.16), transparent 14%),
-    radial-gradient(circle at 100% 0%, rgba(255, 184, 118, 0.12), transparent 14%),
-    radial-gradient(circle at 0% 100%, rgba(255, 139, 52, 0.1), transparent 14%),
-    radial-gradient(circle at 100% 100%, rgba(255, 139, 52, 0.12), transparent 14%),
-    linear-gradient(180deg, rgba(255,255,255,0.015), transparent 18%, transparent 82%, rgba(255,160,90,0.03));
-  opacity: 0.88;
+    linear-gradient(180deg, rgba(255,255,255,0.012), transparent 18%, transparent 82%, rgba(255,160,90,0.025)),
+    linear-gradient(90deg, rgba(255, 156, 92, 0.025), transparent 10%, transparent 90%, rgba(255, 156, 92, 0.025));
+  opacity: 0.72;
 }
 
 .battered-panel::before {
@@ -2626,20 +2623,20 @@ body {
   isolation: isolate;
 }
 
-/* ===== BACKGROUND HARD FIX: remove circular blob overlays ===== */
+/* ===== BACKGROUND PREMIUM OVERRIDES ===== */
 body {
   background:
-    linear-gradient(180deg, rgba(6, 3, 2, 0.92), rgba(6, 3, 2, 0.96)),
-    url("/textures/aaa/background-wall-applied.png") center top / cover no-repeat fixed,
+    linear-gradient(180deg, rgba(5, 3, 3, 0.74), rgba(5, 3, 3, 0.9)),
+    url("/textures/aaa/background-metal-premium.png") center top / cover no-repeat fixed,
     #050202 !important;
 }
 
 .page-base {
   display: block !important;
-  opacity: 0.88 !important;
+  opacity: 0.96 !important;
   background:
-    linear-gradient(180deg, rgba(8, 4, 3, 0.12), rgba(0, 0, 0, 0.28)),
-    url("/textures/aaa/background-wall-applied.png") center top / cover no-repeat !important;
+    linear-gradient(180deg, rgba(8, 4, 3, 0.08), rgba(0, 0, 0, 0.18)),
+    url("/textures/aaa/background-metal-premium.png") center top / cover no-repeat !important;
 }
 
 .page-rust,
@@ -2651,5 +2648,5 @@ body {
 .page-vignette {
   background:
     url("/textures/aaa/vignette.png") center/cover no-repeat,
-    radial-gradient(circle at center, transparent 38%, rgba(0, 0, 0, 0.26) 66%, rgba(0, 0, 0, 0.72) 100%) !important;
+    radial-gradient(circle at center, transparent 46%, rgba(0, 0, 0, 0.18) 72%, rgba(0, 0, 0, 0.58) 100%) !important;
 }

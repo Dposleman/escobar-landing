@@ -3061,19 +3061,720 @@ body::after {
   }
 }
 
+/* =========================================
+   PHASE 12 — AAA VISUAL FINAL
+   Focus: real frame system, disciplined light,
+   pressed-metal depth, material response,
+   tighter vinyl/radio matching.
+========================================= */
+:root {
+  --phase12-frame-outer: rgba(255, 186, 126, 0.16);
+  --phase12-frame-inner: rgba(255, 223, 190, 0.06);
+  --phase12-frame-shadow: rgba(0, 0, 0, 0.58);
+  --phase12-hot: rgba(255, 126, 34, 0.12);
+  --phase12-hot-strong: rgba(255, 154, 74, 0.22);
+  --phase12-cold: rgba(255, 225, 196, 0.04);
+  --phase12-pressed: rgba(0, 0, 0, 0.42);
+}
 
-/* ===== BACKGROUND HARD FIX OVERRIDES ===== */
+.feature-grid {
+  grid-template-columns: minmax(0, 1.56fr) minmax(320px, 0.76fr);
+  gap: 11px;
+  margin-top: 11px;
+}
+
+.feature-grid::before {
+  opacity: 0.68;
+  background-image:
+    url('/textures/aaa/noise.png'),
+    url('/textures/aaa/scratches.png'),
+    url('/textures/aaa/grime-overlay.png');
+  background-size:
+    136px 136px,
+    430px 430px,
+    cover;
+}
+
+.feature-grid::after {
+  opacity: 0.42;
+  background-image:
+    radial-gradient(circle at 8% 72%, rgba(255, 118, 29, 0.18), transparent 14%),
+    radial-gradient(circle at 94% 14%, rgba(255, 214, 183, 0.05), transparent 16%),
+    url('/textures/aaa/glow-zone-bottom.png');
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-position: left bottom, right top, center center;
+  background-size: 24% 34%, 22% 28%, cover;
+}
+
+.vinyl-panel,
+.radio-panel,
+.events-panel,
+.merch-panel,
+.nav {
+  isolation: isolate;
+}
+
+.vinyl-panel,
+.radio-panel,
+.events-panel,
+.merch-panel {
+  border-color: var(--phase12-frame-outer);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 239, 221, 0.07),
+    inset 0 0 0 1px rgba(255, 214, 181, 0.03),
+    inset 0 -36px 48px rgba(0, 0, 0, 0.5),
+    inset 12px 0 24px rgba(0, 0, 0, 0.07),
+    inset -12px 0 24px rgba(0, 0, 0, 0.07),
+    0 26px 48px rgba(0, 0, 0, 0.46),
+    0 0 24px rgba(255, 118, 32, 0.05);
+}
+
+.vinyl-panel::after,
+.radio-panel::after,
+.events-panel::after,
+.merch-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    url('/textures/aaa/frame-overlay.png') center / cover no-repeat,
+    linear-gradient(180deg, rgba(255, 232, 205, 0.09), transparent 8%, transparent 92%, rgba(255, 121, 34, 0.06)),
+    linear-gradient(90deg, rgba(255, 214, 178, 0.07), transparent 9%, transparent 91%, rgba(255, 120, 34, 0.06));
+  mix-blend-mode: screen;
+  opacity: 0.78;
+}
+
+.vinyl-panel > *,
+.radio-panel > *,
+.events-panel > *,
+.merch-panel > * {
+  position: relative;
+  z-index: 2;
+}
+
+.vinyl-panel {
+  min-height: 598px;
+  padding: 14px 17px 18px;
+  background:
+    radial-gradient(circle at 16% 78%, rgba(255, 118, 30, 0.13), transparent 18%),
+    radial-gradient(circle at 84% 14%, rgba(255, 228, 200, 0.05), transparent 20%),
+    linear-gradient(180deg, rgba(255,255,255,0.018), rgba(0,0,0,0.14) 16%, rgba(0,0,0,0.28) 100%),
+    linear-gradient(180deg, rgba(42, 17, 14, 0.97), rgba(8, 3, 3, 0.995));
+}
+
+.vinyl-panel::before {
+  background:
+    radial-gradient(circle at 14% 78%, rgba(255, 126, 36, 0.17), transparent 17%),
+    radial-gradient(circle at 74% 22%, rgba(255, 214, 184, 0.05), transparent 18%),
+    linear-gradient(180deg, rgba(255, 235, 210, 0.04), transparent 12%, transparent 84%, rgba(255, 118, 29, 0.04));
+}
+
+.vinyl-panel__layout {
+  grid-template-columns: minmax(248px, 0.88fr) minmax(404px, 1.12fr);
+  gap: 10px;
+}
+
+.vinyl-panel__copy {
+  padding-top: 16px;
+}
+
+.vinyl-panel__copy h3 {
+  font-size: clamp(3.52rem, 5vw, 5.24rem);
+  line-height: 0.84;
+}
+
+.vinyl-panel__copy h4 {
+  font-size: clamp(2.38rem, 3.54vw, 3.24rem);
+}
+
+.vinyl-panel__meta {
+  gap: 8px;
+}
+
+.vinyl-panel__meta p:first-child {
+  font-size: 1.66rem;
+}
+
+.vinyl-stage {
+  min-height: 470px;
+}
+
+.vinyl-stage-frame,
+.vinyl-stage-burn,
+.vinyl-stage-ambient {
+  position: absolute;
+  pointer-events: none;
+}
+
+.vinyl-stage-frame {
+  inset: 10px 8px 26px 6px;
+  border: 1px solid rgba(255, 184, 122, 0.08);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 218, 186, 0.03),
+    inset 0 22px 30px rgba(255, 228, 205, 0.02),
+    inset 0 -30px 44px rgba(0, 0, 0, 0.32),
+    inset 14px 0 18px rgba(0, 0, 0, 0.08),
+    inset -14px 0 18px rgba(0, 0, 0, 0.08);
+}
+
+.vinyl-stage-frame::before,
+.vinyl-stage-frame::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.vinyl-stage-frame::before {
+  inset: 8px;
+  border: 1px solid rgba(255, 217, 184, 0.04);
+}
+
+.vinyl-stage-frame::after {
+  inset: 0;
+  background:
+    url('/textures/aaa/frame-horizontal.png') top center / 100% 20px no-repeat,
+    url('/textures/aaa/frame-horizontal.png') bottom center / 100% 20px no-repeat,
+    url('/textures/aaa/frame-vertical.png') left center / 20px 100% no-repeat,
+    url('/textures/aaa/frame-vertical.png') right center / 20px 100% no-repeat,
+    url('/textures/aaa/frame-corner.png') left top / 32px 32px no-repeat,
+    url('/textures/aaa/frame-corner.png') right top / 32px 32px no-repeat,
+    url('/textures/aaa/frame-corner.png') left bottom / 32px 32px no-repeat,
+    url('/textures/aaa/frame-corner.png') right bottom / 32px 32px no-repeat;
+  opacity: 0.4;
+  mix-blend-mode: screen;
+}
+
+.vinyl-stage-ambient {
+  inset: 0;
+  background:
+    radial-gradient(circle at 12% 84%, rgba(255, 118, 29, 0.16), transparent 20%),
+    radial-gradient(circle at 52% 54%, rgba(0, 0, 0, 0.14), transparent 34%),
+    radial-gradient(circle at 84% 18%, rgba(255, 224, 194, 0.05), transparent 15%);
+}
+
+.vinyl-stage-burn {
+  left: 0;
+  right: 0;
+  bottom: 14px;
+  height: 112px;
+  background:
+    radial-gradient(circle at 10% 62%, rgba(255, 236, 194, 0.95) 0 0.7%, rgba(255, 136, 45, 0.6) 2.4%, rgba(255, 100, 21, 0.14) 8%, transparent 16%),
+    radial-gradient(circle at 30% 76%, rgba(255, 144, 54, 0.18), transparent 16%),
+    linear-gradient(90deg, rgba(255, 124, 36, 0.06), transparent 48%, transparent 100%);
+  filter: blur(1px);
+  opacity: 0.96;
+}
+
+.turntable-body {
+  height: 304px;
+  border-color: rgba(255, 188, 126, 0.18);
+  background:
+    radial-gradient(circle at 16% 82%, rgba(255, 132, 44, 0.17), transparent 15%),
+    radial-gradient(circle at 80% 18%, rgba(255, 222, 192, 0.05), transparent 18%),
+    linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.16) 16%, rgba(0,0,0,0.46)),
+    linear-gradient(180deg, rgba(72, 32, 26, 0.97), rgba(11, 5, 5, 0.995));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 236, 214, 0.05),
+    inset 0 0 0 1px rgba(255, 212, 176, 0.03),
+    inset 0 -34px 44px rgba(0, 0, 0, 0.5),
+    inset 18px 0 24px rgba(0, 0, 0, 0.11),
+    inset -18px 0 24px rgba(0, 0, 0, 0.11),
+    0 26px 42px rgba(0,0,0,0.42),
+    0 0 22px rgba(255, 124, 36, 0.04);
+}
+
+.turntable-body::before {
+  inset: 10px;
+  border-color: rgba(255, 210, 174, 0.07);
+  box-shadow:
+    inset 0 14px 18px rgba(255,255,255,0.015),
+    inset 0 -22px 28px rgba(0,0,0,0.2);
+}
+
+.turntable-body::after {
+  background:
+    url('/textures/aaa/metal-detail.png') center / cover no-repeat,
+    linear-gradient(180deg, rgba(255, 236, 212, 0.05), transparent 12%),
+    linear-gradient(90deg, rgba(255, 210, 174, 0.05), transparent 10%, transparent 90%, rgba(255, 124, 36, 0.05)),
+    repeating-linear-gradient(155deg, rgba(255,255,255,0.012) 0 1px, transparent 1px 18px);
+  opacity: 0.46;
+  mix-blend-mode: screen;
+}
+
+.turntable-platter .vinyl {
+  width: 286px;
+  height: 286px;
+}
+
+.turntable-top-glow {
+  left: 16px;
+  bottom: 10px;
+  width: 152px;
+  height: 152px;
+  background: radial-gradient(circle, rgba(255, 126, 36, 0.42), rgba(255, 117, 29, 0.08) 44%, transparent 68%);
+  filter: blur(18px);
+}
+
+.turntable-controls {
+  right: 22px;
+  bottom: 20px;
+  gap: 14px;
+}
+
+.turntable-light {
+  box-shadow:
+    0 0 18px rgba(255, 126, 36, 0.88),
+    0 0 34px rgba(255, 118, 28, 0.18);
+}
+
+.turntable-slider {
+  background:
+    linear-gradient(180deg, rgba(110, 64, 48, 0.92), rgba(14, 8, 8, 0.98));
+}
+
+.turntable-body .needle {
+  top: 28px;
+  left: 240px;
+}
+
+.vinyl-cover-frame {
+  top: 18px;
+  right: 26px;
+  width: 226px;
+  height: 268px;
+  transform: rotate(-5deg);
+  border-color: rgba(255, 190, 130, 0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 214, 0.05),
+    inset 0 -24px 30px rgba(0,0,0,0.42),
+    inset 10px 0 16px rgba(0,0,0,0.06),
+    inset -10px 0 16px rgba(0,0,0,0.06),
+    0 18px 30px rgba(0,0,0,0.36);
+}
+
+.vinyl-cover-frame::before {
+  inset: 6px;
+  border-color: rgba(255, 214, 180, 0.08);
+}
+
+.vinyl-cover-art {
+  filter: contrast(1.1) brightness(0.84) saturate(0.88);
+}
+
+.radio-panel {
+  min-height: 598px;
+  padding: 9px 9px 11px;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 144, 54, 0.06), transparent 18%),
+    radial-gradient(circle at 82% 82%, rgba(255, 116, 28, 0.1), transparent 20%),
+    linear-gradient(180deg, rgba(255,255,255,0.014), rgba(0,0,0,0.1) 12%, rgba(0,0,0,0.22) 100%),
+    linear-gradient(180deg, rgba(29, 11, 10, 0.975), rgba(7, 2, 2, 0.995));
+}
+
+.radio-panel::before {
+  background:
+    radial-gradient(circle at 14% 12%, rgba(255, 150, 64, 0.08), transparent 16%),
+    radial-gradient(circle at 88% 88%, rgba(255, 120, 31, 0.08), transparent 18%),
+    linear-gradient(180deg, rgba(255,255,255,0.01), transparent 14%, transparent 84%, rgba(255,132,47,0.04));
+}
+
+.radio-panel::after {
+  background:
+    url('/textures/aaa/frame-overlay.png') center / cover no-repeat,
+    radial-gradient(circle at 4% 7%, rgba(255, 206, 168, 0.18) 0 0.8px, transparent 1.2px),
+    radial-gradient(circle at 96% 8%, rgba(255, 206, 168, 0.15) 0 0.8px, transparent 1.2px),
+    radial-gradient(circle at 4% 94%, rgba(255, 206, 168, 0.12) 0 0.8px, transparent 1.2px),
+    radial-gradient(circle at 96% 94%, rgba(255, 206, 168, 0.12) 0 0.8px, transparent 1.2px),
+    linear-gradient(180deg, rgba(255, 226, 196, 0.08), transparent 10%, transparent 90%, rgba(255, 118, 30, 0.04));
+  opacity: 0.72;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 206, 172, 0.04),
+    inset 0 16px 24px rgba(255, 232, 210, 0.02),
+    inset 0 -30px 40px rgba(0, 0, 0, 0.28),
+    inset 12px 0 20px rgba(0,0,0,0.09),
+    inset -12px 0 20px rgba(0,0,0,0.09);
+}
+
+.radio-header {
+  margin-bottom: 8px;
+  font-size: clamp(1.34rem, 1.62vw, 1.84rem);
+  letter-spacing: 0.025em;
+}
+
+.radio-header span:first-child::after {
+  bottom: -4px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 141, 55, 0.38), transparent 92%);
+}
+
+.radio-header .live {
+  min-height: 28px;
+  padding: 5px 8px 6px;
+  border-color: rgba(255, 171, 98, 0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 233, 209, 0.05),
+    0 0 14px rgba(255, 115, 31, 0.08);
+}
+
+.radio-shell {
+  padding: 7px;
+  border-color: rgba(255, 182, 121, 0.1);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.012), rgba(0,0,0,0.13) 16%, rgba(0,0,0,0.38) 100%),
+    linear-gradient(180deg, rgba(39, 15, 13, 0.97), rgba(8, 3, 3, 0.995));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 232, 208, 0.03),
+    inset 0 0 0 1px rgba(255, 214, 180, 0.02),
+    inset 0 -28px 36px rgba(0, 0, 0, 0.5),
+    inset 12px 0 18px rgba(0,0,0,0.09),
+    inset -12px 0 18px rgba(0,0,0,0.09),
+    0 12px 22px rgba(0, 0, 0, 0.28);
+}
+
+.radio-shell::before {
+  inset: 5px;
+  border-color: rgba(255, 206, 172, 0.05);
+}
+
+.radio-shell::after {
+  background:
+    url('/textures/aaa/frame-horizontal.png') top center / 100% 12px no-repeat,
+    url('/textures/aaa/frame-horizontal.png') bottom center / 100% 12px no-repeat,
+    linear-gradient(180deg, rgba(255, 226, 194, 0.07), transparent 13%, transparent 87%, rgba(255, 120, 34, 0.04)),
+    linear-gradient(90deg, rgba(255, 205, 168, 0.05), transparent 10%, transparent 90%, rgba(255, 120, 34, 0.04));
+  opacity: 0.58;
+}
+
+.radio-screen {
+  grid-template-columns: 98px 1fr;
+  gap: 10px;
+  padding: 8px;
+  border-color: rgba(255, 184, 122, 0.12);
+  background:
+    radial-gradient(circle at 18% 16%, rgba(255, 126, 38, 0.1), transparent 18%),
+    linear-gradient(180deg, rgba(255,255,255,0.015), rgba(0,0,0,0.13) 22%, rgba(0,0,0,0.4)),
+    linear-gradient(180deg, rgba(49, 20, 17, 0.97), rgba(9, 4, 4, 0.995));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 216, 0.04),
+    inset 0 0 0 1px rgba(255, 205, 170, 0.025),
+    inset 0 -18px 28px rgba(0,0,0,0.32),
+    inset 10px 0 16px rgba(0,0,0,0.08),
+    inset -10px 0 16px rgba(0,0,0,0.08),
+    0 10px 20px rgba(0,0,0,0.24);
+}
+
+.radio-screen::after {
+  background:
+    url('/textures/aaa/metal-detail.png') center / cover no-repeat,
+    linear-gradient(180deg, rgba(255, 230, 203, 0.05), transparent 14%, transparent 86%, rgba(255, 118, 30, 0.03)),
+    radial-gradient(circle at 8% 10%, rgba(255, 209, 174, 0.08) 0 1px, transparent 1.6px),
+    linear-gradient(135deg, transparent 0%, rgba(0,0,0,0.12) 100%);
+  opacity: 0.34;
+}
+
+.radio-cover {
+  min-height: 104px;
+  border-color: rgba(255, 182, 120, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 213, 0.04),
+    inset 0 -20px 28px rgba(0,0,0,0.32),
+    inset 8px 0 14px rgba(0,0,0,0.06),
+    inset -8px 0 14px rgba(0,0,0,0.06),
+    0 8px 16px rgba(0,0,0,0.18);
+}
+
+.radio-cover::before {
+  inset: 5px;
+  border-color: rgba(255, 214, 182, 0.07);
+}
+
+.radio-cover-frame {
+  inset: 8px;
+  border-color: rgba(255, 200, 154, 0.1);
+}
+
+.radio-cover-badge {
+  left: 7px;
+  right: 7px;
+  bottom: 6px;
+  height: 14px;
+  font-size: 0.46rem;
+}
+
+.radio-copy {
+  gap: 5px;
+}
+
+.radio-copy-topline {
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+}
+
+.radio-station {
+  font-size: clamp(1.52rem, 2vw, 1.86rem);
+  line-height: 0.9;
+}
+
+.radio-trackline {
+  min-height: 16px;
+  font-size: 0.72rem;
+}
+
+.radio-eq-wrap {
+  gap: 7px;
+}
+
+.radio-eq {
+  gap: 4px;
+  min-height: 16px;
+}
+
+.radio-eq-bar {
+  height: 9px;
+}
+
+.radio-meter-label {
+  font-size: 0.5rem;
+}
+
+.radio-progress {
+  height: 3px;
+}
+
+.radio-progress-fill {
+  inset: 0 22% 0 0;
+}
+
+.radio-progress-cap {
+  height: 9px;
+}
+
+.radio-time {
+  font-size: 0.66rem;
+}
+
+.radio-controls {
+  gap: 5px;
+  margin-top: 7px;
+}
+
+.radio-controls button {
+  min-height: 50px;
+  border-radius: 1px;
+  border-color: rgba(255, 170, 106, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 224, 195, 0.045),
+    inset 0 -12px 18px rgba(0, 0, 0, 0.3),
+    inset 8px 0 14px rgba(0,0,0,0.05),
+    inset -8px 0 14px rgba(0,0,0,0.05),
+    0 7px 12px rgba(0, 0, 0, 0.2);
+}
+
+.radio-controls button::after,
+.radio-preview-strip::after,
+.radio-listen-link::after,
+.radio-fallback::after {
+  background:
+    linear-gradient(180deg, rgba(255, 230, 203, 0.05), transparent 14%, transparent 86%, rgba(255, 118, 30, 0.03)),
+    radial-gradient(circle at 8% 10%, rgba(255, 209, 174, 0.08) 0 1px, transparent 1.6px),
+    linear-gradient(135deg, transparent 0%, rgba(0,0,0,0.12) 100%);
+  opacity: 0.9;
+}
+
+.radio-controls .is-primary {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 244, 228, 0.22),
+    0 0 16px rgba(255, 131, 41, 0.18),
+    0 7px 14px rgba(0, 0, 0, 0.24);
+}
+
+.radio-footer {
+  grid-template-columns: minmax(0, 1fr) 150px;
+  gap: 6px;
+  margin-top: 7px;
+}
+
+.radio-preview-strip {
+  min-height: 40px;
+  padding: 4px;
+  gap: 3px;
+  border: 1px solid rgba(255, 182, 119, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.12) 18%, rgba(0,0,0,0.3)),
+    linear-gradient(180deg, rgba(40, 16, 14, 0.95), rgba(8, 3, 3, 0.99));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 226, 194, 0.03),
+    inset 0 -16px 20px rgba(0,0,0,0.24);
+}
+
+.radio-preview-strip span {
+  min-height: 100%;
+}
+
+.radio-preview-strip span i {
+  inset: 6px;
+}
+
+.radio-listen-link,
+.radio-fallback {
+  min-width: 0;
+  min-height: 40px;
+  padding: 0 10px;
+  border-radius: 1px;
+  border-color: rgba(255, 182, 119, 0.12);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.012), rgba(0,0,0,0.12) 18%, rgba(0,0,0,0.28)),
+    linear-gradient(180deg, rgba(46, 18, 15, 0.95), rgba(8, 3, 3, 0.99));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 226, 194, 0.03),
+    inset 0 -16px 20px rgba(0,0,0,0.24),
+    0 8px 16px rgba(0,0,0,0.18);
+}
+
+.radio-listen-link strong {
+  font-size: 0.9rem;
+}
+
+.events-panel,
+.merch-panel {
+  background:
+    radial-gradient(circle at 12% 84%, rgba(255, 124, 36, 0.12), transparent 18%),
+    radial-gradient(circle at 86% 14%, rgba(255, 221, 190, 0.04), transparent 20%),
+    linear-gradient(180deg, rgba(255,255,255,0.016), rgba(0,0,0,0.14) 16%, rgba(0,0,0,0.28) 100%),
+    linear-gradient(180deg, rgba(37, 14, 12, 0.965), rgba(8, 3, 3, 0.995));
+}
+
+.events-panel::before,
+.merch-panel::before {
+  background:
+    radial-gradient(circle at 14% 82%, rgba(255, 122, 34, 0.12), transparent 18%),
+    radial-gradient(circle at 84% 16%, rgba(255, 226, 195, 0.04), transparent 18%),
+    linear-gradient(180deg, rgba(255, 235, 210, 0.03), transparent 12%, transparent 84%, rgba(255, 118, 29, 0.04));
+}
+
+.event-row,
+.merch-item {
+  border-color: rgba(255, 176, 113, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 226, 194, 0.03),
+    inset 0 -16px 22px rgba(0,0,0,0.24),
+    inset 8px 0 14px rgba(0,0,0,0.05),
+    inset -8px 0 14px rgba(0,0,0,0.05),
+    0 12px 20px rgba(0,0,0,0.16);
+}
+
+.event-row {
+  min-height: 110px;
+}
+
+.event-row-thumb,
+.merch-visual {
+  position: relative;
+  border-color: rgba(255, 181, 119, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 231, 205, 0.03),
+    inset 0 -18px 24px rgba(0,0,0,0.24),
+    0 8px 16px rgba(0,0,0,0.16);
+}
+
+.event-row-thumb::before,
+.merch-visual::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(255, 214, 182, 0.04);
+  pointer-events: none;
+}
+
+.merch-grid {
+  gap: 16px;
+}
+
+.merch-item {
+  padding: 12px 12px 14px;
+}
+
+.merch-cta {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 236, 214, 0.05),
+    inset 0 -18px 26px rgba(0,0,0,0.24),
+    0 14px 24px rgba(0,0,0,0.2),
+    0 0 16px rgba(255, 121, 34, 0.06);
+}
+
+@media (max-width: 980px) {
+  .feature-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .vinyl-panel,
+  .radio-panel {
+    min-height: 0;
+  }
+
+  .radio-screen {
+    grid-template-columns: 92px 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .feature-grid {
+    gap: 12px;
+  }
+
+  .vinyl-panel__layout,
+  .radio-screen,
+  .radio-footer {
+    grid-template-columns: 1fr;
+  }
+
+  .vinyl-stage {
+    min-height: 496px;
+  }
+
+  .vinyl-cover-frame {
+    width: 176px;
+    height: 214px;
+    right: 8px;
+  }
+
+  .turntable-platter .vinyl {
+    width: 236px;
+    height: 236px;
+  }
+
+  .turntable-body .needle {
+    left: 182px;
+    top: 36px;
+    width: 118px;
+  }
+
+  .radio-cover {
+    min-height: 146px;
+  }
+
+  .radio-listen-link,
+  .radio-fallback {
+    width: 100%;
+  }
+}
+
+
+/* ===== PREMIUM OVERLAY CLEANUP ===== */
 body::before,
 body::after {
   display: none !important;
 }
 
-.page-base,
-.page-rust,
-.page-noise {
-  opacity: 1 !important;
-}
-
-.mouse-glow {
-  display: none !important;
+.vinyl-panel::before,
+.radio-panel::before,
+.events-panel::before,
+.merch-panel::before,
+.hero-panel::before,
+.nav::before {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.014), transparent 18%, transparent 82%, rgba(255, 140, 58, 0.025)) !important;
 }
