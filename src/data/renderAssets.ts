@@ -1,8 +1,8 @@
 export const renderAssets = {
   background: {
-    metalBase: "/textures/aaa/background-wall-reference.png",
+    metalBase: "/textures/aaa/metal-base.png",
     metalDetail: "/textures/aaa/metal-detail.png",
-    grime: "/textures/aaa/grime-map.png",
+    grime: "/textures/aaa/grime-overlay.png",
     noise: "/textures/aaa/noise.png",
     scratches: "/textures/aaa/scratches.png",
     smoke: "/textures/aaa/smoke-haze.png",
