@@ -3761,3 +3761,14 @@ body::after {
     width: 100%;
   }
 }
+/* HARD OVERRIDE FINAL */
+
+* {
+  background-image: none !important;
+}
+
+.page-base,
+.bg-base {
+  background:
+    url("/textures/aaa/background-wall-applied.png") center/cover no-repeat !important;
+}
