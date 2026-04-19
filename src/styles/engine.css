@@ -90,15 +90,7 @@
 }
 
 .bg-smoke {
-  background:
-    url("/textures/aaa/smoke.png"),
-    radial-gradient(circle at 26% 22%, rgba(255, 214, 176, 0.05), transparent 22%),
-    radial-gradient(circle at 76% 68%, rgba(255, 158, 96, 0.06), transparent 24%);
-  background-size: 1200px 1200px, cover, cover;
-  background-position: center;
-  opacity: 0.28;
-  mix-blend-mode: screen;
-  transform: translate3d(calc(var(--burn-shift-x, 0px) * 0.15), calc(var(--burn-shift-y, 0px) * 0.1), 0);
+  display: none;
 }
 
 .bg-glow {
