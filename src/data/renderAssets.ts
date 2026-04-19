@@ -5,7 +5,7 @@ export const renderAssets = {
     grime: "/textures/aaa/grime-overlay.png",
     noise: "/textures/aaa/noise.png",
     scratches: "/textures/aaa/scratches.png",
-    smoke: "/textures/aaa/smoke.png",
+    smoke: "/textures/aaa/smoke-haze.png",
     vignette: "/textures/aaa/vignette.png",
   },
   glow: {

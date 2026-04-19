@@ -19,86 +19,95 @@
 .bg-divider,
 .bg-embers,
 .bg-vignette {
-  position: absolute;
-  inset: 0;
+  background:
+    url("/textures/aaa/vignette.png") center/cover no-repeat,
+    radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.42) 62%, rgba(0, 0, 0, 0.9) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.64), transparent 16%, transparent 84%, rgba(0, 0, 0, 0.74));
 }
 
 .bg-base {
   background:
-    linear-gradient(180deg, rgba(255, 176, 112, 0.06) 0%, rgba(255, 120, 40, 0.02) 12%, transparent 24%),
-    linear-gradient(90deg, rgba(255, 104, 18, 0.08) 0%, transparent 18%, transparent 82%, rgba(255, 104, 18, 0.08) 100%),
-    linear-gradient(180deg, #060202 0%, #120807 22%, #170b08 48%, #0a0403 76%, #050202 100%);
+    radial-gradient(circle at 50% 14%, rgba(255, 175, 102, 0.05), transparent 16%),
+    radial-gradient(circle at 0% 54%, rgba(255, 115, 36, 0.08), transparent 18%),
+    radial-gradient(circle at 100% 82%, rgba(255, 115, 36, 0.08), transparent 18%),
+    linear-gradient(180deg, #050201 0%, #0a0403 18%, #120807 46%, #090403 72%, #040201 100%);
 }
 
 .bg-metal-base {
   background:
-    radial-gradient(circle at 50% 18%, rgba(255, 170, 96, 0.045), transparent 18%),
-    radial-gradient(circle at 18% 28%, rgba(255, 118, 40, 0.05), transparent 20%),
-    radial-gradient(circle at 84% 74%, rgba(255, 118, 40, 0.06), transparent 22%),
-    repeating-linear-gradient(112deg, rgba(255, 255, 255, 0.014) 0 1px, transparent 1px 20px),
-    repeating-linear-gradient(24deg, rgba(0, 0, 0, 0.2) 0 2px, transparent 2px 28px),
-    linear-gradient(180deg, rgba(255, 241, 225, 0.02), rgba(0, 0, 0, 0.28)),
-    linear-gradient(180deg, #24100c 0%, #140806 32%, #0b0403 100%);
-  background-size: auto, auto, auto, auto, auto, auto, auto;
+    url("/textures/aaa/metal-base.jpg"),
+    linear-gradient(128deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.004) 18%, rgba(0, 0, 0, 0.22) 34%, rgba(255, 255, 255, 0.012) 56%, rgba(0, 0, 0, 0.2) 76%, rgba(255, 255, 255, 0.008) 100%),
+    repeating-linear-gradient(112deg, rgba(255, 255, 255, 0.01) 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(26deg, rgba(0, 0, 0, 0.16) 0 2px, transparent 2px 30px),
+    linear-gradient(180deg, rgba(255, 242, 224, 0.015), rgba(0, 0, 0, 0.34)),
+    linear-gradient(180deg, #24100c 0%, #130806 34%, #080303 100%);
+  background-size: 1200px 1200px, auto, auto, auto, auto, auto;
   background-position: center;
   mix-blend-mode: normal;
-  opacity: 0.96;
+  opacity: 0.98;
 }
 
 .bg-metal-detail {
   background:
-    linear-gradient(132deg, rgba(255, 255, 255, 0.022) 0%, rgba(255, 255, 255, 0.003) 18%, rgba(0, 0, 0, 0.16) 36%, rgba(255, 255, 255, 0.016) 58%, rgba(0, 0, 0, 0.18) 78%, rgba(255, 255, 255, 0.014) 100%),
+    linear-gradient(132deg, rgba(255, 255, 255, 0.018) 0%, rgba(255, 255, 255, 0.003) 18%, rgba(0, 0, 0, 0.14) 36%, rgba(255, 255, 255, 0.012) 58%, rgba(0, 0, 0, 0.16) 78%, rgba(255, 255, 255, 0.01) 100%),
     url("/textures/aaa/metal-detail.png");
   background-size: cover, 1300px 1300px;
   background-position: center;
-  mix-blend-mode: screen;
-  opacity: 0.35;
+  mix-blend-mode: soft-light;
+  opacity: 0.3;
 }
 
 .bg-grime {
   background:
-    url("/textures/aaa/grime-overlay.png") center/cover no-repeat,
-    url("/textures/aaa/grime-mask.png") center/cover no-repeat,
-    linear-gradient(180deg, rgba(0, 0, 0, 0.28), transparent 22%, transparent 76%, rgba(0, 0, 0, 0.34)),
-    linear-gradient(115deg, rgba(255, 130, 42, 0.06) 0%, transparent 24%, transparent 72%, rgba(255, 130, 42, 0.04) 100%);
-  mix-blend-mode: overlay;
-  opacity: 0.42;
+    url("/textures/aaa/smoke-haze.png"),
+    radial-gradient(circle at 14% 84%, rgba(255, 98, 22, 0.08), transparent 14%),
+    radial-gradient(circle at 88% 18%, rgba(255, 98, 22, 0.06), transparent 10%),
+    radial-gradient(circle at 22% 18%, rgba(0, 0, 0, 0.32) 0 6%, transparent 12%),
+    radial-gradient(circle at 66% 32%, rgba(0, 0, 0, 0.26) 0 8%, transparent 16%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.22));
+  background-size: 1400px 1400px, auto, auto, auto, auto, auto;
+  background-position: center;
+  mix-blend-mode: multiply;
+  opacity: 0.48;
 }
 
 .bg-noise {
   background: url("/textures/aaa/noise.png");
   background-size: 420px 420px;
-  opacity: 0.22;
-  mix-blend-mode: screen;
+  opacity: 0.14;
+  mix-blend-mode: soft-light;
 }
 
 .bg-scratches {
   background:
     url("/textures/aaa/scratches.png"),
-    repeating-linear-gradient(110deg, rgba(255, 255, 255, 0.012) 0 1px, transparent 1px 18px),
-    repeating-linear-gradient(72deg, rgba(255, 255, 255, 0.012) 0 1px, transparent 1px 24px);
+    repeating-linear-gradient(110deg, rgba(255, 255, 255, 0.008) 0 1px, transparent 1px 22px),
+    repeating-linear-gradient(72deg, rgba(255, 255, 255, 0.008) 0 1px, transparent 1px 28px);
   background-size: 1200px 1200px, auto, auto;
   background-position: center;
-  opacity: 0.18;
+  opacity: 0.12;
   mix-blend-mode: screen;
 }
 
 .bg-smoke {
   background:
-    url("/textures/aaa/smoke-haze.png") center/cover no-repeat,
-    url("/textures/aaa/smoke-haze.png") center/1400px 1400px no-repeat,
-    linear-gradient(180deg, rgba(255, 190, 136, 0.04) 0%, transparent 18%, transparent 70%, rgba(255, 120, 40, 0.04) 100%);
-  opacity: 0.16;
+    url("/textures/aaa/smoke-haze.png"),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.018), rgba(255, 255, 255, 0) 26%, rgba(0, 0, 0, 0.18) 100%),
+    radial-gradient(ellipse at 50% 16%, rgba(255, 214, 176, 0.03), transparent 18%),
+    radial-gradient(ellipse at 12% 52%, rgba(255, 152, 86, 0.035), transparent 16%),
+    radial-gradient(ellipse at 88% 70%, rgba(255, 152, 86, 0.035), transparent 16%);
+  background-size: 1500px 1500px, auto, cover, cover, cover;
+  background-position: center;
+  opacity: 0.2;
   mix-blend-mode: screen;
-  filter: blur(8px) saturate(0.72);
-  transform: translate3d(calc(var(--burn-shift-x, 0px) * 0.15), calc(var(--burn-shift-y, 0px) * 0.1), 0) scale(1.08);
+  filter: saturate(0.55) contrast(1.02) brightness(0.8);
+  transform: translate3d(calc(var(--burn-shift-x, 0px) * 0.12), calc(var(--burn-shift-y, 0px) * 0.08), 0);
 }
 
 .bg-glow {
   mix-blend-mode: screen;
   opacity: calc(0.46 * var(--fx-flicker, 1));
-  filter: blur(10px) saturate(0.88);
-  transform: translate3d(calc(var(--glow-drift-x, 0px) * 0.22), calc(var(--glow-drift-y, 0px) * 0.16), 0) scale(1.02);
+  transform: translate3d(calc(var(--glow-drift-x, 0px) * 0.18), calc(var(--glow-drift-y, 0px) * 0.12), 0);
 }
 
 .bg-glow-top {
@@ -202,8 +211,8 @@
 .bg-vignette {
   background:
     url("/textures/aaa/vignette.png") center/cover no-repeat,
-    radial-gradient(circle at center, transparent 32%, rgba(0, 0, 0, 0.34) 60%, rgba(0, 0, 0, 0.86) 100%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.58), transparent 14%, transparent 86%, rgba(0, 0, 0, 0.68));
+    radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.42) 62%, rgba(0, 0, 0, 0.9) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.64), transparent 16%, transparent 84%, rgba(0, 0, 0, 0.74));
 }
 
 #embers-canvas {
