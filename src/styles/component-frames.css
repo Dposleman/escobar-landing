@@ -1,0 +1,92 @@
+
+.nav,
+.vinyl-panel,
+.radio-panel,
+.events-panel,
+.merch-panel,
+.merch-cta {
+  position: relative;
+  isolation: isolate;
+}
+
+.nav::after,
+.vinyl-panel::after,
+.radio-panel::after,
+.events-panel::after,
+.merch-panel::after,
+.merch-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  z-index: 3;
+}
+
+.nav {
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
+.nav::after {
+  background-image: url("/frames/components/nav-frame.svg");
+}
+
+.vinyl-panel {
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
+.vinyl-panel::after {
+  background-image: url("/frames/components/vinyl-panel-frame.svg");
+}
+
+.radio-panel {
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
+.radio-panel::after {
+  background-image: url("/frames/components/radio-panel-frame.svg");
+}
+
+.events-panel {
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
+.events-panel::after {
+  background-image: url("/frames/components/events-panel-frame.svg");
+}
+
+.merch-panel {
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
+.merch-panel::after {
+  background-image: url("/frames/components/merch-panel-frame.svg");
+}
+
+.merch-cta {
+  border: 0 !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+}
+
+.merch-cta::after {
+  background-image: url("/frames/components/cta-button-frame.svg");
+}
+
+@media (max-width: 860px) {
+  .nav::after,
+  .vinyl-panel::after,
+  .radio-panel::after,
+  .events-panel::after,
+  .merch-panel::after,
+  .merch-cta::after {
+    background-size: cover;
+  }
+}
