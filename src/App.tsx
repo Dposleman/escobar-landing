@@ -21,6 +21,7 @@ import "./styles/dynamic-panels.css";
 import "./styles/final-polish.css";
 
 import BackgroundEngine from "./engine/BackgroundEngine";
+import { EffectsEngine } from "./engine/EffectsEngine";
 import { ParticlesEngine } from "./engine/ParticlesEngine";
 import { AudioReactiveEngine } from "./engine/AudioReactiveEngine";
 
@@ -72,6 +73,7 @@ function App() {
   return (
     <>
       <BackgroundEngine />
+      <EffectsEngine />
       <ParticlesEngine />
       <AudioReactiveEngine />
 
