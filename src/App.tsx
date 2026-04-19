@@ -21,10 +21,8 @@ import "./styles/dynamic-panels.css";
 import "./styles/final-polish.css";
 
 import BackgroundEngine from "./engine/BackgroundEngine";
-import { EffectsEngine } from "./engine/EffectsEngine";
 import { ParticlesEngine } from "./engine/ParticlesEngine";
 import { AudioReactiveEngine } from "./engine/AudioReactiveEngine";
-import LightSystem from "./engine/LightSystem";
 
 setLang("da");
 
@@ -74,24 +72,10 @@ function App() {
   return (
     <>
       <BackgroundEngine />
-      <EffectsEngine />
       <ParticlesEngine />
       <AudioReactiveEngine />
-      <LightSystem />
 
       <div className="app-shell">
-        <div className="page-base" aria-hidden="true" />
-        <div className="page-rust" aria-hidden="true" />
-        <div className="page-noise" aria-hidden="true" />
-        <div className="page-vignette" aria-hidden="true" />
-        <div className="page-burn page-burn-top" aria-hidden="true" />
-        <div className="page-burn page-burn-bottom" aria-hidden="true" />
-        <div className="mouse-glow" aria-hidden="true" />
-        <div className="decor-chain decor-chain-left" aria-hidden="true" />
-        <div className="decor-chain decor-chain-right" aria-hidden="true" />
-        <div className="side-hooks side-hooks-left" aria-hidden="true" />
-        <div className="side-hooks side-hooks-right" aria-hidden="true" />
-
         <main className="page-content">
           <Hero />
           <NavBar />
