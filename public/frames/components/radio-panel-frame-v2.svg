@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="copper" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6d341f" stop-opacity="0.18"/>
+      <stop offset="0.1" stop-color="#e9b58c" stop-opacity="0.92"/>
+      <stop offset="0.5" stop-color="#b66e42" stop-opacity="0.72"/>
+      <stop offset="0.9" stop-color="#e9b58c" stop-opacity="0.92"/>
+      <stop offset="1" stop-color="#6d341f" stop-opacity="0.18"/>
+    </linearGradient>
+    <radialGradient id="hotTR" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1092 122) rotate(90) scale(48 88)">
+      <stop offset="0" stop-color="#fff2d4" stop-opacity="0.94"/>
+      <stop offset="0.35" stop-color="#ffbe6c" stop-opacity="0.94"/>
+      <stop offset="0.7" stop-color="#ff7f26" stop-opacity="0.82"/>
+      <stop offset="1" stop-color="#ff6a1d" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect x="10" y="10" width="1180" height="880" fill="none" stroke="#120807" stroke-opacity="0.52" stroke-width="13"/>
+  <rect x="10" y="10" width="1180" height="880" fill="none" stroke="url(#copper)" stroke-width="2.2"/>
+  <rect x="30" y="30" width="1140" height="840" fill="none" stroke="#f0c8a0" stroke-opacity="0.18" stroke-width="1.2"/>
+  <line x1="30" y1="110" x2="1170" y2="110" stroke="#f0c8a0" stroke-opacity="0.24" stroke-width="1.2"/>
+  <line x1="30" y1="532" x2="1170" y2="532" stroke="#f0c8a0" stroke-opacity="0.18" stroke-width="1"/>
+  <line x1="30" y1="706" x2="1170" y2="706" stroke="#f0c8a0" stroke-opacity="0.16" stroke-width="1"/>
+  <path d="M42 46 H272" stroke="#f7d6ba" stroke-opacity="0.09" stroke-width="1" stroke-dasharray="16 22 6 24"/>
+  <path d="M928 46 H1158" stroke="#f7d6ba" stroke-opacity="0.11" stroke-width="1" stroke-dasharray="16 22 6 24"/>
+  <ellipse cx="1092" cy="122" rx="82" ry="36" fill="url(#hotTR)"/>
+  <ellipse cx="1076" cy="832" rx="66" ry="24" fill="url(#hotTR)" transform="translate(2152 1664) rotate(180)"/>
+</svg>

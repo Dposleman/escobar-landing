@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="copper" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6d341f" stop-opacity="0.2"/>
+      <stop offset="0.1" stop-color="#e9b58c" stop-opacity="0.9"/>
+      <stop offset="0.5" stop-color="#b66e42" stop-opacity="0.7"/>
+      <stop offset="0.9" stop-color="#e9b58c" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#6d341f" stop-opacity="0.2"/>
+    </linearGradient>
+    <radialGradient id="hotBL" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(104 790) rotate(90) scale(54 92)">
+      <stop offset="0" stop-color="#fff0d2" stop-opacity="0.92"/>
+      <stop offset="0.36" stop-color="#ffba63" stop-opacity="0.92"/>
+      <stop offset="0.7" stop-color="#ff7b25" stop-opacity="0.78"/>
+      <stop offset="1" stop-color="#ff6a1d" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect x="10" y="10" width="1180" height="880" fill="none" stroke="#120807" stroke-opacity="0.5" stroke-width="12"/>
+  <rect x="10" y="10" width="1180" height="880" fill="none" stroke="url(#copper)" stroke-width="2.2"/>
+  <rect x="28" y="28" width="1144" height="844" fill="none" stroke="#f0c8a0" stroke-opacity="0.18" stroke-width="1.2"/>
+  <line x1="28" y1="96" x2="1172" y2="96" stroke="#f0c8a0" stroke-opacity="0.28" stroke-width="1.2"/>
+  <line x1="28" y1="142" x2="1172" y2="142" stroke="#f0c8a0" stroke-opacity="0.14" stroke-width="1"/>
+  <path d="M42 46 H320" stroke="#f7d6ba" stroke-opacity="0.1" stroke-width="1" stroke-dasharray="14 20 5 24"/>
+  <path d="M880 46 H1158" stroke="#f7d6ba" stroke-opacity="0.08" stroke-width="1" stroke-dasharray="18 26 5 24"/>
+  <path d="M42 854 H320" stroke="#f7d6ba" stroke-opacity="0.08" stroke-width="1" stroke-dasharray="18 26 5 24"/>
+  <path d="M880 854 H1158" stroke="#f7d6ba" stroke-opacity="0.12" stroke-width="1" stroke-dasharray="14 20 5 24"/>
+  <ellipse cx="104" cy="790" rx="88" ry="38" fill="url(#hotBL)"/>
+  <ellipse cx="1088" cy="790" rx="76" ry="30" fill="url(#hotBL)" transform="translate(2176 0) scale(-1 1)"/>
+</svg>

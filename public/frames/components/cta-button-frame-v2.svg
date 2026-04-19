@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 240" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="copper" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6d341f" stop-opacity="0.2"/>
+      <stop offset="0.12" stop-color="#e9b58c" stop-opacity="0.94"/>
+      <stop offset="0.5" stop-color="#b66e42" stop-opacity="0.72"/>
+      <stop offset="0.88" stop-color="#e9b58c" stop-opacity="0.94"/>
+      <stop offset="1" stop-color="#6d341f" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+  <rect x="10" y="10" width="880" height="220" fill="none" stroke="#120807" stroke-opacity="0.55" stroke-width="14"/>
+  <rect x="10" y="10" width="880" height="220" fill="none" stroke="url(#copper)" stroke-width="2.4"/>
+  <rect x="28" y="28" width="844" height="184" fill="none" stroke="#f0c8a0" stroke-opacity="0.18" stroke-width="1.2"/>
+  <ellipse cx="450" cy="22" rx="82" ry="26" fill="#ff982f" fill-opacity="0.48"/>
+  <ellipse cx="450" cy="22" rx="34" ry="12" fill="#fff0cf" fill-opacity="0.34"/>
+  <ellipse cx="450" cy="218" rx="98" ry="28" fill="#ff8424" fill-opacity="0.46"/>
+</svg>
