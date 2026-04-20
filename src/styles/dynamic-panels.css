@@ -399,3 +399,305 @@
 .event-row-thumb::after {
   background-blend-mode: normal !important;
 }
+
+
+/* ===== AAA MICRODETAIL PASS OVERRIDES ===== */
+.events-panel,
+.merch-panel {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.16)),
+    radial-gradient(circle at 50% 0%, rgba(255, 140, 62, 0.045), transparent 42%),
+    linear-gradient(180deg, rgba(42, 17, 14, 0.95), rgba(7, 3, 3, 0.99));
+}
+
+.events-panel::before,
+.merch-panel::before {
+  background:
+    radial-gradient(circle at 14% 14%, rgba(255, 173, 108, 0.028), transparent 18%),
+    radial-gradient(circle at 88% 82%, rgba(255, 111, 39, 0.022), transparent 16%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.012), transparent 15%, rgba(0, 0, 0, 0.08)),
+    linear-gradient(90deg, rgba(255, 149, 72, 0.015), transparent 12%, transparent 88%, rgba(255, 149, 72, 0.012));
+}
+
+.events-list {
+  gap: 10px;
+}
+
+.event-row {
+  position: relative;
+  grid-template-columns: 176px 1fr;
+  gap: 14px;
+  min-height: 100px;
+  padding: 10px 12px 10px 10px;
+  border-color: rgba(255, 167, 100, 0.06);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.014), rgba(0, 0, 0, 0.18)),
+    linear-gradient(90deg, rgba(255, 147, 66, 0.03), transparent 11%, transparent 88%, rgba(255, 147, 66, 0.018)),
+    linear-gradient(180deg, rgba(44, 17, 14, 0.82), rgba(9, 4, 4, 0.92));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 230, 208, 0.026),
+    inset 0 -18px 20px rgba(0, 0, 0, 0.22),
+    0 12px 24px rgba(0, 0, 0, 0.18);
+}
+
+.event-row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent 0 10px, rgba(255, 225, 196, 0.042) 10px 11px, transparent 11px 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.28) 0 4px, transparent 4px calc(100% - 22px), rgba(0, 0, 0, 0.14) calc(100% - 22px) calc(100% - 18px), transparent calc(100% - 18px)),
+    linear-gradient(115deg, transparent 0 14%, rgba(255, 224, 196, 0.025) 14.2% 14.4%, transparent 14.6% 100%),
+    linear-gradient(98deg, transparent 0 66%, rgba(255, 224, 196, 0.018) 66.1% 66.3%, transparent 66.45% 100%);
+  opacity: 0.95;
+}
+
+.event-row::after {
+  content: "";
+  position: absolute;
+  left: 196px;
+  top: 12px;
+  bottom: 12px;
+  width: 1px;
+  background:
+    linear-gradient(180deg, transparent, rgba(255, 200, 154, 0.22), rgba(63, 29, 21, 0.72) 18%, rgba(63, 29, 21, 0.72) 82%, rgba(255, 200, 154, 0.16), transparent);
+  box-shadow: 1px 0 0 rgba(0, 0, 0, 0.26);
+  opacity: 0.9;
+}
+
+.event-row:hover {
+  border-color: rgba(255, 171, 100, 0.11);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 230, 208, 0.03),
+    inset 0 -18px 20px rgba(0, 0, 0, 0.24),
+    0 18px 30px rgba(0, 0, 0, 0.22),
+    0 0 14px rgba(255, 124, 38, 0.035);
+}
+
+.event-row-thumb {
+  height: 80px;
+  border-color: rgba(255, 177, 114, 0.06);
+  box-shadow:
+    inset 0 0 26px rgba(0, 0, 0, 0.34),
+    0 10px 18px rgba(0, 0, 0, 0.2);
+}
+
+.event-row-thumb::after {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 18%, rgba(0, 0, 0, 0.18)),
+    linear-gradient(90deg, rgba(255, 145, 62, 0.028), transparent 12%, transparent 88%, rgba(255, 145, 62, 0.018)),
+    linear-gradient(115deg, transparent 0 24%, rgba(255, 223, 192, 0.026) 24.3% 24.5%, transparent 24.7% 100%);
+}
+
+.event-row-copy {
+  gap: 4px;
+}
+
+.event-row-mainline {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.event-row-copy h4 {
+  font-size: clamp(1.16rem, 1.7vw, 1.72rem);
+  letter-spacing: 0.045em;
+  color: #e1a16a;
+}
+
+.event-row-date {
+  min-width: max-content;
+  color: #e0cab4;
+  font-size: 0.76rem;
+  letter-spacing: 0.18em;
+  opacity: 0.86;
+}
+
+.event-row-meta {
+  padding-top: 2px;
+  color: #baa38d;
+  font-size: 0.74rem;
+  letter-spacing: 0.13em;
+}
+
+.merch-grid {
+  gap: 14px;
+}
+
+.merch-item {
+  padding: 10px 10px 12px;
+  border-color: rgba(255, 167, 100, 0.06);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.014), rgba(0, 0, 0, 0.18)),
+    linear-gradient(180deg, rgba(44, 17, 14, 0.82), rgba(9, 4, 4, 0.92));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 230, 208, 0.026),
+    inset 0 -18px 20px rgba(0, 0, 0, 0.22),
+    0 12px 24px rgba(0, 0, 0, 0.18);
+}
+
+.merch-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent 0 9px, rgba(255, 225, 196, 0.035) 9px 10px, transparent 10px 100%),
+    linear-gradient(90deg, rgba(255, 149, 72, 0.02), transparent 12%, transparent 88%, rgba(255, 149, 72, 0.014)),
+    linear-gradient(115deg, transparent 0 22%, rgba(255, 224, 196, 0.02) 22.2% 22.4%, transparent 22.6% 100%);
+}
+
+.merch-item::after {
+  content: "";
+  position: absolute;
+  inset: 8px 8px auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 205, 166, 0.22), transparent);
+  opacity: 0.9;
+}
+
+.merch-item:hover {
+  border-color: rgba(255, 171, 100, 0.11);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 230, 208, 0.03),
+    inset 0 -18px 20px rgba(0, 0, 0, 0.24),
+    0 18px 30px rgba(0, 0, 0, 0.22),
+    0 0 14px rgba(255, 124, 38, 0.035);
+}
+
+.merch-visual {
+  min-height: 234px;
+  border-color: rgba(255, 177, 114, 0.06);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.012), transparent 22%),
+    radial-gradient(circle at 50% 88%, rgba(255, 124, 38, 0.08), transparent 26%),
+    linear-gradient(180deg, rgba(38, 14, 12, 0.95), rgba(9, 4, 4, 0.99));
+  box-shadow:
+    inset 0 0 24px rgba(0, 0, 0, 0.36),
+    inset 0 -24px 40px rgba(0, 0, 0, 0.24);
+}
+
+.merch-visual::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 233, 213, 0.02), transparent 20%, rgba(0, 0, 0, 0.16)),
+    linear-gradient(90deg, transparent 10%, rgba(255, 226, 198, 0.03) 10.2% 10.35%, transparent 10.6% 100%),
+    linear-gradient(88deg, transparent 0 72%, rgba(255, 226, 198, 0.018) 72.1% 72.25%, transparent 72.4% 100%);
+}
+
+.merch-glow {
+  width: 132px;
+  height: 36px;
+  bottom: 6px;
+  background: linear-gradient(180deg, rgba(255, 128, 40, 0.09), transparent 72%);
+  filter: blur(14px);
+}
+
+.merch-graphic {
+  transform: translateY(-4px);
+}
+
+.tee-mark,
+.mug-mark,
+.sticker-mark,
+.patch-mark {
+  min-width: 122px;
+  min-height: 122px;
+  border-color: rgba(255, 186, 128, 0.1);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.018), rgba(0, 0, 0, 0.16)),
+    linear-gradient(180deg, rgba(66, 23, 18, 0.9), rgba(12, 5, 5, 0.98));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 228, 201, 0.035),
+    inset 0 -16px 18px rgba(0, 0, 0, 0.2),
+    0 12px 22px rgba(0, 0, 0, 0.22);
+}
+
+.merch-item-copy {
+  gap: 4px;
+  margin-top: 12px;
+}
+
+.merch-item-copy p {
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  color: #e1a16a;
+}
+
+.merch-item-copy span {
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  color: #cab29c;
+}
+
+.merch-cta {
+  min-width: 286px;
+  min-height: 58px;
+  border-color: rgba(255, 176, 112, 0.12);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.18)),
+    linear-gradient(180deg, rgba(56, 22, 18, 0.94), rgba(9, 4, 4, 0.99));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 227, 199, 0.04),
+    inset 0 -18px 20px rgba(0, 0, 0, 0.22),
+    0 14px 24px rgba(0, 0, 0, 0.18);
+}
+
+.merch-cta::before,
+.merch-cta::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 22px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 201, 162, 0.34), transparent);
+  transform: translateY(-50%);
+}
+
+.merch-cta::before {
+  left: 18px;
+}
+
+.merch-cta::after {
+  right: 18px;
+}
+
+.merch-cta:hover {
+  border-color: rgba(255, 170, 90, 0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 227, 199, 0.045),
+    inset 0 -18px 20px rgba(0, 0, 0, 0.24),
+    0 18px 28px rgba(0, 0, 0, 0.22),
+    0 0 14px rgba(255, 124, 38, 0.04);
+}
+
+@media (max-width: 820px) {
+  .event-row {
+    grid-template-columns: 118px 1fr;
+  }
+
+  .event-row::after {
+    left: 138px;
+  }
+
+  .event-row-mainline {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 700px) {
+  .event-row {
+    grid-template-columns: 1fr;
+  }
+
+  .event-row::after {
+    display: none;
+  }
+}
