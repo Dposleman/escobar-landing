@@ -1,6 +1,6 @@
 export function Footer() {
   return (
-    <footer className="site-footer metal-panel battered-panel js-reveal">
+    <footer className="site-footer metal-panel battered-panel js-reveal" id="footer">
       <div className="site-footer-content">
         <p className="site-footer-powered">
           Powered by{" "}
@@ -26,6 +26,12 @@ export function Footer() {
             UnderStack
           </a>
           .
+        </p>
+
+        <p className="site-footer-admin">
+          <a href="/admin" className="site-footer-admin-link">
+            Admin Access
+          </a>
         </p>
       </div>
     </footer>
