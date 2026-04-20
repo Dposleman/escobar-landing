@@ -1,9 +1,8 @@
-import MerchGrid from "../components/MerchGrid";
+import { useCms } from "../hooks/useCms";
+import { MerchPanel } from "../components/MerchPanel";
 
 export default function Merch() {
-  return (
-    <section style={{ marginTop: 40 }}>
-      <MerchGrid />
-    </section>
-  );
+  const { state } = useCms();
+
+  return <MerchPanel merch={state.merch} />;
 }

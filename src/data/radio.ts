@@ -1,11 +1,27 @@
-import type { RadioTrack } from "../types";
+import type { RadioState } from "../types";
+import { buildSpotifyEmbedUrl } from "../utils/spotify";
 
-export const radioTracks: RadioTrack[] = [
-  {
-    station: "Escobar Radio",
-    artist: "Motorhead",
-    title: "Ace of Spades",
-    progress: 72,
+const spotifyUrl = "https://open.spotify.com/playlist/37i9dQZF1DX0SM0LYsmbMT";
+
+export const radioTracks: RadioState = {
+  provider: "spotify",
+  renderMode: "embed",
+  title: "RADIO ESCOBAR",
+  subtitle: "NOW PLAYING LIVE",
+  spotifyUrl,
+  embedUrl: buildSpotifyEmbedUrl(spotifyUrl),
+  externalUrl: "",
+  isLive: true,
+  status: "published",
+  updatedAt: new Date().toISOString(),
+  fallbackCoverImage: "",
+  nowPlaying: {
+    artist: "Motörhead",
+    album: "Ace of Spades",
+    track: "Ace of Spades",
+    coverImage: "",
     duration: "4:32",
+    progress: 72,
+    startedAt: null,
   },
-];
+};

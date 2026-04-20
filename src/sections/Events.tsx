@@ -1,9 +1,8 @@
-import EventList from "../components/EventList";
+import { useCms } from "../hooks/useCms";
+import { EventsPanel } from "../components/EventsPanel";
 
 export default function Events() {
-  return (
-    <section style={{ marginTop: 40 }}>
-      <EventList />
-    </section>
-  );
+  const { state } = useCms();
+
+  return <EventsPanel events={state.events} />;
 }
