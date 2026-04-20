@@ -1,48 +1,36 @@
-import type { MerchItem } from "../types";
+import "../styles/final-polish.css";
 
-type MerchPanelProps = {
-  merch: MerchItem[];
+type MerchItem = {
+  name: string;
+  image: string;
 };
 
-export function MerchPanel({ merch }: MerchPanelProps) {
-  const items = merch.filter((item) => item.status === "published").slice(0, 4);
+type Props = {
+  items: MerchItem[];
+};
 
+export default function MerchPanel({ items }: Props) {
   return (
-    <section className="merch-panel metal-panel battered-panel js-reveal" id="merch">
-      <div className="section-title">
-        <span />
-        <h3>ESCOBAR MERCH STORE</h3>
-        <span />
+    <div className="panel frame-primary merch-panel">
+      <div className="panel-header">
+        <h2>ESCOBAR MERCH STORE</h2>
       </div>
 
       <div className="merch-grid">
-        {items.map((item) => (
-          <article className={`merch-item merch-item--${item.variant}`} key={item.id}>
-            <div className={`merch-visual ${item.variant}`} aria-hidden="true">
-              <div className="merch-glow" />
-              <div className="merch-graphic">
-                {item.variant === "tee" ? <span className="tee-mark">ESCOBAR</span> : null}
-                {item.variant === "mug" ? <span className="mug-mark">ESCOBAR</span> : null}
-                {item.variant === "stickers" ? <span className="sticker-mark">66</span> : null}
-                {item.variant === "patch" ? <span className="patch-mark">ESCOBAR</span> : null}
-                {item.variant === "poster" ? <span className="patch-mark">LIVE</span> : null}
-                {item.variant === "vinyl" ? <span className="sticker-mark">LP</span> : null}
-              </div>
+        {items.map((item, i) => (
+          <div key={i} className="merch-card">
+            <div className="merch-image">
+              <img src={item.image} alt={item.name} />
             </div>
 
-            <div className="merch-item-copy">
-              <p>{item.title}</p>
-              <span>{item.price}</span>
-            </div>
-          </article>
+            <div className="merch-name">{item.name}</div>
+          </div>
         ))}
       </div>
 
-      <div className="merch-cta-wrap">
-        <a className="merch-cta" href="#auth">
-          <span>SHOP MERCH</span>
-        </a>
+      <div className="merch-cta">
+        <button className="btn-metal">SHOP MERCH</button>
       </div>
-    </section>
+    </div>
   );
 }

@@ -1,8 +1,6 @@
-import { useCms } from "../hooks/useCms";
-import { EventsPanel } from "../components/EventsPanel";
+import EventsPanel from "../components/EventsPanel";
+import { events } from "../data/events";
 
 export default function Events() {
-  const { state } = useCms();
-
-  return <EventsPanel events={state.events} />;
+  return <EventsPanel events={events} />;
 }

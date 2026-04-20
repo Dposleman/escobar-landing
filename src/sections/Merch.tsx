@@ -1,8 +1,6 @@
-import { useCms } from "../hooks/useCms";
-import { MerchPanel } from "../components/MerchPanel";
+import MerchPanel from "../components/MerchPanel";
+import { merch } from "../data/merch";
 
 export default function Merch() {
-  const { state } = useCms();
-
-  return <MerchPanel merch={state.merch} />;
+  return <MerchPanel items={merch} />;
 }
