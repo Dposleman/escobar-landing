@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { EventsPanel } from "./components/EventsPanel";
+import EventsPanel from "./components/EventsPanel";
 import { GalleryPanel } from "./components/GalleryPanel";
 import { Hero } from "./components/Hero";
 import { AuthPanel } from "./components/AuthPanel";
-import { MerchPanel } from "./components/MerchPanel";
+import MerchPanel from "./components/MerchPanel";
 import NavBar from "./components/NavBar";
 import { NewsPanel } from "./components/NewsPanel";
 import { RadioPanel } from "./components/RadioPanel";
@@ -20,6 +20,7 @@ import { Footer } from "./components/Footer";
 import "./styles/dynamic-panels.css";
 import "./styles/final-polish.css";
 import "./styles/admin.css";
+import { merch } from "./data/merch";
 
 import BackgroundEngine from "./engine/BackgroundEngine";
 import { EffectsEngine } from "./engine/EffectsEngine";
@@ -91,7 +92,7 @@ function App() {
           </section>
 
           <EventsPanel events={cms.state.events} />
-          <MerchPanel merch={cms.state.merch} />
+          <MerchPanel items={merch} />
           <GalleryPanel images={cms.state.gallery} />
 
           <section className="member-access-wrap">
