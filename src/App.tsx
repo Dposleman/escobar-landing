@@ -19,6 +19,7 @@ import { setLang } from "./i18n/useLang";
 import { Footer } from "./components/Footer";
 import "./styles/dynamic-panels.css";
 import "./styles/final-polish.css";
+import "./styles/admin.css";
 
 import BackgroundEngine from "./engine/BackgroundEngine";
 import { EffectsEngine } from "./engine/EffectsEngine";
@@ -78,6 +79,8 @@ function App() {
       <AudioReactiveEngine />
 
       <div className="app-shell">
+        <div className="mouse-glow" aria-hidden="true" />
+
         <main className="page-content">
           <Hero />
           <NavBar />
