@@ -1,6 +1,11 @@
 import { useLang } from "../i18n/useLang";
-import EscobarLogoFrame from "./EscobarLogoFrame";
-import EscobarCounter from "./EscobarCounter";
+
+const UI = {
+  emblem: "/ui-kit/logo_emblem.png",
+  logo: "/ui-kit/logo_text.png",
+  tagline: "/ui-kit/tagline_plate.png",
+  counter: "/ui-kit/ticket_counter_plate.png",
+} as const;
 
 export function Hero() {
   const t = useLang();
@@ -9,24 +14,16 @@ export function Hero() {
     <section className="hero-panel metal-panel battered-panel js-reveal" id="home">
       <div className="hero-top-row">
         <div className="hero-emblem-wrap" aria-hidden="true">
-          <div className="hero-emblem-outer">
-            <div className="hero-emblem">
-              <span className="emblem-ring emblem-ring-a" />
-              <span className="emblem-ring emblem-ring-b" />
-              <span className="emblem-finger emblem-finger-a" />
-              <span className="emblem-finger emblem-finger-b" />
-              <span className="emblem-finger emblem-finger-c" />
-              <span className="emblem-finger emblem-finger-d" />
-              <span className="emblem-thumb" />
-              <span className="emblem-palm" />
-              <span className="emblem-wrist" />
-            </div>
-          </div>
+          <img className="hero-emblem-image" src={UI.emblem} alt="" />
         </div>
 
         <div className="hero-logo-block">
-          <div className="hero-logo-frame">
-            <EscobarLogoFrame title={t.heroTitle} />
+          <div className="hero-logo-frame" aria-label={t.heroTitle}>
+            <img className="hero-logo-image" src={UI.logo} alt={t.heroTitle} />
+          </div>
+
+          <div className="hero-tagline-plate-wrap">
+            <img className="hero-tagline-plate" src={UI.tagline} alt={t.heroTagline} />
           </div>
 
           <div className="hero-meta">
@@ -36,12 +33,21 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="hero-counter">
-          <EscobarCounter
-            value={t.heroCounterValue}
-            line1={t.heroCounterLine1}
-            line2={t.heroCounterLine2}
-          />
+        <div className="hero-counter-stack">
+          <div className="hero-counter">
+            <img className="hero-counter-plate" src={UI.counter} alt="Escobar counter" />
+            <div className="hero-counter-overlay">
+              <div className="hero-counter-copy">
+                <span>{t.heroCounterLine1}</span>
+                <span>{t.heroCounterLine2}</span>
+              </div>
+              <strong className="hero-counter-value">{t.heroCounterValue}</strong>
+            </div>
+          </div>
+
+          <a className="admin-entry admin-entry-hero" href="/admin">
+            ADMIN
+          </a>
         </div>
       </div>
 

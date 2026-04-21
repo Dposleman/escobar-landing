@@ -1,5 +1,3 @@
-import Vinyl from "./Vinyl";
-import Needle from "./Needle";
 import "../styles/VinylPanel.css";
 
 type Props = {
@@ -12,6 +10,8 @@ type Props = {
 };
 
 export function VinylPanel({ vinyl }: Props) {
+  const cover = vinyl.cover && vinyl.cover !== "/fallback.jpg" ? vinyl.cover : "/ui-kit/vinyl_cover.png";
+
   return (
     <section className="vinyl-panel metal-panel battered-panel js-reveal" id="vinyl">
       <header className="feature-panel-title">
@@ -26,31 +26,21 @@ export function VinylPanel({ vinyl }: Props) {
           <h3>{vinyl.artist}</h3>
           <h4>{vinyl.title}</h4>
           <div className="vinyl-panel__meta">
-            <p>Released in heavy rotation</p>
+            <p>Released 1970</p>
             <p>Playing tonight at Escobar</p>
           </div>
         </div>
 
         <div className="vinyl-stage">
           <div className="vinyl-stage-ambient" aria-hidden="true" />
-          <div className="vinyl-stage-frame" aria-hidden="true" />
-          <div className="vinyl-stage-burn" aria-hidden="true" />
-
+          <img className="vinyl-turntable-image" src="/ui-kit/turntable.png" alt="Turntable" />
+          <img className="vinyl-record-image" src="/ui-kit/vinyl_record.png" alt="Vinyl record" />
           <div className="vinyl-cover-frame">
-            <img src={vinyl.cover} alt={`${vinyl.artist} cover`} className="vinyl-cover-art" />
+            <img src={cover} alt={`${vinyl.artist} cover`} className="vinyl-cover-art" />
           </div>
-
-          <div className="turntable-body">
-            <div className="turntable-top-glow" />
-            <div className="turntable-platter">
-              <Vinyl bpm={vinyl.bpm} />
-            </div>
-            <div className="turntable-controls">
-              <span className="turntable-light" />
-              <span className="turntable-slider" />
-            </div>
-            <Needle isPlaying />
-          </div>
+          <a className="admin-entry admin-entry-vinyl" href="/admin">
+            ADMIN
+          </a>
         </div>
       </div>
     </section>
