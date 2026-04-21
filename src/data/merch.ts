@@ -1,4 +1,4 @@
-import type { MerchItem } from "../types";
+import type { MerchItem } from "../types/app";
 
 const now = new Date().toISOString();
 

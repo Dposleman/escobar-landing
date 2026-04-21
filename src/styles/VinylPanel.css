@@ -1,13 +1,13 @@
 .vinyl-panel {
   position: relative;
-  min-height: 650px;
-  padding: 18px 22px 18px;
+  min-height: 624px;
+  padding: 14px 18px 14px;
   overflow: hidden;
   background: rgba(13, 7, 7, 0.18);
 }
 
 .vinyl-title-row {
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
 .feature-panel-title {
@@ -27,7 +27,7 @@
 .feature-panel-title h2 {
   margin: 0;
   color: #ead9c7;
-  font-size: clamp(2rem, 2.7vw, 2.9rem);
+  font-size: clamp(1.85rem, 2.35vw, 2.55rem);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   text-shadow: 0 4px 18px rgba(0, 0, 0, 0.78);
@@ -37,8 +37,8 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(280px, 0.86fr) minmax(420px, 1.14fr);
-  gap: 10px;
+  grid-template-columns: minmax(290px, 0.82fr) minmax(440px, 1.18fr);
+  gap: 2px;
   align-items: stretch;
 }
 
@@ -46,7 +46,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 16px 10px 0 16px;
+  padding: 10px 8px 0 10px;
 }
 
 .vinyl-panel__copy h3,
@@ -58,17 +58,17 @@
 .vinyl-panel__copy h3 {
   color: #f2e3d5;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(3.4rem, 5vw, 5.2rem);
+  font-size: clamp(3rem, 4.6vw, 4.7rem);
   line-height: 0.92;
   letter-spacing: 0.01em;
   text-shadow: 0 6px 24px rgba(0, 0, 0, 0.72);
 }
 
 .vinyl-panel__copy h4 {
-  margin-top: 10px;
+  margin-top: 6px;
   color: #ec9a55;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(2.2rem, 3.2vw, 3.4rem);
+  font-size: clamp(1.95rem, 2.9vw, 3rem);
   line-height: 0.98;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -76,43 +76,43 @@
 }
 
 .vinyl-panel__meta {
-  margin-top: 26px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 2px;
 }
 
 .vinyl-panel__meta p {
   color: #f2ece6;
-  font-size: 1.06rem;
+  font-size: 0.98rem;
   letter-spacing: 0.03em;
 }
 
 .vinyl-admin-link {
-  margin-top: 28px;
+  margin-top: 20px;
   width: fit-content;
 }
 
 .vinyl-stage {
   position: relative;
-  min-height: 520px;
+  min-height: 500px;
 }
 
 .turntable-art {
   position: absolute;
-  left: -8px;
-  right: 10px;
-  bottom: -8px;
-  width: min(100%, 640px);
+  left: -20px;
+  right: -8px;
+  bottom: -20px;
+  width: min(100%, 680px);
   z-index: 1;
   filter: drop-shadow(0 20px 32px rgba(0, 0, 0, 0.72));
 }
 
 .vinyl-record-art {
   position: absolute;
-  right: 48px;
-  bottom: 94px;
-  width: 220px;
+  right: 54px;
+  bottom: 100px;
+  width: 246px;
   z-index: 2;
   animation: vinylSpin 14s linear infinite;
   filter: drop-shadow(0 10px 26px rgba(0, 0, 0, 0.66));
@@ -120,9 +120,9 @@
 
 .vinyl-cover-art {
   position: absolute;
-  right: 158px;
-  top: 38px;
-  width: 250px;
+  right: 176px;
+  top: 32px;
+  width: 262px;
   z-index: 3;
   transform: rotate(-7deg);
   filter: drop-shadow(0 12px 26px rgba(0, 0, 0, 0.76));
@@ -153,7 +153,7 @@
 
   .vinyl-cover-art {
     right: 120px;
-    width: 220px;
+    width: 246px;
   }
 
   .vinyl-record-art {

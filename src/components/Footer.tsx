@@ -8,12 +8,7 @@ export function Footer() {
       <div className="site-footer-content">
         <p className="site-footer-powered">
           Powered by{" "}
-          <a
-            href="https://understack.dk/"
-            target="_blank"
-            rel="noreferrer"
-            className="site-footer-link"
-          >
+          <a href="https://understack.dk/" target="_blank" rel="noreferrer" className="site-footer-link">
             UnderStack
           </a>
         </p>

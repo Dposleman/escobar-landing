@@ -1,4 +1,4 @@
-import type { RadioState } from "../types";
+import type { RadioState } from "../types/app";
 import { buildSpotifyEmbedUrl } from "../utils/spotify";
 
 const spotifyUrl = "https://open.spotify.com/playlist/37i9dQZF1DX0SM0LYsmbMT";

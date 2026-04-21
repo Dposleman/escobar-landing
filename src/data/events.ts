@@ -1,4 +1,4 @@
-import type { EventItem } from "../types";
+import type { EventItem } from "../types/app";
 
 const now = new Date().toISOString();
 

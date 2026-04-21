@@ -57,7 +57,7 @@ export function RadioPanel({ radio }: Props) {
             </a>
 
             {radio.embedUrl ? (
-              <a className="radio-listen-link" href={radio.embedUrl} target="_blank" rel="noreferrer">
+              <a className="radio-listen-link" href="#events">
                 MORE EVENTS
               </a>
             ) : (

@@ -16,11 +16,7 @@ export default function NavBar() {
       </div>
       <div className="nav__inner">
         {items.map((item) => (
-          <a
-            key={item.label}
-            className={`nav__item${item.active ? " is-active" : ""}`}
-            href={item.href}
-          >
+          <a key={item.label} className={`nav__item${item.active ? " is-active" : ""}`} href={item.href}>
             {item.label}
           </a>
         ))}
