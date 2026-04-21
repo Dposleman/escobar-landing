@@ -4,6 +4,7 @@ export default function BackgroundEngine() {
   return (
     <div className="bg-root" aria-hidden="true">
       <div className="bg-base" />
+      <div className="bg-wall" />
       <div className="bg-metal-base" />
       <div className="bg-metal-detail" />
       <div className="bg-grime" />

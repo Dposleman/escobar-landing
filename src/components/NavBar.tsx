@@ -11,7 +11,9 @@ const items = [
 export default function NavBar() {
   return (
     <nav className="nav metal-panel battered-panel js-reveal" aria-label="Primary">
-      <img className="nav__plate" src="/ui-kit/navbar.png" alt="" aria-hidden="true" />
+      <div className="nav__backplate" aria-hidden="true">
+        <img src="/ui-kit/navbar.png" alt="" />
+      </div>
       <div className="nav__inner">
         {items.map((item) => (
           <a

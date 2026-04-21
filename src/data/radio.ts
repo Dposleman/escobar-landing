@@ -6,7 +6,7 @@ const spotifyUrl = "https://open.spotify.com/playlist/37i9dQZF1DX0SM0LYsmbMT";
 export const radioTracks: RadioState = {
   provider: "spotify",
   renderMode: "embed",
-  title: "RADIO ESCOBAR",
+  title: "Escobar Radio",
   subtitle: "NOW PLAYING LIVE",
   spotifyUrl,
   embedUrl: buildSpotifyEmbedUrl(spotifyUrl),
@@ -16,7 +16,7 @@ export const radioTracks: RadioState = {
   updatedAt: new Date().toISOString(),
   fallbackCoverImage: "/ui-kit/radio_avatar.png",
   nowPlaying: {
-    artist: "Motörhead",
+    artist: "Motorhead",
     album: "Ace of Spades",
     track: "Ace of Spades",
     coverImage: "/ui-kit/radio_avatar.png",

@@ -9,38 +9,33 @@ type Props = {
   items: MerchItem[];
 };
 
-const fallbackImages = [
-  "/ui-kit/merch_tee.png",
-  "/ui-kit/merch_beer_mug.png",
-  "/ui-kit/merch_sticker_pack.png",
-  "/ui-kit/merch_patch.png",
-];
-
 export default function MerchPanel({ items }: Props) {
   return (
-    <div className="panel frame-primary merch-panel" id="merch">
-      <div className="panel-header panel-header-image panel-header-merch">
-        <img src="/ui-kit/section_title_2.png" alt="Escobar Merch Store" />
-        <a className="admin-entry admin-entry-merch" href="/admin">
-          ADMIN
-        </a>
+    <section className="merch-panel metal-panel battered-panel js-reveal" id="merch">
+      <div className="section-heading-art merch-heading-art">
+        <img src="/ui-kit/section_title_2.png" alt="Escobar merch store" />
       </div>
 
-      <div className="merch-grid escobar-merch-grid">
-        {items.map((item, i) => (
-          <div key={i} className="merch-card escobar-merch-card">
-            <div className="merch-image escobar-merch-image">
-              <img src={item.image || fallbackImages[i % fallbackImages.length]} alt={item.name} />
+      <div className="merch-grid">
+        {items.map((item, index) => (
+          <article key={index} className="merch-card">
+            <div className="merch-image-wrap">
+              <img src={item.image} alt={item.name} className="merch-image" />
             </div>
-
             <div className="merch-name">{item.name}</div>
-          </div>
+          </article>
         ))}
       </div>
 
-      <div className="merch-cta merch-cta-image">
-        <button className="btn-metal btn-metal-image">SHOP MERCH</button>
+      <div className="merch-actions">
+        <a href="/admin" className="admin-hotspot merch-admin-link">
+          ADMIN
+        </a>
+
+        <button className="merch-shop-button" type="button">
+          <img src="/ui-kit/button_primary.png" alt="Shop merch" />
+        </button>
       </div>
-    </div>
+    </section>
   );
 }
