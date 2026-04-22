@@ -1,15 +1,15 @@
 .radio-panel {
   position: relative;
   min-height: 624px;
-  padding: 14px 18px 18px;
+  padding: 14px 18px 16px;
   background: rgba(13, 7, 7, 0.16);
 }
 
-.radio-shell-overlay--clean {
+.radio-shell-overlay {
   position: relative;
   z-index: 1;
   display: flex;
-  min-height: 580px;
+  min-height: 592px;
   flex-direction: column;
   padding: 16px 18px 12px;
 }
@@ -31,158 +31,68 @@
   text-shadow: 0 0 12px rgba(255, 120, 36, 0.28);
 }
 
-.radio-player-card {
+.radio-embed-frame {
   position: relative;
-  display: grid;
-  grid-template-columns: 200px minmax(0, 1fr);
-  gap: 20px;
-  margin-top: 42px;
-  padding: 22px;
-  border: 1px solid rgba(255, 164, 97, 0.14);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(0, 0, 0, 0.18)),
-    rgba(22, 10, 8, 0.44);
+  flex: 1;
+  margin-top: 26px;
+  border: 1px solid rgba(255, 154, 78, 0.14);
+  background: linear-gradient(180deg, rgba(23, 9, 8, 0.84), rgba(10, 4, 4, 0.92));
   box-shadow:
-    inset 0 1px 0 rgba(255, 223, 193, 0.05),
-    inset 0 -32px 50px rgba(0, 0, 0, 0.18),
-    0 18px 40px rgba(0, 0, 0, 0.24);
+    inset 0 0 0 1px rgba(255, 230, 208, 0.03),
+    0 24px 50px rgba(0, 0, 0, 0.28);
   overflow: hidden;
 }
 
-.radio-player-card-glow {
-  position: absolute;
-  inset: auto -8% 0;
-  height: 55%;
-  background: radial-gradient(circle at center, rgba(255, 130, 44, 0.18), rgba(255, 130, 44, 0) 62%);
-  pointer-events: none;
-}
-
-.radio-art-wrap {
-  position: relative;
-}
-
-.radio-avatar-image--cover {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border: 1px solid rgba(255, 176, 122, 0.16);
-  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.44);
-}
-
-.radio-source-badge {
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  bottom: 10px;
-  display: inline-flex;
-  justify-content: center;
-  padding: 8px 10px;
-  border: 1px solid rgba(255, 176, 122, 0.18);
-  color: #f7e1cc;
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  background: rgba(0, 0, 0, 0.46);
-  backdrop-filter: blur(8px);
-}
-
-.radio-copy--card {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-}
-
-.radio-station {
+.radio-spotify-embed {
   display: block;
-  color: #f5efe9;
-  font-size: 2.15rem;
-  line-height: 1;
-  letter-spacing: 0.01em;
-  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.74);
+  width: 100%;
+  height: 100%;
+  min-height: 430px;
+  border: 0;
+  background: transparent;
 }
 
-.radio-trackline {
-  margin-top: 12px;
+.radio-fallback-card {
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  min-height: 430px;
+  padding: 24px;
+  color: #f2dfcf;
+  text-align: center;
 }
 
-.radio-track {
-  display: inline-block;
-  color: #ffb06b;
-  font-size: 1.14rem;
-  font-weight: 700;
-}
-
-.radio-album {
-  margin-top: 10px;
-  color: rgba(242, 224, 207, 0.84);
-  font-size: 0.96rem;
-  letter-spacing: 0.06em;
+.radio-fallback-card strong {
+  font-size: 1rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.radio-progress {
-  position: relative;
-  height: 6px;
-  margin-top: 24px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.12);
-  overflow: hidden;
+.radio-fallback-card span {
+  max-width: 420px;
+  color: rgba(242, 223, 207, 0.72);
+  font-size: 0.9rem;
 }
 
-.radio-progress-fill {
-  position: absolute;
-  inset: 0 auto 0 0;
-  background: linear-gradient(90deg, rgba(255, 244, 232, 0.95), rgba(255, 159, 92, 0.82));
-  box-shadow: 0 0 14px rgba(255, 129, 42, 0.36);
-}
-
-.radio-time {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  color: #efe1d4;
-  font-size: 0.92rem;
-  letter-spacing: 0.03em;
-}
-
-.radio-controls {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 72px));
-  gap: 12px;
-  align-items: center;
-  margin-top: auto;
-  padding: 18px 0 0;
-}
-
-.radio-controls button {
-  min-height: 58px;
-  border: 1px solid rgba(255, 176, 122, 0.1);
-  border-radius: 999px;
-  color: #f2dfcf;
-  font-size: 1.22rem;
-  background: rgba(0, 0, 0, 0.22);
-  box-shadow: inset 0 1px 0 rgba(255, 230, 208, 0.04);
-}
-
-.radio-controls .is-primary {
-  background: radial-gradient(circle at center, rgba(255, 217, 185, 0.94) 0%, rgba(255, 200, 154, 0.86) 38%, rgba(180, 115, 66, 0.92) 100%);
-  color: #1b0c08;
-  box-shadow: 0 0 26px rgba(255, 149, 74, 0.2);
-}
-
-.radio-footer-row--actions {
+.radio-footer-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  margin-top: auto;
-  padding-top: 16px;
+  margin-top: 16px;
 }
 
 @media (max-width: 1024px) {
-  .radio-player-card {
-    grid-template-columns: 1fr;
+  .radio-panel {
+    min-height: auto;
+  }
+
+  .radio-shell-overlay {
+    min-height: 560px;
+  }
+
+  .radio-spotify-embed {
+    min-height: 400px;
   }
 }
 
@@ -192,12 +102,12 @@
     align-items: flex-start;
   }
 
-  .radio-footer-row--actions {
+  .radio-footer-row {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .radio-controls {
-    grid-template-columns: repeat(3, 1fr);
+  .radio-spotify-embed {
+    min-height: 380px;
   }
 }

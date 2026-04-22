@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import EventsPanel from "./components/EventsPanel";
 import { GalleryPanel } from "./components/GalleryPanel";
 import { Hero } from "./components/Hero";
@@ -28,7 +28,11 @@ setLang("da");
 function App() {
   const cms = useCms();
 
-  const isAdminRoute = typeof window !== "undefined" && window.location.pathname === "/admin";
+  const isAdminRoute = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    const params = new URLSearchParams(window.location.search);
+    return window.location.pathname === "/admin" || params.get("admin") === "1";
+  }, []);
 
   useEffect(() => {
     const cleanupReveal = revealPanels();

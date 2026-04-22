@@ -21,7 +21,7 @@ export function Hero() {
         </div>
 
         <div className="hero-counter-wrap hero-counter-wrap--simple">
-          <a href="/admin" className="admin-hotspot hero-admin-link">
+          <a href="/?admin=1" className="admin-hotspot hero-admin-link">
             ADMIN
           </a>
         </div>
