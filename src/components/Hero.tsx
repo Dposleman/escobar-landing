@@ -5,6 +5,15 @@ export function Hero() {
 
   return (
     <section className="hero-panel metal-panel battered-panel js-reveal" id="home">
+      <div className="panel-chain-frame" aria-hidden="true">
+        <span className="panel-chain-frame__edge panel-chain-frame__edge--top" />
+        <span className="panel-chain-frame__edge panel-chain-frame__edge--bottom" />
+        <span className="panel-chain-frame__edge panel-chain-frame__edge--left" />
+        <span className="panel-chain-frame__edge panel-chain-frame__edge--right" />
+        <span className="panel-chain-frame__divider panel-chain-frame__divider--top" />
+        <span className="panel-chain-frame__divider panel-chain-frame__divider--bottom" />
+      </div>
+
       <div className="hero-top-row hero-top-row--clean">
         <div className="hero-emblem-wrap" aria-hidden="true">
           <img src="/ui-kit/logo_emblem.png" alt="" className="hero-emblem-image" />

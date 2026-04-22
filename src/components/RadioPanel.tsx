@@ -12,21 +12,21 @@ export function RadioPanel({ radio }: Props) {
 
   return (
     <section className="radio-panel metal-panel battered-panel js-reveal" id="radio">
-      <div className="esc-panel-frame" aria-hidden="true">
-        <span className="esc-panel-frame__edge esc-panel-frame__edge--top" />
-        <span className="esc-panel-frame__edge esc-panel-frame__edge--right" />
-        <span className="esc-panel-frame__edge esc-panel-frame__edge--bottom" />
-        <span className="esc-panel-frame__edge esc-panel-frame__edge--left" />
-        <span className="esc-panel-frame__divider esc-panel-frame__divider--top" />
-        <span className="esc-panel-frame__divider esc-panel-frame__divider--bottom" />
+      <div className="panel-chain-frame" aria-hidden="true">
+        <span className="panel-chain-frame__edge panel-chain-frame__edge--top" />
+        <span className="panel-chain-frame__edge panel-chain-frame__edge--bottom" />
+        <span className="panel-chain-frame__edge panel-chain-frame__edge--left" />
+        <span className="panel-chain-frame__edge panel-chain-frame__edge--right" />
+        <span className="panel-chain-frame__divider panel-chain-frame__divider--top" />
+        <span className="panel-chain-frame__divider panel-chain-frame__divider--bottom" />
       </div>
 
       <div className="radio-shell-overlay radio-shell-overlay--clean">
-        <div className="esc-panel-plaque esc-panel-plaque--center esc-panel-plaque--radio">
+        <div className="section-title section-title--boxed section-title--floating section-title--radio-clean">
           <h3>{radio.title || "RADIO ESCOBAR"}</h3>
         </div>
 
-        <div className="radio-embed-frame">
+        <div className="radio-embed-frame radio-embed-frame--clean radio-embed-frame--large">
           {embedUrl ? (
             <iframe
               className="radio-spotify-embed"
@@ -44,7 +44,7 @@ export function RadioPanel({ radio }: Props) {
         </div>
 
         <div className="radio-footer-row radio-footer-row--actions">
-          <a className="cta-button" href={openUrl} target="_blank" rel="noreferrer">
+          <a className="cta-button cta-button--image" href={openUrl} target="_blank" rel="noreferrer">
             <span>OPEN SPOTIFY</span>
           </a>
         </div>
