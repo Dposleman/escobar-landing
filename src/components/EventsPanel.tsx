@@ -10,6 +10,13 @@ type Props = {
   events: EventItem[];
 };
 
+const EVENT_FALLBACKS = [
+  "/ui-kit/event_item_01.png",
+  "/ui-kit/event_item_02.png",
+  "/ui-kit/event_item_03.png",
+  "/ui-kit/event_item_04.png",
+];
+
 export default function EventsPanel({ events }: Props) {
   return (
     <section className="events-panel metal-panel battered-panel js-reveal" id="events">
@@ -21,9 +28,15 @@ export default function EventsPanel({ events }: Props) {
 
       <div className="events-list">
         {events.map((event, index) => (
-          <article key={index} className="event-row">
+          <article key={`${event.title}-${index}`} className="event-row">
             <div className="event-thumb">
-              {event.coverImage && <img src={event.coverImage} alt={event.title} />}
+              <img
+                src={event.coverImage?.trim() || EVENT_FALLBACKS[index % EVENT_FALLBACKS.length]}
+                alt={event.title}
+                onError={(e) => {
+                  e.currentTarget.src = EVENT_FALLBACKS[index % EVENT_FALLBACKS.length];
+                }}
+              />
             </div>
 
             <div className="event-info">

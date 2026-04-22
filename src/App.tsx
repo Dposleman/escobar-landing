@@ -8,10 +8,9 @@ import NavBar from "./components/NavBar";
 import { NewsPanel } from "./components/NewsPanel";
 import { RadioPanel } from "./components/RadioPanel";
 import { ChatPanel } from "./components/ChatPanel";
-import { VinylPanel } from "./components/VinylPanel";
 import { revealPanels } from "./animations/animations";
 import { useCms } from "./hooks/useCms";
-import { buildVinylViewModel, buildSpotifyEmbedUrl } from "./utils/spotify";
+import { buildSpotifyEmbedUrl } from "./utils/spotify";
 import { createEmbers } from "./utils/embers";
 import { initMouseGlow } from "./utils/mouseGlow";
 import { AdminPage } from "./pages/AdminPage";
@@ -20,7 +19,6 @@ import { Footer } from "./components/Footer";
 import "./styles/dynamic-panels.css";
 import "./styles/final-polish.css";
 import "./styles/admin.css";
-import { merch } from "./data/merch";
 
 import BackgroundEngine from "./engine/BackgroundEngine";
 import { EffectsEngine } from "./engine/EffectsEngine";
@@ -56,20 +54,20 @@ function App() {
     return <AdminPage />;
   }
 
-  const vinylVM = buildVinylViewModel(cms.state.radio);
-
-  const vinylProps = {
-    title: vinylVM.release || "Unknown Track",
-    artist: vinylVM.artist || "ESCOBAR RADIO",
-    cover: vinylVM.coverImage || "/fallback.jpg",
-    bpm: 120,
-  };
-
   const radioProps = {
     title: cms.state.radio.title,
+    subtitle: cms.state.radio.subtitle,
     track: cms.state.radio.nowPlaying?.track || "Live stream",
     artist: cms.state.radio.nowPlaying?.artist || "Escobar Radio",
+    album: cms.state.radio.nowPlaying?.album || "Spotify",
+    coverImage:
+      cms.state.radio.nowPlaying?.coverImage ||
+      cms.state.radio.fallbackCoverImage ||
+      "/ui-kit/radio_avatar.png",
+    duration: cms.state.radio.nowPlaying?.duration || "4:32",
+    progress: cms.state.radio.nowPlaying?.progress ?? 72,
     embedUrl: buildSpotifyEmbedUrl(cms.state.radio.spotifyUrl || ""),
+    spotifyUrl: cms.state.radio.spotifyUrl || "",
   };
 
   return (
@@ -87,13 +85,12 @@ function App() {
           <NavBar />
 
           <section className="feature-grid">
-            <VinylPanel vinyl={vinylProps} />
+            <GalleryPanel images={cms.state.gallery} variant="feature" />
             <RadioPanel radio={radioProps} />
           </section>
 
           <EventsPanel events={cms.state.events} />
-          <MerchPanel items={merch} />
-          <GalleryPanel images={cms.state.gallery} />
+          <MerchPanel items={cms.state.merch} />
 
           <section className="member-access-wrap">
             <AuthPanel

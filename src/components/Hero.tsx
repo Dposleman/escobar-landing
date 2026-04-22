@@ -19,17 +19,10 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="hero-counter-wrap">
-          <div className="hero-counter-plate">
-            <img src="/ui-kit/ticket_counter_plate.png" alt="" className="hero-counter-image" />
-            <strong>{t.heroCounterValue}</strong>
-          </div>
-
+        <div className="hero-actions-wrap">
           <a href="/admin" className="admin-hotspot hero-admin-link">
             ADMIN
           </a>
-
-          <div className="hero-domain">666.rock</div>
         </div>
       </div>
     </section>

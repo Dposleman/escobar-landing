@@ -3,6 +3,7 @@ import type { GalleryImage } from "../types";
 
 type GalleryPanelProps = {
   images: GalleryImage[];
+  variant?: "section" | "feature";
 };
 
 const GALLERY_FALLBACKS = [
@@ -61,7 +62,7 @@ function buildSlides(images: GalleryImage[]) {
   }));
 }
 
-export function GalleryPanel({ images }: GalleryPanelProps) {
+export function GalleryPanel({ images, variant = "section" }: GalleryPanelProps) {
   const slides = useMemo(() => buildSlides(images), [images]);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -74,10 +75,11 @@ export function GalleryPanel({ images }: GalleryPanelProps) {
   }, [slides.length]);
 
   const activeSlide = slides[activeIndex];
+  const panelClassName = `gallery-panel gallery-panel--${variant} metal-panel battered-panel js-reveal`;
 
   return (
-    <section className="gallery-panel metal-panel battered-panel js-reveal" id="gallery">
-      <div className="section-title">
+    <section className={panelClassName} id="gallery">
+      <div className="section-title section-title-tight">
         <span />
         <h3>ESCOBAR GALLERY</h3>
         <span />
