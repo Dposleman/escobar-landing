@@ -59,15 +59,9 @@ function App() {
     subtitle: cms.state.radio.subtitle,
     track: cms.state.radio.nowPlaying?.track || "Live stream",
     artist: cms.state.radio.nowPlaying?.artist || "Escobar Radio",
-    album: cms.state.radio.nowPlaying?.album || "Spotify",
-    coverImage:
-      cms.state.radio.nowPlaying?.coverImage ||
-      cms.state.radio.fallbackCoverImage ||
-      "/ui-kit/radio_avatar.png",
-    duration: cms.state.radio.nowPlaying?.duration || "4:32",
-    progress: cms.state.radio.nowPlaying?.progress ?? 72,
+    duration: cms.state.radio.nowPlaying?.duration || "LIVE",
     embedUrl: buildSpotifyEmbedUrl(cms.state.radio.spotifyUrl || ""),
-    spotifyUrl: cms.state.radio.spotifyUrl || "",
+    coverImage: cms.state.radio.nowPlaying?.coverImage || cms.state.radio.fallbackCoverImage || "/ui-kit/radio_avatar.png",
   };
 
   return (
@@ -85,7 +79,7 @@ function App() {
           <NavBar />
 
           <section className="feature-grid">
-            <GalleryPanel images={cms.state.gallery} variant="feature" />
+            <GalleryPanel images={cms.state.gallery} />
             <RadioPanel radio={radioProps} />
           </section>
 
