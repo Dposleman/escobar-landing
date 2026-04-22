@@ -5,7 +5,7 @@ export function Hero() {
 
   return (
     <section className="hero-panel metal-panel battered-panel js-reveal" id="home">
-      <div className="hero-top-row hero-top-row--simple">
+      <div className="hero-top-row hero-top-row--minimal">
         <div className="hero-emblem-wrap" aria-hidden="true">
           <img src="/ui-kit/logo_emblem.png" alt="" className="hero-emblem-image" />
         </div>
@@ -18,12 +18,6 @@ export function Hero() {
             <p className="hero-location">{t.heroLocation}</p>
             <p className="hero-tagline">{t.heroTagline}</p>
           </div>
-        </div>
-
-        <div className="hero-counter-wrap hero-counter-wrap--simple">
-          <a href="/?admin=1" className="admin-hotspot hero-admin-link">
-            ADMIN
-          </a>
         </div>
       </div>
     </section>

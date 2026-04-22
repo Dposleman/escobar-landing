@@ -81,7 +81,7 @@ export function GalleryPanel({ images, variant = "section" }: GalleryPanelProps)
     <section className={panelClassName} id="gallery">
       <div className="section-title section-title-tight">
         <span />
-        <h3>ESCOBAR GALLERY</h3>
+        <h3>GALLERY / NEWS</h3>
         <span />
       </div>
 
