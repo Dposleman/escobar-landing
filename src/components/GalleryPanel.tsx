@@ -1,34 +1,30 @@
 import { useMemo } from "react";
-import type { GalleryImage } from "../types/app";
+import type { GalleryImage } from "../types";
 
 const GALLERY_FALLBACKS = [
   {
-    title: "Stage Burn",
-    alt: "Escobar live stage",
-    caption: "Steel haze, amber glow and live tension.",
-    image:
-      "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
     title: "Crowd Static",
     alt: "Escobar crowd",
-    caption: "Motion, noise and scorched orange light.",
-    image:
-      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1600&q=80",
+    caption: "Motion, smoke and scorched amber air.",
+    image: "/ui-kit-clean/event_item_03.png",
   },
   {
-    title: "Turntable Ritual",
-    alt: "Turntable close-up",
-    caption: "Needle pressure and radio signal in the dark.",
-    image:
-      "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1600&q=80",
+    title: "Back Patch",
+    alt: "Escobar jacket",
+    caption: "Leather, thread and club insignia.",
+    image: "/ui-kit/merch_patch.png",
   },
   {
-    title: "After Midnight",
-    alt: "Late night venue lights",
-    caption: "The room after the volume peak.",
-    image:
-      "https://images.unsplash.com/photo-1501612780327-45045538702b?auto=format&fit=crop&w=1600&q=80",
+    title: "Facade Signal",
+    alt: "Escobar facade",
+    caption: "Street-level glow and heavy frontage.",
+    image: "/ui-kit/logo_text.png",
+  },
+  {
+    title: "Stage Burn",
+    alt: "Escobar live stage",
+    caption: "Volume peak in a room of fire.",
+    image: "/ui-kit-clean/event_item_04.png",
   },
 ];
 
@@ -37,82 +33,64 @@ type GalleryPanelProps = {
   variant?: "section" | "feature";
 };
 
-function buildSlides(images: GalleryImage[]) {
+function buildCards(images: GalleryImage[]) {
   const published = images.filter((image) => image.status === "published");
+  const source = published.length > 0 ? published : [];
 
-  if (published.length > 0) {
-    return published.map((image, index) => ({
-      ...image,
-      image: image.image?.trim() || GALLERY_FALLBACKS[index % GALLERY_FALLBACKS.length].image,
-      caption:
-        image.caption?.trim() || GALLERY_FALLBACKS[index % GALLERY_FALLBACKS.length].caption,
-      alt: image.alt?.trim() || GALLERY_FALLBACKS[index % GALLERY_FALLBACKS.length].alt,
-      title: image.title?.trim() || GALLERY_FALLBACKS[index % GALLERY_FALLBACKS.length].title,
-    }));
-  }
+  return Array.from({ length: 4 }, (_, index) => {
+    const item = source[index];
+    const fallback = GALLERY_FALLBACKS[index % GALLERY_FALLBACKS.length];
 
-  return GALLERY_FALLBACKS.map((item, index) => ({
-    id: `gallery-fallback-${index}`,
-    order: index,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    galleryName: "Escobar Archive",
-    status: "published" as const,
-    ...item,
-  }));
+    return {
+      id: item?.id || `gallery-fallback-${index}`,
+      title: item?.title?.trim() || fallback.title,
+      caption: item?.caption?.trim() || fallback.caption,
+      alt: item?.alt?.trim() || fallback.alt,
+      image: item?.image?.trim() || fallback.image,
+    };
+  });
 }
 
 export function GalleryPanel({ images, variant = "section" }: GalleryPanelProps) {
-  const slides = useMemo(() => buildSlides(images).slice(0, 4), [images]);
-  const feature = slides[0];
-  const sideCards = slides.slice(1);
+  const cards = useMemo(() => buildCards(images), [images]);
   const panelClassName = `gallery-panel gallery-panel--${variant} metal-panel battered-panel js-reveal`;
 
   return (
     <section className={panelClassName} id="gallery">
-      <div className="section-title section-title-tight">
-        <span />
-        <h3>GALLERY / NEWS</h3>
-        <span />
+      <div className="escobar-panel-frame" aria-hidden="true">
+        <span className="escobar-chain escobar-chain--top" />
+        <span className="escobar-chain escobar-chain--right" />
+        <span className="escobar-chain escobar-chain--bottom" />
+        <span className="escobar-chain escobar-chain--left" />
       </div>
 
-      <div className="gallery-showcase">
-        <article className="gallery-feature-card">
-          <img
-            className="gallery-feature-image"
-            src={feature.image}
-            alt={feature.alt}
-            loading="lazy"
-            onError={(e) => {
-              e.currentTarget.src = GALLERY_FALLBACKS[0].image;
-            }}
-          />
-          <div className="gallery-feature-copy">
-            <span>{feature.galleryName || "ESCOBAR ARCHIVE"}</span>
-            <strong>{feature.title}</strong>
-            <p>{feature.caption}</p>
-          </div>
-        </article>
+      <div className="escobar-panel-divider escobar-panel-divider--top" aria-hidden="true" />
 
-        <div className="gallery-side-stack">
-          {sideCards.map((slide, index) => (
-            <article key={slide.id} className="gallery-side-card">
-              <img
-                className="gallery-side-image"
-                src={slide.image}
-                alt={slide.alt}
-                loading="lazy"
-                onError={(e) => {
-                  e.currentTarget.src = GALLERY_FALLBACKS[(index + 1) % GALLERY_FALLBACKS.length].image;
-                }}
-              />
-              <div className="gallery-side-copy">
-                <strong>{slide.title}</strong>
-                <p>{slide.caption}</p>
-              </div>
-            </article>
-          ))}
-        </div>
+      <div className="escobar-panel-title">
+        <span>GALLERY / NEWS</span>
+      </div>
+
+      <div className="gallery-grid gallery-grid--showcase">
+        {cards.map((card) => (
+          <article key={card.id} className="gallery-card gallery-card--showcase">
+            <div className="gallery-card-frame" aria-hidden="true" />
+            <img
+              className="gallery-card-image"
+              src={card.image}
+              alt={card.alt}
+              loading="lazy"
+              onError={(e) => {
+                e.currentTarget.src = "/ui-kit-clean/event_item_01.png";
+              }}
+            />
+          </article>
+        ))}
+      </div>
+
+      <div className="merch-actions">
+        <a className="cta-button" href="#news">
+          <span>VIEW ALL NEWS</span>
+        </a>
       </div>
     </section>
   );

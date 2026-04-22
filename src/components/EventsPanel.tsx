@@ -12,42 +12,53 @@ type Props = {
   events: EventItem[];
 };
 
+function buildEventMeta(event: EventItem) {
+  const place = [event.venue, event.city, event.country].filter(Boolean).join(" • ");
+  return place || "Escobar • Aarhus • Denmark";
+}
+
 export default function EventsPanel({ events }: Props) {
-  const publishedEvents = events.filter((event) => event.status === "published").slice(0, 4);
+  const publishedEvents = events.filter((event) => event.status === "published");
 
   return (
     <section className="events-panel metal-panel battered-panel js-reveal" id="events">
-      <div className="section-title section-title--events">
-        <span />
-        <h3>UPCOMING EVENTS</h3>
-        <span />
+      <div className="escobar-panel-frame" aria-hidden="true">
+        <span className="escobar-chain escobar-chain--top" />
+        <span className="escobar-chain escobar-chain--right" />
+        <span className="escobar-chain escobar-chain--bottom" />
+        <span className="escobar-chain escobar-chain--left" />
       </div>
 
-      <div className="events-list">
+      <div className="escobar-panel-divider escobar-panel-divider--top" aria-hidden="true" />
+
+      <div className="escobar-panel-title">
+        <span>UPCOMING EVENTS</span>
+      </div>
+
+      <div className="events-list events-list--editorial">
         {publishedEvents.map((event, index) => {
           const thumb = event.coverImage?.trim() || FALLBACK_THUMBS[index % FALLBACK_THUMBS.length];
-          const location = [event.venue, event.city, event.country].filter(Boolean).join(" • ");
 
           return (
-            <article key={event.id} className="event-row">
-              <div className="event-thumb-shell">
-                <div className="event-thumb">
-                  <img
-                    src={thumb}
-                    alt={event.title}
-                    loading="lazy"
-                    onError={(e) => {
-                      e.currentTarget.src = FALLBACK_THUMBS[index % FALLBACK_THUMBS.length];
-                    }}
-                  />
-                </div>
+            <article key={event.id} className="event-row event-row--editorial">
+              <div className="event-row-frame" aria-hidden="true" />
+
+              <div className="event-thumb event-thumb--editorial">
+                <img
+                  src={thumb}
+                  alt={event.title}
+                  loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.src = FALLBACK_THUMBS[index % FALLBACK_THUMBS.length];
+                  }}
+                />
               </div>
 
               <div className="event-copy">
-                <div className="event-date-kicker">{event.date}</div>
-                <div className="event-title">{event.title}</div>
-                {location ? <div className="event-location">{location}</div> : null}
-                {event.excerpt ? <p className="event-excerpt">{event.excerpt}</p> : null}
+                <div className="event-kicker">{event.date}</div>
+                <h4 className="event-title event-title--editorial">{event.title}</h4>
+                <div className="event-meta-line">{buildEventMeta(event)}</div>
+                <p className="event-excerpt-line">{event.excerpt}</p>
               </div>
             </article>
           );

@@ -1,10 +1,131 @@
 .radio-panel {
-  padding: 18px 18px 20px;
+  position: relative;
+  min-height: 624px;
+  padding: 28px 28px 30px;
+  background: rgba(13, 7, 7, 0.16);
 }
 
-.radio-panel iframe {
-  border: none;
-  border-radius: 0;
+.radio-shell-overlay {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 520px;
+  flex-direction: column;
+  padding: 0 4px 0;
+}
+
+.radio-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  color: #ede2d5;
+  font-size: 0.98rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.radio-header--stacked {
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.radio-header .live {
+  color: #ff9a4f;
+  text-shadow: 0 0 12px rgba(255, 120, 36, 0.28);
+}
+
+.radio-embed-frame {
+  position: relative;
+  flex: 1;
+  border: 1px solid rgba(255, 154, 78, 0.14);
+  background: linear-gradient(180deg, rgba(23, 9, 8, 0.84), rgba(10, 4, 4, 0.92));
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 230, 208, 0.03),
+    0 24px 50px rgba(0, 0, 0, 0.28);
   overflow: hidden;
-  box-shadow: none;
+}
+
+.radio-embed-frame--showcase {
+  min-height: 420px;
+}
+
+.radio-spotify-embed {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 430px;
+  border: 0;
+  background: transparent;
+}
+
+.radio-spotify-embed--showcase {
+  min-height: 420px;
+}
+
+.radio-fallback-card {
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  min-height: 430px;
+  padding: 24px;
+  color: #f2dfcf;
+  text-align: center;
+}
+
+.radio-fallback-card strong {
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.radio-fallback-card span {
+  max-width: 420px;
+  color: rgba(242, 223, 207, 0.72);
+  font-size: 0.9rem;
+}
+
+.radio-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.radio-footer-row--center {
+  justify-content: center;
+}
+
+@media (max-width: 1024px) {
+  .radio-panel {
+    min-height: auto;
+  }
+
+  .radio-shell-overlay {
+    min-height: 480px;
+  }
+
+  .radio-spotify-embed,
+  .radio-spotify-embed--showcase {
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 700px) {
+  .radio-header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .radio-footer-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .radio-spotify-embed,
+  .radio-spotify-embed--showcase {
+    min-height: 380px;
+  }
 }
