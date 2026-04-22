@@ -5,22 +5,20 @@ type NavBarProps = {
   items: LandingNavItem[];
 };
 
-const PRIMARY_ORDER = ["HOME", "RADIO ESCOBAR", "EVENTS", "MERCH STORE", "CONTACT"] as const;
+const ALLOWED_LABELS = new Set([
+  "HOME",
+  "RADIO ESCOBAR",
+  "EVENTS",
+  "MERCH STORE",
+  "CONTACT",
+]);
 
 export default function NavBar({ items }: NavBarProps) {
-  const byLabel = new Map(items.map((item) => [item.label.toUpperCase(), item]));
-
-  const visibleItems = PRIMARY_ORDER.map((label) => {
-    if (label === "CONTACT") {
-      return byLabel.get(label) ?? { id: "nav-contact", label: "CONTACT", href: "#footer", isActive: false };
-    }
-
-    return byLabel.get(label);
-  }).filter(Boolean) as LandingNavItem[];
+  const visibleItems = items.filter((item) => ALLOWED_LABELS.has(item.label));
 
   return (
     <nav className="nav metal-panel battered-panel js-reveal" aria-label="Primary">
-      <div className="nav__inner nav__inner--focused">
+      <div className="nav__inner">
         {visibleItems.map((item) => (
           <a
             key={item.id}

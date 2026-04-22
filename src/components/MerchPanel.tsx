@@ -16,18 +16,18 @@ export default function MerchPanel({ items }: Props) {
 
   return (
     <section className="merch-panel metal-panel battered-panel js-reveal" id="merch">
-      <div className="section-heading-art merch-heading-art">
-        <img src="/ui-kit/section_title_2.png" alt="Escobar merch store" />
+      <div className="section-title section-title--boxed">
+        <h3>SHOP MERCH</h3>
       </div>
 
-      <div className="merch-grid">
+      <div className="merch-grid merch-grid--clean">
         {publishedItems.map((item) => (
-          <article key={item.id} className="merch-card">
-            <div className="merch-image-wrap">
-              <img src={item.image} alt={item.title || item.name} className="merch-image" />
+          <article key={item.id} className="merch-card merch-card--clean">
+            <div className="merch-image-wrap merch-image-wrap--clean">
+              <img src={item.image} alt={item.title || item.name} className="merch-image merch-image--clean" />
             </div>
 
-            <div className="merch-copy">
+            <div className="merch-copy merch-copy--plate">
               <div className="merch-name">{item.title || item.name}</div>
               <div className="merch-price">{formatPrice(item.price)}</div>
             </div>
@@ -36,8 +36,8 @@ export default function MerchPanel({ items }: Props) {
       </div>
 
       <div className="merch-actions">
-        <a className="cta-button" href="#footer">
-          <span>SHOP MERCH</span>
+        <a className="cta-button cta-button--compact" href="#footer">
+          <span>SHOP ALL MERCH</span>
         </a>
       </div>
     </section>

@@ -13,12 +13,11 @@ export function RadioPanel({ radio }: Props) {
   return (
     <section className="radio-panel metal-panel battered-panel js-reveal" id="radio">
       <div className="radio-shell-overlay radio-shell-overlay--clean">
-        <div className="radio-header">
-          <span>{radio.title || "RADIO ESCOBAR"}</span>
-          <span className="live">{radio.subtitle || "NOW PLAYING LIVE"}</span>
+        <div className="section-title section-title--boxed section-title--radio">
+          <h3>{radio.title || "RADIO ESCOBAR"}</h3>
         </div>
 
-        <div className="radio-embed-frame">
+        <div className="radio-embed-frame radio-embed-frame--clean">
           {embedUrl ? (
             <iframe
               className="radio-spotify-embed"
@@ -36,11 +35,8 @@ export function RadioPanel({ radio }: Props) {
         </div>
 
         <div className="radio-footer-row radio-footer-row--actions">
-          <a className="cta-button cta-button--secondary" href={openUrl} target="_blank" rel="noreferrer">
+          <a className="cta-button cta-button--compact" href={openUrl} target="_blank" rel="noreferrer">
             <span>OPEN SPOTIFY</span>
-          </a>
-          <a className="cta-button cta-button--secondary" href="#events">
-            <span>MORE EVENTS</span>
           </a>
         </div>
       </div>
