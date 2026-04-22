@@ -2,19 +2,18 @@ import type { EventItem } from "../types";
 import "../styles/final-polish.css";
 
 const FALLBACK_THUMBS = [
-  "/ui-kit-clean/event_item_01.png",
-  "/ui-kit-clean/event_item_02.png",
-  "/ui-kit-clean/event_item_03.png",
-  "/ui-kit-clean/event_item_04.png",
+  "/ui-kit/event_item_01.png",
+  "/ui-kit/event_item_02.png",
+  "/ui-kit/event_item_03.png",
+  "/ui-kit/event_item_04.png",
 ];
 
 type Props = {
   events: EventItem[];
 };
 
-function buildEventMeta(event: EventItem) {
-  const place = [event.venue, event.city, event.country].filter(Boolean).join(" • ");
-  return place || "Escobar • Aarhus • Denmark";
+function formatLocation(event: EventItem) {
+  return [event.venue, event.city, event.country].filter(Boolean).join(" • ");
 }
 
 export default function EventsPanel({ events }: Props) {
@@ -22,43 +21,43 @@ export default function EventsPanel({ events }: Props) {
 
   return (
     <section className="events-panel metal-panel battered-panel js-reveal" id="events">
-      <div className="escobar-panel-frame" aria-hidden="true">
-        <span className="escobar-chain escobar-chain--top" />
-        <span className="escobar-chain escobar-chain--right" />
-        <span className="escobar-chain escobar-chain--bottom" />
-        <span className="escobar-chain escobar-chain--left" />
+      <div className="esc-panel-frame" aria-hidden="true">
+        <span className="esc-panel-frame__edge esc-panel-frame__edge--top" />
+        <span className="esc-panel-frame__edge esc-panel-frame__edge--right" />
+        <span className="esc-panel-frame__edge esc-panel-frame__edge--bottom" />
+        <span className="esc-panel-frame__edge esc-panel-frame__edge--left" />
+        <span className="esc-panel-frame__divider esc-panel-frame__divider--top" />
+        <span className="esc-panel-frame__divider esc-panel-frame__divider--bottom" />
       </div>
 
-      <div className="escobar-panel-divider escobar-panel-divider--top" aria-hidden="true" />
-
-      <div className="escobar-panel-title">
-        <span>UPCOMING EVENTS</span>
+      <div className="esc-panel-plaque esc-panel-plaque--center">
+        <h3>UPCOMING EVENTS</h3>
       </div>
 
-      <div className="events-list events-list--editorial">
+      <div className="events-list events-list--refined">
         {publishedEvents.map((event, index) => {
           const thumb = event.coverImage?.trim() || FALLBACK_THUMBS[index % FALLBACK_THUMBS.length];
 
           return (
-            <article key={event.id} className="event-row event-row--editorial">
-              <div className="event-row-frame" aria-hidden="true" />
-
-              <div className="event-thumb event-thumb--editorial">
-                <img
-                  src={thumb}
-                  alt={event.title}
-                  loading="lazy"
-                  onError={(e) => {
-                    e.currentTarget.src = FALLBACK_THUMBS[index % FALLBACK_THUMBS.length];
-                  }}
-                />
+            <article key={event.id} className="event-row event-row--refined">
+              <div className="event-row__thumbWrap">
+                <div className="event-row__thumb">
+                  <img
+                    src={thumb}
+                    alt={event.title}
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.src = FALLBACK_THUMBS[index % FALLBACK_THUMBS.length];
+                    }}
+                  />
+                </div>
               </div>
 
-              <div className="event-copy">
-                <div className="event-kicker">{event.date}</div>
-                <h4 className="event-title event-title--editorial">{event.title}</h4>
-                <div className="event-meta-line">{buildEventMeta(event)}</div>
-                <p className="event-excerpt-line">{event.excerpt}</p>
+              <div className="event-row__body">
+                <div className="event-row__meta">{event.date}</div>
+                <h4>{event.title}</h4>
+                <div className="event-row__sub">{formatLocation(event)}</div>
+                <p>{event.excerpt || "Live signal, amber haze and hard-cut selection through the room."}</p>
               </div>
             </article>
           );

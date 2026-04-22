@@ -1,17 +1,17 @@
 import type { MerchItem } from "../types";
 import "../styles/final-polish.css";
 
-const FALLBACK_MERCH = {
+type Props = {
+  items: MerchItem[];
+};
+
+const FALLBACK_BY_VARIANT: Record<string, string> = {
   tee: "/ui-kit-clean/merch_tee.png",
   mug: "/ui-kit-clean/merch_beer_mug.png",
   stickers: "/ui-kit-clean/merch_sticker_pack.png",
   patch: "/ui-kit-clean/merch_patch.png",
   poster: "/ui-kit-clean/merch_patch.png",
   vinyl: "/ui-kit-clean/merch_patch.png",
-} as const;
-
-type Props = {
-  items: MerchItem[];
 };
 
 export default function MerchPanel({ items }: Props) {
@@ -19,31 +19,30 @@ export default function MerchPanel({ items }: Props) {
 
   return (
     <section className="merch-panel metal-panel battered-panel js-reveal" id="merch">
-      <div className="escobar-panel-frame" aria-hidden="true">
-        <span className="escobar-chain escobar-chain--top" />
-        <span className="escobar-chain escobar-chain--right" />
-        <span className="escobar-chain escobar-chain--bottom" />
-        <span className="escobar-chain escobar-chain--left" />
+      <div className="esc-panel-frame" aria-hidden="true">
+        <span className="esc-panel-frame__edge esc-panel-frame__edge--top" />
+        <span className="esc-panel-frame__edge esc-panel-frame__edge--right" />
+        <span className="esc-panel-frame__edge esc-panel-frame__edge--bottom" />
+        <span className="esc-panel-frame__edge esc-panel-frame__edge--left" />
+        <span className="esc-panel-frame__divider esc-panel-frame__divider--top" />
+        <span className="esc-panel-frame__divider esc-panel-frame__divider--bottom" />
       </div>
 
-      <div className="escobar-panel-divider escobar-panel-divider--top" aria-hidden="true" />
-
-      <div className="escobar-panel-title">
-        <span>SHOP MERCH</span>
+      <div className="esc-panel-plaque esc-panel-plaque--center">
+        <h3>SHOP MERCH</h3>
       </div>
 
-      <div className="merch-grid merch-grid--showcase">
+      <div className="merch-grid merch-grid--refined">
         {publishedItems.map((item) => {
-          const fallback = FALLBACK_MERCH[item.variant] || "/ui-kit-clean/merch_patch.png";
+          const fallback = FALLBACK_BY_VARIANT[item.variant] || "/ui-kit-clean/merch_patch.png";
+          const imageSrc = item.image?.trim() || fallback;
           return (
-            <article key={item.id} className="merch-card merch-card--showcase">
-              <div className="merch-card-frame" aria-hidden="true" />
-
-              <div className="merch-image-wrap merch-image-wrap--showcase">
+            <article key={item.id} className="merch-card merch-card--refined">
+              <div className="merch-card__art">
                 <img
-                  src={item.image || fallback}
-                  alt={item.name}
-                  className="merch-image merch-image--showcase"
+                  src={imageSrc}
+                  alt={item.title || item.name}
+                  className="merch-image merch-image--refined"
                   loading="lazy"
                   onError={(e) => {
                     e.currentTarget.src = fallback;
@@ -51,8 +50,8 @@ export default function MerchPanel({ items }: Props) {
                 />
               </div>
 
-              <div className="merch-info merch-info--showcase">
-                <div className="merch-name">{item.name}</div>
+              <div className="merch-card__plate">
+                <div className="merch-name">{item.title || item.name}</div>
                 <div className="merch-price">{item.price}</div>
               </div>
             </article>
