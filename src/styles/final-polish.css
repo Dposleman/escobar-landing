@@ -529,3 +529,196 @@ body {
     height: 140px;
   }
 }
+
+
+:root {
+  --esc-chain-url: url("/ui-kit/divider_chain.png");
+  --esc-divider-url: url("/ui-kit/divider_frame.png");
+  --esc-footer-bar-url: url("/ui-kit/footer_bar.png");
+}
+
+.panel-divider {
+  width: min(100%, 1180px);
+  height: 28px;
+  margin: 14px auto;
+  background-image: var(--esc-divider-url);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  opacity: 0.92;
+  filter: saturate(1.12) brightness(1.02);
+  pointer-events: none;
+}
+
+.panel-divider--footer {
+  margin-top: 18px;
+  margin-bottom: 10px;
+}
+
+.feature-grid--framed {
+  position: relative;
+}
+
+.feature-grid--framed::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 50%;
+  width: 18px;
+  transform: translateX(-50%);
+  background-image: var(--esc-divider-url);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.hero-panel,
+.nav,
+.gallery-panel,
+.radio-panel,
+.events-panel,
+.merch-panel,
+.news-panel,
+.chat-panel,
+.site-footer,
+.member-access-wrap .auth-panel,
+.event-row,
+.merch-card,
+.news-feature-card,
+.auth-session-card,
+.chat-shell,
+.chat-message,
+.gallery-carousel-slide,
+.gallery-carousel-media,
+.radio-embed-frame,
+.cta-button,
+.auth-form,
+.auth-switch,
+.chat-form,
+.chat-lock-state-inline,
+.admin-dashboard,
+.admin-shell,
+.admin-card,
+.admin-section,
+.admin-panel,
+.admin-sidebar,
+.admin-tab-panel {
+  border-width: 16px !important;
+  border-style: solid !important;
+  border-color: transparent !important;
+  border-image-source: var(--esc-chain-url) !important;
+  border-image-slice: 28 fill !important;
+  border-image-width: 14px !important;
+  border-image-repeat: stretch !important;
+}
+
+.events-list,
+.merch-grid,
+.member-access-wrap,
+.news-panel,
+.chat-panel {
+  position: relative;
+}
+
+.events-list > .event-row + .event-row,
+.merch-grid > .merch-card,
+.chat-log > .chat-message + .chat-message {
+  margin-top: 8px;
+}
+
+.events-list > .event-row + .event-row::before,
+.chat-log > .chat-message + .chat-message::before {
+  content: "";
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  top: -24px;
+  height: 22px;
+  background-image: var(--esc-divider-url);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.merch-grid > .merch-card::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  right: -10px;
+  top: -20px;
+  height: 20px;
+  background-image: var(--esc-divider-url);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.merch-grid > .merch-card:nth-child(-n + 4)::before {
+  display: none;
+}
+
+.site-footer {
+  background-image: var(--esc-footer-bar-url);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  min-height: 140px;
+}
+
+.site-footer-bar,
+.site-footer-bar-line,
+.site-footer-bar-glow {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .feature-grid--framed::after {
+    display: none;
+  }
+
+  .panel-divider {
+    width: calc(100% - 8px);
+  }
+}
+
+@media (max-width: 700px) {
+  .panel-divider {
+    height: 20px;
+    margin: 10px auto;
+  }
+
+  .hero-panel,
+  .nav,
+  .gallery-panel,
+  .radio-panel,
+  .events-panel,
+  .merch-panel,
+  .news-panel,
+  .chat-panel,
+  .site-footer,
+  .member-access-wrap .auth-panel,
+  .event-row,
+  .merch-card,
+  .news-feature-card,
+  .auth-session-card,
+  .chat-shell,
+  .chat-message,
+  .gallery-carousel-slide,
+  .gallery-carousel-media,
+  .radio-embed-frame,
+  .cta-button,
+  .auth-form,
+  .auth-switch,
+  .chat-form,
+  .chat-lock-state-inline {
+    border-width: 12px !important;
+    border-image-width: 10px !important;
+  }
+}

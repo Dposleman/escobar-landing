@@ -62,15 +62,20 @@ function App() {
 
         <main className="page-content">
           <Hero />
+          <div className="panel-divider" aria-hidden="true" />
           <NavBar items={cms.state.nav} />
+          <div className="panel-divider" aria-hidden="true" />
 
-          <section className="feature-grid">
+          <section className="feature-grid feature-grid--framed">
             <GalleryPanel images={cms.state.gallery} />
             <RadioPanel radio={cms.state.radio} />
           </section>
 
+          <div className="panel-divider" aria-hidden="true" />
           <EventsPanel events={cms.state.events} />
+          <div className="panel-divider" aria-hidden="true" />
           <MerchPanel items={cms.state.merch} />
+          <div className="panel-divider" aria-hidden="true" />
 
           <section className="member-access-wrap">
             <AuthPanel
@@ -81,7 +86,9 @@ function App() {
             />
           </section>
 
+          <div className="panel-divider" aria-hidden="true" />
           <NewsPanel news={cms.state.news} />
+          <div className="panel-divider" aria-hidden="true" />
 
           <ChatPanel
             session={cms.state.auth}
@@ -89,6 +96,7 @@ function App() {
             onSendMessage={cms.sendMessage}
           />
 
+          <div className="panel-divider panel-divider--footer" aria-hidden="true" />
           <Footer />
         </main>
       </div>
