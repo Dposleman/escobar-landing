@@ -1,2 +1,10 @@
+.radio-panel {
+  padding: 18px 18px 20px;
+}
 
-.radio-panel iframe{border:none;border-radius:8px;overflow:hidden}
+.radio-panel iframe {
+  border: none;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+}
