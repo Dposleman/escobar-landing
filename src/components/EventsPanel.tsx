@@ -1,23 +1,23 @@
 import type { EventItem } from "../types";
 import "../styles/final-polish.css";
 
+const FALLBACK_THUMBS = [
+  "/ui-kit-clean/event_item_01.png",
+  "/ui-kit-clean/event_item_02.png",
+  "/ui-kit-clean/event_item_03.png",
+  "/ui-kit-clean/event_item_04.png",
+];
+
 type Props = {
   events: EventItem[];
 };
-
-const FALLBACK_EVENT_THUMBS = [
-  "/ui-kit/event_item_01.png",
-  "/ui-kit/event_item_02.png",
-  "/ui-kit/event_item_03.png",
-  "/ui-kit/event_item_04.png",
-];
 
 export default function EventsPanel({ events }: Props) {
   const publishedEvents = events.filter((event) => event.status === "published");
 
   return (
     <section className="events-panel metal-panel battered-panel js-reveal" id="events">
-      <div className="section-title section-title-real">
+      <div className="section-title section-title--events">
         <span />
         <h3>UPCOMING EVENTS</h3>
         <span />
@@ -25,12 +25,19 @@ export default function EventsPanel({ events }: Props) {
 
       <div className="events-list">
         {publishedEvents.map((event, index) => {
-          const thumb = event.coverImage?.trim() || FALLBACK_EVENT_THUMBS[index % FALLBACK_EVENT_THUMBS.length];
+          const thumb = event.coverImage?.trim() || FALLBACK_THUMBS[index % FALLBACK_THUMBS.length];
 
           return (
             <article key={event.id} className="event-row">
               <div className="event-thumb">
-                <img src={thumb} alt={event.title} />
+                <img
+                  src={thumb}
+                  alt={event.title}
+                  loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.src = FALLBACK_THUMBS[index % FALLBACK_THUMBS.length];
+                  }}
+                />
               </div>
 
               <div className="event-info">

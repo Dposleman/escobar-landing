@@ -10,7 +10,6 @@ import { RadioPanel } from "./components/RadioPanel";
 import { ChatPanel } from "./components/ChatPanel";
 import { revealPanels } from "./animations/animations";
 import { useCms } from "./hooks/useCms";
-import { buildSpotifyEmbedUrl } from "./utils/spotify";
 import { createEmbers } from "./utils/embers";
 import { initMouseGlow } from "./utils/mouseGlow";
 import { AdminPage } from "./pages/AdminPage";
@@ -19,7 +18,6 @@ import { Footer } from "./components/Footer";
 import "./styles/dynamic-panels.css";
 import "./styles/final-polish.css";
 import "./styles/admin.css";
-
 import BackgroundEngine from "./engine/BackgroundEngine";
 import { EffectsEngine } from "./engine/EffectsEngine";
 import { ParticlesEngine } from "./engine/ParticlesEngine";
@@ -30,18 +28,12 @@ setLang("da");
 function App() {
   const cms = useCms();
 
-  const isAdminRoute =
-    typeof window !== "undefined" && window.location.pathname === "/admin";
+  const isAdminRoute = typeof window !== "undefined" && window.location.pathname === "/admin";
 
   useEffect(() => {
     const cleanupReveal = revealPanels();
     const cleanupGlow = initMouseGlow();
-
-    let cleanupEmbers: (() => void) | undefined;
-
-    if (typeof createEmbers === "function") {
-      cleanupEmbers = createEmbers();
-    }
+    const cleanupEmbers = typeof createEmbers === "function" ? createEmbers() : undefined;
 
     return () => {
       cleanupReveal();
@@ -53,16 +45,6 @@ function App() {
   if (isAdminRoute) {
     return <AdminPage />;
   }
-
-  const radioProps = {
-    title: cms.state.radio.title,
-    subtitle: cms.state.radio.subtitle,
-    track: cms.state.radio.nowPlaying?.track || "Live stream",
-    artist: cms.state.radio.nowPlaying?.artist || "Escobar Radio",
-    duration: cms.state.radio.nowPlaying?.duration || "LIVE",
-    embedUrl: buildSpotifyEmbedUrl(cms.state.radio.spotifyUrl || ""),
-    coverImage: cms.state.radio.nowPlaying?.coverImage || cms.state.radio.fallbackCoverImage || "/ui-kit/radio_avatar.png",
-  };
 
   return (
     <>
@@ -80,7 +62,7 @@ function App() {
 
           <section className="feature-grid">
             <GalleryPanel images={cms.state.gallery} />
-            <RadioPanel radio={radioProps} />
+            <RadioPanel radio={cms.state.radio} />
           </section>
 
           <EventsPanel events={cms.state.events} />
