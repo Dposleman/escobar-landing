@@ -1,10 +1,6 @@
 export function Footer() {
   return (
     <footer className="site-footer metal-panel battered-panel js-reveal" id="footer">
-      <div className="site-footer-bar" aria-hidden="true">
-        <img src="/ui-kit/footer_bar.png" alt="" />
-      </div>
-
       <div className="site-footer-content">
         <p className="site-footer-powered">
           Powered by{" "}

@@ -12,8 +12,10 @@ type Props = {
 export default function MerchPanel({ items }: Props) {
   return (
     <section className="merch-panel metal-panel battered-panel js-reveal" id="merch">
-      <div className="section-heading-art merch-heading-art">
-        <img src="/ui-kit/section_title_2.png" alt="Escobar merch store" />
+      <div className="section-title section-title-tight">
+        <span />
+        <h3>ESCOBAR MERCH STORE</h3>
+        <span />
       </div>
 
       <div className="merch-grid">

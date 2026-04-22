@@ -13,8 +13,10 @@ type Props = {
 export default function EventsPanel({ events }: Props) {
   return (
     <section className="events-panel metal-panel battered-panel js-reveal" id="events">
-      <div className="section-heading-art">
-        <img src="/ui-kit/section_title.png" alt="Upcoming events" />
+      <div className="section-title section-title-tight">
+        <span />
+        <h3>UPCOMING EVENTS</h3>
+        <span />
       </div>
 
       <div className="events-list">
