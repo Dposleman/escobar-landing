@@ -1,19 +1,22 @@
+import type { LandingNavItem } from "../types";
 import "../styles/NavBar.css";
 
-const items = [
-  { label: "HOME", href: "#home", active: true },
-  { label: "RADIO ESCOBAR", href: "#radio" },
-  { label: "EVENTS", href: "#events" },
-  { label: "MERCH STORE", href: "#merch" },
-  { label: "CONTACT", href: "#footer" },
-];
+type NavBarProps = {
+  items: LandingNavItem[];
+};
 
-export default function NavBar() {
+export default function NavBar({ items }: NavBarProps) {
+  const visibleItems = items.filter((item) => item.label !== "ADMIN");
+
   return (
     <nav className="nav metal-panel battered-panel js-reveal" aria-label="Primary">
       <div className="nav__inner">
-        {items.map((item) => (
-          <a key={item.label} className={`nav__item${item.active ? " is-active" : ""}`} href={item.href}>
+        {visibleItems.map((item) => (
+          <a
+            key={item.id}
+            className={`nav__item${item.isActive ? " is-active" : ""}`}
+            href={item.href}
+          >
             {item.label}
           </a>
         ))}

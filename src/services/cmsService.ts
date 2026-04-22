@@ -17,6 +17,7 @@ import type {
 } from "../types";
 
 const CMS_STORAGE_KEY = "escobar-landing-cms";
+const CMS_STORAGE_VERSION = 2;
 const ADMIN_EMAIL = "dio.escobar.aarhus@gmail.com";
 const ADMIN_PASSWORD = "Rasmus123";
 
@@ -30,28 +31,11 @@ type CollectionMap = {
   news: NewsItem;
 };
 
-function readState(): LandingCmsState {
-  if (typeof window === "undefined") {
-    return initialAppState;
-  }
-
-  try {
-    const raw = window.localStorage.getItem(CMS_STORAGE_KEY);
-    if (!raw) {
-      return initialAppState;
-    }
-    return JSON.parse(raw) as LandingCmsState;
-  } catch {
-    return initialAppState;
-  }
-}
-
-function writeState(state: LandingCmsState): LandingCmsState {
-  if (typeof window !== "undefined") {
-    window.localStorage.setItem(CMS_STORAGE_KEY, JSON.stringify(state));
-  }
-  return state;
-}
+type CmsStorageEnvelope = {
+  version: number;
+  updatedAt: string;
+  state: LandingCmsState;
+};
 
 function createId(prefix: string): string {
   return `${prefix}-${Math.random().toString(36).slice(2, 10)}`;
@@ -97,6 +81,101 @@ function reorderItems<T extends { order: number; updatedAt: string }>(
   }));
 }
 
+function createEnvelope(state: LandingCmsState): CmsStorageEnvelope {
+  return {
+    version: CMS_STORAGE_VERSION,
+    updatedAt: new Date().toISOString(),
+    state,
+  };
+}
+
+function normalizeCollection<T extends { order: number; updatedAt: string }>(items: T[]): T[] {
+  return sortByOrder(items).map((item, index) => ({
+    ...item,
+    order: index,
+    updatedAt: item.updatedAt || new Date().toISOString(),
+  }));
+}
+
+function normalizeState(candidate: Partial<LandingCmsState> | null | undefined): LandingCmsState {
+  const merged: LandingCmsState = {
+    ...initialAppState,
+    ...candidate,
+    nav: [...(candidate?.nav ?? initialAppState.nav)],
+    events: normalizeCollection(candidate?.events ?? initialAppState.events),
+    merch: normalizeCollection(candidate?.merch ?? initialAppState.merch),
+    gallery: normalizeCollection(candidate?.gallery ?? initialAppState.gallery),
+    news: normalizeCollection(candidate?.news ?? initialAppState.news),
+    users: normalizeCollection(candidate?.users ?? initialAppState.users),
+    chat: {
+      ...initialAppState.chat,
+      ...candidate?.chat,
+      messages: normalizeCollection(candidate?.chat?.messages ?? initialAppState.chat.messages),
+    },
+    auth: {
+      ...initialAppState.auth,
+      ...candidate?.auth,
+    },
+    radio: {
+      ...initialAppState.radio,
+      ...candidate?.radio,
+      nowPlaying: candidate?.radio?.nowPlaying
+        ? {
+            ...initialAppState.radio.nowPlaying,
+            ...candidate.radio.nowPlaying,
+          }
+        : candidate?.radio?.nowPlaying === null
+          ? null
+          : initialAppState.radio.nowPlaying,
+      embedUrl: buildSpotifyEmbedUrl(
+        candidate?.radio?.spotifyUrl ?? initialAppState.radio.spotifyUrl
+      ),
+      updatedAt: candidate?.radio?.updatedAt ?? initialAppState.radio.updatedAt,
+    },
+  };
+
+  return ensurePrimaryAdmin(merged);
+}
+
+function parseStoredState(raw: string | null): LandingCmsState | null {
+  if (!raw) {
+    return null;
+  }
+
+  try {
+    const parsed = JSON.parse(raw) as CmsStorageEnvelope | LandingCmsState;
+
+    if (
+      parsed &&
+      typeof parsed === "object" &&
+      "state" in parsed &&
+      parsed.state &&
+      typeof parsed.state === "object"
+    ) {
+      return normalizeState(parsed.state as LandingCmsState);
+    }
+
+    return normalizeState(parsed as LandingCmsState);
+  } catch {
+    return null;
+  }
+}
+
+function readState(): LandingCmsState {
+  if (typeof window === "undefined") {
+    return normalizeState(initialAppState);
+  }
+
+  return parseStoredState(window.localStorage.getItem(CMS_STORAGE_KEY)) ?? normalizeState(initialAppState);
+}
+
+function writeState(state: LandingCmsState): LandingCmsState {
+  if (typeof window !== "undefined") {
+    window.localStorage.setItem(CMS_STORAGE_KEY, JSON.stringify(createEnvelope(state)));
+  }
+  return state;
+}
+
 function ensurePrimaryAdmin(state: LandingCmsState): LandingCmsState {
   const now = new Date().toISOString();
   const existingIndex = state.users.findIndex(
@@ -121,13 +200,13 @@ function ensurePrimaryAdmin(state: LandingCmsState): LandingCmsState {
 
     return {
       ...state,
-      users: sortByOrder(users),
+      users: normalizeCollection(users),
     };
   }
 
   return {
     ...state,
-    users: [
+    users: normalizeCollection([
       ...state.users,
       {
         id: "user-admin-dio",
@@ -142,63 +221,81 @@ function ensurePrimaryAdmin(state: LandingCmsState): LandingCmsState {
         avatar: "",
         isBlocked: false,
       },
-    ],
+    ]),
   };
 }
 
 class CmsService {
-  private listeners: Array<(state: LandingCmsState) => void> = [];
+  private listeners = new Set<() => void>();
+  private state: LandingCmsState;
+
+  constructor() {
+    this.state = readState();
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("storage", this.handleStorage);
+      this.bootstrap();
+    }
+  }
+
+  private handleStorage = (event: StorageEvent) => {
+    if (event.key !== CMS_STORAGE_KEY) {
+      return;
+    }
+
+    this.state = readState();
+    this.emit();
+  };
+
+  getSnapshot = (): LandingCmsState => {
+    return this.state;
+  };
+
+  getServerSnapshot = (): LandingCmsState => {
+    return normalizeState(initialAppState);
+  };
 
   getState(): LandingCmsState {
-    return readState();
+    return this.state;
   }
 
   bootstrap(): LandingCmsState {
-    const raw = typeof window !== "undefined" ? window.localStorage.getItem(CMS_STORAGE_KEY) : null;
-
-    if (!raw) {
-      return writeState(ensurePrimaryAdmin(initialAppState));
-    }
-
-    const hydrated = ensurePrimaryAdmin(readState());
-
-    return writeState({
-      ...hydrated,
-      news: hydrated.news ?? [],
-    });
+    const hydrated = normalizeState(readState());
+    this.state = writeState(hydrated);
+    this.emit();
+    return this.state;
   }
 
-  subscribe(listener: (state: LandingCmsState) => void): () => void {
-    this.listeners.push(listener);
+  subscribe = (listener: () => void): (() => void) => {
+    this.listeners.add(listener);
     return () => {
-      this.listeners = this.listeners.filter((current) => current !== listener);
+      this.listeners.delete(listener);
     };
-  }
+  };
 
-  private emit(state: LandingCmsState): void {
-    this.listeners.forEach((listener) => listener(state));
+  private emit(): void {
+    this.listeners.forEach((listener) => listener());
   }
 
   private save(state: LandingCmsState): LandingCmsState {
-    const saved = writeState(state);
-    this.emit(saved);
-    return saved;
+    this.state = writeState(normalizeState(state));
+    this.emit();
+    return this.state;
   }
 
   resetState(): LandingCmsState {
-    return this.save(ensurePrimaryAdmin(initialAppState));
+    return this.save(normalizeState(initialAppState));
   }
 
   private updateCollection<K extends CollectionKey>(
     key: K,
     updater: (items: CollectionMap[K][]) => CollectionMap[K][]
   ): LandingCmsState {
-    const state = this.getState();
-    const current = (state[key] ?? []) as CollectionMap[K][];
-    const nextItems = sortByOrder(updater(current));
+    const current = (this.state[key] ?? []) as CollectionMap[K][];
+    const nextItems = normalizeCollection(updater(current));
 
     return this.save({
-      ...state,
+      ...this.state,
       [key]: nextItems,
     } as LandingCmsState);
   }
@@ -257,38 +354,32 @@ class CmsService {
   }
 
   updateRadio(payload: UpdateRadioPayload): LandingCmsState {
-    const state = this.getState();
-
     const nextRadio: RadioState = {
-      ...state.radio,
+      ...this.state.radio,
       ...payload,
-      embedUrl:
-        payload.provider === "spotify" || state.radio.provider === "spotify"
-          ? buildSpotifyEmbedUrl(payload.spotifyUrl ?? state.radio.spotifyUrl)
-          : payload.embedUrl ?? state.radio.embedUrl,
+      embedUrl: buildSpotifyEmbedUrl(payload.spotifyUrl ?? this.state.radio.spotifyUrl),
       updatedAt: new Date().toISOString(),
     };
 
     return this.save({
-      ...state,
+      ...this.state,
       radio: nextRadio,
     });
   }
 
   register(payload: RegisterPayload): LandingCmsState {
-    const state = this.getState();
-    const exists = state.users.some(
+    const exists = this.state.users.some(
       (user) => user.email.toLowerCase() === payload.email.toLowerCase()
     );
 
     if (exists) {
-      return state;
+      return this.state;
     }
 
     const now = new Date().toISOString();
     const nextUser: UserRecord = {
       id: createId("user"),
-      order: state.users.length,
+      order: this.state.users.length,
       createdAt: now,
       updatedAt: now,
       email: payload.email,
@@ -301,8 +392,8 @@ class CmsService {
     };
 
     return this.save({
-      ...state,
-      users: [...state.users, nextUser],
+      ...this.state,
+      users: [...this.state.users, nextUser],
       auth: {
         user: toSessionUser(nextUser),
         isAuthenticated: true,
@@ -313,9 +404,7 @@ class CmsService {
   }
 
   login(payload: LoginPayload): LandingCmsState {
-    const state = this.getState();
-
-    const match = state.users.find((user) => {
+    const match = this.state.users.find((user) => {
       return (
         user.email.toLowerCase() === payload.email.toLowerCase() &&
         user.password === payload.password &&
@@ -324,11 +413,11 @@ class CmsService {
     });
 
     if (!match) {
-      return state;
+      return this.state;
     }
 
     return this.save({
-      ...state,
+      ...this.state,
       auth: {
         user: toSessionUser(match),
         isAuthenticated: true,
@@ -339,10 +428,8 @@ class CmsService {
   }
 
   logout(): LandingCmsState {
-    const state = this.getState();
-
     return this.save({
-      ...state,
+      ...this.state,
       auth: {
         user: null,
         isAuthenticated: false,
@@ -353,18 +440,17 @@ class CmsService {
   }
 
   sendMessage(text: string): LandingCmsState {
-    const state = this.getState();
-    const sessionUser = state.auth.user;
+    const sessionUser = this.state.auth.user;
     const trimmedText = text.trim();
 
     if (!sessionUser || !trimmedText) {
-      return state;
+      return this.state;
     }
 
     const now = new Date().toISOString();
     const nextMessage: ChatMessage = {
       id: createId("chat"),
-      order: state.chat.messages.length,
+      order: this.state.chat.messages.length,
       createdAt: now,
       updatedAt: now,
       userId: sessionUser.id,
@@ -376,10 +462,10 @@ class CmsService {
     };
 
     return this.save({
-      ...state,
+      ...this.state,
       chat: {
-        ...state.chat,
-        messages: [...state.chat.messages, nextMessage],
+        ...this.state.chat,
+        messages: [...this.state.chat.messages, nextMessage],
       },
     });
   }

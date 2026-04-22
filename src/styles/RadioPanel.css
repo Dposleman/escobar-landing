@@ -111,3 +111,38 @@
     min-height: 380px;
   }
 }
+
+.radio-panel {
+  background: rgba(10, 5, 5, 0.1);
+}
+
+.radio-shell-overlay,
+.radio-shell-overlay--clean {
+  padding: 8px 10px 10px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.radio-embed-frame {
+  margin-top: 18px;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.radio-spotify-embed {
+  min-height: 480px;
+  border-radius: 0;
+  background: transparent;
+}
+
+.radio-footer-row--actions {
+  justify-content: flex-end;
+}
+
+@media (max-width: 700px) {
+  .radio-spotify-embed {
+    min-height: 420px;
+  }
+}

@@ -62,7 +62,7 @@ function App() {
 
         <main className="page-content">
           <Hero />
-          <NavBar />
+          <NavBar items={cms.state.nav} />
 
           <section className="feature-grid">
             <GalleryPanel images={cms.state.gallery} />
