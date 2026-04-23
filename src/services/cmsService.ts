@@ -1,4 +1,5 @@
 import { initialAppState } from "../data/appState";
+import { ADMIN_EMAIL, ADMIN_PASSWORD, CMS_API_ENDPOINT, CMS_STORAGE_KEY, CMS_STORAGE_VERSION } from "../config/cms";
 import { buildSpotifyEmbedUrl } from "../utils/spotify";
 import type {
   ChatMessage,
@@ -16,11 +17,6 @@ import type {
   UserRecord,
 } from "../types";
 
-const CMS_STORAGE_KEY = "escobar-landing-cms";
-const CMS_STORAGE_VERSION = 2;
-const ADMIN_EMAIL = "dio.escobar.aarhus@gmail.com";
-const ADMIN_PASSWORD = "Rasmus123";
-
 type CollectionKey = "events" | "merch" | "gallery" | "users" | "news";
 
 type CollectionMap = {
@@ -35,6 +31,14 @@ type CmsStorageEnvelope = {
   version: number;
   updatedAt: string;
   state: LandingCmsState;
+};
+
+type RemoteCmsResponse = {
+  ok: boolean;
+  mode?: string;
+  updatedAt?: string | null;
+  state?: LandingCmsState | null;
+  error?: string;
 };
 
 function createId(prefix: string): string {
@@ -166,7 +170,9 @@ function readState(): LandingCmsState {
     return normalizeState(initialAppState);
   }
 
-  return parseStoredState(window.localStorage.getItem(CMS_STORAGE_KEY)) ?? normalizeState(initialAppState);
+  return (
+    parseStoredState(window.localStorage.getItem(CMS_STORAGE_KEY)) ?? normalizeState(initialAppState)
+  );
 }
 
 function writeState(state: LandingCmsState): LandingCmsState {
@@ -225,16 +231,87 @@ function ensurePrimaryAdmin(state: LandingCmsState): LandingCmsState {
   };
 }
 
+function mergeRemoteIntoLocal(
+  remoteState: LandingCmsState | null | undefined,
+  localState: LandingCmsState
+): LandingCmsState {
+  if (!remoteState) {
+    return normalizeState(localState);
+  }
+
+  return normalizeState({
+    ...remoteState,
+    users: localState.users,
+    auth: localState.auth,
+    chat: localState.chat,
+  });
+}
+
+async function fetchRemoteState(includePrivate = false): Promise<LandingCmsState | null> {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  try {
+    const response = await fetch(CMS_API_ENDPOINT, {
+      method: "GET",
+      headers: includePrivate
+        ? {
+            "x-admin-email": ADMIN_EMAIL,
+            "x-admin-password": ADMIN_PASSWORD,
+          }
+        : undefined,
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      return null;
+    }
+
+    const payload = (await response.json()) as RemoteCmsResponse;
+    return payload.state ? normalizeState(payload.state) : null;
+  } catch {
+    return null;
+  }
+}
+
+async function persistRemoteState(state: LandingCmsState): Promise<boolean> {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  try {
+    const response = await fetch(CMS_API_ENDPOINT, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "x-admin-email": ADMIN_EMAIL,
+        "x-admin-password": ADMIN_PASSWORD,
+      },
+      body: JSON.stringify({
+        adminEmail: ADMIN_EMAIL,
+        adminPassword: ADMIN_PASSWORD,
+        state,
+      }),
+    });
+
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
+
 class CmsService {
   private listeners = new Set<() => void>();
   private state: LandingCmsState;
+  private bootstrapPromise: Promise<LandingCmsState> | null = null;
 
   constructor() {
     this.state = readState();
 
     if (typeof window !== "undefined") {
       window.addEventListener("storage", this.handleStorage);
-      this.bootstrap();
+      void this.bootstrap();
     }
   }
 
@@ -259,11 +336,24 @@ class CmsService {
     return this.state;
   }
 
-  bootstrap(): LandingCmsState {
-    const hydrated = normalizeState(readState());
-    this.state = writeState(hydrated);
-    this.emit();
-    return this.state;
+  async bootstrap(forceRemote = false): Promise<LandingCmsState> {
+    if (!forceRemote && this.bootstrapPromise) {
+      return this.bootstrapPromise;
+    }
+
+    const task = (async () => {
+      const localState = normalizeState(readState());
+      const remoteState = await fetchRemoteState(forceRemote);
+      const hydrated = mergeRemoteIntoLocal(remoteState, localState);
+      this.state = writeState(hydrated);
+      this.emit();
+      return this.state;
+    })();
+
+    this.bootstrapPromise = task;
+    const resolved = await task;
+    this.bootstrapPromise = null;
+    return resolved;
   }
 
   subscribe = (listener: () => void): (() => void) => {
@@ -280,6 +370,7 @@ class CmsService {
   private save(state: LandingCmsState): LandingCmsState {
     this.state = writeState(normalizeState(state));
     this.emit();
+    void persistRemoteState(this.state);
     return this.state;
   }
 
@@ -416,7 +507,7 @@ class CmsService {
       return this.state;
     }
 
-    return this.save({
+    const nextState = this.save({
       ...this.state,
       auth: {
         user: toSessionUser(match),
@@ -425,6 +516,9 @@ class CmsService {
         updatedAt: new Date().toISOString(),
       },
     });
+
+    void this.bootstrap(true);
+    return nextState;
   }
 
   logout(): LandingCmsState {

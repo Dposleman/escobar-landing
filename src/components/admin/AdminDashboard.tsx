@@ -336,7 +336,7 @@ export function AdminDashboard(props: AdminDashboardProps) {
     return (
       <div className="admin-apply-row">
         <div className={`admin-apply-state ${dirtyMap[key] ? "is-dirty" : ""}`}>
-          {applyState[key] || (dirtyMap[key] ? "Pending changes" : "Synced to local CMS state")}
+          {applyState[key] || (dirtyMap[key] ? "Pending changes" : "Synced to shared CMS state")}
         </div>
         <button className="admin-button admin-apply-button" type="button" onClick={onApply}>
           {dirtyMap[key] ? "Apply changes" : "Saved"}
