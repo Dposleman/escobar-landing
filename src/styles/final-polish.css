@@ -1331,3 +1331,84 @@
     background-size: 52px 52px, 52px 52px !important;
   }
 }
+
+
+/* TOP FEATURE LAYOUT TUNING */
+.feature-grid.feature-grid--framed {
+  grid-template-columns: minmax(0, 1.22fr) minmax(360px, 0.78fr);
+  gap: 44px;
+  align-items: start;
+  margin-top: 34px;
+}
+
+.feature-grid.feature-grid--framed > * {
+  align-self: start;
+}
+
+.gallery-panel,
+.radio-panel {
+  margin-top: 0 !important;
+}
+
+.gallery-panel .section-title,
+.radio-panel .section-title {
+  margin-top: -10px;
+  margin-bottom: 22px;
+}
+
+.gallery-carousel-shell {
+  gap: 20px;
+}
+
+.gallery-stage {
+  min-height: 500px;
+}
+
+.gallery-stage-image {
+  height: 472px;
+}
+
+.gallery-rail {
+  gap: 14px;
+}
+
+.radio-shell-overlay--clean {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.radio-embed-frame--clean {
+  padding: 10px;
+}
+
+.radio-embed-frame--large {
+  margin-top: 8px;
+}
+
+.radio-spotify-embed {
+  min-height: 430px;
+}
+
+.radio-footer-row--actions {
+  margin-top: 16px;
+}
+
+@media (max-width: 1080px) {
+  .feature-grid.feature-grid--framed {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .gallery-stage {
+    min-height: 442px;
+  }
+
+  .gallery-stage-image {
+    height: 414px;
+  }
+
+  .radio-spotify-embed {
+    min-height: 410px;
+  }
+}

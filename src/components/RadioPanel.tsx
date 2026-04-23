@@ -23,7 +23,7 @@ export function RadioPanel({ radio }: Props) {
 
       <div className="radio-shell-overlay radio-shell-overlay--clean">
         <div className="section-title section-title--boxed section-title--floating section-title--radio-clean">
-          <h3>{radio.title || "RADIO ESCOBAR"}</h3>
+          <h3>RADIO ESCOBAR</h3>
         </div>
 
         <div className="radio-embed-frame radio-embed-frame--clean radio-embed-frame--large">
