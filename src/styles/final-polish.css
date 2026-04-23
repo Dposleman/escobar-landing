@@ -894,150 +894,194 @@
   }
 }
 
-.panel-chain-frame::before,
-.panel-chain-frame::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+/* fire corner premium pass */
+:root {
+  --esc-fire-panel-opacity: 0.72;
+  --esc-fire-panel-size: 132px;
+  --esc-fire-card-opacity: 0.88;
+  --esc-fire-card-size: 92px;
 }
 
-.panel-chain-frame::before {
-  background-image:
-    url('/ui-kit-clean/escobar_fire_corner_tl.png'),
-    url('/ui-kit-clean/escobar_fire_corner_tr.png');
-  background-repeat: no-repeat;
-  background-position: left top, right top;
-  background-size: min(30vw, 360px) auto, min(30vw, 360px) auto;
-  opacity: 0.24;
-  mix-blend-mode: screen;
-  filter: saturate(1.06);
-}
-
-.panel-chain-frame::after {
-  background-image:
-    url('/ui-kit-clean/escobar_fire_corner_bl.png'),
-    url('/ui-kit-clean/escobar_fire_corner_br.png');
-  background-repeat: no-repeat;
-  background-position: left bottom, right bottom;
-  background-size: min(34vw, 420px) auto, min(34vw, 420px) auto;
-  opacity: 0.42;
-  mix-blend-mode: screen;
-  filter: saturate(1.08);
-}
-
+.hero-panel,
+.gallery-panel,
+.radio-panel,
+.events-panel,
+.merch-panel,
+.auth-panel,
+.news-panel,
+.chat-panel,
+.site-footer,
 .gallery-stage,
 .gallery-thumb,
 .radio-embed-frame--clean,
 .event-row--surgical,
 .event-thumb--surgical,
-.merch-card--surgical,
-.merch-copy--surgical,
-.auth-form,
 .auth-session-card,
-.news-feature-card,
-.chat-log-shell,
-.chat-compose-shell,
-.chat-message {
-  position: relative;
+.news-feature-card {
   isolation: isolate;
 }
 
-.gallery-stage::after,
-.gallery-thumb::after,
-.radio-embed-frame--clean::after,
-.event-row--surgical::after,
-.event-thumb--surgical::after,
-.merch-card--surgical::after,
-.merch-copy--surgical::after,
-.auth-form::after,
-.auth-session-card::after,
-.news-feature-card::after,
-.chat-log-shell::after,
-.chat-compose-shell::after,
-.chat-message::after {
+.hero-panel::after,
+.gallery-panel::after,
+.radio-panel::after,
+.events-panel::after,
+.merch-panel::after,
+.auth-panel::after,
+.news-panel::after,
+.chat-panel::after,
+.site-footer::after,
+.hero-panel::before,
+.gallery-panel::before,
+.radio-panel::before,
+.events-panel::before,
+.merch-panel::before,
+.auth-panel::before,
+.news-panel::before,
+.chat-panel::before,
+.site-footer::before {
+  pointer-events: none;
+}
+
+.hero-panel::after,
+.gallery-panel::after,
+.radio-panel::after,
+.events-panel::after,
+.merch-panel::after,
+.auth-panel::after,
+.news-panel::after,
+.chat-panel::after,
+.site-footer::after {
   content: "";
   position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 2;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  height: calc(var(--esc-fire-panel-size) + 8px);
+  z-index: 1;
+  opacity: var(--esc-fire-panel-opacity);
   background-image:
-    url('/ui-kit-clean/escobar_fire_corner_tl.png'),
-    url('/ui-kit-clean/escobar_fire_corner_tr.png'),
     url('/ui-kit-clean/escobar_fire_corner_bl.png'),
     url('/ui-kit-clean/escobar_fire_corner_br.png');
-  background-repeat: no-repeat;
-  background-position: left top, right top, left bottom, right bottom;
-  background-size:
-    min(16vw, 150px) auto,
-    min(16vw, 150px) auto,
-    min(18vw, 170px) auto,
-    min(18vw, 170px) auto;
-  opacity: 0.34;
+  background-repeat: no-repeat, no-repeat;
+  background-position: left bottom, right bottom;
+  background-size: var(--esc-fire-panel-size) var(--esc-fire-panel-size), var(--esc-fire-panel-size) var(--esc-fire-panel-size);
   mix-blend-mode: screen;
-  filter: saturate(1.08);
+}
+
+.hero-panel::before,
+.gallery-panel::before,
+.radio-panel::before,
+.events-panel::before,
+.merch-panel::before,
+.auth-panel::before,
+.news-panel::before,
+.chat-panel::before,
+.site-footer::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  top: 14px;
+  height: calc(var(--esc-fire-panel-size) * 0.9);
+  z-index: 1;
+  opacity: calc(var(--esc-fire-panel-opacity) * 0.82);
+  background-image:
+    url('/ui-kit-clean/escobar_fire_corner_tl.png'),
+    url('/ui-kit-clean/escobar_fire_corner_tr.png');
+  background-repeat: no-repeat, no-repeat;
+  background-position: left top, right top;
+  background-size: calc(var(--esc-fire-panel-size) * 0.9) calc(var(--esc-fire-panel-size) * 0.9), calc(var(--esc-fire-panel-size) * 0.9) calc(var(--esc-fire-panel-size) * 0.9);
+  mix-blend-mode: screen;
 }
 
 .gallery-stage::after,
-.radio-embed-frame--clean::after,
-.auth-form::after,
-.auth-session-card::after,
-.news-feature-card::after,
-.chat-log-shell::after,
-.chat-compose-shell::after {
-  opacity: 0.28;
-  background-size:
-    min(18vw, 180px) auto,
-    min(18vw, 180px) auto,
-    min(20vw, 210px) auto,
-    min(20vw, 210px) auto;
-}
-
-.event-row--surgical::after,
-.merch-card--surgical::after {
-  opacity: 0.32;
-}
-
-.event-thumb--surgical::after,
 .gallery-thumb::after,
-.merch-copy--surgical::after,
-.chat-message::after {
-  opacity: 0.26;
-  background-size:
-    min(12vw, 108px) auto,
-    min(12vw, 108px) auto,
-    min(14vw, 126px) auto,
-    min(14vw, 126px) auto;
+.radio-embed-frame--clean::after,
+.event-row--surgical::after,
+.event-thumb--surgical::after,
+.auth-session-card::after,
+.news-feature-card::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  height: calc(var(--esc-fire-card-size) + 4px);
+  z-index: 1;
+  opacity: var(--esc-fire-card-opacity);
+  pointer-events: none;
+  background-image:
+    url('/ui-kit-clean/escobar_fire_corner_bl.png'),
+    url('/ui-kit-clean/escobar_fire_corner_br.png');
+  background-repeat: no-repeat, no-repeat;
+  background-position: left bottom, right bottom;
+  background-size: var(--esc-fire-card-size) var(--esc-fire-card-size), var(--esc-fire-card-size) var(--esc-fire-card-size);
+  mix-blend-mode: screen;
 }
 
-@media (max-width: 900px) {
-  .panel-chain-frame::before {
-    background-size: min(42vw, 280px) auto, min(42vw, 280px) auto;
-    opacity: 0.18;
+.gallery-stage::before,
+.gallery-thumb::before,
+.radio-embed-frame--clean::before,
+.event-row--surgical::before,
+.event-thumb--surgical::before,
+.auth-session-card::before,
+.news-feature-card::before {
+  content: none;
+}
+
+.merch-card--surgical::after,
+.merch-card--surgical::before,
+.merch-copy--surgical::after,
+.merch-copy--surgical::before,
+.chat-shell::after,
+.chat-shell::before,
+.chat-log-shell::after,
+.chat-log-shell::before,
+.chat-compose-shell::after,
+.chat-compose-shell::before,
+.chat-message::after,
+.chat-message::before {
+  content: none !important;
+}
+
+.gallery-stage > *,
+.gallery-thumb > *,
+.radio-embed-frame--clean > *,
+.event-row--surgical > *,
+.event-thumb--surgical > *,
+.auth-session-card > *,
+.news-feature-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 720px) {
+  :root {
+    --esc-fire-panel-size: 96px;
+    --esc-fire-card-size: 68px;
+    --esc-fire-panel-opacity: 0.68;
+    --esc-fire-card-opacity: 0.82;
   }
 
-  .panel-chain-frame::after {
-    background-size: min(46vw, 320px) auto, min(46vw, 320px) auto;
-    opacity: 0.34;
-  }
-
-  .gallery-stage::after,
-  .gallery-thumb::after,
-  .radio-embed-frame--clean::after,
-  .event-row--surgical::after,
-  .event-thumb--surgical::after,
-  .merch-card--surgical::after,
-  .merch-copy--surgical::after,
-  .auth-form::after,
-  .auth-session-card::after,
-  .news-feature-card::after,
-  .chat-log-shell::after,
-  .chat-compose-shell::after,
-  .chat-message::after {
-    background-size:
-      min(22vw, 120px) auto,
-      min(22vw, 120px) auto,
-      min(25vw, 140px) auto,
-      min(25vw, 140px) auto;
+  .hero-panel::after,
+  .gallery-panel::after,
+  .radio-panel::after,
+  .events-panel::after,
+  .merch-panel::after,
+  .auth-panel::after,
+  .news-panel::after,
+  .chat-panel::after,
+  .site-footer::after,
+  .hero-panel::before,
+  .gallery-panel::before,
+  .radio-panel::before,
+  .events-panel::before,
+  .merch-panel::before,
+  .auth-panel::before,
+  .news-panel::before,
+  .chat-panel::before,
+  .site-footer::before {
+    left: 10px;
+    right: 10px;
   }
 }
