@@ -193,20 +193,20 @@
 
 .nav__inner {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 0;
-  min-height: 68px;
+  min-height: 58px;
 }
 
 .nav__item {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 68px;
+  min-height: 58px;
   color: var(--esc-text);
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  font-size: clamp(1.25rem, 1.2vw, 1.55rem);
+  font-size: clamp(1rem, 0.95vw, 1.28rem);
   border-left: 1px solid rgba(255, 167, 104, 0.1);
   background: transparent;
 }
@@ -242,30 +242,58 @@
 .section-title h3 {
   margin: 0;
   color: var(--esc-text);
-  font-size: clamp(2.6rem, 2.8vw, 4.2rem);
+  font-size: clamp(2.1rem, 2.15vw, 3.2rem);
   line-height: 1;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.055em;
 }
 
 .section-title--floating {
-  margin-top: -24px;
-  margin-bottom: 26px;
+  margin-top: -16px;
+  margin-bottom: 24px;
 }
 
 .section-title--boxed h3,
 .section-title--radio-clean h3,
 .section-title--merch-clean h3 {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 280px;
-  min-height: 78px;
-  padding: 0 34px;
+  min-width: 248px;
+  min-height: 62px;
+  padding: 0 28px;
   background:
-    linear-gradient(180deg, rgba(97, 42, 28, 0.44), rgba(34, 11, 8, 0.4)),
-    url('/ui-kit/button_primary.png') center/100% 100% no-repeat;
-  border: 1px solid rgba(255, 153, 83, 0.18);
-  box-shadow: inset 0 0 0 1px rgba(255, 221, 195, 0.04);
+    linear-gradient(180deg, rgba(118, 58, 40, 0.52) 0%, rgba(53, 18, 13, 0.72) 52%, rgba(22, 7, 7, 0.84) 100%);
+  border: 1px solid rgba(255, 153, 83, 0.24);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 221, 195, 0.06),
+    inset 0 18px 30px rgba(255, 135, 60, 0.08),
+    inset 0 -14px 24px rgba(0, 0, 0, 0.28),
+    0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.section-title--boxed h3::before,
+.section-title--radio-clean h3::before,
+.section-title--merch-clean h3::before {
+  content: "";
+  position: absolute;
+  inset: 8px 14px;
+  border: 1px solid rgba(255, 196, 145, 0.12);
+  pointer-events: none;
+}
+
+.section-title--boxed h3::after,
+.section-title--radio-clean h3::after,
+.section-title--merch-clean h3::after {
+  content: "";
+  position: absolute;
+  left: 16%;
+  right: 16%;
+  bottom: 6px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 157, 79, 0.92), transparent);
+  box-shadow: 0 0 14px rgba(255, 129, 43, 0.5);
+  pointer-events: none;
 }
 
 .gallery-panel,
@@ -286,15 +314,26 @@
 }
 
 .gallery-stage {
-  min-height: 520px;
-  border: 1px solid rgba(255, 159, 94, 0.12);
-  background: rgba(0,0,0,0.08);
+  position: relative;
+  min-height: 560px;
+  padding: 14px;
+  border: 1px solid rgba(255, 159, 94, 0.14);
+  background: linear-gradient(180deg, rgba(8, 4, 4, 0.2), rgba(0, 0, 0, 0.08));
+  box-shadow: inset 0 0 0 1px rgba(255, 177, 118, 0.05), inset 0 -30px 40px rgba(0, 0, 0, 0.14);
   overflow: hidden;
+}
+
+.gallery-stage::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgba(255, 189, 136, 0.08);
+  pointer-events: none;
 }
 
 .gallery-stage-image {
   width: 100%;
-  height: 520px;
+  height: 532px;
   object-fit: cover;
   display: block;
 }
@@ -302,20 +341,29 @@
 .gallery-rail {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+  gap: 18px;
 }
 
 .gallery-thumb {
-  padding: 0;
+  position: relative;
+  padding: 8px;
   border: 1px solid rgba(255, 159, 94, 0.12);
-  background: transparent;
+  background: linear-gradient(180deg, rgba(31, 12, 10, 0.4), rgba(8, 3, 3, 0.28));
   overflow: hidden;
-  min-height: 128px;
+  min-height: 138px;
+}
+
+.gallery-thumb::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(255, 188, 131, 0.08);
+  pointer-events: none;
 }
 
 .gallery-thumb img {
   width: 100%;
-  height: 128px;
+  height: 122px;
   object-fit: cover;
   display: block;
   transition: transform 220ms ease, opacity 220ms ease;
@@ -338,19 +386,45 @@
 }
 
 .cta-button--image {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 340px;
-  min-height: 80px;
-  padding: 0 40px;
-  background:
-    linear-gradient(180deg, rgba(90, 34, 22, 0.32), rgba(20, 7, 6, 0.24)),
-    url('/ui-kit/button_primary.png') center/100% 100% no-repeat;
+  min-width: 300px;
+  min-height: 72px;
+  padding: 0 34px;
+  background: linear-gradient(180deg, rgba(126, 59, 40, 0.54) 0%, rgba(62, 21, 16, 0.76) 55%, rgba(24, 8, 7, 0.9) 100%);
+  border: 1px solid rgba(255, 158, 90, 0.22);
+  box-shadow: inset 0 0 0 1px rgba(255, 230, 205, 0.05), inset 0 16px 24px rgba(255, 143, 63, 0.08), inset 0 -16px 22px rgba(0, 0, 0, 0.26), 0 12px 28px rgba(0, 0, 0, 0.18);
   color: #f1e4d2;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-size: 1.8rem;
+  letter-spacing: 0.07em;
+  font-size: 1.38rem;
+}
+
+.cta-button--image::before {
+  content: "";
+  position: absolute;
+  inset: 8px 14px;
+  border: 1px solid rgba(255, 199, 151, 0.11);
+  pointer-events: none;
+}
+
+.cta-button--image::after {
+  content: "";
+  position: absolute;
+  left: 16%;
+  right: 16%;
+  bottom: 7px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 152, 72, 0.94), transparent);
+  box-shadow: 0 0 15px rgba(255, 116, 27, 0.48);
+  pointer-events: none;
+}
+
+.cta-button--image span {
+  position: relative;
+  z-index: 1;
 }
 
 .radio-shell-overlay--clean {
@@ -359,9 +433,22 @@
 }
 
 .radio-embed-frame--clean {
-  background: rgba(0,0,0,0.08);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.06));
   border: 1px solid rgba(255, 165, 99, 0.1);
-  padding: 18px;
+  padding: 12px;
+  box-shadow: inset 0 0 0 1px rgba(255, 196, 145, 0.04);
+}
+
+.radio-panel .section-title {
+  margin-bottom: 18px;
+}
+
+.radio-embed-frame--large {
+  margin-top: 14px;
+}
+
+.radio-footer-row--actions {
+  margin-top: 20px;
 }
 
 .events-list--surgical {
@@ -456,48 +543,94 @@
 .merch-grid--surgical {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
+  gap: 22px;
 }
 
 .merch-card--surgical {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
+  position: relative;
+  background: linear-gradient(180deg, rgba(20, 7, 7, 0.14), rgba(8, 3, 3, 0.06)) !important;
+  border: 1px solid rgba(255, 158, 90, 0.08) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 211, 174, 0.03) !important;
+}
+
+.merch-card--surgical::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(255, 190, 139, 0.06);
+  pointer-events: none;
+}
+
+.merch-card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
 }
 
 .merch-image-wrap--surgical {
-  min-height: 240px;
+  min-height: 284px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding: 10px 12px 16px;
+  padding: 18px 18px 20px;
   background: transparent !important;
 }
 
 .merch-image--surgical {
-  max-height: 220px;
+  max-height: 246px;
   width: auto;
+  max-width: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.34)) drop-shadow(0 0 10px rgba(255, 140, 58, 0.1));
+  filter: drop-shadow(0 18px 26px rgba(0, 0, 0, 0.42)) drop-shadow(0 0 16px rgba(255, 140, 58, 0.12));
 }
 
 .merch-copy--surgical {
-  padding: 18px 14px 16px;
+  position: relative;
+  margin: 0 14px 14px;
+  padding: 20px 14px 18px;
   border: 1px solid rgba(255, 158, 90, 0.14);
-  background: rgba(0,0,0,0.1);
+  background: linear-gradient(180deg, rgba(15, 5, 5, 0.16), rgba(0, 0, 0, 0.12));
   text-align: center;
+}
+
+.merch-copy--surgical::before {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 1px solid rgba(255, 203, 164, 0.05);
+  pointer-events: none;
 }
 
 .merch-name {
   color: var(--esc-text);
   text-transform: uppercase;
-  font-size: 1.8rem;
+  font-size: 1.55rem;
+  line-height: 1.1;
 }
 
 .merch-price {
-  margin-top: 10px;
+  margin-top: 12px;
   color: #f1e5d5;
-  font-size: 2.2rem;
+  font-size: 2rem;
+}
+
+
+.gallery-panel .section-title,
+.merch-panel .section-title {
+  margin-bottom: 22px;
+}
+
+.gallery-actions .cta-button--image,
+.radio-footer-row .cta-button--image {
+  min-width: 278px;
+}
+
+.cta-button--merch-footer {
+  min-width: 436px;
+}
+
+.merch-panel {
+  padding-bottom: 72px !important;
 }
 
 .auth-panel,
@@ -531,12 +664,13 @@
     grid-template-columns: 1fr;
   }
 
-  .gallery-stage,
-  .gallery-stage-image { min-height: 420px; height: 420px; }
+  .gallery-stage { min-height: 442px; }
+  .gallery-stage-image { height: 414px; }
   .event-row--surgical { grid-template-columns: 1fr; }
   .event-thumb--surgical,
   .event-thumb--surgical img { max-height: 132px; height: 132px; }
   .merch-grid--surgical { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cta-button--merch-footer { min-width: 320px; }
 }
 
 @media (max-width: 720px) {
@@ -548,239 +682,9 @@
   .hero-top-row--clean { grid-template-columns: 1fr; }
   .nav__inner { grid-template-columns: 1fr; }
   .gallery-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gallery-thumb { min-height: 120px; }
+  .gallery-thumb img { height: 104px; }
   .merch-grid--surgical { grid-template-columns: 1fr; }
+  .merch-image-wrap--surgical { min-height: 244px; }
   .cta-button--image { min-width: 260px; width: 100%; }
-}
-
-.header-utility-strip {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin: 14px 0 4px;
-}
-
-.header-utility-link {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 132px;
-  min-height: 34px;
-  padding: 0 16px;
-  border: 1px solid rgba(255, 154, 84, 0.18);
-  background:
-    linear-gradient(180deg, rgba(88, 34, 21, 0.72), rgba(28, 10, 8, 0.7)),
-    linear-gradient(90deg, rgba(255, 166, 101, 0.06), transparent 36%, transparent 64%, rgba(255, 166, 101, 0.06));
-  box-shadow:
-    inset 0 1px 0 rgba(255, 229, 206, 0.1),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.45),
-    0 12px 22px rgba(0, 0, 0, 0.22);
-  color: #f1dfcf;
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  text-decoration: none;
-}
-
-.header-utility-link::before,
-.header-utility-link::after,
-.section-title--boxed h3::before,
-.section-title--boxed h3::after,
-.section-title--radio-clean h3::before,
-.section-title--radio-clean h3::after,
-.section-title--merch-clean h3::before,
-.section-title--merch-clean h3::after,
-.cta-button--image::before,
-.cta-button--image::after {
-  content: "";
-  position: absolute;
-  left: 14px;
-  right: 14px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 170, 103, 0.88), transparent);
-  pointer-events: none;
-}
-
-.header-utility-link::before,
-.section-title--boxed h3::before,
-.section-title--radio-clean h3::before,
-.section-title--merch-clean h3::before,
-.cta-button--image::before {
-  top: 6px;
-}
-
-.header-utility-link::after,
-.section-title--boxed h3::after,
-.section-title--radio-clean h3::after,
-.section-title--merch-clean h3::after,
-.cta-button--image::after {
-  bottom: 6px;
-}
-
-.header-utility-link--admin {
-  min-width: 108px;
-}
-
-.section-title--boxed h3,
-.section-title--radio-clean h3,
-.section-title--merch-clean h3 {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 236px;
-  min-height: 60px;
-  padding: 0 34px;
-  background:
-    linear-gradient(180deg, rgba(93, 38, 24, 0.78), rgba(27, 9, 7, 0.75)),
-    linear-gradient(90deg, rgba(255, 165, 101, 0.08), transparent 34%, transparent 66%, rgba(255, 165, 101, 0.08));
-  border: 1px solid rgba(255, 153, 83, 0.22);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 222, 197, 0.12),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.56),
-    inset 0 0 0 1px rgba(255, 214, 184, 0.04),
-    0 14px 24px rgba(0, 0, 0, 0.22);
-}
-
-.section-title--boxed h3,
-.section-title--radio-clean h3,
-.section-title--merch-clean h3,
-.cta-button--image {
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-}
-
-.gallery-panel .section-title h3,
-.radio-panel .section-title h3,
-.merch-panel .section-title h3 {
-  font-size: clamp(2rem, 2.1vw, 3rem);
-  letter-spacing: 0.05em;
-}
-
-.gallery-actions,
-.radio-footer-row,
-.merch-actions {
-  margin-top: 22px;
-}
-
-.cta-button--image {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 286px;
-  min-height: 62px;
-  padding: 0 28px;
-  border: 1px solid rgba(255, 155, 84, 0.2);
-  background:
-    linear-gradient(180deg, rgba(89, 34, 22, 0.74), rgba(24, 8, 6, 0.72)),
-    linear-gradient(90deg, rgba(255, 170, 105, 0.06), transparent 35%, transparent 65%, rgba(255, 170, 105, 0.06));
-  box-shadow:
-    inset 0 1px 0 rgba(255, 226, 200, 0.12),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
-    0 14px 26px rgba(0, 0, 0, 0.24);
-  color: #f1e4d2;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 1.18rem;
-  font-weight: 800;
-}
-
-.cta-button--image span {
-  position: relative;
-  z-index: 1;
-}
-
-.cta-button--plate-only {
-  min-width: 310px;
-  min-height: 58px;
-  padding: 0;
-}
-
-.cta-button--plate-only::before,
-.cta-button--plate-only::after {
-  left: 18px;
-  right: 18px;
-}
-
-.merch-grid--surgical {
-  gap: 24px;
-}
-
-.merch-image-wrap--surgical {
-  min-height: 182px;
-  padding: 6px 10px 10px;
-}
-
-.merch-image--surgical {
-  max-height: 132px;
-}
-
-.merch-copy--surgical {
-  min-height: 134px;
-  padding: 14px 12px 12px;
-  border: 1px solid rgba(255, 158, 90, 0.12);
-  background: linear-gradient(180deg, rgba(16, 8, 7, 0.38), rgba(9, 4, 4, 0.22));
-}
-
-.merch-name {
-  font-size: 1.15rem;
-  line-height: 1.15;
-}
-
-.merch-price {
-  margin-top: 8px;
-  font-size: 1.75rem;
-}
-
-.radio-embed-frame--clean {
-  padding: 10px;
-  background: rgba(0, 0, 0, 0.04);
-}
-
-.radio-spotify-embed {
-  min-height: 512px;
-}
-
-.gallery-stage {
-  min-height: 500px;
-}
-
-.gallery-stage-image {
-  height: 500px;
-}
-
-@media (max-width: 1100px) {
-  .header-utility-strip {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .radio-spotify-embed {
-    min-height: 460px;
-  }
-}
-
-@media (max-width: 720px) {
-  .header-utility-strip {
-    gap: 8px;
-  }
-
-  .header-utility-link {
-    min-width: 112px;
-    flex: 1 1 140px;
-  }
-
-  .section-title--boxed h3,
-  .section-title--radio-clean h3,
-  .section-title--merch-clean h3 {
-    min-width: min(100%, 230px);
-    min-height: 54px;
-    padding: 0 24px;
-  }
-
-  .cta-button--image,
-  .cta-button--plate-only {
-    min-width: min(100%, 260px);
-  }
 }

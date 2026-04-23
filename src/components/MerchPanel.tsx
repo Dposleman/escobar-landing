@@ -32,20 +32,33 @@ export default function MerchPanel({ items }: Props) {
       <div className="merch-grid merch-grid--clean merch-grid--surgical">
         {publishedItems.map((item) => (
           <article key={item.id} className="merch-card merch-card--clean merch-card--surgical">
-            <div className="merch-image-wrap merch-image-wrap--clean merch-image-wrap--surgical">
-              <img src={item.image} alt={item.title || item.name} className="merch-image merch-image--clean merch-image--surgical" />
-            </div>
+            <a
+              className="merch-card-link"
+              href={item.productUrl || "#"}
+              target={item.productUrl && item.productUrl !== "#" ? "_blank" : undefined}
+              rel={item.productUrl && item.productUrl !== "#" ? "noreferrer" : undefined}
+            >
+              <div className="merch-image-wrap merch-image-wrap--clean merch-image-wrap--surgical">
+                <img
+                  src={item.image}
+                  alt={item.title || item.name}
+                  className="merch-image merch-image--clean merch-image--surgical"
+                />
+              </div>
 
-            <div className="merch-copy merch-copy--plate merch-copy--surgical">
-              <div className="merch-name">{item.title || item.name}</div>
-              <div className="merch-price">{formatPrice(item.price)}</div>
-            </div>
+              <div className="merch-copy merch-copy--plate merch-copy--surgical">
+                <div className="merch-name">{item.title || item.name}</div>
+                <div className="merch-price">{formatPrice(item.price)}</div>
+              </div>
+            </a>
           </article>
         ))}
       </div>
 
       <div className="merch-actions">
-        <a className="cta-button cta-button--image cta-button--plate-only" href="#footer" aria-label="Shop all merch" />
+        <a className="cta-button cta-button--image cta-button--merch-footer" href="#footer">
+          <span>SHOP NU.</span>
+        </a>
       </div>
     </section>
   );
