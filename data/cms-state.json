@@ -1,0 +1,371 @@
+{
+  "version": 3,
+  "updatedAt": "2026-04-23T14:56:05.131Z",
+  "state": {
+    "nav": [
+      {
+        "id": "nav-home",
+        "label": "HOME",
+        "href": "#home",
+        "isActive": true
+      },
+      {
+        "id": "nav-radio",
+        "label": "RADIO ESCOBAR",
+        "href": "#radio"
+      },
+      {
+        "id": "nav-events",
+        "label": "EVENTS",
+        "href": "#events"
+      },
+      {
+        "id": "nav-merch",
+        "label": "MERCH STORE",
+        "href": "#merch"
+      },
+      {
+        "id": "nav-gallery",
+        "label": "GALLERY",
+        "href": "#gallery"
+      },
+      {
+        "id": "nav-chat",
+        "label": "LIVE CHAT",
+        "href": "#chat"
+      },
+      {
+        "id": "nav-admin",
+        "label": "ADMIN",
+        "href": "#admin"
+      }
+    ],
+    "events": [
+      {
+        "id": "event-1",
+        "order": 0,
+        "createdAt": "2026-04-08T14:02:30.813Z",
+        "updatedAt": "2026-04-08T14:02:30.813Z",
+        "title": "METAL KARAOKE NIGHT",
+        "excerpt": "Riffs, smoke and late-night signal pressure.",
+        "date": "FRIDAY, MAY 10",
+        "venue": "Escobar Main Hall",
+        "city": "Aarhus",
+        "country": "Denmark",
+        "startsAt": "2026-05-10T21:30:00.000Z",
+        "endsAt": null,
+        "ticketUrl": "#",
+        "coverImage": "",
+        "isFeatured": true,
+        "status": "published"
+      },
+      {
+        "id": "event-2",
+        "order": 1,
+        "createdAt": "2026-04-08T14:02:30.813Z",
+        "updatedAt": "2026-04-08T14:02:30.813Z",
+        "title": "VINYL ROCK NIGHT",
+        "excerpt": "Needle dust, amber glow and hard-cut selection.",
+        "date": "SATURDAY, MAY 18",
+        "venue": "Escobar Radio Room",
+        "city": "Aarhus",
+        "country": "Denmark",
+        "startsAt": "2026-05-18T22:00:00.000Z",
+        "endsAt": null,
+        "ticketUrl": "#",
+        "coverImage": "",
+        "isFeatured": false,
+        "status": "published"
+      },
+      {
+        "id": "event-3",
+        "order": 2,
+        "createdAt": "2026-04-08T14:02:30.813Z",
+        "updatedAt": "2026-04-08T14:02:30.813Z",
+        "title": "DANISH UNDERGROUND BANDS",
+        "excerpt": "Dark room showcase with raw local sound.",
+        "date": "JUNE 1",
+        "venue": "Escobar Stage",
+        "city": "Aarhus",
+        "country": "Denmark",
+        "startsAt": "2026-06-01T20:00:00.000Z",
+        "endsAt": null,
+        "ticketUrl": "#",
+        "coverImage": "",
+        "isFeatured": false,
+        "status": "published"
+      },
+      {
+        "id": "event-4",
+        "order": 3,
+        "createdAt": "2026-04-08T14:02:30.813Z",
+        "updatedAt": "2026-04-08T14:02:30.813Z",
+        "title": "HALLOWEEN METAL PARTY",
+        "excerpt": "Full grunge decor, heavy set and burn-orange light.",
+        "date": "THUR, OCTOBER 31",
+        "venue": "Escobar Main Hall",
+        "city": "Aarhus",
+        "country": "Denmark",
+        "startsAt": "2026-10-31T22:30:00.000Z",
+        "endsAt": null,
+        "ticketUrl": "#",
+        "coverImage": "",
+        "isFeatured": false,
+        "status": "published"
+      }
+    ],
+    "merch": [
+      {
+        "id": "merch-1",
+        "order": 0,
+        "createdAt": "2026-04-08T14:02:30.813Z",
+        "updatedAt": "2026-04-08T14:02:30.813Z",
+        "name": "ESCOBAR METAL TEE",
+        "title": "ESCOBAR METAL TEE",
+        "subtitle": "Washed black / distressed print",
+        "price": "€45",
+        "productUrl": "#",
+        "image": "",
+        "variant": "tee",
+        "badge": "LIMITED",
+        "status": "published"
+      },
+      {
+        "id": "merch-2",
+        "order": 1,
+        "createdAt": "2026-04-08T14:02:30.813Z",
+        "updatedAt": "2026-04-08T14:02:30.813Z",
+        "name": "ESCOBAR BEER MUG",
+        "title": "ESCOBAR BEER MUG",
+        "subtitle": "Heavy glass / amber finish",
+        "price": "€22",
+        "productUrl": "#",
+        "image": "",
+        "variant": "mug",
+        "badge": "CORE",
+        "status": "published"
+      },
+      {
+        "id": "merch-3",
+        "order": 2,
+        "createdAt": "2026-04-08T14:02:30.813Z",
+        "updatedAt": "2026-04-08T14:02:30.813Z",
+        "name": "STICKER PACK",
+        "title": "STICKER PACK",
+        "subtitle": "Signal marks / venue decals",
+        "price": "€12",
+        "productUrl": "#",
+        "image": "",
+        "variant": "stickers",
+        "badge": "NEW",
+        "status": "published"
+      },
+      {
+        "id": "merch-4",
+        "order": 3,
+        "createdAt": "2026-04-08T14:02:30.813Z",
+        "updatedAt": "2026-04-08T14:02:30.813Z",
+        "name": "ESCOBAR PATCH",
+        "title": "ESCOBAR PATCH",
+        "subtitle": "Black thread / metal edge",
+        "price": "€14",
+        "productUrl": "#",
+        "image": "",
+        "variant": "patch",
+        "badge": "DROP",
+        "status": "published"
+      }
+    ],
+    "gallery": [
+      {
+        "id": "gallery-1",
+        "order": 0,
+        "createdAt": "2026-04-08T14:02:30.813Z",
+        "updatedAt": "2026-04-08T14:02:30.813Z",
+        "title": "Stage Burn",
+        "image": "",
+        "alt": "Escobar stage burn mood",
+        "caption": "Steel haze, amber glow and live tension.",
+        "status": "published"
+      },
+      {
+        "id": "gallery-2",
+        "order": 1,
+        "createdAt": "2026-04-08T14:02:30.813Z",
+        "updatedAt": "2026-04-08T14:02:30.813Z",
+        "title": "Turntable Ritual",
+        "image": "",
+        "alt": "Turntable close-up",
+        "caption": "Needle pressure and radio signal.",
+        "status": "published"
+      },
+      {
+        "id": "gallery-3",
+        "order": 2,
+        "createdAt": "2026-04-08T14:02:30.813Z",
+        "updatedAt": "2026-04-08T14:02:30.813Z",
+        "title": "Crowd Static",
+        "image": "",
+        "alt": "Crowd in dark venue",
+        "caption": "Motion, dust and scorched light.",
+        "status": "published"
+      }
+    ],
+    "news": [],
+    "radio": {
+      "provider": "spotify",
+      "renderMode": "embed",
+      "title": "RADIO ESCOBAR",
+      "subtitle": "NOW PLAYING LIVE",
+      "spotifyUrl": "https://open.spotify.com/playlist/37i9dQZF1E8PL4kxRrarmK?si=293841b8d3fa4443",
+      "embedUrl": "https://open.spotify.com/embed/playlist/37i9dQZF1E8PL4kxRrarmK?utm_source=generator&theme=0",
+      "externalUrl": "",
+      "isLive": true,
+      "status": "published",
+      "updatedAt": "2026-04-23T14:56:17.362Z",
+      "fallbackCoverImage": "",
+      "nowPlaying": {
+        "artist": "",
+        "album": "",
+        "track": "",
+        "coverImage": "",
+        "duration": "4:32",
+        "progress": 72,
+        "startedAt": null
+      }
+    },
+    "users": [
+      {
+        "id": "user-admin",
+        "order": 0,
+        "createdAt": "2026-04-08T14:02:30.813Z",
+        "updatedAt": "2026-04-08T14:02:30.813Z",
+        "email": "admin@escobar.fm",
+        "username": "escobar_admin",
+        "displayName": "Escobar Admin",
+        "password": "admin123",
+        "role": "admin",
+        "avatar": "",
+        "isBlocked": false
+      },
+      {
+        "id": "user-vip-1",
+        "order": 1,
+        "createdAt": "2026-04-08T14:02:30.813Z",
+        "updatedAt": "2026-04-08T14:02:30.813Z",
+        "email": "vip@escobar.fm",
+        "username": "vip_listener",
+        "displayName": "VIP Listener",
+        "password": "vip123",
+        "role": "vip",
+        "avatar": "",
+        "isBlocked": false
+      },
+      {
+        "id": "user-common-1",
+        "order": 2,
+        "createdAt": "2026-04-08T14:02:30.813Z",
+        "updatedAt": "2026-04-08T14:02:30.813Z",
+        "email": "fan@escobar.fm",
+        "username": "night_fan",
+        "displayName": "Night Fan",
+        "password": "fan123",
+        "role": "common",
+        "avatar": "",
+        "isBlocked": false
+      },
+      {
+        "id": "user-admin-dio",
+        "order": 3,
+        "createdAt": "2026-04-08T14:28:54.006Z",
+        "updatedAt": "2026-04-23T14:56:17.362Z",
+        "email": "dio.escobar.aarhus@gmail.com",
+        "username": "dio_escobar",
+        "displayName": "Dio Escobar",
+        "password": "Rasmus123",
+        "role": "admin",
+        "avatar": "",
+        "isBlocked": false
+      },
+      {
+        "id": "user-uza5svvd",
+        "order": 4,
+        "createdAt": "2026-04-08T20:17:37.526Z",
+        "updatedAt": "2026-04-08T20:17:37.526Z",
+        "email": "ceo@understack.dk",
+        "username": "Diegop89",
+        "displayName": "Diegop89",
+        "password": "Avril6!!89",
+        "role": "common",
+        "avatar": "",
+        "isBlocked": false
+      }
+    ],
+    "chat": {
+      "isRealtimeReady": false,
+      "messages": [
+        {
+          "id": "chat-1",
+          "order": 0,
+          "createdAt": "2026-04-08T14:02:30.813Z",
+          "updatedAt": "2026-04-08T14:02:30.813Z",
+          "userId": "user-admin",
+          "username": "escobar_admin",
+          "displayName": "Escobar Admin",
+          "role": "admin",
+          "text": "Welcome to the signal. Registered users can join the live chat.",
+          "sentAt": "2026-04-08T14:02:30.813Z"
+        },
+        {
+          "id": "chat-hcwyyg3u",
+          "order": 1,
+          "createdAt": "2026-04-08T20:17:46.086Z",
+          "updatedAt": "2026-04-08T20:17:46.086Z",
+          "userId": "user-uza5svvd",
+          "username": "Diegop89",
+          "displayName": "Diegop89",
+          "role": "common",
+          "text": "hej",
+          "sentAt": "2026-04-08T20:17:46.086Z"
+        },
+        {
+          "id": "chat-7vr675xc",
+          "order": 2,
+          "createdAt": "2026-04-08T20:18:05.782Z",
+          "updatedAt": "2026-04-08T20:18:05.782Z",
+          "userId": "user-uza5svvd",
+          "username": "Diegop89",
+          "displayName": "Diegop89",
+          "role": "common",
+          "text": ">@",
+          "sentAt": "2026-04-08T20:18:05.782Z"
+        },
+        {
+          "id": "chat-ldjns66d",
+          "order": 3,
+          "createdAt": "2026-04-08T20:18:15.231Z",
+          "updatedAt": "2026-04-08T20:18:15.231Z",
+          "userId": "user-uza5svvd",
+          "username": "Diegop89",
+          "displayName": "Diegop89",
+          "role": "common",
+          "text": "a",
+          "sentAt": "2026-04-08T20:18:15.231Z"
+        }
+      ]
+    },
+    "auth": {
+      "user": {
+        "id": "user-admin-dio",
+        "email": "dio.escobar.aarhus@gmail.com",
+        "username": "dio_escobar",
+        "displayName": "Dio Escobar",
+        "role": "admin",
+        "avatar": ""
+      },
+      "isAuthenticated": true,
+      "token": "escobar-token-2kcqfy9x7jc-1776860642366",
+      "updatedAt": "2026-04-22T12:24:02.366Z"
+    }
+  }
+}
