@@ -1085,3 +1085,249 @@
     right: 10px;
   }
 }
+
+
+
+/* divider + frame cleanup surgical pass */
+.panel-chain-frame__divider--top,
+.panel-chain-frame__divider--bottom,
+.nav::before,
+.nav::after,
+.panel-divider {
+  background: url('/ui-kit-clean/escobar_divider_glow.png') center/100% 18px no-repeat !important;
+  height: 18px !important;
+  opacity: 0.98 !important;
+  filter: drop-shadow(0 0 10px rgba(255, 124, 40, 0.22));
+}
+
+.panel-chain-frame__divider--top { top: 40px !important; }
+.panel-chain-frame__divider--bottom { bottom: 38px !important; }
+.nav::before { top: 6px !important; }
+.nav::after { bottom: 6px !important; }
+
+.panel-chain-frame__edge--left,
+.panel-chain-frame__edge--right,
+.panel-chain-frame__edge--bottom,
+.event-row-frame {
+  display: none !important;
+}
+
+.hero-panel,
+.nav,
+.gallery-panel,
+.radio-panel,
+.events-panel,
+.merch-panel,
+.auth-panel,
+.news-panel,
+.chat-panel,
+.site-footer,
+.gallery-stage,
+.gallery-thumb,
+.radio-embed-frame--clean,
+.event-row--surgical,
+.event-thumb--surgical,
+.merch-card--surgical,
+.merch-copy--surgical,
+.auth-form,
+.auth-session-card,
+.news-feature-card,
+.chat-shell,
+.chat-log-shell,
+.chat-compose-shell,
+.chat-message,
+.auth-field input,
+.auth-field select,
+.auth-field textarea,
+.chat-form textarea {
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.gallery-stage::before,
+.gallery-thumb::before,
+.radio-embed-frame--clean::before,
+.event-row--surgical::before,
+.event-thumb--surgical::before,
+.merch-card--surgical::before,
+.merch-copy--surgical::before,
+.auth-form::before,
+.auth-session-card::before,
+.news-feature-card::before,
+.chat-shell::before,
+.chat-log-shell::before,
+.chat-compose-shell::before,
+.chat-message::before {
+  content: none !important;
+  display: none !important;
+}
+
+.hero-panel::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 14px !important;
+  left: 14px !important;
+  right: auto !important;
+  width: 122px !important;
+  height: 122px !important;
+  z-index: 1 !important;
+  opacity: 0.88 !important;
+  background: url('/ui-kit-clean/escobar_fire_corner_tl.png') left top / 122px 122px no-repeat !important;
+  mix-blend-mode: screen !important;
+}
+
+.hero-panel::after {
+  content: "" !important;
+  position: absolute !important;
+  right: 14px !important;
+  bottom: 14px !important;
+  left: auto !important;
+  width: 138px !important;
+  height: 138px !important;
+  z-index: 1 !important;
+  opacity: 0.9 !important;
+  background: url('/ui-kit-clean/escobar_fire_corner_br.png') right bottom / 138px 138px no-repeat !important;
+  mix-blend-mode: screen !important;
+}
+
+.gallery-panel::before,
+.radio-panel::before,
+.events-panel::before,
+.merch-panel::before,
+.auth-panel::before,
+.news-panel::before,
+.chat-panel::before,
+.site-footer::before {
+  left: 14px !important;
+  right: 14px !important;
+  top: 14px !important;
+  height: 106px !important;
+  opacity: 0.62 !important;
+  background-image:
+    url('/ui-kit-clean/escobar_fire_corner_tl.png'),
+    url('/ui-kit-clean/escobar_fire_corner_tr.png') !important;
+  background-repeat: no-repeat, no-repeat !important;
+  background-position: left top, right top !important;
+  background-size: 96px 96px, 96px 96px !important;
+}
+
+.gallery-panel::after,
+.radio-panel::after,
+.events-panel::after,
+.merch-panel::after,
+.auth-panel::after,
+.news-panel::after,
+.chat-panel::after,
+.site-footer::after {
+  left: 14px !important;
+  right: 14px !important;
+  bottom: 14px !important;
+  height: 126px !important;
+  opacity: 0.82 !important;
+  background-image:
+    url('/ui-kit-clean/escobar_fire_corner_bl.png'),
+    url('/ui-kit-clean/escobar_fire_corner_br.png') !important;
+  background-repeat: no-repeat, no-repeat !important;
+  background-position: left bottom, right bottom !important;
+  background-size: 118px 118px, 118px 118px !important;
+}
+
+.gallery-stage,
+.gallery-thumb,
+.radio-embed-frame--clean,
+.event-row--surgical,
+.event-thumb--surgical,
+.auth-session-card,
+.news-feature-card {
+  isolation: isolate;
+}
+
+.gallery-stage::after,
+.gallery-thumb::after,
+.radio-embed-frame--clean::after,
+.event-row--surgical::after,
+.event-thumb--surgical::after,
+.auth-session-card::after,
+.news-feature-card::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 10px !important;
+  right: 10px !important;
+  bottom: 8px !important;
+  height: 72px !important;
+  z-index: 1 !important;
+  opacity: 0.92 !important;
+  pointer-events: none !important;
+  background-image:
+    url('/ui-kit-clean/escobar_fire_corner_bl.png'),
+    url('/ui-kit-clean/escobar_fire_corner_br.png') !important;
+  background-repeat: no-repeat, no-repeat !important;
+  background-position: left bottom, right bottom !important;
+  background-size: 68px 68px, 68px 68px !important;
+  mix-blend-mode: screen !important;
+}
+
+.merch-card--surgical::after,
+.merch-card--surgical::before,
+.merch-copy--surgical::after,
+.merch-copy--surgical::before,
+.chat-shell::after,
+.chat-shell::before,
+.chat-log-shell::after,
+.chat-log-shell::before,
+.chat-compose-shell::after,
+.chat-compose-shell::before,
+.chat-message::after,
+.chat-message::before {
+  content: none !important;
+  display: none !important;
+}
+
+@media (max-width: 720px) {
+  .hero-panel::before {
+    width: 88px !important;
+    height: 88px !important;
+    background-size: 88px 88px !important;
+  }
+
+  .hero-panel::after {
+    width: 98px !important;
+    height: 98px !important;
+    background-size: 98px 98px !important;
+  }
+
+  .gallery-panel::before,
+  .radio-panel::before,
+  .events-panel::before,
+  .merch-panel::before,
+  .auth-panel::before,
+  .news-panel::before,
+  .chat-panel::before,
+  .site-footer::before {
+    height: 82px !important;
+    background-size: 72px 72px, 72px 72px !important;
+  }
+
+  .gallery-panel::after,
+  .radio-panel::after,
+  .events-panel::after,
+  .merch-panel::after,
+  .auth-panel::after,
+  .news-panel::after,
+  .chat-panel::after,
+  .site-footer::after {
+    height: 92px !important;
+    background-size: 82px 82px, 82px 82px !important;
+  }
+
+  .gallery-stage::after,
+  .gallery-thumb::after,
+  .radio-embed-frame--clean::after,
+  .event-row--surgical::after,
+  .event-thumb--surgical::after,
+  .auth-session-card::after,
+  .news-feature-card::after {
+    height: 56px !important;
+    background-size: 52px 52px, 52px 52px !important;
+  }
+}
