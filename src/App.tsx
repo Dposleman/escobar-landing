@@ -64,6 +64,13 @@ function App() {
           <Hero />
           <div className="panel-divider" aria-hidden="true" />
           <NavBar items={cms.state.nav} />
+
+          <section className="header-utility-strip js-reveal" aria-label="Quick access">
+            <a className="header-utility-link" href="#merch">MERCH STORE</a>
+            <a className="header-utility-link" href="#chat">LIVE CHAT</a>
+            <a className="header-utility-link header-utility-link--admin" href="/admin">ADMIN</a>
+          </section>
+
           <div className="panel-divider" aria-hidden="true" />
 
           <section className="feature-grid feature-grid--framed">

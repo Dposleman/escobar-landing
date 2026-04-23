@@ -45,9 +45,7 @@ export default function MerchPanel({ items }: Props) {
       </div>
 
       <div className="merch-actions">
-        <a className="cta-button cta-button--image" href="#footer">
-          <span>SHOP ALL MERCH</span>
-        </a>
+        <a className="cta-button cta-button--image cta-button--plate-only" href="#footer" aria-label="Shop all merch" />
       </div>
     </section>
   );
