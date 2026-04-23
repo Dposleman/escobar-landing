@@ -893,3 +893,151 @@
     min-width: 100% !important;
   }
 }
+
+.panel-chain-frame::before,
+.panel-chain-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.panel-chain-frame::before {
+  background-image:
+    url('/ui-kit-clean/escobar_fire_corner_tl.png'),
+    url('/ui-kit-clean/escobar_fire_corner_tr.png');
+  background-repeat: no-repeat;
+  background-position: left top, right top;
+  background-size: min(30vw, 360px) auto, min(30vw, 360px) auto;
+  opacity: 0.24;
+  mix-blend-mode: screen;
+  filter: saturate(1.06);
+}
+
+.panel-chain-frame::after {
+  background-image:
+    url('/ui-kit-clean/escobar_fire_corner_bl.png'),
+    url('/ui-kit-clean/escobar_fire_corner_br.png');
+  background-repeat: no-repeat;
+  background-position: left bottom, right bottom;
+  background-size: min(34vw, 420px) auto, min(34vw, 420px) auto;
+  opacity: 0.42;
+  mix-blend-mode: screen;
+  filter: saturate(1.08);
+}
+
+.gallery-stage,
+.gallery-thumb,
+.radio-embed-frame--clean,
+.event-row--surgical,
+.event-thumb--surgical,
+.merch-card--surgical,
+.merch-copy--surgical,
+.auth-form,
+.auth-session-card,
+.news-feature-card,
+.chat-log-shell,
+.chat-compose-shell,
+.chat-message {
+  position: relative;
+  isolation: isolate;
+}
+
+.gallery-stage::after,
+.gallery-thumb::after,
+.radio-embed-frame--clean::after,
+.event-row--surgical::after,
+.event-thumb--surgical::after,
+.merch-card--surgical::after,
+.merch-copy--surgical::after,
+.auth-form::after,
+.auth-session-card::after,
+.news-feature-card::after,
+.chat-log-shell::after,
+.chat-compose-shell::after,
+.chat-message::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background-image:
+    url('/ui-kit-clean/escobar_fire_corner_tl.png'),
+    url('/ui-kit-clean/escobar_fire_corner_tr.png'),
+    url('/ui-kit-clean/escobar_fire_corner_bl.png'),
+    url('/ui-kit-clean/escobar_fire_corner_br.png');
+  background-repeat: no-repeat;
+  background-position: left top, right top, left bottom, right bottom;
+  background-size:
+    min(16vw, 150px) auto,
+    min(16vw, 150px) auto,
+    min(18vw, 170px) auto,
+    min(18vw, 170px) auto;
+  opacity: 0.34;
+  mix-blend-mode: screen;
+  filter: saturate(1.08);
+}
+
+.gallery-stage::after,
+.radio-embed-frame--clean::after,
+.auth-form::after,
+.auth-session-card::after,
+.news-feature-card::after,
+.chat-log-shell::after,
+.chat-compose-shell::after {
+  opacity: 0.28;
+  background-size:
+    min(18vw, 180px) auto,
+    min(18vw, 180px) auto,
+    min(20vw, 210px) auto,
+    min(20vw, 210px) auto;
+}
+
+.event-row--surgical::after,
+.merch-card--surgical::after {
+  opacity: 0.32;
+}
+
+.event-thumb--surgical::after,
+.gallery-thumb::after,
+.merch-copy--surgical::after,
+.chat-message::after {
+  opacity: 0.26;
+  background-size:
+    min(12vw, 108px) auto,
+    min(12vw, 108px) auto,
+    min(14vw, 126px) auto,
+    min(14vw, 126px) auto;
+}
+
+@media (max-width: 900px) {
+  .panel-chain-frame::before {
+    background-size: min(42vw, 280px) auto, min(42vw, 280px) auto;
+    opacity: 0.18;
+  }
+
+  .panel-chain-frame::after {
+    background-size: min(46vw, 320px) auto, min(46vw, 320px) auto;
+    opacity: 0.34;
+  }
+
+  .gallery-stage::after,
+  .gallery-thumb::after,
+  .radio-embed-frame--clean::after,
+  .event-row--surgical::after,
+  .event-thumb--surgical::after,
+  .merch-card--surgical::after,
+  .merch-copy--surgical::after,
+  .auth-form::after,
+  .auth-session-card::after,
+  .news-feature-card::after,
+  .chat-log-shell::after,
+  .chat-compose-shell::after,
+  .chat-message::after {
+    background-size:
+      min(22vw, 120px) auto,
+      min(22vw, 120px) auto,
+      min(25vw, 140px) auto,
+      min(25vw, 140px) auto;
+  }
+}
