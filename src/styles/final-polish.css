@@ -1278,6 +1278,7 @@
   .event-excerpt {
     display: -webkit-box !important;
     -webkit-line-clamp: 2 !important;
+    line-clamp: 2 !important;
     -webkit-box-orient: vertical !important;
     overflow: hidden !important;
     margin: 5px 0 0 !important;
@@ -1421,38 +1422,43 @@
   }
 }
 
-
 body.donation-modal-active {
   overflow: hidden !important;
+  height: 100% !important;
+  touch-action: none !important;
 }
 
 .donation-modal {
   position: fixed !important;
   inset: 0 !important;
+  z-index: 9999 !important;
   display: flex !important;
-  justify-content: center !important;
   align-items: center !important;
+  justify-content: center !important;
+  padding: 14px !important;
   overflow: hidden !important;
-  z-index: 9999;
-}
-
-.donation-modal-card {
-  width: min(100%, 480px) !important;
-  max-height: 90vh !important;
-  overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch !important;
-  overscroll-behavior: contain !important;
+  overscroll-behavior: none !important;
+  touch-action: none !important;
   scrollbar-width: none !important;
 }
 
-.donation-modal-card * {
-  touch-action: pan-y;
-}
-
-.donation-modal-card::-webkit-scrollbar {
+.donation-modal::-webkit-scrollbar,
+.donation-modal-card::-webkit-scrollbar,
+.donation-modal-grid::-webkit-scrollbar {
   display: none !important;
 }
 
+.donation-modal-card {
+  position: relative !important;
+  width: min(100%, 520px) !important;
+  max-height: min(92vh, 760px) !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior: contain !important;
+  touch-action: pan-y !important;
+  scrollbar-width: none !important;
+}
 
 .donation-modal-live {
   display: inline-flex;
@@ -1593,15 +1599,22 @@ body.donation-modal-active {
 
 @media (max-width: 720px) {
   .donation-modal {
-    align-items: start !important;
-    place-items: start center !important;
-    padding: 10px !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    padding: 8px !important;
+    overflow: hidden !important;
+    touch-action: none !important;
   }
 
   .donation-modal-card {
     width: min(100%, 420px) !important;
-    max-height: calc(100dvh - 20px) !important;
+    max-height: calc(100svh - 16px) !important;
     padding: 16px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    touch-action: pan-y !important;
   }
 
   .donation-modal-live {
@@ -1680,5 +1693,57 @@ body.donation-modal-active {
     padding: 9px 10px !important;
     font-size: 0.68rem !important;
     line-height: 1.25 !important;
+  }
+}
+
+@media (max-width: 720px) {
+  body.donation-modal-active {
+    overflow: hidden !important;
+    height: 100% !important;
+    position: fixed !important;
+    width: 100% !important;
+  }
+
+  .donation-modal {
+    position: fixed !important;
+    inset: 0 !important;
+    height: 100svh !important;
+    max-height: 100svh !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    padding: 8px !important;
+    overflow: hidden !important;
+    overscroll-behavior: none !important;
+    touch-action: none !important;
+  }
+
+  .donation-modal-card {
+    position: relative !important;
+    display: block !important;
+    width: min(100%, 420px) !important;
+    height: auto !important;
+    max-height: calc(100svh - 16px) !important;
+    overflow-x: hidden !important;
+    overflow-y: scroll !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    touch-action: pan-y !important;
+    scrollbar-width: none !important;
+  }
+
+  .donation-modal-card::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+    display: none !important;
+  }
+
+  .donation-modal-grid {
+    overflow: visible !important;
+    touch-action: pan-y !important;
+  }
+
+  .donation-tier {
+    touch-action: manipulation !important;
   }
 }
