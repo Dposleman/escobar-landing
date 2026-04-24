@@ -26,6 +26,17 @@ import { AudioReactiveEngine } from "./engine/AudioReactiveEngine";
 
 setLang("da");
 
+const isMobileSafari = () => {
+  if (typeof navigator === "undefined") return false;
+
+  const ua = navigator.userAgent || "";
+  const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  const isSafari = /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS/.test(ua);
+
+  return isIOS && isSafari;
+};
+
+
 function App() {
   const cms = useCms();
 
@@ -49,16 +60,38 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const cleanupReveal = revealPanels();
-    const cleanupGlow = initMouseGlow();
-    const cleanupEmbers = typeof createEmbers === "function" ? createEmbers() : undefined;
+    const cleanups: Array<() => void> = [];
+    const safariSafeMode = isMobileSafari();
+
+    try {
+      const cleanupReveal = revealPanels();
+      cleanups.push(cleanupReveal);
+    } catch (error) {
+      console.warn("Escobar reveal animation disabled", error);
+    }
+
+    if (!safariSafeMode) {
+      try {
+        const cleanupGlow = initMouseGlow();
+        cleanups.push(cleanupGlow);
+      } catch (error) {
+        console.warn("Escobar mouse glow disabled", error);
+      }
+    }
+
+    try {
+      const cleanupEmbers = typeof createEmbers === "function" ? createEmbers() : undefined;
+      if (cleanupEmbers) cleanups.push(cleanupEmbers);
+    } catch (error) {
+      console.warn("Escobar ember layer disabled", error);
+    }
 
     return () => {
-      cleanupReveal();
-      cleanupGlow();
-      cleanupEmbers?.();
+      cleanups.forEach((cleanup) => cleanup());
     };
   }, [cms.state]);
+
+  const safariSafeMode = isMobileSafari();
 
   if (routeState.isAdminRoute) {
     return <AdminPage />;
@@ -69,8 +102,8 @@ function App() {
       <>
         <BackgroundEngine />
         <EffectsEngine />
-        <ParticlesEngine />
-        <AudioReactiveEngine />
+        {!safariSafeMode && <ParticlesEngine />}
+        {!safariSafeMode && <AudioReactiveEngine />}
         <DonationPage />
       </>
     );
@@ -80,8 +113,8 @@ function App() {
     <>
       <BackgroundEngine />
       <EffectsEngine />
-      <ParticlesEngine />
-      <AudioReactiveEngine />
+      {!safariSafeMode && <ParticlesEngine />}
+      {!safariSafeMode && <AudioReactiveEngine />}
 
       <div className="app-shell">
         <div className="mouse-glow" aria-hidden="true" />

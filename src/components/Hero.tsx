@@ -16,11 +16,11 @@ export function Hero() {
 
       <div className="hero-top-row hero-top-row--clean">
         <div className="hero-emblem-wrap" aria-hidden="true">
-          <img src="/ui-kit/logo_emblem.png" alt="" className="hero-emblem-image" />
+          <img src="/assets/branding/escobar-skull.png" alt="" className="hero-emblem-image hero-emblem-image--skull" decoding="async" />
         </div>
 
         <div className="hero-logo-block">
-          <img src="/ui-kit/logo_text.png" alt="Escobar" className="hero-logo-image" />
+          <img src="/assets/branding/escobar-logo.png" alt="Escobar" className="hero-logo-image hero-logo-image--brand" decoding="async" />
           <div className="hero-meta hero-meta--clean">
             <p className="hero-location">{t.heroLocation}</p>
             <p className="hero-tagline">{t.heroTagline}</p>

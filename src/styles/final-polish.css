@@ -1736,3 +1736,113 @@
     line-height: 1.22 !important;
   }
 }
+
+/* =========================================================
+   ESCOBAR BRAND PATCH — production logo/skull replacement
+   ========================================================= */
+.hero-emblem-image--skull {
+  width: clamp(118px, 11vw, 176px) !important;
+  max-width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  opacity: 0.96 !important;
+  filter:
+    drop-shadow(0 0 18px rgba(255, 118, 32, 0.18))
+    drop-shadow(0 14px 24px rgba(0, 0, 0, 0.55)) !important;
+}
+
+.hero-logo-image--brand {
+  width: min(100%, 860px) !important;
+  height: auto !important;
+  object-fit: contain !important;
+  display: block !important;
+  margin-inline: auto !important;
+  filter:
+    drop-shadow(0 0 22px rgba(255, 121, 31, 0.18))
+    drop-shadow(0 16px 28px rgba(0, 0, 0, 0.56)) !important;
+}
+
+.hero-top-row--clean {
+  grid-template-columns: clamp(150px, 13vw, 210px) minmax(0, 1fr) !important;
+  align-items: center !important;
+}
+
+.hero-emblem-wrap {
+  overflow: visible !important;
+}
+
+@media (max-width: 920px) {
+  .hero-top-row--clean {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .hero-emblem-wrap {
+    justify-content: center !important;
+    padding: 8px 0 0 !important;
+  }
+
+  .hero-emblem-image--skull {
+    width: clamp(110px, 34vw, 170px) !important;
+  }
+
+  .hero-logo-image--brand {
+    width: min(100%, 680px) !important;
+    margin-top: 2px !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-panel {
+    padding: 38px 12px 26px !important;
+  }
+
+  .hero-emblem-image--skull {
+    width: clamp(96px, 40vw, 148px) !important;
+  }
+
+  .hero-logo-image--brand {
+    width: min(100%, 96vw) !important;
+  }
+
+  .hero-location {
+    font-size: clamp(1rem, 5vw, 1.32rem) !important;
+  }
+
+  .hero-tagline {
+    font-size: clamp(0.82rem, 4.2vw, 1.05rem) !important;
+    line-height: 1.12 !important;
+  }
+}
+
+/* Mobile Safari stability: keep glass look but avoid WebKit blank-screen failures. */
+@supports (-webkit-touch-callout: none) {
+  .metal-panel,
+  .battered-panel,
+  .gallery-panel,
+  .radio-panel,
+  .events-panel,
+  .merch-panel,
+  .auth-panel,
+  .news-panel,
+  .chat-panel,
+  .site-footer,
+  .donation-page-card,
+  .donation-modal-card {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .bg-noise,
+  .bg-scratches,
+  .bg-grime,
+  .mouse-glow {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+
+  .particles-engine,
+  .embers-layer {
+    display: none !important;
+  }
+}
