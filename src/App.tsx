@@ -23,7 +23,6 @@ import BackgroundEngine from "./engine/BackgroundEngine";
 import { EffectsEngine } from "./engine/EffectsEngine";
 import { ParticlesEngine } from "./engine/ParticlesEngine";
 import { AudioReactiveEngine } from "./engine/AudioReactiveEngine";
-import { VisualEngineUpgrade } from "./components/VisualEngineUpgrade";
 
 setLang("da");
 
@@ -105,7 +104,7 @@ function App() {
         <EffectsEngine />
         {!safariSafeMode && <ParticlesEngine />}
         {!safariSafeMode && <AudioReactiveEngine />}
-        <VisualEngineUpgrade />
+        
         <DonationPage />
       </>
     );
@@ -118,7 +117,7 @@ function App() {
       {!safariSafeMode && <ParticlesEngine />}
       {!safariSafeMode && <AudioReactiveEngine />}
 
-      <VisualEngineUpgrade />
+      
 
       <div className="app-shell">
         <div className="mouse-glow" aria-hidden="true" />
