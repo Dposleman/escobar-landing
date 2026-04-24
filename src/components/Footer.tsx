@@ -25,7 +25,11 @@ function openDonationCheckout(tier: DonationTier) {
     target,
   });
 
-  window.open(target, "_blank", "noopener,noreferrer");
+  const checkoutWindow = window.open(target, "_blank", "noopener,noreferrer");
+
+  if (checkoutWindow) {
+    checkoutWindow.opener = null;
+  }
 
   trackConversion("feed_the_dev_checkout_opened", {
     surface: "donation_modal",
@@ -106,7 +110,7 @@ export function Footer() {
           <a
             href="https://understack.dk"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="site-footer-link"
           >
             UnderStack
@@ -120,7 +124,12 @@ export function Footer() {
       </div>
 
       {isDonationOpen && (
-        <div className="donation-modal" role="dialog" aria-modal="true" aria-labelledby="donation-modal-title">
+        <div
+          className="donation-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="donation-modal-title"
+        >
           <button
             type="button"
             className="donation-modal-backdrop"
@@ -142,7 +151,8 @@ export function Footer() {
               <p className="donation-modal-kicker">Support the build</p>
               <h2 id="donation-modal-title">Feed the dev. Keep Escobar alive.</h2>
               <p>
-                Choose a Revolut Business donation tier. No redirect yet — checkout opens only after you select an amount.
+                Choose a Revolut Business donation tier. Checkout opens in a secure new tab only
+                after you select an amount.
               </p>
             </div>
 
