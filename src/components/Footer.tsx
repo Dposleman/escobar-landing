@@ -1,18 +1,89 @@
-import { useMemo, useState } from "react";
-import { donationOptions } from "../config/donations";
+import { useEffect, useMemo, useState } from "react";
+import { donationTiers, hasDonationLinks, type DonationTier } from "../config/donations";
+import { trackConversion } from "../utils/conversionTracking";
+
+function openDonationCheckout(tier: DonationTier) {
+  const target = tier.url.trim();
+
+  if (!target) {
+    trackConversion("feed_the_dev_checkout_missing_url", {
+      surface: "donation_modal",
+      ctaId: `feed_the_dev_${tier.id}`,
+      ctaLabel: tier.ctaLabel,
+      amount: tier.amountLabel,
+      tier: tier.id,
+    });
+    return;
+  }
+
+  trackConversion("feed_the_dev_tier_selected", {
+    surface: "donation_modal",
+    ctaId: `feed_the_dev_${tier.id}`,
+    ctaLabel: tier.ctaLabel,
+    amount: tier.amountLabel,
+    tier: tier.id,
+    target,
+  });
+
+  window.open(target, "_blank", "noopener,noreferrer");
+
+  trackConversion("feed_the_dev_checkout_opened", {
+    surface: "donation_modal",
+    ctaId: `feed_the_dev_${tier.id}`,
+    ctaLabel: tier.ctaLabel,
+    amount: tier.amountLabel,
+    tier: tier.id,
+    target,
+  });
+}
 
 export function Footer() {
   const [isDonationOpen, setIsDonationOpen] = useState(false);
 
-  const hasConfiguredDonationLinks = useMemo(
-    () => donationOptions.some((option) => option.url.trim().length > 0),
-    [],
-  );
+  const supportStatus = useMemo(() => {
+    return hasDonationLinks ? "Revolut Business checkout ready" : "Add Revolut links in Vercel env";
+  }, []);
 
-  function openDonationUrl(url: string) {
-    if (!url.trim()) return;
-    window.open(url, "_blank", "noopener,noreferrer");
-  }
+  useEffect(() => {
+    if (!isDonationOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsDonationOpen(false);
+        trackConversion("feed_the_dev_modal_closed", {
+          surface: "donation_modal",
+          ctaId: "feed_the_dev_close_escape",
+          ctaLabel: "Close donation modal with Escape",
+        });
+      }
+    };
+
+    document.body.classList.add("donation-modal-active");
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.classList.remove("donation-modal-active");
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [isDonationOpen]);
+
+  const handleOpenDonation = () => {
+    setIsDonationOpen(true);
+    trackConversion("feed_the_dev_modal_opened", {
+      surface: "footer",
+      ctaId: "feed_the_dev_footer_button",
+      ctaLabel: "FEED THE DEV",
+    });
+  };
+
+  const handleCloseDonation = () => {
+    setIsDonationOpen(false);
+    trackConversion("feed_the_dev_modal_closed", {
+      surface: "donation_modal",
+      ctaId: "feed_the_dev_close_button",
+      ctaLabel: "Close donation modal",
+    });
+  };
 
   return (
     <footer className="site-footer metal-panel battered-panel js-reveal" id="footer">
@@ -23,15 +94,11 @@ export function Footer() {
 
       <div className="site-footer-content">
         <div className="site-footer-cta-wrap">
-          <button
-            type="button"
-            className="site-footer-dev-button"
-            onClick={() => setIsDonationOpen(true)}
-            aria-haspopup="dialog"
-            aria-expanded={isDonationOpen}
-          >
+          <button type="button" className="site-footer-dev-button" onClick={handleOpenDonation}>
+            <span className="site-footer-dev-button-pulse" aria-hidden="true" />
             FEED THE DEV
           </button>
+          <span className="site-footer-dev-status">{supportStatus}</span>
         </div>
 
         <p className="site-footer-powered">
@@ -52,63 +119,57 @@ export function Footer() {
         </p>
       </div>
 
-      {isDonationOpen ? (
+      {isDonationOpen && (
         <div className="donation-modal" role="dialog" aria-modal="true" aria-labelledby="donation-modal-title">
           <button
             type="button"
             className="donation-modal-backdrop"
-            aria-label="Close donation options"
-            onClick={() => setIsDonationOpen(false)}
+            aria-label="Close donation modal"
+            onClick={handleCloseDonation}
           />
 
           <div className="donation-modal-card metal-panel battered-panel">
-            <div className="donation-modal-head">
-              <div>
-                <p className="donation-modal-kicker">Support the build</p>
-                <h3 id="donation-modal-title">Feed the dev</h3>
-              </div>
-              <button
-                type="button"
-                className="donation-modal-close"
-                onClick={() => setIsDonationOpen(false)}
-                aria-label="Close donation options"
-              >
-                ×
-              </button>
+            <div className="donation-modal-live" aria-hidden="true">
+              <span />
+              Tip window active
             </div>
 
-            <p className="donation-modal-copy">
-              Choose a donation amount and complete the payment securely through Revolut Business.
-            </p>
+            <button type="button" className="donation-modal-close" onClick={handleCloseDonation}>
+              Close
+            </button>
 
-            <div className="donation-options" aria-label="Donation amounts">
-              {donationOptions.map((option) => {
-                const isReady = option.url.trim().length > 0;
-
-                return (
-                  <button
-                    key={option.id}
-                    type="button"
-                    className={`donation-option${isReady ? "" : " is-disabled"}`}
-                    onClick={() => openDonationUrl(option.url)}
-                    disabled={!isReady}
-                  >
-                    <span className="donation-option-amount">{option.amountLabel}</span>
-                    <span className="donation-option-label">{option.label}</span>
-                    <span className="donation-option-description">{option.description}</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {!hasConfiguredDonationLinks ? (
-              <p className="donation-modal-note">
-                Donation links are not configured yet. Add the Revolut Business payment links in Vercel environment variables.
+            <div className="donation-modal-header">
+              <p className="donation-modal-kicker">Support the build</p>
+              <h2 id="donation-modal-title">Feed the dev. Keep Escobar alive.</h2>
+              <p>
+                Choose a Revolut Business donation tier. No redirect yet — checkout opens only after you select an amount.
               </p>
-            ) : null}
+            </div>
+
+            <div className="donation-modal-grid">
+              {donationTiers.map((tier) => (
+                <button
+                  type="button"
+                  className="donation-tier"
+                  key={tier.id}
+                  onClick={() => openDonationCheckout(tier)}
+                >
+                  <span className="donation-tier-eyebrow">{tier.eyebrow}</span>
+                  <strong>{tier.amountLabel}</strong>
+                  <span className="donation-tier-title">{tier.title}</span>
+                  <span className="donation-tier-description">{tier.description}</span>
+                  <span className="donation-tier-cta">{tier.ctaLabel}</span>
+                </button>
+              ))}
+            </div>
+
+            <div className="donation-modal-urgency">
+              <span>Every tip funds the next visual pass, CMS polish and late-night fixes.</span>
+              <strong>Secure Revolut checkout opens in a new tab.</strong>
+            </div>
           </div>
         </div>
-      ) : null}
+      )}
     </footer>
   );
 }
