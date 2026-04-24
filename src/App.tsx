@@ -13,6 +13,7 @@ import { useCms } from "./hooks/useCms";
 import { createEmbers } from "./utils/embers";
 import { initMouseGlow } from "./utils/mouseGlow";
 import { AdminPage } from "./pages/AdminPage";
+import { DonationPage } from "./pages/DonationPage";
 import { setLang } from "./i18n/useLang";
 import { Footer } from "./components/Footer";
 import "./styles/dynamic-panels.css";
@@ -28,10 +29,23 @@ setLang("da");
 function App() {
   const cms = useCms();
 
-  const isAdminRoute = useMemo(() => {
-    if (typeof window === "undefined") return false;
+  const routeState = useMemo(() => {
+    if (typeof window === "undefined") {
+      return {
+        isAdminRoute: false,
+        isDonationRoute: false,
+      };
+    }
+
     const params = new URLSearchParams(window.location.search);
-    return window.location.pathname === "/admin" || params.get("admin") === "1";
+
+    return {
+      isAdminRoute: window.location.pathname === "/admin" || params.get("admin") === "1",
+      isDonationRoute:
+        window.location.pathname === "/feed-the-dev" ||
+        params.get("feed-the-dev") === "1" ||
+        params.get("donate") === "1",
+    };
   }, []);
 
   useEffect(() => {
@@ -46,8 +60,20 @@ function App() {
     };
   }, [cms.state]);
 
-  if (isAdminRoute) {
+  if (routeState.isAdminRoute) {
     return <AdminPage />;
+  }
+
+  if (routeState.isDonationRoute) {
+    return (
+      <>
+        <BackgroundEngine />
+        <EffectsEngine />
+        <ParticlesEngine />
+        <AudioReactiveEngine />
+        <DonationPage />
+      </>
+    );
   }
 
   return (

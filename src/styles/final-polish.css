@@ -1422,28 +1422,6 @@
   }
 }
 
-body.donation-modal-active {
-  overflow: hidden !important;
-}
-
-.donation-modal {
-  overflow-y: auto !important;
-  overscroll-behavior: contain !important;
-  scrollbar-width: none !important;
-}
-
-.donation-modal::-webkit-scrollbar,
-.donation-modal-card::-webkit-scrollbar,
-.donation-modal-grid::-webkit-scrollbar {
-  display: none !important;
-}
-
-.donation-modal-card {
-  max-height: calc(100dvh - 28px) !important;
-  overflow-y: auto !important;
-  scrollbar-width: none !important;
-}
-
 .donation-modal-live {
   display: inline-flex;
   align-items: center;
@@ -1462,21 +1440,6 @@ body.donation-modal-active {
   border-radius: 999px;
   background: #ff9c4e;
   box-shadow: 0 0 12px rgba(255, 126, 42, 0.8);
-}
-
-.donation-modal-close {
-  position: absolute !important;
-  top: 14px !important;
-  right: 14px !important;
-  width: auto !important;
-  min-width: 68px !important;
-  height: 34px !important;
-  padding: 0 12px !important;
-  border-radius: 0 !important;
-  font-size: 0.72rem !important;
-  font-weight: 900 !important;
-  letter-spacing: 0.12em !important;
-  text-transform: uppercase !important;
 }
 
 .donation-modal-header {
@@ -1582,30 +1545,10 @@ body.donation-modal-active {
 }
 
 @media (max-width: 720px) {
-  .donation-modal {
-    align-items: start !important;
-    place-items: start center !important;
-    padding: 10px !important;
-  }
-
-  .donation-modal-card {
-    width: min(100%, 420px) !important;
-    max-height: calc(100dvh - 20px) !important;
-    padding: 16px !important;
-  }
-
   .donation-modal-live {
     margin-bottom: 8px !important;
     font-size: 0.58rem !important;
     letter-spacing: 0.12em !important;
-  }
-
-  .donation-modal-close {
-    top: 10px !important;
-    right: 10px !important;
-    min-width: 58px !important;
-    height: 30px !important;
-    font-size: 0.62rem !important;
   }
 
   .donation-modal-header {
@@ -1673,86 +1616,123 @@ body.donation-modal-active {
   }
 }
 
-html:has(body.donation-modal-active),
-body.donation-modal-active {
-  overflow: hidden !important;
-  overscroll-behavior: none !important;
+.donation-page-shell {
+  min-height: 100svh;
 }
 
-.donation-modal {
-  position: fixed !important;
-  inset: 0 !important;
-  z-index: 999999 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  height: 100dvh !important;
-  padding: 14px !important;
-  overflow: hidden !important;
-  pointer-events: auto !important;
-  touch-action: none !important;
+.donation-page {
+  position: relative;
+  z-index: 2;
+  min-height: 100svh;
+  width: min(1180px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 42px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.donation-modal-backdrop {
-  position: fixed !important;
-  inset: 0 !important;
-  z-index: 0 !important;
-  pointer-events: auto !important;
-  touch-action: none !important;
+.donation-page-card {
+  position: relative;
+  width: 100%;
+  padding: 34px;
+  border: 1px solid rgba(255, 159, 83, 0.18);
+  background:
+    linear-gradient(180deg, rgba(20, 7, 7, 0.42), rgba(8, 3, 3, 0.28)),
+    rgba(0, 0, 0, 0.28);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 150, 80, 0.04),
+    inset 0 -24px 42px rgba(0, 0, 0, 0.14),
+    0 18px 46px rgba(0, 0, 0, 0.18);
 }
 
-.donation-modal-card {
-  position: relative !important;
-  z-index: 2 !important;
-  width: min(1180px, calc(100vw - 28px)) !important;
-  max-height: calc(100dvh - 28px) !important;
-  overflow-x: hidden !important;
-  overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch !important;
-  overscroll-behavior: contain !important;
-  pointer-events: auto !important;
-  touch-action: pan-y !important;
-  scrollbar-width: none !important;
+.donation-page-back {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 159, 83, 0.22);
+  color: #ffe2bf;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  background: rgba(0, 0, 0, 0.26);
 }
 
-.donation-modal-card::-webkit-scrollbar {
-  width: 0 !important;
-  height: 0 !important;
-  display: none !important;
+.donation-page-header {
+  padding-right: 160px;
 }
 
-.donation-modal-grid {
-  overflow: visible !important;
-  pointer-events: auto !important;
-  touch-action: pan-y !important;
+.donation-page .donation-modal-header h1 {
+  margin: 0;
+  color: #fff0dc;
+  font-size: clamp(1.9rem, 5vw, 4.2rem);
+  line-height: 0.92;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
 }
 
-@media (max-width: 920px) {
-  .donation-modal {
-    align-items: flex-start !important;
-    justify-content: center !important;
-    height: 100svh !important;
-    max-height: 100svh !important;
-    padding: 8px !important;
-    overflow: hidden !important;
+.donation-page-grid {
+  margin-top: 24px;
+}
+
+@media (max-width: 720px) {
+  .donation-page {
+    width: min(100%, calc(100vw - 18px));
+    min-height: 100svh;
+    padding: 10px 0 20px;
+    align-items: flex-start;
   }
 
-  .donation-modal-card {
-    width: min(100%, 420px) !important;
-    max-height: calc(100svh - 16px) !important;
-    padding: 16px !important;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
+  .donation-page-card {
+    padding: 16px;
   }
 
-  .donation-modal-grid {
+  .donation-page-back {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .donation-page-header,
+  .donation-page .donation-modal-header {
+    padding-right: 0 !important;
+  }
+
+  .donation-page .donation-modal-header h1 {
+    font-size: clamp(1.35rem, 8vw, 2rem);
+  }
+
+  .donation-page .donation-modal-header p {
+    font-size: 0.78rem;
+    line-height: 1.3;
+  }
+
+  .donation-page-grid {
     grid-template-columns: 1fr !important;
     gap: 8px !important;
+    margin-top: 12px !important;
   }
 
-  .donation-tier {
+  .donation-page .donation-tier {
     min-height: 0 !important;
+    padding: 11px 12px !important;
+  }
+
+  .donation-page .donation-tier strong {
+    font-size: 1.12rem !important;
+  }
+
+  .donation-page .donation-tier-description {
+    font-size: 0.68rem !important;
+    line-height: 1.22 !important;
   }
 }
