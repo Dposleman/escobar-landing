@@ -3064,3 +3064,135 @@ body {
     width: min(100%, 270px);
   }
 }
+
+.donation-modal-active {
+  overflow: hidden !important;
+}
+
+.donation-modal {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 99999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 14px !important;
+  overflow: hidden !important;
+}
+
+.donation-modal-card {
+  width: min(1180px, calc(100vw - 28px)) !important;
+  max-height: calc(100vh - 28px) !important;
+  overflow: hidden !important;
+  padding: 22px 38px 32px !important;
+  border-radius: 28px !important;
+}
+
+.donation-modal-header {
+  max-width: 860px !important;
+  margin: 10px auto 28px !important;
+}
+
+.donation-modal-kicker {
+  margin-bottom: 6px !important;
+  font-size: 0.82rem !important;
+}
+
+.donation-modal-header h2 {
+  font-size: clamp(2.7rem, 6vw, 5.25rem) !important;
+  line-height: 0.9 !important;
+  max-width: 900px !important;
+  margin: 0 auto !important;
+}
+
+.donation-modal-header p {
+  max-width: 720px !important;
+  margin-top: 18px !important;
+  font-size: 1rem !important;
+  line-height: 1.45 !important;
+}
+
+.donation-modal-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 20px !important;
+  align-items: stretch !important;
+}
+
+.donation-tier {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 326px !important;
+  padding: 30px 24px 24px !important;
+  overflow: hidden !important;
+}
+
+.donation-tier strong {
+  margin: 18px 0 12px !important;
+  font-size: clamp(3.05rem, 5vw, 4.9rem) !important;
+  line-height: 0.92 !important;
+}
+
+.donation-tier-title {
+  min-height: 22px !important;
+  line-height: 1.15 !important;
+}
+
+.donation-tier-description {
+  margin-top: 16px !important;
+  margin-bottom: 22px !important;
+  min-height: 68px !important;
+  font-size: 0.95rem !important;
+  line-height: 1.42 !important;
+}
+
+.donation-tier-cta {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  margin-top: auto !important;
+  padding: 13px 14px 12px !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+}
+
+.donation-modal-urgency {
+  margin-top: 22px !important;
+  padding: 18px 22px !important;
+  font-size: 0.95rem !important;
+}
+
+@media (max-width: 920px) {
+  .donation-modal {
+    align-items: flex-start !important;
+    padding: 12px !important;
+    overflow: hidden !important;
+  }
+
+  .donation-modal-card {
+    width: calc(100vw - 24px) !important;
+    max-height: calc(100vh - 24px) !important;
+    padding: 24px 18px 22px !important;
+  }
+
+  .donation-modal-header h2 {
+    font-size: clamp(2.1rem, 10vw, 3.8rem) !important;
+  }
+
+  .donation-modal-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .donation-tier {
+    min-height: auto !important;
+    padding: 18px !important;
+  }
+
+  .donation-tier strong {
+    font-size: clamp(2.4rem, 11vw, 3.6rem) !important;
+  }
+
+  .donation-tier-description {
+    min-height: auto !important;
+  }
+}
