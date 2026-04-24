@@ -1424,21 +1424,11 @@
 
 body.donation-modal-active {
   overflow: hidden !important;
-  height: 100% !important;
-  touch-action: none !important;
 }
 
 .donation-modal {
-  position: fixed !important;
-  inset: 0 !important;
-  z-index: 9999 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 14px !important;
-  overflow: hidden !important;
-  overscroll-behavior: none !important;
-  touch-action: none !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
   scrollbar-width: none !important;
 }
 
@@ -1449,14 +1439,8 @@ body.donation-modal-active {
 }
 
 .donation-modal-card {
-  position: relative !important;
-  width: min(100%, 520px) !important;
-  max-height: min(92vh, 760px) !important;
-  overflow-x: hidden !important;
+  max-height: calc(100dvh - 28px) !important;
   overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch !important;
-  overscroll-behavior: contain !important;
-  touch-action: pan-y !important;
   scrollbar-width: none !important;
 }
 
@@ -1599,22 +1583,15 @@ body.donation-modal-active {
 
 @media (max-width: 720px) {
   .donation-modal {
-    align-items: flex-start !important;
-    justify-content: center !important;
-    padding: 8px !important;
-    overflow: hidden !important;
-    touch-action: none !important;
+    align-items: start !important;
+    place-items: start center !important;
+    padding: 10px !important;
   }
 
   .donation-modal-card {
     width: min(100%, 420px) !important;
-    max-height: calc(100svh - 16px) !important;
+    max-height: calc(100dvh - 20px) !important;
     padding: 16px !important;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    overscroll-behavior: contain !important;
-    touch-action: pan-y !important;
   }
 
   .donation-modal-live {
@@ -1696,54 +1673,95 @@ body.donation-modal-active {
   }
 }
 
-@media (max-width: 720px) {
-  body.donation-modal-active {
-    overflow: hidden !important;
-    height: 100% !important;
-    position: fixed !important;
-    width: 100% !important;
-  }
+body.donation-modal-active {
+  overflow: hidden !important;
+}
 
+.donation-modal {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 99999 !important;
+  display: block !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  padding: 14px !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior: contain !important;
+  touch-action: pan-y !important;
+  scrollbar-width: none !important;
+}
+
+.donation-modal::-webkit-scrollbar,
+.donation-modal-card::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+}
+
+.donation-modal-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+}
+
+.donation-modal-card {
+  position: relative !important;
+  z-index: 2 !important;
+  width: min(1180px, calc(100vw - 28px)) !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  margin: 0 auto !important;
+  overflow: visible !important;
+  transform: translateZ(0) !important;
+  touch-action: pan-y !important;
+}
+
+.donation-modal-grid {
+  overflow: visible !important;
+  touch-action: pan-y !important;
+}
+
+@media (max-width: 920px) {
   .donation-modal {
-    position: fixed !important;
-    inset: 0 !important;
-    height: 100svh !important;
-    max-height: 100svh !important;
-    display: flex !important;
-    align-items: flex-start !important;
-    justify-content: center !important;
-    padding: 8px !important;
-    overflow: hidden !important;
-    overscroll-behavior: none !important;
-    touch-action: none !important;
-  }
-
-  .donation-modal-card {
-    position: relative !important;
     display: block !important;
-    width: min(100%, 420px) !important;
-    height: auto !important;
-    max-height: calc(100svh - 16px) !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    padding: 10px 8px 28px !important;
     overflow-x: hidden !important;
-    overflow-y: scroll !important;
+    overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
     overscroll-behavior: contain !important;
     touch-action: pan-y !important;
-    scrollbar-width: none !important;
   }
 
-  .donation-modal-card::-webkit-scrollbar {
-    width: 0 !important;
-    height: 0 !important;
-    display: none !important;
-  }
-
-  .donation-modal-grid {
+  .donation-modal-card {
+    width: min(100%, 420px) !important;
+    max-height: none !important;
+    min-height: 0 !important;
+    margin: 0 auto !important;
+    padding: 16px !important;
     overflow: visible !important;
     touch-action: pan-y !important;
   }
 
+  .donation-modal-header {
+    padding-right: 62px !important;
+  }
+
+  .donation-modal-grid {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+    overflow: visible !important;
+  }
+
   .donation-tier {
+    min-height: 0 !important;
     touch-action: manipulation !important;
+  }
+
+  .donation-modal-urgency {
+    margin-bottom: 10px !important;
   }
 }
