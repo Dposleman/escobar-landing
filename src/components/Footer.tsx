@@ -57,6 +57,32 @@ export function Footer() {
   useEffect(() => {
     if (!isDonationOpen) return;
 
+    const scrollY = window.scrollY;
+    const originalBodyPosition = document.body.style.position;
+    const originalBodyTop = document.body.style.top;
+    const originalBodyLeft = document.body.style.left;
+    const originalBodyRight = document.body.style.right;
+    const originalBodyWidth = document.body.style.width;
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalBodyOverscrollBehavior = document.body.style.overscrollBehavior;
+    const originalDocumentOverflow = document.documentElement.style.overflow;
+    const originalDocumentOverscrollBehavior = document.documentElement.style.overscrollBehavior;
+
+    const isInsideDonationCard = (target: EventTarget | null) => {
+      if (!(target instanceof Node)) return false;
+      return Boolean(document.querySelector(".donation-modal-card")?.contains(target));
+    };
+
+    const preventBackgroundTouch = (event: TouchEvent) => {
+      if (isInsideDonationCard(event.target)) return;
+      event.preventDefault();
+    };
+
+    const preventBackgroundWheel = (event: WheelEvent) => {
+      if (isInsideDonationCard(event.target)) return;
+      event.preventDefault();
+    };
+
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setIsDonationOpen(false);
@@ -69,11 +95,35 @@ export function Footer() {
     };
 
     document.body.classList.add("donation-modal-active");
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+    document.body.style.overflow = "hidden";
+    document.body.style.overscrollBehavior = "none";
+    document.documentElement.style.overflow = "hidden";
+    document.documentElement.style.overscrollBehavior = "none";
+
     window.addEventListener("keydown", onKeyDown);
+    document.addEventListener("touchmove", preventBackgroundTouch, { passive: false });
+    document.addEventListener("wheel", preventBackgroundWheel, { passive: false });
 
     return () => {
       document.body.classList.remove("donation-modal-active");
+      document.body.style.position = originalBodyPosition;
+      document.body.style.top = originalBodyTop;
+      document.body.style.left = originalBodyLeft;
+      document.body.style.right = originalBodyRight;
+      document.body.style.width = originalBodyWidth;
+      document.body.style.overflow = originalBodyOverflow;
+      document.body.style.overscrollBehavior = originalBodyOverscrollBehavior;
+      document.documentElement.style.overflow = originalDocumentOverflow;
+      document.documentElement.style.overscrollBehavior = originalDocumentOverscrollBehavior;
       window.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("touchmove", preventBackgroundTouch);
+      document.removeEventListener("wheel", preventBackgroundWheel);
+      window.scrollTo(0, scrollY);
     };
   }, [isDonationOpen]);
 
