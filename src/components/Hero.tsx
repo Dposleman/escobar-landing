@@ -20,7 +20,16 @@ export function Hero() {
         </div>
 
         <div className="hero-logo-block">
-          <img src="/assets/branding/escobar-logo.png" alt="Escobar" className="hero-logo-image hero-logo-image--brand" decoding="async" />
+          <img
+            src="/assets/branding/escobar-logo.png"
+            srcSet="/assets/branding/escobar-logo.png 1x, /assets/branding/escobar-logo@2x.png 2x"
+            alt="Escobar"
+            className="hero-logo-image hero-logo-image--brand"
+            width="1058"
+            height="278"
+            decoding="async"
+            fetchPriority="high"
+          />
           <div className="hero-meta hero-meta--clean">
             <p className="hero-location">{t.heroLocation}</p>
             <p className="hero-tagline">{t.heroTagline}</p>
