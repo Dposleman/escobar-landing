@@ -15,13 +15,11 @@ export function Hero() {
       </div>
 
       <div className="hero-top-row hero-top-row--clean">
-        <div className="hero-emblem-wrap hero-depth-layer" aria-hidden="true">
-          <span className="hero-brand-aura hero-brand-aura--skull" />
+        <div className="hero-emblem-wrap" aria-hidden="true">
           <img src="/assets/branding/escobar-skull.png" alt="" className="hero-emblem-image hero-emblem-image--skull" decoding="async" />
         </div>
 
-        <div className="hero-logo-block hero-depth-layer">
-          <span className="hero-brand-aura hero-brand-aura--logo" />
+        <div className="hero-logo-block">
           <img src="/assets/branding/escobar-logo.png" alt="Escobar" className="hero-logo-image hero-logo-image--brand" decoding="async" />
           <div className="hero-meta hero-meta--clean">
             <p className="hero-location">{t.heroLocation}</p>
