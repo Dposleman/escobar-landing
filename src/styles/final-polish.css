@@ -1421,27 +1421,38 @@
   }
 }
 
+
 body.donation-modal-active {
   overflow: hidden !important;
 }
 
 .donation-modal {
+  position: fixed !important;
+  inset: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  overflow: hidden !important;
+  z-index: 9999;
+}
+
+.donation-modal-card {
+  width: min(100%, 480px) !important;
+  max-height: 90vh !important;
   overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
   overscroll-behavior: contain !important;
   scrollbar-width: none !important;
 }
 
-.donation-modal::-webkit-scrollbar,
-.donation-modal-card::-webkit-scrollbar,
-.donation-modal-grid::-webkit-scrollbar {
+.donation-modal-card * {
+  touch-action: pan-y;
+}
+
+.donation-modal-card::-webkit-scrollbar {
   display: none !important;
 }
 
-.donation-modal-card {
-  max-height: calc(100dvh - 28px) !important;
-  overflow-y: auto !important;
-  scrollbar-width: none !important;
-}
 
 .donation-modal-live {
   display: inline-flex;
