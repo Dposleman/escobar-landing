@@ -29,6 +29,11 @@ a {
   color: inherit;
 }
 
+:focus-visible {
+  outline: 3px solid #ff9a1f;
+  outline-offset: 3px;
+}
+
 img {
   display: block;
   max-width: 100%;
@@ -464,5 +469,15 @@ img {
 
   .hero p {
     font-size: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }

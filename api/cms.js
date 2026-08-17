@@ -1,7 +1,9 @@
+import { timingSafeEqual } from "node:crypto";
+
 const CMS_STORAGE_VERSION = 3;
 const DEFAULT_DATA_FILE_PATH = "data/cms-state.json";
-const ADMIN_EMAIL = process.env.ESCOBAR_ADMIN_EMAIL || "dio.escobar.aarhus@gmail.com";
-const ADMIN_PASSWORD = process.env.ESCOBAR_ADMIN_PASSWORD || "Rasmus123";
+const ADMIN_EMAIL = process.env.ESCOBAR_ADMIN_EMAIL;
+const ADMIN_PASSWORD = process.env.ESCOBAR_ADMIN_PASSWORD;
 const GITHUB_OWNER = process.env.GITHUB_OWNER || "Dposleman";
 const GITHUB_REPO = process.env.GITHUB_REPO || "escobar-landing";
 const GITHUB_BRANCH = process.env.GITHUB_BRANCH || "main";
@@ -10,6 +12,12 @@ const CMS_DATA_FILE_PATH = process.env.CMS_DATA_FILE_PATH || DEFAULT_DATA_FILE_P
 
 function createGithubUrl(path) {
   return `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`;
+}
+
+function safeEqual(left, right) {
+  const leftBuffer = Buffer.from(String(left));
+  const rightBuffer = Buffer.from(String(right));
+  return leftBuffer.length === rightBuffer.length && timingSafeEqual(leftBuffer, rightBuffer);
 }
 
 function createEnvelope(state) {
@@ -110,17 +118,24 @@ async function writeGithubFile(envelope, sha) {
 }
 
 function isAuthorized(req) {
+  if (!ADMIN_EMAIL || !ADMIN_PASSWORD) return false;
+
   const email = req.headers["x-admin-email"] || req.body?.adminEmail || "";
   const password = req.headers["x-admin-password"] || req.body?.adminPassword || "";
 
   return (
-    String(email).trim().toLowerCase() === ADMIN_EMAIL.toLowerCase() &&
-    String(password) === ADMIN_PASSWORD
+    safeEqual(String(email).trim().toLowerCase(), ADMIN_EMAIL.trim().toLowerCase()) &&
+    safeEqual(password, ADMIN_PASSWORD)
   );
 }
 
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store, max-age=0");
+  res.setHeader("X-Content-Type-Options", "nosniff");
+
+  if (!ADMIN_EMAIL || !ADMIN_PASSWORD) {
+    console.error("CMS admin credentials are not configured");
+  }
 
   try {
     if (req.method === "GET") {
@@ -153,6 +168,11 @@ export default async function handler(req, res) {
       }
 
       const state = req.body?.state;
+      const payloadSize = Buffer.byteLength(JSON.stringify(req.body || {}), "utf8");
+
+      if (payloadSize > 1_000_000) {
+        return res.status(413).json({ ok: false, error: "Payload too large" });
+      }
 
       if (!state || typeof state !== "object") {
         return res.status(400).json({ ok: false, error: "Missing state payload" });
@@ -172,7 +192,7 @@ export default async function handler(req, res) {
 
     return res.status(405).json({ ok: false, error: "Method not allowed" });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unknown CMS API error";
-    return res.status(500).json({ ok: false, error: message });
+    console.error("CMS API error", error);
+    return res.status(500).json({ ok: false, error: "CMS service unavailable" });
   }
 }
