@@ -1,5 +1,5 @@
 import type { MerchItem as CmsMerchItem } from "../types";
-import "../styles/final-polish.css";
+import { MERCH_FALLBACK_IMAGES, hasUsableImage } from "../data/landingFallbacks";
 
 type Props = {
   items: CmsMerchItem[];
@@ -7,59 +7,66 @@ type Props = {
 
 function formatPrice(price: string) {
   const trimmed = price.trim();
-  if (!trimmed) return "0 DKK";
-  return trimmed.toUpperCase().includes("DKK") ? trimmed : `${trimmed} DKK`;
+  if (!trimmed) return "";
+  return /dkk|kr|€|\$/i.test(trimmed) ? trimmed : `${trimmed} DKK`;
+}
+
+function isExternal(url: string) {
+  const trimmed = url?.trim() ?? "";
+  return trimmed.length > 0 && trimmed !== "#";
 }
 
 export default function MerchPanel({ items }: Props) {
-  const publishedItems = items.filter((item) => item.status === "published");
+  const published = items.filter((item) => item.status === "published");
 
   return (
-    <section className="merch-panel metal-panel battered-panel js-reveal" id="merch">
-      <div className="panel-chain-frame" aria-hidden="true">
-        <span className="panel-chain-frame__edge panel-chain-frame__edge--top" />
-        <span className="panel-chain-frame__edge panel-chain-frame__edge--bottom" />
-        <span className="panel-chain-frame__edge panel-chain-frame__edge--left" />
-        <span className="panel-chain-frame__edge panel-chain-frame__edge--right" />
-        <span className="panel-chain-frame__divider panel-chain-frame__divider--top" />
-        <span className="panel-chain-frame__divider panel-chain-frame__divider--bottom" />
-      </div>
+    <section className="esc-section esc-merch js-reveal" id="merch">
+      <h2 className="esc-title">
+        <span>Escobar Merch Store</span>
+      </h2>
 
-      <div className="section-title section-title--boxed section-title--floating section-title--merch-clean">
-        <h3>SHOP MERCH</h3>
-      </div>
+      {published.length === 0 ? (
+        <p className="esc-empty">The merch table is being restocked.</p>
+      ) : (
+        <div className="esc-merch__grid">
+          {published.map((item) => {
+            const name = item.title || item.name;
+            const external = isExternal(item.productUrl);
+            const price = formatPrice(item.price);
+            const image = hasUsableImage(item.image)
+              ? item.image.trim()
+              : MERCH_FALLBACK_IMAGES[item.variant] ?? MERCH_FALLBACK_IMAGES.tee;
 
-      <div className="merch-grid merch-grid--clean merch-grid--surgical">
-        {publishedItems.map((item) => (
-          <article key={item.id} className="merch-card merch-card--clean merch-card--surgical">
-            <a
-              className="merch-card-link"
-              href={item.productUrl || "#"}
-              target={item.productUrl && item.productUrl !== "#" ? "_blank" : undefined}
-              rel={item.productUrl && item.productUrl !== "#" ? "noreferrer" : undefined}
-            >
-              <div className="merch-image-wrap merch-image-wrap--clean merch-image-wrap--surgical">
-                <img
-                  src={item.image}
-                  alt={item.title || item.name}
-                  className="merch-image merch-image--clean merch-image--surgical"
-                />
-              </div>
-
-              <div className="merch-copy merch-copy--plate merch-copy--surgical">
-                <div className="merch-name">{item.title || item.name}</div>
-                <div className="merch-price">{formatPrice(item.price)}</div>
-              </div>
-            </a>
-          </article>
-        ))}
-      </div>
-
-      <div className="merch-actions">
-        <a className="cta-button cta-button--image cta-button--merch-footer" href="#footer">
-          <span>SHOP NU.</span>
-        </a>
-      </div>
+            return (
+              <a
+                key={item.id}
+                className="esc-frame esc-merch__card"
+                href={external ? item.productUrl : "#merch"}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noreferrer" : undefined}
+              >
+                <div className="esc-merch__media">
+                  <img
+                    src={image}
+                    alt={name}
+                    loading="lazy"
+                    decoding="async"
+                    onError={(e) => {
+                      const fallback = MERCH_FALLBACK_IMAGES[item.variant] ?? MERCH_FALLBACK_IMAGES.tee;
+                      if (!e.currentTarget.src.endsWith(fallback)) e.currentTarget.src = fallback;
+                    }}
+                  />
+                  {price ? <span className="esc-merch__price">{price}</span> : null}
+                </div>
+                <div className="esc-merch__label">
+                  <span>{name}</span>
+                  <span className="esc-merch__arrow" aria-hidden="true">▸</span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      )}
     </section>
   );
 }

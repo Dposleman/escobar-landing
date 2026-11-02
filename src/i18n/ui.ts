@@ -12,8 +12,8 @@ export const UI = {
     contact: "Contact",
 
     heroTitle: "ESCOBAR",
-    heroLocation: "AARHUS · DENMARK",
-    heroTagline: "ROCK · METAL · BEER · COMMUNITY",
+    heroLocation: "AARHUS • DENMARK",
+    heroTagline: "ROCK • METAL • BEER • COMMUNITY",
     heroSubtitle: "Underground sound. Cold beer. Loud nights.",
     heroCounterLine1: "RAW NIGHTS",
     heroCounterLine2: "BUILT FOR THE CROWD",

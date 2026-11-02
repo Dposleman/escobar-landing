@@ -1,134 +1,103 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { GalleryImage } from "../types";
+import { PHOTO_FALLBACKS, hasUsableImage } from "../data/landingFallbacks";
 
 type GalleryPanelProps = {
   images: GalleryImage[];
-  variant?: "section" | "feature";
 };
 
-const GALLERY_FALLBACKS = [
-  {
-    title: "Crowd Static",
-    alt: "Escobar crowd",
-    caption: "Motion, noise and scorched orange light.",
-    image:
-      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
-    title: "Turntable Ritual",
-    alt: "Escobar vocalist under light",
-    caption: "Needle pressure, dust and radio signal.",
-    image:
-      "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
-    title: "Backline Static",
-    alt: "Backstage guitar and amp",
-    caption: "Wood, cable lines and room tone.",
-    image:
-      "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
-    title: "Stage Burn",
-    alt: "Escobar live stage",
-    caption: "Steel haze, amber glow and live tension.",
-    image:
-      "https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?auto=format&fit=crop&w=1600&q=80",
-  },
-];
+type Tile = {
+  id: string;
+  title: string;
+  alt: string;
+  caption: string;
+  image: string;
+};
 
-function buildTiles(images: GalleryImage[]) {
+function buildTiles(images: GalleryImage[]): Tile[] {
   const published = images.filter((image) => image.status === "published");
-  const source = published.length > 0 ? published : [];
 
   return Array.from({ length: 4 }, (_, index) => {
-    const item = source[index];
-    const fallback = GALLERY_FALLBACKS[index % GALLERY_FALLBACKS.length];
-
-    if (!item) {
-      return {
-        id: `gallery-fallback-${index}`,
-        title: fallback.title,
-        alt: fallback.alt,
-        caption: fallback.caption,
-        galleryName: "Escobar Archive",
-        image: fallback.image,
-      };
-    }
+    const item = published[index];
+    const fallback = PHOTO_FALLBACKS[index % PHOTO_FALLBACKS.length];
 
     return {
-      id: item.id,
-      title: item.title?.trim() || fallback.title,
-      alt: item.alt?.trim() || fallback.alt,
-      caption: item.caption?.trim() || fallback.caption,
-      galleryName: item.galleryName?.trim() || "Escobar Archive",
-      image: item.image?.trim() || fallback.image,
+      id: item?.id ?? `gallery-fallback-${index}`,
+      title: item?.title?.trim() || fallback.title,
+      alt: item?.alt?.trim() || fallback.alt,
+      caption: item?.caption?.trim() || fallback.caption,
+      image: hasUsableImage(item?.image) ? item.image.trim() : fallback.image,
     };
   });
 }
 
-export function GalleryPanel({ images, variant = "section" }: GalleryPanelProps) {
+export function GalleryPanel({ images }: GalleryPanelProps) {
   const tiles = useMemo(() => buildTiles(images), [images]);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const active = tiles[activeIndex] ?? tiles[0];
-  const panelClassName = `gallery-panel gallery-panel--${variant} metal-panel battered-panel js-reveal`;
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const open = openIndex === null ? null : tiles[openIndex];
+
+  useEffect(() => {
+    if (openIndex === null) return;
+
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpenIndex(null);
+      if (event.key === "ArrowRight") setOpenIndex((i) => (i === null ? i : (i + 1) % tiles.length));
+      if (event.key === "ArrowLeft") setOpenIndex((i) => (i === null ? i : (i - 1 + tiles.length) % tiles.length));
+    };
+
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [openIndex, tiles.length]);
 
   return (
-    <section className={panelClassName} id="gallery">
-      <div className="panel-chain-frame" aria-hidden="true">
-        <span className="panel-chain-frame__edge panel-chain-frame__edge--top" />
-        <span className="panel-chain-frame__edge panel-chain-frame__edge--bottom" />
-        <span className="panel-chain-frame__edge panel-chain-frame__edge--left" />
-        <span className="panel-chain-frame__edge panel-chain-frame__edge--right" />
-        <span className="panel-chain-frame__divider panel-chain-frame__divider--top" />
-        <span className="panel-chain-frame__divider panel-chain-frame__divider--bottom" />
+    <section className="esc-section esc-gallery js-reveal" id="gallery">
+      <h2 className="esc-title">
+        <span>Photo Gallery</span>
+      </h2>
+
+      <div className="esc-gallery__grid">
+        {tiles.map((tile, index) => (
+          <button
+            key={tile.id}
+            type="button"
+            className="esc-frame esc-gallery__tile"
+            onClick={() => setOpenIndex(index)}
+            aria-label={`Open photo: ${tile.title}`}
+          >
+            <img
+              src={tile.image}
+              alt={tile.alt}
+              loading="lazy"
+              decoding="async"
+              onError={(e) => {
+                const fallback = PHOTO_FALLBACKS[index % PHOTO_FALLBACKS.length].image;
+                if (e.currentTarget.src !== fallback) e.currentTarget.src = fallback;
+              }}
+            />
+          </button>
+        ))}
       </div>
 
-      <div className="section-title section-title--boxed section-title--floating">
-        <h3>GALLERY / NEWS</h3>
-      </div>
-
-      <div className="gallery-carousel-shell">
-        <div className="gallery-stage">
-          <img
-            className="gallery-stage-image"
-            src={active.image}
-            alt={active.alt}
-            loading="lazy"
-            onError={(e) => {
-              e.currentTarget.src = GALLERY_FALLBACKS[activeIndex % GALLERY_FALLBACKS.length].image;
-            }}
-          />
-        </div>
-
-        <div className="gallery-rail" role="tablist" aria-label="Gallery images">
-          {tiles.map((tile, index) => (
-            <button
-              key={tile.id}
-              type="button"
-              role="tab"
-              aria-selected={index === activeIndex}
-              className={`gallery-thumb${index === activeIndex ? " is-active" : ""}`}
-              onClick={() => setActiveIndex(index)}
-            >
-              <img
-                src={tile.image}
-                alt={tile.alt}
-                loading="lazy"
-                onError={(e) => {
-                  e.currentTarget.src = GALLERY_FALLBACKS[index % GALLERY_FALLBACKS.length].image;
-                }}
-              />
+      {open ? (
+        <div
+          className="esc-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label={open.title}
+          onClick={() => setOpenIndex(null)}
+        >
+          <figure className="esc-lightbox__figure" onClick={(event) => event.stopPropagation()}>
+            <img src={open.image} alt={open.alt} />
+            <figcaption>
+              <strong>{open.title}</strong>
+              <span>{open.caption}</span>
+            </figcaption>
+            <button type="button" className="esc-lightbox__close" onClick={() => setOpenIndex(null)} aria-label="Close photo">
+              ×
             </button>
-          ))}
+          </figure>
         </div>
-      </div>
-
-      <div className="gallery-actions">
-        <a className="cta-button cta-button--image" href="#news">
-          <span>VIEW ALL NEWS</span>
-        </a>
-      </div>
+      ) : null}
     </section>
   );
 }

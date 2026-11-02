@@ -1,17 +1,16 @@
 import type { EventItem } from "../types";
-import "../styles/final-polish.css";
+import { PHOTO_FALLBACKS, hasUsableImage } from "../data/landingFallbacks";
 
-const REAL_EVENT_THUMBS = [
-  "/ui-kit-clean/event_item_01.png",
-  "/ui-kit-clean/event_item_02.png",
-  "/ui-kit-clean/event_item_03.png",
-  "/ui-kit-clean/event_item_04.png",
-];
+/** The old UI-kit strips are too small to use as thumbnails. */
+function resolveThumb(event: EventItem, index: number) {
+  const cover = event.coverImage?.trim() ?? "";
+  if (hasUsableImage(cover) && !cover.includes("/ui-kit")) return cover;
+  return PHOTO_FALLBACKS[index % PHOTO_FALLBACKS.length].image;
+}
 
-function resolveThumb(coverImage: string | undefined, index: number) {
-  const trimmed = coverImage?.trim() ?? "";
-  if (!trimmed) return REAL_EVENT_THUMBS[index % REAL_EVENT_THUMBS.length];
-  return trimmed;
+function hasTicketLink(url: string | undefined) {
+  const trimmed = url?.trim() ?? "";
+  return trimmed.length > 0 && trimmed !== "#";
 }
 
 type Props = {
@@ -19,63 +18,59 @@ type Props = {
 };
 
 export default function EventsPanel({ events }: Props) {
-  const publishedEvents = events.filter((event) => event.status === "published");
+  const published = events.filter((event) => event.status === "published");
+  const thumbs = published.slice(0, 2);
 
   return (
-    <section className="events-panel metal-panel battered-panel js-reveal" id="events">
-      <div className="panel-chain-frame" aria-hidden="true">
-        <span className="panel-chain-frame__edge panel-chain-frame__edge--top" />
-        <span className="panel-chain-frame__edge panel-chain-frame__edge--bottom" />
-        <span className="panel-chain-frame__edge panel-chain-frame__edge--left" />
-        <span className="panel-chain-frame__edge panel-chain-frame__edge--right" />
-        <span className="panel-chain-frame__divider panel-chain-frame__divider--top" />
-        <span className="panel-chain-frame__divider panel-chain-frame__divider--bottom" />
-      </div>
+    <section className="esc-section esc-events js-reveal" id="events">
+      <h2 className="esc-title">
+        <span>Upcoming Events</span>
+      </h2>
 
-      <div className="section-title section-title--events section-title--floating">
-        <span />
-        <h3>UPCOMING EVENTS</h3>
-        <span />
-      </div>
-
-      <div className="events-list events-list--surgical">
-        {publishedEvents.map((event, index) => {
-          const thumb = resolveThumb(event.coverImage, index);
-
-          return (
-            <article key={event.id} className="event-row event-row--surgical">
-              <div className="event-row-frame" aria-hidden="true">
-                <span className="event-row-frame__chain event-row-frame__chain--top" />
-                <span className="event-row-frame__chain event-row-frame__chain--bottom" />
-              </div>
-
-              <div className="event-thumb event-thumb--surgical">
+      {published.length === 0 ? (
+        <p className="esc-empty">New dates are being locked in. Check back soon.</p>
+      ) : (
+        <div className="esc-events__board">
+          <div className="esc-events__thumbs">
+            {thumbs.map((event, index) => (
+              <figure className="esc-frame esc-events__thumb" key={event.id}>
                 <img
-                  src={thumb}
+                  src={resolveThumb(event, index)}
                   alt={event.title}
                   loading="lazy"
+                  decoding="async"
                   onError={(e) => {
-                    e.currentTarget.src = REAL_EVENT_THUMBS[index % REAL_EVENT_THUMBS.length];
+                    const fallback = PHOTO_FALLBACKS[index % PHOTO_FALLBACKS.length].image;
+                    if (e.currentTarget.src !== fallback) e.currentTarget.src = fallback;
                   }}
                 />
-              </div>
+              </figure>
+            ))}
+          </div>
 
-              <div className="event-info event-info--surgical">
-                <div className="event-kicker">{event.date}</div>
-                <h4 className="event-title event-title--surgical">{event.title}</h4>
-                <div className="event-meta event-meta--surgical">
-                  <span>{event.venue}</span>
-                  <span>•</span>
-                  <span>{event.city}</span>
-                  <span>•</span>
-                  <span>{event.country}</span>
-                </div>
-                <p className="event-excerpt">{event.excerpt}</p>
-              </div>
-            </article>
-          );
-        })}
-      </div>
+          <ul className="esc-events__list">
+            {published.map((event) => {
+              const details = [event.venue, event.city].filter(Boolean).join(", ");
+              const title = hasTicketLink(event.ticketUrl) ? (
+                <a href={event.ticketUrl} target="_blank" rel="noreferrer">
+                  {event.title}
+                </a>
+              ) : (
+                event.title
+              );
+
+              return (
+                <li key={event.id} className="esc-events__row" title={details || undefined}>
+                  <span className="esc-events__dot" aria-hidden="true">•</span>
+                  <strong className="esc-events__name">{title}</strong>
+                  <span className="esc-events__dot" aria-hidden="true">•</span>
+                  <span className="esc-events__date">{event.date}</span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
     </section>
   );
 }
