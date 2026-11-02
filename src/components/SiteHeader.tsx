@@ -1,5 +1,13 @@
 import { useLang } from "../i18n/useLang";
 
+const NAV = [
+  { href: "#home", label: "Home" },
+  { href: "#radio", label: "Radio Escobar" },
+  { href: "#events", label: "Events" },
+  { href: "#merch", label: "Merch Store" },
+  { href: "#footer", label: "Contact" },
+];
+
 export function SiteHeader() {
   const t = useLang();
 
@@ -8,8 +16,8 @@ export function SiteHeader() {
       <div className="esc-header__brand">
         <img
           className="esc-header__emblem"
-          src="/assets/branding/escobar-emblem.png"
-          srcSet="/assets/branding/escobar-emblem.png 1x, /assets/branding/escobar-emblem@2x.png 2x"
+          src="/assets/branding/escobar-emblem-rust.png"
+          srcSet="/assets/branding/escobar-emblem-rust.png 1x, /assets/branding/escobar-emblem-rust@2x.png 2x"
           width={330}
           height={330}
           alt=""
@@ -19,8 +27,8 @@ export function SiteHeader() {
         <div className="esc-header__center">
           <h1 className="esc-header__logo">
             <img
-              src="/assets/branding/escobar-logo-steel.png"
-              srcSet="/assets/branding/escobar-logo-steel.png 1x, /assets/branding/escobar-logo-steel@2x.png 2x"
+              src="/assets/branding/escobar-logo.png"
+              srcSet="/assets/branding/escobar-logo.png 1x, /assets/branding/escobar-logo@2x.png 2x"
               width={1058}
               height={278}
               alt="Escobar"
@@ -36,18 +44,12 @@ export function SiteHeader() {
         </div>
       </div>
 
-      <nav className="esc-cta-bar" aria-label="Primary">
-        <a className="esc-btn" href="#radio">
-          Listen live to Radio Escobar
-        </a>
-        <a className="esc-btn" href="#events">
-          View upcoming events
-          <span className="esc-btn__arrow" aria-hidden="true">▾</span>
-        </a>
-        <a className="esc-btn" href="#merch">
-          Shop the merch
-          <span className="esc-btn__arrow" aria-hidden="true">▸</span>
-        </a>
+      <nav className="esc-nav" aria-label="Primary">
+        {NAV.map((item) => (
+          <a key={item.href} href={item.href}>
+            {item.label}
+          </a>
+        ))}
       </nav>
     </header>
   );

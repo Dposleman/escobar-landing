@@ -18,6 +18,9 @@ function isExternal(url: string) {
 
 export default function MerchPanel({ items }: Props) {
   const published = items.filter((item) => item.status === "published");
+  const firstLink = published.find((item) => isExternal(item.productUrl))?.productUrl ?? "";
+  const shopExternal = firstLink.length > 0;
+  const shopUrl = shopExternal ? firstLink : "#merch";
 
   return (
     <section className="esc-section esc-merch js-reveal" id="merch">
@@ -67,6 +70,15 @@ export default function MerchPanel({ items }: Props) {
           })}
         </div>
       )}
+
+      <a
+        className="esc-btn esc-btn--wide"
+        href={shopUrl}
+        target={shopExternal ? "_blank" : undefined}
+        rel={shopExternal ? "noreferrer" : undefined}
+      >
+        Shop merch
+      </a>
     </section>
   );
 }
