@@ -11,6 +11,7 @@ import type {
   ReorderPayload,
   UpdateRadioPayload,
   UserRecord,
+  VenueState,
 } from "../types";
 
 export function useCms() {
@@ -32,6 +33,7 @@ export function useCms() {
 
       sendMessage: (text: string) => cmsService.sendMessage(text),
       updateRadio: (payload: UpdateRadioPayload) => cmsService.updateRadio(payload),
+      updateVenue: (payload: Partial<VenueState>) => cmsService.updateVenue(payload),
 
       createEvent: (payload: Omit<EventItem, "id" | "order" | "createdAt" | "updatedAt">) =>
         cmsService.createItem("events", payload),

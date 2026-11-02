@@ -9,6 +9,7 @@ import type {
   RadioState,
   UserRecord,
 } from "../types";
+import { defaultVenue } from "./venue";
 import { buildSpotifyEmbedUrl } from "../utils/spotify";
 
 const now = new Date().toISOString();
@@ -307,6 +308,7 @@ const chat: ChatState = {
 };
 
 export const initialAppState: LandingCmsState = {
+  venue: defaultVenue,
   nav,
   events,
   merch,

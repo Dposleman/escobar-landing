@@ -96,6 +96,7 @@ export function AdminPage() {
           gallery={cms.state.gallery}
           news={cms.state.news}
           radio={cms.state.radio}
+          venue={cms.state.venue}
           users={cms.state.users}
           onCreateEvent={cms.createEvent}
           onUpdateEvent={cms.updateEvent}
@@ -118,6 +119,7 @@ export function AdminPage() {
           onDeleteUser={cms.deleteUser}
           onReorderUsers={(fromIndex, toIndex) => cms.reorderUsers({ fromIndex, toIndex })}
           onUpdateRadio={cms.updateRadio}
+          onUpdateVenue={cms.updateVenue}
         />
       </main>
     </div>

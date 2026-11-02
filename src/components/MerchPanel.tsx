@@ -1,5 +1,6 @@
 import type { MerchItem as CmsMerchItem } from "../types";
 import { MERCH_FALLBACK_IMAGES, hasUsableImage } from "../data/landingFallbacks";
+import { useT } from "../i18n/strings";
 
 type Props = {
   items: CmsMerchItem[];
@@ -17,6 +18,7 @@ function isExternal(url: string) {
 }
 
 export default function MerchPanel({ items }: Props) {
+  const t = useT();
   const published = items.filter((item) => item.status === "published");
   const firstLink = published.find((item) => isExternal(item.productUrl))?.productUrl ?? "";
   const shopExternal = firstLink.length > 0;
@@ -25,7 +27,7 @@ export default function MerchPanel({ items }: Props) {
   return (
     <section className="esc-section esc-merch js-reveal" id="merch">
       <h2 className="esc-title">
-        <span>Escobar Merch Store</span>
+        <span>{t.merchTitle}</span>
       </h2>
 
       {published.length === 0 ? (
@@ -77,7 +79,7 @@ export default function MerchPanel({ items }: Props) {
         target={shopExternal ? "_blank" : undefined}
         rel={shopExternal ? "noreferrer" : undefined}
       >
-        Shop merch
+        {t.shopMerch}
       </a>
     </section>
   );

@@ -15,6 +15,7 @@ import type {
   SessionUser,
   UpdateRadioPayload,
   UserRecord,
+  VenueState,
 } from "../types";
 
 type CollectionKey = "events" | "merch" | "gallery" | "users" | "news";
@@ -101,10 +102,26 @@ function normalizeCollection<T extends { order: number; updatedAt: string }>(ite
   }));
 }
 
+function mergeVenue(candidate: Partial<VenueState> | undefined): VenueState {
+  const base = initialAppState.venue;
+  const hours =
+    Array.isArray(candidate?.hours) && candidate.hours.length === 7 ? candidate.hours : base.hours;
+  return {
+    ...base,
+    ...candidate,
+    hours,
+    closures: Array.isArray(candidate?.closures) ? candidate.closures : base.closures,
+    beers: Array.isArray(candidate?.beers) ? candidate.beers : base.beers,
+    stickers: Array.isArray(candidate?.stickers) ? candidate.stickers : base.stickers,
+    happyHour: { ...base.happyHour, ...candidate?.happyHour },
+  };
+}
+
 function normalizeState(candidate: Partial<LandingCmsState> | null | undefined): LandingCmsState {
   const merged: LandingCmsState = {
     ...initialAppState,
     ...candidate,
+    venue: mergeVenue(candidate?.venue),
     nav: [...(candidate?.nav ?? initialAppState.nav)],
     events: normalizeCollection(candidate?.events ?? initialAppState.events),
     merch: normalizeCollection(candidate?.merch ?? initialAppState.merch),
@@ -455,6 +472,13 @@ class CmsService {
     return this.save({
       ...this.state,
       radio: nextRadio,
+    });
+  }
+
+  updateVenue(payload: Partial<VenueState>): LandingCmsState {
+    return this.save({
+      ...this.state,
+      venue: mergeVenue({ ...this.state.venue, ...payload }),
     });
   }
 

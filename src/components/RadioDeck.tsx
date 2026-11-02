@@ -4,6 +4,7 @@ import { useSpotifyPlayer } from "../hooks/useSpotifyPlayer";
 import { buildSpotifyEmbedUrl, spotifyUriFromUrl } from "../utils/spotify";
 import { RadioPanel } from "./RadioPanel";
 import { TurntablePanel } from "./TurntablePanel";
+import { useT } from "../i18n/strings";
 
 const EMBLEM = "/assets/branding/escobar-emblem-rust.png";
 const PLAYER_HEIGHT = 400;
@@ -20,6 +21,7 @@ type Props = {
 export function RadioDeck({ radio }: Props) {
   const sourceUrl = radio.spotifyUrl || radio.embedUrl || "";
   const uri = spotifyUriFromUrl(sourceUrl);
+  const t = useT();
   const mountRef = useRef<HTMLDivElement>(null);
 
   const player = useSpotifyPlayer({ uri, height: PLAYER_HEIGHT, containerRef: mountRef });
@@ -28,7 +30,7 @@ export function RadioDeck({ radio }: Props) {
   const cover = player.track?.cover || player.collection?.cover || manualCover || EMBLEM;
   const title = player.track?.title || player.collection?.title || radio.title?.trim() || "Radio Escobar";
 
-  const kicker = player.isPlaying ? "Now spinning" : player.track ? "Paused" : "On the deck";
+  const kicker = player.isPlaying ? t.nowSpinning : player.track ? t.paused : t.onTheDeck;
   const recent = player.history.filter((item) => item.uri !== player.track?.uri).slice(0, 3);
 
   return (

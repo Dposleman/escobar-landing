@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { GalleryImage } from "../types";
 import { PHOTO_FALLBACKS, hasUsableImage } from "../data/landingFallbacks";
+import { useT } from "../i18n/strings";
 
 type GalleryPanelProps = {
   images: GalleryImage[];
@@ -32,6 +33,7 @@ function buildTiles(images: GalleryImage[]): Tile[] {
 }
 
 export function GalleryPanel({ images }: GalleryPanelProps) {
+  const t = useT();
   const tiles = useMemo(() => buildTiles(images), [images]);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const open = openIndex === null ? null : tiles[openIndex];
@@ -52,7 +54,7 @@ export function GalleryPanel({ images }: GalleryPanelProps) {
   return (
     <section className="esc-section esc-gallery js-reveal" id="gallery">
       <h2 className="esc-title">
-        <span>Photo Gallery</span>
+        <span>{t.gallery}</span>
       </h2>
 
       <div className="esc-gallery__grid">

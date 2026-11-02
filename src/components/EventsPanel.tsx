@@ -1,5 +1,7 @@
 import type { EventItem } from "../types";
 import { PHOTO_FALLBACKS, hasUsableImage } from "../data/landingFallbacks";
+import { useT } from "../i18n/strings";
+import { useNow } from "../hooks/useNow";
 
 /** The old UI-kit strips are too small to use as thumbnails. */
 function resolveThumb(event: EventItem, index: number) {
@@ -13,22 +15,36 @@ function hasTicketLink(url: string | undefined) {
   return trimmed.length > 0 && trimmed !== "#";
 }
 
+const SIX_HOURS = 6 * 60 * 60 * 1000;
+
+function isPast(event: EventItem, now: number) {
+  const end = Date.parse(event.endsAt || "");
+  if (Number.isFinite(end)) return end < now;
+  const start = Date.parse(event.startsAt || "");
+  return Number.isFinite(start) ? start + SIX_HOURS < now : false;
+}
+
 type Props = {
   events: EventItem[];
 };
 
 export default function EventsPanel({ events }: Props) {
-  const published = events.filter((event) => event.status === "published");
+  const t = useT();
+  const now = useNow(60_000).getTime();
+  const all = events.filter((event) => event.status === "published");
+  // Past dates drop off by themselves. If nothing is upcoming, the latest ones stay, marked as past.
+  const upcoming = all.filter((event) => !isPast(event, now));
+  const published = upcoming.length > 0 ? upcoming : all;
   const thumbs = published.slice(0, 2);
 
   return (
     <section className="esc-section esc-events js-reveal" id="events">
       <h2 className="esc-title">
-        <span>Upcoming Events</span>
+        <span>{t.upcomingEvents}</span>
       </h2>
 
       {published.length === 0 ? (
-        <p className="esc-empty">New dates are being locked in. Check back soon.</p>
+        <p className="esc-empty">{t.noEvents}</p>
       ) : (
         <div className="esc-events__board">
           <div className="esc-events__thumbs">
@@ -60,11 +76,18 @@ export default function EventsPanel({ events }: Props) {
               );
 
               return (
-                <li key={event.id} className="esc-events__row" title={details || undefined}>
+                <li
+                  key={event.id}
+                  className={`esc-events__row${isPast(event, now) ? " is-past" : ""}`}
+                  title={details || undefined}
+                >
                   <span className="esc-events__dot" aria-hidden="true">•</span>
                   <strong className="esc-events__name">{title}</strong>
                   <span className="esc-events__dot" aria-hidden="true">•</span>
-                  <span className="esc-events__date">{event.date}</span>
+                  <span className="esc-events__date">
+                    {event.date}
+                    {isPast(event, now) ? <em className="esc-events__past">{t.pastEvent}</em> : null}
+                  </span>
                 </li>
               );
             })}

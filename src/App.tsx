@@ -16,10 +16,17 @@ import { AdminPage } from "./pages/AdminPage";
 import { DonationPage } from "./pages/DonationPage";
 import { setLang } from "./i18n/useLang";
 import { Footer } from "./components/Footer";
+import { DealBanner } from "./components/DealBanner";
+import { RequestSong } from "./components/RequestSong";
+import { BeerMenu } from "./components/BeerMenu";
+import { FindUs } from "./components/FindUs";
+import { StickerWall } from "./components/StickerWall";
+import { JoinPanels } from "./components/JoinPanels";
 import "./styles/dynamic-panels.css";
 import "./styles/final-polish.css";
 import "./styles/admin.css";
 import "./styles/landing.css";
+import "./styles/venue.css";
 import BackgroundEngine from "./engine/BackgroundEngine";
 import { EffectsEngine } from "./engine/EffectsEngine";
 import { ParticlesEngine } from "./engine/ParticlesEngine";
@@ -145,7 +152,9 @@ function App() {
       <EmberField />
 
       <main className="esc-page">
-        <SiteHeader />
+        <SiteHeader venue={cms.state.venue} />
+
+        <DealBanner venue={cms.state.venue} />
 
         <section className="esc-top-grid">
           <RadioDeck
@@ -154,9 +163,19 @@ function App() {
           />
         </section>
 
+        <RequestSong venue={cms.state.venue} />
+
         <EventsPanel events={cms.state.events} />
         <GalleryPanel images={cms.state.gallery} />
         <MerchPanel items={cms.state.merch} />
+
+        <div className="esc-duo esc-duo--bar">
+          <BeerMenu venue={cms.state.venue} />
+          <FindUs venue={cms.state.venue} />
+        </div>
+
+        <StickerWall venue={cms.state.venue} />
+        <JoinPanels venue={cms.state.venue} />
 
         <div className="esc-members">
           <section className="member-access-wrap">

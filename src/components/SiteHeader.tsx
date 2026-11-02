@@ -1,15 +1,17 @@
-import { useLang } from "../i18n/useLang";
+import type { VenueState } from "../types";
+import { useT } from "../i18n/strings";
+import { LangToggle } from "./LangToggle";
+import { OpenCounter } from "./OpenStatus";
 
-const NAV = [
-  { href: "#home", label: "Home" },
-  { href: "#radio", label: "Radio Escobar" },
-  { href: "#events", label: "Events" },
-  { href: "#merch", label: "Merch Store" },
-  { href: "#footer", label: "Contact" },
-];
-
-export function SiteHeader() {
-  const t = useLang();
+export function SiteHeader({ venue }: { venue: VenueState }) {
+  const t = useT();
+  const NAV = [
+    { href: "#home", label: t.navHome },
+    { href: "#radio", label: t.navRadio },
+    { href: "#events", label: t.navEvents },
+    { href: "#merch", label: t.navMerch },
+    { href: "#find", label: t.navContact },
+  ];
 
   return (
     <header className="esc-header js-reveal" id="home">
@@ -37,25 +39,23 @@ export function SiteHeader() {
           </h1>
           <p className="esc-header__location">
             <span aria-hidden="true" />
-            {t.heroLocation}
+            {t.location}
             <span aria-hidden="true" />
           </p>
-          <p className="esc-header__tagline">{t.heroTagline}</p>
+          <p className="esc-header__tagline">{t.tagline}</p>
         </div>
       </div>
 
-      <div className="esc-counter" aria-hidden="true">
-        <span>Is Escobar open?</span>
-        <strong>327</strong>
-      </div>
+      <OpenCounter venue={venue} />
       <p className="esc-domain">666.rock</p>
 
-      <nav className="esc-nav" aria-label="Primary">
+      <nav className="esc-nav" aria-label={t.navLabel}>
         {NAV.map((item) => (
           <a key={item.href} href={item.href}>
             {item.label}
           </a>
         ))}
+        <LangToggle />
       </nav>
     </header>
   );
