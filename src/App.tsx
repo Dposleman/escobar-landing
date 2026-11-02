@@ -133,6 +133,8 @@ function App() {
         <span className="esc-bg__hot" />
         <span className="esc-bg__embers" />
         <span className="esc-bg__embers esc-bg__embers--b" />
+        <span className="esc-swag esc-swag--l" />
+        <span className="esc-swag esc-swag--r" />
         <span className="esc-chain esc-chain--l1" />
         <span className="esc-chain esc-chain--r1" />
         <span className="esc-chain esc-chain--l2" />

@@ -44,6 +44,12 @@ export function SiteHeader() {
         </div>
       </div>
 
+      <div className="esc-counter" aria-hidden="true">
+        <span>Is Escobar open?</span>
+        <strong>327</strong>
+      </div>
+      <p className="esc-domain">666.rock</p>
+
       <nav className="esc-nav" aria-label="Primary">
         {NAV.map((item) => (
           <a key={item.href} href={item.href}>

@@ -1,6 +1,7 @@
 import type { RefObject } from "react";
 import type { RadioState } from "../types";
 import { resolveRadioLinkTarget } from "../utils/spotify";
+import { PHOTO_FALLBACKS } from "../data/landingFallbacks";
 
 type Props = {
   radio: RadioState;
@@ -59,6 +60,19 @@ export function RadioPanel({ radio, mountRef, isPlaying, hasPlayer, fallbackEmbe
             <span>Add a Spotify album, playlist or track URL from the admin panel.</span>
           </div>
         )}
+      </div>
+
+      <div className="esc-radio__foot">
+        <ul className="esc-radio__thumbs" aria-hidden="true">
+          {PHOTO_FALLBACKS.map((photo) => (
+            <li key={photo.title}>
+              <img src={photo.image} alt="" loading="lazy" decoding="async" />
+            </li>
+          ))}
+        </ul>
+        <a className="esc-btn esc-btn--small" href="#events">
+          More events
+        </a>
       </div>
 
       <a className="esc-btn esc-btn--small" href={openUrl} target="_blank" rel="noreferrer">
