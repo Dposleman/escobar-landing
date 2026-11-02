@@ -131,7 +131,45 @@ export interface ChatState {
   isRealtimeReady: boolean;
 }
 
+export interface OpeningHours {
+  open: string;
+  close: string;
+}
+
+export interface HappyHour {
+  enabled: boolean;
+  title: string;
+  text: string;
+  price: string;
+  /** JS weekday numbers, 0 = Sunday. */
+  days: number[];
+  from: string;
+  to: string;
+}
+
+export interface VenueState {
+  name: string;
+  address: string;
+  postcode: string;
+  city: string;
+  phone: string;
+  email: string;
+  instagram: string;
+  facebook: string;
+  timezone: string;
+  /** Seven entries, index = JS weekday (0 = Sunday). null = closed. */
+  hours: Array<OpeningHours | null>;
+  /** YYYY-MM-DD dates the bar is closed. */
+  closures: string[];
+  happyHour: HappyHour;
+  /** One line each: "Name | price | note" */
+  beers: string[];
+  beerFootnote: string;
+  stickers: string[];
+}
+
 export interface LandingCmsState {
+  venue: VenueState;
   nav: LandingNavItem[];
   events: EventItem[];
   merch: MerchItem[];

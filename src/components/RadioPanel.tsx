@@ -2,6 +2,7 @@ import type { RefObject } from "react";
 import type { RadioState } from "../types";
 import { resolveRadioLinkTarget } from "../utils/spotify";
 import { PHOTO_FALLBACKS } from "../data/landingFallbacks";
+import { useT } from "../i18n/strings";
 
 type Props = {
   radio: RadioState;
@@ -30,13 +31,14 @@ function SpotifyMark() {
 }
 
 export function RadioPanel({ radio, mountRef, isPlaying, hasPlayer, fallbackEmbedUrl, height }: Props) {
+  const t = useT();
   const openUrl = resolveRadioLinkTarget(radio);
 
   return (
     <section className="esc-panel esc-radio js-reveal" id="radio">
       <header className="esc-radio__head">
         <h2>{radio.title?.trim() || "RADIO ESCOBAR"}</h2>
-        {isPlaying ? <span className="esc-radio__live">Now playing live</span> : null}
+        {isPlaying ? <span className="esc-radio__live">{t.nowPlayingLive}</span> : null}
         <SpotifyMark />
       </header>
 
@@ -71,12 +73,12 @@ export function RadioPanel({ radio, mountRef, isPlaying, hasPlayer, fallbackEmbe
           ))}
         </ul>
         <a className="esc-btn esc-btn--small" href="#events">
-          More events
+          {t.moreEvents}
         </a>
       </div>
 
       <a className="esc-btn esc-btn--small" href={openUrl} target="_blank" rel="noreferrer">
-        Open in Spotify
+        {t.openInSpotify}
         <span className="esc-btn__arrow" aria-hidden="true">▸</span>
       </a>
     </section>

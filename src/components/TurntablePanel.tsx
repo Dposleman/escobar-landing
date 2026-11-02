@@ -1,5 +1,6 @@
 import { useEffect, useRef, type SyntheticEvent } from "react";
 import type { TrackMeta } from "../hooks/useSpotifyPlayer";
+import { useT } from "../i18n/strings";
 
 const EMBLEM = "/assets/branding/escobar-emblem-rust.png";
 /** Size of the artwork the deck picture is laid out in (all overlay coordinates use it). */
@@ -30,6 +31,7 @@ function splitTitle(title: string): [string, string] {
 export function TurntablePanel({ cover, title, kicker, isPlaying, recent }: Props) {
   const stageRef = useRef<HTMLDivElement>(null);
   const worldRef = useRef<HTMLDivElement>(null);
+  const t = useT();
   const [head, sub] = splitTitle(title);
 
   // The deck artwork is laid out in a fixed 1500x990 space and scaled to the panel width.
@@ -54,7 +56,7 @@ export function TurntablePanel({ cover, title, kicker, isPlaying, recent }: Prop
       aria-label="Turntable showing the record currently playing on Radio Escobar"
     >
       <h2 className="esc-deck__heading">
-        <span>Vinyl of the Night</span>
+        <span>{t.vinyl}</span>
       </h2>
 
       <div className="esc-deck__copy">
@@ -66,7 +68,7 @@ export function TurntablePanel({ cover, title, kicker, isPlaying, recent }: Prop
           <i aria-hidden="true" />
           {kicker}
         </span>
-        <span className="esc-deck__sub">Playing tonight at Escobar</span>
+        <span className="esc-deck__sub">{t.playingTonight}</span>
 
         {recent.length > 0 ? (
           <ul className="esc-deck__recent" aria-label="Recently spun">

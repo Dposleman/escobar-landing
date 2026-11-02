@@ -10,6 +10,7 @@ import type {
   RadioState,
   UpdateRadioPayload,
   UserRecord,
+  VenueState,
 } from "../../types";
 
 type AdminDashboardProps = {
@@ -18,6 +19,7 @@ type AdminDashboardProps = {
   gallery: GalleryImage[];
   news: NewsItem[];
   radio: RadioState;
+  venue: VenueState;
   users: UserRecord[];
   onCreateEvent: (payload: Omit<EventItem, "id" | "order" | "createdAt" | "updatedAt">) => void;
   onUpdateEvent: (id: string, payload: Partial<Omit<EventItem, "id" | "order" | "createdAt">>) => void;
@@ -40,6 +42,7 @@ type AdminDashboardProps = {
   onDeleteUser: (id: string) => void;
   onReorderUsers: (fromIndex: number, toIndex: number) => void;
   onUpdateRadio: (payload: UpdateRadioPayload) => void;
+  onUpdateVenue: (payload: Partial<VenueState>) => void;
 };
 
 const initialEventForm: Omit<EventItem, "id" | "order" | "createdAt" | "updatedAt"> = {
@@ -101,10 +104,11 @@ const initialUserForm: Omit<UserRecord, "id" | "order" | "createdAt" | "updatedA
 
 type EntityStatusOption = EntityStatus;
 type MerchVariantOption = MerchVariant;
-type AdminTabKey = "radio" | "events" | "merch" | "gallery" | "news" | "users";
+type AdminTabKey = "radio" | "venue" | "events" | "merch" | "gallery" | "news" | "users";
 
 const adminTabs: Array<{ key: AdminTabKey; label: string }> = [
   { key: "radio", label: "Radio" },
+  { key: "venue", label: "Venue" },
   { key: "events", label: "Events" },
   { key: "merch", label: "Merch" },
   { key: "gallery", label: "Gallery" },
@@ -156,6 +160,7 @@ export function AdminDashboard(props: AdminDashboardProps) {
   const [activeTab, setActiveTab] = useState<AdminTabKey>("radio");
   const [applyState, setApplyState] = useState<Record<AdminTabKey, string>>({
     radio: "",
+    venue: "",
     events: "",
     merch: "",
     gallery: "",
@@ -170,6 +175,7 @@ export function AdminDashboard(props: AdminDashboardProps) {
   const [userForm, setUserForm] = useState(initialUserForm);
 
   const [radioDraft, setRadioDraft] = useState<RadioState>(() => cloneRadioState(props.radio));
+  const [venueDraft, setVenueDraft] = useState<VenueState>(() => structuredClone(props.venue));
   const [eventDrafts, setEventDrafts] = useState<EventItem[]>(() => props.events.map((item) => ({ ...item })));
   const [merchDrafts, setMerchDrafts] = useState<MerchItem[]>(() => props.merch.map((item) => ({ ...item })));
   const [galleryDrafts, setGalleryDrafts] = useState<GalleryImage[]>(() => props.gallery.map((item) => ({ ...item })));
@@ -177,6 +183,7 @@ export function AdminDashboard(props: AdminDashboardProps) {
   const [userDrafts, setUserDrafts] = useState<UserRecord[]>(() => props.users.map((item) => ({ ...item })));
 
   useEffect(() => setRadioDraft(cloneRadioState(props.radio)), [props.radio]);
+  useEffect(() => setVenueDraft(structuredClone(props.venue)), [props.venue]);
   useEffect(() => setEventDrafts(props.events.map((item) => ({ ...item }))), [props.events]);
   useEffect(() => setMerchDrafts(props.merch.map((item) => ({ ...item }))), [props.merch]);
   useEffect(() => setGalleryDrafts(props.gallery.map((item) => ({ ...item }))), [props.gallery]);
@@ -186,13 +193,14 @@ export function AdminDashboard(props: AdminDashboardProps) {
   const dirtyMap = useMemo(
     () => ({
       radio: hasChanged(radioDraft, props.radio),
+      venue: hasChanged(venueDraft, props.venue),
       events: hasChanged(eventDrafts, props.events),
       merch: hasChanged(merchDrafts, props.merch),
       gallery: hasChanged(galleryDrafts, props.gallery),
       news: hasChanged(newsDrafts, props.news),
       users: hasChanged(userDrafts, props.users),
     }),
-    [radioDraft, props.radio, eventDrafts, props.events, merchDrafts, props.merch, galleryDrafts, props.gallery, newsDrafts, props.news, userDrafts, props.users]
+    [radioDraft, props.radio, venueDraft, props.venue, eventDrafts, props.events, merchDrafts, props.merch, galleryDrafts, props.gallery, newsDrafts, props.news, userDrafts, props.users]
   );
 
   function setApplied(key: AdminTabKey, changed: boolean) {
@@ -217,6 +225,22 @@ export function AdminDashboard(props: AdminDashboardProps) {
 
   function updateUserDraft(id: string, patch: Partial<UserRecord>) {
     setUserDrafts((current) => current.map((entry) => (entry.id === id ? { ...entry, ...patch } : entry)));
+  }
+
+  function applyVenueChanges() {
+    const changed = hasChanged(venueDraft, props.venue);
+    if (changed) props.onUpdateVenue(venueDraft);
+    setApplied("venue", changed);
+  }
+
+  function updateHours(day: number, patch: { open?: string; close?: string; closed?: boolean }) {
+    setVenueDraft((current) => {
+      const hours = [...current.hours];
+      const existing = hours[day];
+      if (patch.closed === true) hours[day] = null;
+      else hours[day] = { open: patch.open ?? existing?.open ?? "18:00", close: patch.close ?? existing?.close ?? "02:00" };
+      return { ...current, hours };
+    });
   }
 
   function applyRadioChanges() {
@@ -379,6 +403,43 @@ export function AdminDashboard(props: AdminDashboardProps) {
               <label className="admin-field"><span>ALBUM</span><input type="text" value={radioDraft.nowPlaying?.album ?? ""} onChange={(event) => setRadioDraft({ ...radioDraft, nowPlaying: { artist: radioDraft.nowPlaying?.artist ?? "", album: event.target.value, track: radioDraft.nowPlaying?.track ?? "", coverImage: radioDraft.nowPlaying?.coverImage ?? "", duration: radioDraft.nowPlaying?.duration ?? "", progress: radioDraft.nowPlaying?.progress ?? 0, startedAt: radioDraft.nowPlaying?.startedAt ?? null } })} /></label>
               <label className="admin-field"><span>COVER IMAGE URL</span><input type="text" value={radioDraft.nowPlaying?.coverImage ?? ""} onChange={(event) => setRadioDraft({ ...radioDraft, nowPlaying: { artist: radioDraft.nowPlaying?.artist ?? "", album: radioDraft.nowPlaying?.album ?? "", track: radioDraft.nowPlaying?.track ?? "", coverImage: event.target.value, duration: radioDraft.nowPlaying?.duration ?? "", progress: radioDraft.nowPlaying?.progress ?? 0, startedAt: radioDraft.nowPlaying?.startedAt ?? null } })} /></label>
               {renderSectionApply("radio", applyRadioChanges)}
+            </form>
+          </AdminSection>
+        )}
+
+        {activeTab === "venue" && (
+          <AdminSection title="VENUE" subtitle="OPEN/CLOSED STATUS · HOURS · BEER MENU · HAPPY HOUR · STICKERS">
+            <form className="admin-form" onSubmit={(event) => event.preventDefault()}>
+              <div className="admin-form-row"><label className="admin-field"><span>ADDRESS</span><input type="text" value={venueDraft.address} onChange={(event) => setVenueDraft({ ...venueDraft, address: event.target.value })} /></label><label className="admin-field"><span>POSTCODE</span><input type="text" value={venueDraft.postcode} onChange={(event) => setVenueDraft({ ...venueDraft, postcode: event.target.value })} /></label><label className="admin-field"><span>CITY</span><input type="text" value={venueDraft.city} onChange={(event) => setVenueDraft({ ...venueDraft, city: event.target.value })} /></label></div>
+              <div className="admin-form-row"><label className="admin-field"><span>PHONE</span><input type="text" value={venueDraft.phone} onChange={(event) => setVenueDraft({ ...venueDraft, phone: event.target.value })} /></label><label className="admin-field"><span>EMAIL (ALSO RECEIVES FORM FALLBACKS)</span><input type="text" value={venueDraft.email} onChange={(event) => setVenueDraft({ ...venueDraft, email: event.target.value })} /></label></div>
+              <div className="admin-form-row"><label className="admin-field"><span>INSTAGRAM URL</span><input type="text" value={venueDraft.instagram} onChange={(event) => setVenueDraft({ ...venueDraft, instagram: event.target.value })} /></label><label className="admin-field"><span>FACEBOOK URL</span><input type="text" value={venueDraft.facebook} onChange={(event) => setVenueDraft({ ...venueDraft, facebook: event.target.value })} /></label></div>
+
+              <h4 className="admin-subhead">OPENING HOURS (24H, CLOSING AFTER MIDNIGHT IS FINE)</h4>
+              {[1, 2, 3, 4, 5, 6, 0].map((day) => {
+                const hours = venueDraft.hours[day];
+                const label = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"][day];
+                return (
+                  <div className="admin-form-row" key={day}>
+                    <label className="admin-field"><span>{label}</span><input type="time" value={hours?.open ?? ""} disabled={!hours} onChange={(event) => updateHours(day, { open: event.target.value })} /></label>
+                    <label className="admin-field"><span>CLOSES</span><input type="time" value={hours?.close ?? ""} disabled={!hours} onChange={(event) => updateHours(day, { close: event.target.value })} /></label>
+                    <label className="admin-field admin-field-checkbox"><span>CLOSED</span><input type="checkbox" checked={!hours} onChange={(event) => updateHours(day, event.target.checked ? { closed: true } : {})} /></label>
+                  </div>
+                );
+              })}
+              <label className="admin-field"><span>CLOSED DATES (ONE PER LINE, YYYY-MM-DD)</span><textarea value={venueDraft.closures.join("\n")} onChange={(event) => setVenueDraft({ ...venueDraft, closures: event.target.value.split("\n").map((line) => line.trim()).filter(Boolean) })} /></label>
+
+              <h4 className="admin-subhead">HAPPY HOUR BANNER</h4>
+              <div className="admin-form-row"><label className="admin-field admin-field-checkbox"><span>ENABLED</span><input type="checkbox" checked={venueDraft.happyHour.enabled} onChange={(event) => setVenueDraft({ ...venueDraft, happyHour: { ...venueDraft.happyHour, enabled: event.target.checked } })} /></label><label className="admin-field"><span>TITLE</span><input type="text" value={venueDraft.happyHour.title} onChange={(event) => setVenueDraft({ ...venueDraft, happyHour: { ...venueDraft.happyHour, title: event.target.value } })} /></label><label className="admin-field"><span>PRICE</span><input type="text" value={venueDraft.happyHour.price} onChange={(event) => setVenueDraft({ ...venueDraft, happyHour: { ...venueDraft.happyHour, price: event.target.value } })} /></label></div>
+              <label className="admin-field"><span>TEXT</span><input type="text" value={venueDraft.happyHour.text} onChange={(event) => setVenueDraft({ ...venueDraft, happyHour: { ...venueDraft.happyHour, text: event.target.value } })} /></label>
+              <div className="admin-form-row"><label className="admin-field"><span>FROM</span><input type="time" value={venueDraft.happyHour.from} onChange={(event) => setVenueDraft({ ...venueDraft, happyHour: { ...venueDraft.happyHour, from: event.target.value } })} /></label><label className="admin-field"><span>TO</span><input type="time" value={venueDraft.happyHour.to} onChange={(event) => setVenueDraft({ ...venueDraft, happyHour: { ...venueDraft.happyHour, to: event.target.value } })} /></label><label className="admin-field"><span>DAYS (0=SUN … 6=SAT, COMMA SEPARATED)</span><input type="text" value={venueDraft.happyHour.days.join(",")} onChange={(event) => setVenueDraft({ ...venueDraft, happyHour: { ...venueDraft.happyHour, days: event.target.value.split(",").map((part) => Number(part.trim())).filter((day) => Number.isInteger(day) && day >= 0 && day <= 6) } })} /></label></div>
+
+              <h4 className="admin-subhead">BEER MENU</h4>
+              <label className="admin-field"><span>ONE PER LINE: NAME | PRICE | NOTE</span><textarea rows={8} value={venueDraft.beers.join("\n")} onChange={(event) => setVenueDraft({ ...venueDraft, beers: event.target.value.split("\n").filter((line) => line.trim()) })} /></label>
+              <label className="admin-field"><span>MENU FOOTNOTE</span><input type="text" value={venueDraft.beerFootnote} onChange={(event) => setVenueDraft({ ...venueDraft, beerFootnote: event.target.value })} /></label>
+
+              <h4 className="admin-subhead">STICKER WALL</h4>
+              <label className="admin-field"><span>ONE STICKER TEXT PER LINE</span><textarea rows={6} value={venueDraft.stickers.join("\n")} onChange={(event) => setVenueDraft({ ...venueDraft, stickers: event.target.value.split("\n").filter((line) => line.trim()) })} /></label>
+              {renderSectionApply("venue", applyVenueChanges)}
             </form>
           </AdminSection>
         )}
