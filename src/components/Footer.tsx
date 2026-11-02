@@ -43,6 +43,13 @@ export function Footer() {
           <span className="site-footer-dev-status">{supportStatus}</span>
         </div>
 
+        <nav className="site-footer-links" aria-label="Site">
+          <a href="#news">News</a>
+          <a href="#chat">Live chat</a>
+          <a href="#auth">Members</a>
+          <a href="/admin">Admin</a>
+        </nav>
+
         <p className="site-footer-powered">
           Powered by{" "}
           <a
