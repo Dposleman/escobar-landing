@@ -3,6 +3,7 @@ import EventsPanel from "./components/EventsPanel";
 import { GalleryPanel } from "./components/GalleryPanel";
 import { SiteHeader } from "./components/SiteHeader";
 import { RadioDeck } from "./components/RadioDeck";
+import { EmberField } from "./components/EmberField";
 import { AuthPanel } from "./components/AuthPanel";
 import MerchPanel from "./components/MerchPanel";
 import { NewsPanel } from "./components/NewsPanel";
@@ -126,7 +127,22 @@ function App() {
   return (
     <div className="esc-landing">
       <BodyClass name="esc-body" />
-      <div className="esc-bg" aria-hidden="true" />
+      <div className="esc-bg" aria-hidden="true">
+        <span className="esc-bg__fog" />
+        <span className="esc-bg__heat" />
+        <span className="esc-bg__hot" />
+        <span className="esc-bg__embers" />
+        <span className="esc-bg__embers esc-bg__embers--b" />
+        <span className="esc-swag esc-swag--l" />
+        <span className="esc-swag esc-swag--r" />
+        <span className="esc-chain esc-chain--l1" />
+        <span className="esc-chain esc-chain--r1" />
+        <span className="esc-chain esc-chain--l2" />
+        <span className="esc-chain esc-chain--r2" />
+        <span className="esc-chain esc-chain--l3" />
+        <span className="esc-chain esc-chain--r3" />
+      </div>
+      <EmberField />
 
       <main className="esc-page">
         <SiteHeader />
