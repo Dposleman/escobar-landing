@@ -36,7 +36,7 @@ export default function MerchPanel({ items }: Props) {
             const name = item.title || item.name;
             const external = isExternal(item.productUrl);
             const price = formatPrice(item.price);
-            const image = hasUsableImage(item.image)
+            const image = hasUsableImage(item.image) && !item.image.includes("/ui-kit")
               ? item.image.trim()
               : MERCH_FALLBACK_IMAGES[item.variant] ?? MERCH_FALLBACK_IMAGES.tee;
 

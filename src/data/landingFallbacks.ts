@@ -40,11 +40,11 @@ export const PHOTO_FALLBACKS: FallbackPhoto[] = [
 ];
 
 export const MERCH_FALLBACK_IMAGES: Record<MerchVariant, string> = {
-  tee: "/ui-kit-clean/merch_tee.png",
-  mug: "/ui-kit-clean/merch_beer_mug.png",
-  stickers: "/ui-kit-clean/merch_sticker_pack.png",
-  patch: "/ui-kit-clean/merch_patch.png",
-  poster: "/ui-kit-clean/merch_tee.png",
+  tee: "/assets/merch/merch-tee.webp",
+  mug: "/assets/merch/merch-mug.webp",
+  stickers: "/assets/merch/merch-stickers.webp",
+  patch: "/assets/merch/merch-patch.webp",
+  poster: "/assets/merch/merch-tee.webp",
   vinyl: "/ui-kit/vinyl_record.png",
 };
 

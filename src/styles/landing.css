@@ -7,9 +7,9 @@
 :root {
   --esc-display: "Cinzel", "Trajan Pro", Georgia, serif;
   --esc-serif: "Alegreya", Georgia, serif;
-  --esc-font: "Barlow Semi Condensed", "Arial Narrow", system-ui, sans-serif;
-  --esc-ink: #ecdcc6;
-  --esc-ink-dim: #b49c84;
+  --esc-font: "Rajdhani", "Barlow Semi Condensed", "Arial Narrow", system-ui, sans-serif;
+  --esc-ink: #e2cfbd;
+  --esc-ink-dim: #b59d8a;
   --esc-ink-faint: #8a7664;
   --esc-orange: #ff8a2e;
   --esc-orange-soft: #e07a2f;
@@ -44,24 +44,14 @@ body.esc-body {
 /* ---------- background: the rusted steel photo, fire at the edges --------- */
 
 .esc-bg {
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(10, 5, 3, 0.45), rgba(10, 5, 3, 0.2) 40%, rgba(10, 5, 3, 0.5)),
-    url("/textures/rust-bg.jpg") center top / cover no-repeat,
-    #120a06;
-}
-
-.esc-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url("/textures/noise.png") center / 256px 256px repeat;
-  mix-blend-mode: overlay;
-  opacity: 0.35;
+    url("/textures/rust-page.jpg") 50% 0 / 1152px auto repeat,
+    #1a0e0a;
 }
 
 .esc-bg::after {
@@ -69,8 +59,8 @@ body.esc-body {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 50% 40%, transparent 35%, rgba(0, 0, 0, 0.78) 100%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.35), transparent 18%, transparent 82%, rgba(0, 0, 0, 0.45));
+    linear-gradient(180deg, rgba(0, 0, 0, 0.5), transparent 12%, transparent 88%, rgba(0, 0, 0, 0.55)),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.55), transparent 14%, transparent 86%, rgba(0, 0, 0, 0.55));
 }
 
 .esc-bg__fog,
@@ -92,6 +82,7 @@ body.esc-body {
 }
 
 .esc-bg__heat {
+  position: fixed;
   inset: 0;
   z-index: 1;
   background:
@@ -144,16 +135,14 @@ body.esc-body {
 .esc-panel,
 .esc-frame {
   position: relative;
-  background:
-    linear-gradient(180deg, rgba(34, 19, 12, 0.9), rgba(12, 6, 4, 0.94)),
-    url("/textures/rust-bg.jpg") center / cover;
-  border: 2px solid #4b2c1b;
-  border-radius: 3px;
+  background: linear-gradient(180deg, rgba(20, 10, 7, 0.62), rgba(10, 5, 3, 0.72));
+  border: 2px solid #6b5142;
+  border-radius: 2px;
   box-shadow:
-    inset 0 0 0 1px rgba(255, 160, 80, 0.22),
-    inset 0 0 0 4px rgba(0, 0, 0, 0.55),
-    inset 0 0 46px rgba(255, 105, 25, 0.1),
-    0 16px 40px rgba(0, 0, 0, 0.7);
+    inset 0 0 0 1px rgba(0, 0, 0, 0.8),
+    inset 0 0 0 3px rgba(150, 110, 85, 0.18),
+    inset 0 0 60px rgba(0, 0, 0, 0.45),
+    0 14px 34px rgba(0, 0, 0, 0.6);
 }
 
 /* riveted corners */
@@ -190,26 +179,20 @@ body.esc-body {
 .esc-title::after {
   content: "";
   flex: 1;
-  height: 6px;
-  border-top: 1px solid #7a4a2a;
-  border-bottom: 1px solid #2a170d;
-  background: linear-gradient(90deg, rgba(255, 120, 40, 0.04), rgba(255, 140, 50, 0.55), rgba(255, 120, 40, 0.04));
-  filter: drop-shadow(0 0 6px rgba(255, 110, 30, 0.5));
+  height: 3px;
+  border-top: 1px solid #8a6a58;
+  border-bottom: 1px solid #1a0d08;
+  background: linear-gradient(90deg, rgba(140, 100, 80, 0.1), rgba(160, 120, 95, 0.55), rgba(140, 100, 80, 0.1));
+  filter: drop-shadow(0 0 5px rgba(255, 110, 30, 0.35));
 }
 
 .esc-title > span {
   position: relative;
-  padding: 7px 34px 6px;
-  font-size: clamp(1.15rem, 2.2vw, 1.6rem);
-  color: #f0dcc0;
+  padding: 0 4px;
+  font-size: clamp(1.2rem, 2.3vw, 1.7rem);
+  color: #dcc7b4;
   white-space: nowrap;
-  background: linear-gradient(180deg, #3a2012, #1a0d07);
-  border: 2px solid #5b3520;
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 160, 80, 0.25),
-    0 6px 16px rgba(0, 0, 0, 0.6),
-    0 0 20px rgba(255, 100, 20, 0.14);
-  text-shadow: 0 2px 0 #000, 0 0 14px rgba(255, 120, 40, 0.45);
+  text-shadow: 0 2px 0 #000, 0 0 16px rgba(255, 120, 40, 0.3);
 }
 
 .esc-empty {
@@ -296,8 +279,7 @@ body.esc-body {
   width: 46px;
   height: 230px;
   background: url("/assets/branding/chain-vertical.png") center top / 46px auto repeat-y;
-  mix-blend-mode: lighten;
-  opacity: 0.75;
+  opacity: 0.85;
   pointer-events: none;
 }
 
@@ -382,13 +364,13 @@ body.esc-body {
   justify-content: center;
   margin-top: 18px;
   padding: 0 4px;
-  border-top: 2px solid #4b2c1b;
-  border-bottom: 2px solid #4b2c1b;
-  background: linear-gradient(180deg, rgba(40, 21, 12, 0.92), rgba(14, 7, 4, 0.94));
+  border-top: 2px solid #5a3a28;
+  border-bottom: 2px solid #5a3a28;
+  background: linear-gradient(180deg, rgba(22, 11, 8, 0.7), rgba(10, 5, 3, 0.8));
   box-shadow:
-    inset 0 0 0 1px rgba(255, 160, 80, 0.16),
-    0 10px 24px rgba(0, 0, 0, 0.6),
-    0 3px 18px rgba(255, 100, 20, 0.32);
+    0 -2px 14px rgba(255, 110, 30, 0.35),
+    0 3px 16px rgba(255, 100, 20, 0.3),
+    0 10px 24px rgba(0, 0, 0, 0.5);
 }
 
 .esc-nav a {
@@ -399,11 +381,11 @@ body.esc-body {
   text-align: center;
   font-family: var(--esc-font);
   font-weight: 500;
-  font-size: 0.95rem;
-  letter-spacing: 0.2em;
+  font-size: 1.08rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   text-decoration: none;
-  color: #e3cdb0;
+  color: #e3cfbd;
   transition: color 0.18s ease, text-shadow 0.18s ease;
 }
 
@@ -467,17 +449,17 @@ body.esc-body {
   font-size: clamp(1.1rem, 2.1vw, 1.55rem);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #f0d9b8;
-  text-shadow: 0 2px 0 #000, 0 0 16px rgba(255, 120, 40, 0.5);
+  color: #d6bfac;
+  text-shadow: 0 2px 0 #000;
 }
 
 .esc-deck__heading span {
   display: block;
-  padding: 6px 0 5px;
-  background: linear-gradient(180deg, #3c2113, #1b0d07);
-  border-top: 2px solid #6a3f24;
-  border-bottom: 2px solid #2a170d;
-  box-shadow: 0 0 0 1px #000, 0 6px 16px rgba(0, 0, 0, 0.55);
+  padding: 7px 0 6px;
+  background: linear-gradient(180deg, rgba(16, 8, 5, 0.75), rgba(8, 4, 3, 0.75));
+  border-top: 1px solid #6b5142;
+  border-bottom: 1px solid #6b5142;
+  box-shadow: 0 0 0 1px #000;
 }
 
 .esc-deck__copy {
@@ -570,19 +552,47 @@ body.esc-body {
   opacity: 0.85;
 }
 
+.esc-deck__stage {
+  position: relative;
+  z-index: 2 !important;
+  aspect-ratio: 1500 / 990;
+  margin: -108px -2% 4px;
+  pointer-events: none;
+}
+
+.esc-deck__world {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1500px;
+  height: 990px;
+  transform-origin: 0 0;
+  transform: scale(0.45);
+}
+
+.esc-deck__art {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1500px;
+  height: 990px;
+  display: block;
+  filter: drop-shadow(0 30px 30px rgba(0, 0, 0, 0.6));
+}
+
+/* sleeve leaning against the back of the deck (perspective matched to the artwork) */
 .esc-deck__sleeve {
-  position: absolute !important;
-  z-index: 1;
-  top: 62px;
-  right: 7%;
-  width: clamp(120px, 19%, 184px);
-  aspect-ratio: 1;
-  padding: 5px;
-  background: linear-gradient(135deg, #3a2417, #120905);
-  border: 1px solid #6a3f24;
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 110, 30, 0.3);
-  transform: perspective(700px) rotateY(-16deg) rotate(3deg);
-  transform-origin: 50% 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 300px;
+  height: 300px;
+  padding: 6px;
+  background: #1a0f0a;
+  border: 3px solid #8a7a6c;
+  box-shadow: 0 0 60px rgba(255, 110, 30, 0.35), inset 0 0 12px #000;
+  transform-origin: 0 0;
+  transform: matrix3d(0.326544, 0.0268834, 0, -0.00090376, -0.0826493, 1.12376, 0, 2.20326e-05, 0, 0, 1, 0, 817.5, 63, 0, 1);
 }
 
 .esc-deck__sleeve img {
@@ -590,49 +600,60 @@ body.esc-body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: saturate(1.05) contrast(1.05);
+  filter: sepia(0.25) contrast(1.05) brightness(0.92);
 }
 
-.esc-deck__stage {
-  position: relative;
-  z-index: 2 !important;
-  aspect-ratio: 1.74;
-  margin: -52px -3% -48px;
-  pointer-events: none;
-}
-
-.esc-deck__canvas,
-.esc-deck__still {
+.esc-deck__lamp {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: contain;
+  width: 190px;
+  height: 190px;
+  margin: -95px 0 0 -95px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 200, 110, 0.75), rgba(255, 120, 30, 0.35) 35%, transparent 68%);
+  mix-blend-mode: screen;
+  animation: esc-flicker 2.4s ease-in-out infinite;
 }
 
+.esc-deck__lamp--b {
+  animation-duration: 3.1s;
+  animation-delay: -1.1s;
+}
+
+@keyframes esc-flicker {
+  0%, 100% { opacity: 0.75; }
+  30% { opacity: 1; }
+  55% { opacity: 0.6; }
+  80% { opacity: 0.95; }
+}
+
+/* cover art pinned onto the record label (an ellipse, like the artwork's own label) */
 .esc-deck__label {
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 200px;
-  height: 200px;
-  transform-origin: 0 0;
-  opacity: 0;
-  pointer-events: none;
+  left: 472px;
+  top: 564px;
+  width: 252px;
+  height: 252px;
+  margin: -126px 0 0 -126px;
+  transform: rotate(1.5deg) scaleY(0.37);
 }
 
-.esc-deck__label img {
-  display: block;
+.esc-deck__label-disc {
   width: 100%;
   height: 100%;
   border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 0 7px #14090a, 0 0 0 10px #6b5342;
+}
+
+.esc-deck__label-disc img {
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  box-shadow: inset 0 0 0 6px rgba(20, 10, 5, 0.8), 0 0 0 4px #0a0605;
   animation: esc-spin 1.8s linear infinite paused;
 }
 
-.is-playing .esc-deck__label img {
+.is-playing .esc-deck__label-disc img {
   animation-play-state: running;
 }
 
@@ -641,12 +662,11 @@ body.esc-body {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 14px;
-  height: 14px;
-  margin: -7px 0 0 -7px;
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
   border-radius: 50%;
   background: radial-gradient(circle at 35% 30%, #fff1d8, #8a7a68 55%, #2a2118);
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.6);
 }
 
 @keyframes esc-spin {
@@ -727,14 +747,12 @@ body.esc-body {
   display: grid;
   grid-template-columns: minmax(0, 21%) minmax(0, 1fr);
   padding: 10px;
-  background:
-    linear-gradient(180deg, rgba(30, 16, 10, 0.88), rgba(10, 5, 3, 0.92)),
-    url("/textures/rust-bg.jpg") center / cover;
-  border: 2px solid #4b2c1b;
+  background: linear-gradient(180deg, rgba(20, 10, 7, 0.6), rgba(10, 5, 3, 0.72));
+  border: 2px solid #6b5142;
   box-shadow:
-    inset 0 0 0 1px rgba(255, 160, 80, 0.2),
-    inset 0 0 40px rgba(255, 100, 20, 0.1),
-    0 16px 36px rgba(0, 0, 0, 0.65);
+    inset 0 0 0 1px rgba(0, 0, 0, 0.8),
+    inset 0 0 0 3px rgba(150, 110, 85, 0.16),
+    0 14px 34px rgba(0, 0, 0, 0.6);
 }
 
 .esc-events__thumbs {
@@ -774,10 +792,10 @@ body.esc-body {
   padding: 8px 14px 8px 26px;
   font-family: var(--esc-font);
   font-weight: 600;
-  font-size: clamp(0.95rem, 1.7vw, 1.2rem);
-  letter-spacing: 0.06em;
+  font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  border-bottom: 1px solid rgba(255, 120, 40, 0.28);
+  border-bottom: 1px solid rgba(190, 130, 90, 0.4);
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
 }
 
@@ -788,8 +806,8 @@ body.esc-body {
 
 .esc-events__name {
   font-weight: 600;
-  color: #ea8a3a;
-  text-shadow: 0 0 12px rgba(255, 110, 30, 0.3);
+  color: #e08a45;
+  text-shadow: 0 0 10px rgba(255, 110, 30, 0.25);
 }
 
 .esc-events__name a {
@@ -920,21 +938,21 @@ body.esc-body {
   position: relative;
   display: grid;
   place-items: center;
-  height: clamp(170px, 22vw, 250px);
+  min-height: clamp(190px, 24vw, 290px);
 }
 
 .esc-merch__media img {
   display: block;
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: auto;
+  max-height: 290px;
   object-fit: contain;
-  filter: drop-shadow(0 12px 14px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 22px rgba(255, 100, 20, 0.12));
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .esc-merch__card:hover .esc-merch__media img {
-  transform: translateY(-4px) scale(1.04);
-  filter: drop-shadow(0 14px 16px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 30px rgba(255, 110, 30, 0.45));
+  transform: translateY(-4px) scale(1.03);
+  filter: brightness(1.12) drop-shadow(0 0 22px rgba(255, 110, 30, 0.45));
 }
 
 .esc-merch__price {
@@ -960,14 +978,13 @@ body.esc-body {
   padding: 4px 22px 3px;
   font-family: var(--esc-font);
   font-weight: 500;
-  font-size: 0.82rem;
-  letter-spacing: 0.1em;
+  font-size: 0.98rem;
+  letter-spacing: 0.12em;
   text-align: center;
   text-transform: uppercase;
-  color: #e9d7bd;
-  background: linear-gradient(180deg, rgba(36, 19, 11, 0.95), rgba(14, 7, 4, 0.95));
-  border-top: 1px solid #4b2c1b;
-  box-shadow: inset 0 0 0 1px rgba(255, 150, 70, 0.08);
+  color: #d6c2b0;
+  background: linear-gradient(180deg, rgba(20, 10, 7, 0.85), rgba(8, 4, 3, 0.9));
+  border: 1px solid #5a4030;
 }
 
 .esc-merch__arrow {
@@ -1305,16 +1322,8 @@ body.esc-body {
     min-height: 0;
   }
 
-  .esc-deck__sleeve {
-    position: relative !important;
-    top: auto;
-    right: auto;
-    width: 150px;
-    margin: 14px auto 0;
-  }
-
   .esc-deck__stage {
-    margin: 4px -6% -26px;
+    margin: -20px -4% -16px;
   }
 
   .esc-events__board {

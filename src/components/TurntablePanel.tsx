@@ -1,9 +1,10 @@
-import { Suspense, lazy, useCallback, useRef, useState, type SyntheticEvent } from "react";
+import { useEffect, useRef, type SyntheticEvent } from "react";
 import type { TrackMeta } from "../hooks/useSpotifyPlayer";
 
-const TurntableScene = lazy(() => import("./TurntableScene"));
-
 const EMBLEM = "/assets/branding/escobar-emblem-rust.png";
+/** Size of the artwork the deck picture is laid out in (all overlay coordinates use it). */
+const WORLD_W = 1500;
+const WORLD_H = 990;
 
 type Props = {
   cover: string;
@@ -27,10 +28,24 @@ function splitTitle(title: string): [string, string] {
 }
 
 export function TurntablePanel({ cover, title, kicker, isPlaying, recent }: Props) {
-  const labelRef = useRef<HTMLDivElement>(null);
-  const [unsupported, setUnsupported] = useState(false);
-  const onUnsupported = useCallback(() => setUnsupported(true), []);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const worldRef = useRef<HTMLDivElement>(null);
   const [head, sub] = splitTitle(title);
+
+  // The deck artwork is laid out in a fixed 1500x990 space and scaled to the panel width.
+  useEffect(() => {
+    const stage = stageRef.current;
+    const world = worldRef.current;
+    if (!stage || !world) return;
+
+    const fit = () => {
+      world.style.transform = `scale(${stage.clientWidth / WORLD_W})`;
+    };
+    fit();
+    const observer = new ResizeObserver(fit);
+    observer.observe(stage);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
@@ -64,24 +79,32 @@ export function TurntablePanel({ cover, title, kicker, isPlaying, recent }: Prop
         ) : null}
       </div>
 
-      <div className="esc-deck__sleeve">
-        <img key={cover} src={cover} alt="" width={190} height={190} decoding="async" onError={swapToEmblem} />
-      </div>
-
-      <div className="esc-deck__stage" role="img" aria-label={`${kicker}: ${title}`}>
-        {unsupported ? (
-          <img className="esc-deck__still" src="/ui-kit/turntable.png" alt="" loading="lazy" decoding="async" />
-        ) : (
-          <Suspense fallback={<img className="esc-deck__still" src="/ui-kit/turntable.png" alt="" decoding="async" />}>
-            <TurntableScene isPlaying={isPlaying} labelRef={labelRef} onUnsupported={onUnsupported} />
-          </Suspense>
-        )}
-
-        {unsupported ? null : (
-          <div ref={labelRef} className="esc-deck__label" aria-hidden="true">
+      <div ref={stageRef} className="esc-deck__stage" role="img" aria-label={`${kicker}: ${title}`}>
+        <div ref={worldRef} className="esc-deck__world" aria-hidden="true">
+          <div className="esc-deck__sleeve">
             <img key={cover} src={cover} alt="" decoding="async" onError={swapToEmblem} />
           </div>
-        )}
+
+          <img
+            className="esc-deck__art"
+            src="/assets/turntable-deck.webp"
+            width={WORLD_W}
+            height={WORLD_H}
+            alt=""
+            decoding="async"
+          />
+
+          <span className="esc-deck__lamp" style={{ left: 95, top: 500 }} />
+          <span className="esc-deck__lamp esc-deck__lamp--b" style={{ left: 640, top: 620 }} />
+          <span className="esc-deck__lamp" style={{ left: 820, top: 652 }} />
+          <span className="esc-deck__lamp esc-deck__lamp--b" style={{ left: 195, top: 742 }} />
+
+          <div className="esc-deck__label">
+            <div className="esc-deck__label-disc">
+              <img key={cover} src={cover} alt="" decoding="async" onError={swapToEmblem} />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
