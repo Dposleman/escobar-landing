@@ -19,10 +19,10 @@ export function SiteHeader() {
         <div className="esc-header__center">
           <h1 className="esc-header__logo">
             <img
-              src="/assets/branding/escobar-logo-steel.png"
-              srcSet="/assets/branding/escobar-logo-steel.png 1x, /assets/branding/escobar-logo-steel@2x.png 2x"
-              width={1058}
-              height={278}
+              src="/assets/branding/escobar-logo-plate.jpg"
+              srcSet="/assets/branding/escobar-logo-plate.jpg 1x, /assets/branding/escobar-logo-plate@2x.jpg 2x"
+              width={554}
+              height={90}
               alt="Escobar"
               decoding="async"
             />

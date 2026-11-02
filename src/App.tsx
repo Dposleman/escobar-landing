@@ -3,6 +3,7 @@ import EventsPanel from "./components/EventsPanel";
 import { GalleryPanel } from "./components/GalleryPanel";
 import { SiteHeader } from "./components/SiteHeader";
 import { RadioDeck } from "./components/RadioDeck";
+import { EmberField } from "./components/EmberField";
 import { AuthPanel } from "./components/AuthPanel";
 import MerchPanel from "./components/MerchPanel";
 import { NewsPanel } from "./components/NewsPanel";
@@ -126,7 +127,11 @@ function App() {
   return (
     <div className="esc-landing">
       <BodyClass name="esc-body" />
-      <div className="esc-bg" aria-hidden="true" />
+      <div className="esc-bg" aria-hidden="true">
+        <span className="esc-bg__fog" />
+        <span className="esc-bg__heat" />
+      </div>
+      <EmberField />
 
       <main className="esc-page">
         <SiteHeader />
