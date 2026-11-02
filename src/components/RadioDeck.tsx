@@ -5,7 +5,7 @@ import { buildSpotifyEmbedUrl, spotifyUriFromUrl } from "../utils/spotify";
 import { RadioPanel } from "./RadioPanel";
 import { TurntablePanel } from "./TurntablePanel";
 
-const EMBLEM = "/assets/branding/escobar-emblem.png";
+const EMBLEM = "/assets/branding/escobar-emblem-rust.png";
 const PLAYER_HEIGHT = 400;
 
 type Props = {
@@ -37,6 +37,7 @@ export function RadioDeck({ radio }: Props) {
       <RadioPanel
         radio={radio}
         mountRef={mountRef}
+        isPlaying={player.isPlaying}
         hasPlayer={Boolean(uri)}
         fallbackEmbedUrl={player.status === "fallback" ? buildSpotifyEmbedUrl(sourceUrl) : ""}
         height={PLAYER_HEIGHT}

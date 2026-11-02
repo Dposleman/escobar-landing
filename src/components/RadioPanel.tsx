@@ -6,6 +6,7 @@ type Props = {
   radio: RadioState;
   /** Empty element the Spotify embed is mounted into (see useSpotifyPlayer). */
   mountRef: RefObject<HTMLDivElement | null>;
+  isPlaying: boolean;
   hasPlayer: boolean;
   /** Plain iframe used only when Spotify's script is blocked (ad blockers, offline). */
   fallbackEmbedUrl: string;
@@ -27,13 +28,14 @@ function SpotifyMark() {
   );
 }
 
-export function RadioPanel({ radio, mountRef, hasPlayer, fallbackEmbedUrl, height }: Props) {
+export function RadioPanel({ radio, mountRef, isPlaying, hasPlayer, fallbackEmbedUrl, height }: Props) {
   const openUrl = resolveRadioLinkTarget(radio);
 
   return (
     <section className="esc-panel esc-radio js-reveal" id="radio">
       <header className="esc-radio__head">
         <h2>{radio.title?.trim() || "RADIO ESCOBAR"}</h2>
+        {isPlaying ? <span className="esc-radio__live">Now playing live</span> : null}
         <SpotifyMark />
       </header>
 
