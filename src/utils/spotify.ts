@@ -24,6 +24,15 @@ export function buildSpotifyEmbedUrl(url: string): string {
   return `https://open.spotify.com/embed/${entityType}/${entityId}?utm_source=generator&theme=0`;
 }
 
+/** Turns an open.spotify.com URL (page or embed) into a spotify: URI, or "" when it is not one. */
+export function spotifyUriFromUrl(url: string): string {
+  const match = url
+    .trim()
+    .match(/open\.spotify\.com\/(?:embed\/)?(playlist|album|track|artist|show|episode)\/([a-zA-Z0-9]+)/);
+
+  return match ? `spotify:${match[1]}:${match[2]}` : "";
+}
+
 export function resolveRadioLinkTarget(radio: RadioState): string {
   if (radio.provider === "spotify" && radio.spotifyUrl) {
     return radio.spotifyUrl;

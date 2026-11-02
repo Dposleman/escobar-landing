@@ -1,54 +1,68 @@
+import type { RefObject } from "react";
 import type { RadioState } from "../types";
-import { buildSpotifyEmbedUrl, resolveRadioLinkTarget } from "../utils/spotify";
-import "../styles/RadioPanel.css";
+import { resolveRadioLinkTarget } from "../utils/spotify";
 
 type Props = {
   radio: RadioState;
+  /** Empty element the Spotify embed is mounted into (see useSpotifyPlayer). */
+  mountRef: RefObject<HTMLDivElement | null>;
+  hasPlayer: boolean;
+  /** Plain iframe used only when Spotify's script is blocked (ad blockers, offline). */
+  fallbackEmbedUrl: string;
+  height: number;
 };
 
-export function RadioPanel({ radio }: Props) {
-  const embedUrl = buildSpotifyEmbedUrl(radio.spotifyUrl || radio.embedUrl || "");
+function SpotifyMark() {
+  return (
+    <svg className="esc-radio__mark" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+      <circle cx="12" cy="12" r="12" fill="#1ed760" />
+      <path
+        d="M5.6 9.1c4.1-1.2 8.6-.9 12.4 1.1M6.3 12.5c3.4-1 7.1-.7 10.3.9M7 15.7c2.7-.8 5.5-.5 8 .7"
+        fill="none"
+        stroke="#0b0b0a"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function RadioPanel({ radio, mountRef, hasPlayer, fallbackEmbedUrl, height }: Props) {
   const openUrl = resolveRadioLinkTarget(radio);
 
   return (
-    <section className="radio-panel metal-panel battered-panel js-reveal" id="radio">
-      <div className="panel-chain-frame" aria-hidden="true">
-        <span className="panel-chain-frame__edge panel-chain-frame__edge--top" />
-        <span className="panel-chain-frame__edge panel-chain-frame__edge--bottom" />
-        <span className="panel-chain-frame__edge panel-chain-frame__edge--left" />
-        <span className="panel-chain-frame__edge panel-chain-frame__edge--right" />
-        <span className="panel-chain-frame__divider panel-chain-frame__divider--top" />
-        <span className="panel-chain-frame__divider panel-chain-frame__divider--bottom" />
+    <section className="esc-panel esc-radio js-reveal" id="radio">
+      <header className="esc-radio__head">
+        <h2>{radio.title?.trim() || "RADIO ESCOBAR"}</h2>
+        <SpotifyMark />
+      </header>
+
+      <div className="esc-radio__embed">
+        {hasPlayer ? (
+          <>
+            {fallbackEmbedUrl ? null : <div ref={mountRef} className="esc-radio__mount" />}
+            {fallbackEmbedUrl ? (
+              <iframe
+                src={fallbackEmbedUrl}
+                title="Escobar Spotify Radio"
+                loading="lazy"
+                height={height}
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              />
+            ) : null}
+          </>
+        ) : (
+          <div className="esc-radio__fallback">
+            <strong>No Spotify source configured</strong>
+            <span>Add a Spotify album, playlist or track URL from the admin panel.</span>
+          </div>
+        )}
       </div>
 
-      <div className="radio-shell-overlay radio-shell-overlay--clean">
-        <div className="section-title section-title--boxed section-title--floating section-title--radio-clean">
-          <h3>RADIO ESCOBAR</h3>
-        </div>
-
-        <div className="radio-embed-frame radio-embed-frame--clean radio-embed-frame--large">
-          {embedUrl ? (
-            <iframe
-              className="radio-spotify-embed"
-              src={embedUrl}
-              title="Escobar Spotify Radio"
-              loading="lazy"
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            />
-          ) : (
-            <div className="radio-fallback-card">
-              <strong>No Spotify source configured</strong>
-              <span>Add a Spotify album, playlist or track URL from the admin panel.</span>
-            </div>
-          )}
-        </div>
-
-        <div className="radio-footer-row radio-footer-row--actions">
-          <a className="cta-button cta-button--image" href={openUrl} target="_blank" rel="noreferrer">
-            <span>OPEN SPOTIFY</span>
-          </a>
-        </div>
-      </div>
+      <a className="esc-btn esc-btn--small" href={openUrl} target="_blank" rel="noreferrer">
+        Open in Spotify
+        <span className="esc-btn__arrow" aria-hidden="true">▸</span>
+      </a>
     </section>
   );
 }
