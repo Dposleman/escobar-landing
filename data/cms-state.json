@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "updatedAt": "2026-11-18T11:07:32.485Z",
+  "updatedAt": "2026-11-18T11:27:49.780Z",
   "state": {
     "venue": {
       "name": "Escobar",
@@ -313,7 +313,7 @@
         "id": "user-admin-dio",
         "order": 0,
         "createdAt": "2026-11-02T23:44:39.693Z",
-        "updatedAt": "2026-11-18T11:07:31.889Z",
+        "updatedAt": "2026-11-18T11:27:49.347Z",
         "email": "dio.escobar.aarhus@gmail.com",
         "username": "dio_escobar",
         "displayName": "Dio Escobar",
@@ -367,17 +367,10 @@
       ]
     },
     "auth": {
-      "user": {
-        "id": "user-admin-dio",
-        "email": "dio.escobar.aarhus@gmail.com",
-        "username": "dio_escobar",
-        "displayName": "Dio Escobar",
-        "role": "admin",
-        "avatar": ""
-      },
-      "isAuthenticated": true,
-      "token": "escobar-token-51d3ftnd3bn-1795000051889",
-      "updatedAt": "2026-11-18T11:07:31.889Z"
+      "user": null,
+      "isAuthenticated": false,
+      "token": null,
+      "updatedAt": "2026-11-18T11:27:49.347Z"
     }
   }
 }
