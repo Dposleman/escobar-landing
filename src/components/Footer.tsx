@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { hasDonationLinks } from "../config/donations";
 import { trackConversion } from "../utils/conversionTracking";
+import "../styles/understack-credit.css";
 
 export function Footer() {
   const supportStatus = useMemo(() => {
@@ -49,6 +50,16 @@ export function Footer() {
           <a href="#auth">Members</a>
           <a href="/admin">Admin</a>
         </nav>
+
+        <a
+          className="us-credit"
+          href="https://understack.dk"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="UnderStack"
+        >
+          <img src="/assets/branding/understack-logo.svg" width={146} height={30} alt="UnderStack" />
+        </a>
 
         <p className="site-footer-powered">
           Powered by{" "}

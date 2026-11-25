@@ -1,5 +1,8 @@
+import { Constellation } from "../components/Constellation";
 import { donationTiers, type DonationTier } from "../config/donations";
 import { trackConversion } from "../utils/conversionTracking";
+import "../styles/understack-credit.css";
+import "../styles/understack-donate.css";
 
 function openDonationCheckout(tier: DonationTier) {
   const target = tier.url.trim();
@@ -43,10 +46,11 @@ function openDonationCheckout(tier: DonationTier) {
 export function DonationPage() {
   return (
     <div className="app-shell donation-page-shell">
+      <Constellation />
       <div className="mouse-glow" aria-hidden="true" />
 
       <main className="donation-page">
-        <section className="donation-page-card metal-panel battered-panel">
+        <section className="donation-page-card">
           <div className="donation-modal-live" aria-hidden="true">
             <span />
             Tip window active
@@ -85,6 +89,19 @@ export function DonationPage() {
           <div className="donation-modal-urgency">
             <span>Every tip funds the next visual pass, CMS polish and late-night fixes.</span>
             <strong>Secure Revolut checkout opens in a new tab.</strong>
+          </div>
+
+          <div className="us-donate-credit">
+            <a
+              className="us-credit"
+              href="https://understack.dk"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="UnderStack"
+            >
+              <span className="us-credit__label">Powered by</span>
+              <img src="/assets/branding/understack-logo.svg" width={162} height={34} alt="UnderStack" />
+            </a>
           </div>
         </section>
       </main>
