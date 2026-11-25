@@ -58,10 +58,10 @@ export function DonationPage() {
 
           <div className="donation-modal-header donation-page-header">
             <p className="donation-modal-kicker">Support the build</p>
-            <h1>Feed the dev. Keep Escobar alive.</h1>
+            <h1>Feed the dev. Keep the Escobar website alive.</h1>
             <p>
-              Choose a Revolut Business donation tier. Checkout opens in a secure new tab only
-              after you select an amount.
+              The bar runs on beer. The website runs on caffeine, hosting bills and pure spite.
+              Chip in so it never goes dark. Pick an amount and checkout opens in a secure new tab.
             </p>
           </div>
 
