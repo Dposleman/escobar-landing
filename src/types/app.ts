@@ -166,6 +166,8 @@ export interface VenueState {
   beers: string[];
   beerFootnote: string;
   stickers: string[];
+  /** Bumped in code when the default sticker wall changes; older saved walls are replaced. */
+  stickersRev?: number;
 }
 
 export interface LandingCmsState {

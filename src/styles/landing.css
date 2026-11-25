@@ -307,7 +307,7 @@ body.esc-body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: min(560px, 62%);
+  width: min(660px, 62%);
   text-align: center;
 }
 

@@ -1,5 +1,6 @@
 import type { VenueState } from "../types";
 import { useT } from "../i18n/strings";
+import { HangingSign } from "./HangingSign";
 import { LangToggle } from "./LangToggle";
 import { OpenCounter } from "./OpenStatus";
 
@@ -27,16 +28,7 @@ export function SiteHeader({ venue }: { venue: VenueState }) {
         />
 
         <div className="esc-header__center">
-          <h1 className="esc-header__logo">
-            <img
-              src="/assets/branding/escobar-logo.png"
-              srcSet="/assets/branding/escobar-logo.png 1x, /assets/branding/escobar-logo@2x.png 2x"
-              width={1058}
-              height={278}
-              alt="Escobar"
-              decoding="async"
-            />
-          </h1>
+          <HangingSign />
           <p className="esc-header__location">
             <span aria-hidden="true" />
             {t.location}

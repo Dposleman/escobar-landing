@@ -438,7 +438,7 @@ export function AdminDashboard(props: AdminDashboardProps) {
               <label className="admin-field"><span>MENU FOOTNOTE</span><input type="text" value={venueDraft.beerFootnote} onChange={(event) => setVenueDraft({ ...venueDraft, beerFootnote: event.target.value })} /></label>
 
               <h4 className="admin-subhead">STICKER WALL</h4>
-              <label className="admin-field"><span>ONE STICKER TEXT PER LINE</span><textarea rows={6} value={venueDraft.stickers.join("\n")} onChange={(event) => setVenueDraft({ ...venueDraft, stickers: event.target.value.split("\n").filter((line) => line.trim()) })} /></label>
+              <label className="admin-field"><span>ONE PER LINE: IMAGE PATH | ALT TEXT | WIDTH/HEIGHT RATIO, E.G. 1.5 (A LINE WITHOUT A PATH BECOMES A TEXT STICKER)</span><textarea rows={6} value={venueDraft.stickers.join("\n")} onChange={(event) => setVenueDraft({ ...venueDraft, stickers: event.target.value.split("\n").filter((line) => line.trim()) })} /></label>
               {renderSectionApply("venue", applyVenueChanges)}
             </form>
           </AdminSection>

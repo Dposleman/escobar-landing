@@ -112,7 +112,11 @@ function mergeVenue(candidate: Partial<VenueState> | undefined): VenueState {
     hours,
     closures: Array.isArray(candidate?.closures) ? candidate.closures : base.closures,
     beers: Array.isArray(candidate?.beers) ? candidate.beers : base.beers,
-    stickers: Array.isArray(candidate?.stickers) ? candidate.stickers : base.stickers,
+    stickers:
+      Array.isArray(candidate?.stickers) && candidate?.stickersRev === base.stickersRev
+        ? candidate.stickers
+        : base.stickers,
+    stickersRev: base.stickersRev,
     happyHour: { ...base.happyHour, ...candidate?.happyHour },
   };
 }
