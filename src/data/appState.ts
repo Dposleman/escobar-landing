@@ -249,19 +249,6 @@ const radio: RadioState = {
 
 const users: UserRecord[] = [
   {
-    id: "user-admin-dio",
-    order: 0,
-    createdAt: now,
-    updatedAt: now,
-    email: "dio.escobar.aarhus@gmail.com",
-    username: "dio_escobar",
-    displayName: "Dio Escobar",
-    password: "Rasmus123",
-    role: "admin",
-    avatar: "",
-    isBlocked: false,
-  },
-  {
     id: "user-vip-1",
     order: 1,
     createdAt: now,

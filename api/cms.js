@@ -175,6 +175,11 @@ export function createCmsHandler(env) {
     }
 
     try {
+      if (req.method === "POST") {
+        return isAuthorized(config, req)
+          ? res.status(200).json({ ok: true })
+          : res.status(401).json({ ok: false, error: "Unauthorized" });
+      }
       if (req.method === "GET") {
         const remote = await github.readState();
         const envelope = remote.envelope || null;
