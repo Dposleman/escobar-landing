@@ -24,25 +24,7 @@ function readSession(): Session | null {
 }
 
 class AuthService {
-  bootstrap() {
-    const state = cmsService.getState();
-
-    const adminExists = state.users.some(
-      (u) => u.email === "dio.escobar.aarhus@gmail.com"
-    );
-
-    if (!adminExists) {
-      cmsService.createItem("users", {
-        email: "dio.escobar.aarhus@gmail.com",
-        username: "dio",
-        displayName: "Dio Escobar",
-        password: "Rasmus123",
-        role: "admin",
-        avatar: "",
-        isBlocked: false,
-      });
-    }
-  }
+  bootstrap() {}
 
   getCurrentUser(): UserRecord | null {
     const session = readSession();
