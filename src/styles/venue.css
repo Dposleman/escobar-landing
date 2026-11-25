@@ -520,9 +520,7 @@
   margin: 6px 0 0;
   padding: 24px 18px;
   list-style: none;
-  background: linear-gradient(180deg, rgba(10, 5, 3, 0.7), rgba(18, 9, 6, 0.6));
-  border: 2px solid #4b3426;
-  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.6), 0 12px 28px rgba(0, 0, 0, 0.5);
+  align-items: center;
 }
 
 .esc-sticker {
@@ -535,6 +533,30 @@
   text-transform: uppercase;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.7), inset 0 0 0 2px rgba(255, 255, 255, 0.08);
   user-select: none;
+}
+
+.esc-sticker-img {
+  max-width: 46%;
+}
+
+.esc-sticker-img.is-wide {
+  max-width: 92%;
+}
+
+.esc-sticker-img {
+  transition: transform 0.2s ease;
+}
+
+.esc-sticker-img img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 5px 7px rgba(0, 0, 0, 0.8));
+}
+
+.esc-sticker-img:hover {
+  transform: rotate(0deg) scale(1.07) !important;
+  z-index: 1;
 }
 
 .esc-sticker--rect { border-radius: 3px; }
@@ -618,4 +640,62 @@
 
 .esc-find__map iframe {
   filter: sepia(0.9) saturate(1.2) brightness(0.55) contrast(1.15);
+}
+
+/* ---------- hanging sign ---------------------------------------------------- */
+
+.esc-header__center { position: relative; }
+
+.esc-hang {
+  position: relative;
+  width: 100%;
+  padding-top: 64px;
+}
+
+.esc-hang__chains {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  filter: drop-shadow(2px 5px 5px rgba(0, 0, 0, 0.65));
+}
+
+.esc-hang__sign {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  line-height: 0;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.esc-hang__sign.is-grabbed { cursor: grabbing; touch-action: none; }
+
+.esc-hang__sign img {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 22px rgba(255, 100, 20, 0.2));
+}
+
+@media (max-width: 720px) {
+  .esc-header__brand { position: relative; }
+  .esc-header__emblem {
+    position: absolute;
+    left: 0;
+    top: 4px;
+    width: 52px;
+    z-index: 0;
+    opacity: 0.9;
+  }
+  .esc-hang { padding-top: 40px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .esc-hang__sign { cursor: default; }
 }
