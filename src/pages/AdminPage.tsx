@@ -45,7 +45,7 @@ export function AdminPage() {
         <div className="mouse-glow" aria-hidden="true" />
 
         <main className="page-content">
-          <section className="auth-panel metal-panel battered-panel js-reveal" id="admin-login">
+          <section className="auth-panel metal-panel battered-panel" id="admin-login">
             <div className="section-title">
               <span />
               <h3>ADMIN ACCESS</h3>

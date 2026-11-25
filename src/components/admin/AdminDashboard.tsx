@@ -397,7 +397,7 @@ export function AdminDashboard(props: AdminDashboardProps) {
   }
 
   return (
-    <section className="admin-dashboard js-reveal" id="admin">
+    <section className="admin-dashboard" id="admin">
       <div className="section-title">
         <span />
         <h3>ADMIN CONTROL ROOM</h3>
