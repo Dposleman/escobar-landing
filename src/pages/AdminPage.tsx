@@ -1,4 +1,5 @@
 import "../styles/admin.css";
+import "../styles/admin-skin.css";
 import { useMemo, useState } from "react";
 import { AdminDashboard } from "../components/admin/AdminDashboard";
 import { useCms } from "../hooks/useCms";
@@ -6,11 +7,32 @@ import { useCms } from "../hooks/useCms";
 const ADMIN_EMAIL = "dio.escobar.aarhus@gmail.com";
 const ADMIN_PASSWORD = "Rasmus123";
 
+const THEME_KEY = "escobar-admin-theme";
+
+function readStoredTheme(): "light" | "dark" {
+  try {
+    return localStorage.getItem(THEME_KEY) === "dark" ? "dark" : "light";
+  } catch {
+    return "light";
+  }
+}
+
 export function AdminPage() {
   const cms = useCms();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [theme, setTheme] = useState<"light" | "dark">(readStoredTheme);
+
+  function toggleTheme() {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    try {
+      localStorage.setItem(THEME_KEY, next);
+    } catch {
+      // private mode: the choice just isn't remembered
+    }
+  }
 
   const isAuthorized = useMemo(() => {
     return (
@@ -82,14 +104,14 @@ export function AdminPage() {
   }
 
   return (
-    <div className="app-shell">
-      <div className="page-base" aria-hidden="true" />
-      <div className="page-rust" aria-hidden="true" />
-      <div className="page-noise" aria-hidden="true" />
-      <div className="page-vignette" aria-hidden="true" />
-      <div className="mouse-glow" aria-hidden="true" />
+    <div className="admin-skin" data-theme={theme}>
+      <div className="admin-skin__bar">
+        <button type="button" onClick={toggleTheme} aria-pressed={theme === "dark"}>
+          {theme === "dark" ? "Light mode" : "Dark mode"}
+        </button>
+      </div>
 
-      <main className="page-content">
+      <main>
         <AdminDashboard
           events={cms.state.events}
           merch={cms.state.merch}

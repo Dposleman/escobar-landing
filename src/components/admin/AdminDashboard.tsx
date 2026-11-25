@@ -1,4 +1,7 @@
+import { ImageField, ImageUploadButton } from "./ImageUpload";
 import { useEffect, useMemo, useState } from "react";
+import { EDITABLE_TEXT_KEYS, STRINGS, textOverrideKey } from "../../i18n/strings";
+import type { Language } from "../../i18n/langStore";
 import { AdminSection } from "./AdminSection";
 import type {
   EntityStatus,
@@ -104,17 +107,22 @@ const initialUserForm: Omit<UserRecord, "id" | "order" | "createdAt" | "updatedA
 
 type EntityStatusOption = EntityStatus;
 type MerchVariantOption = MerchVariant;
-type AdminTabKey = "radio" | "venue" | "events" | "merch" | "gallery" | "news" | "users";
+type AdminTabKey = "radio" | "venue" | "texts" | "events" | "merch" | "gallery" | "news" | "users";
 
 const adminTabs: Array<{ key: AdminTabKey; label: string }> = [
   { key: "radio", label: "Radio" },
   { key: "venue", label: "Venue" },
+  { key: "texts", label: "Texts" },
   { key: "events", label: "Events" },
   { key: "merch", label: "Merch" },
   { key: "gallery", label: "Gallery" },
   { key: "news", label: "News" },
   { key: "users", label: "Users" },
 ];
+
+function humanize(key: string) {
+  return key.replace(/([a-z])([A-Z0-9])/g, "$1 $2");
+}
 
 function renderStatusOptions() {
   const options: EntityStatusOption[] = ["draft", "published", "archived"];
@@ -161,6 +169,7 @@ export function AdminDashboard(props: AdminDashboardProps) {
   const [applyState, setApplyState] = useState<Record<AdminTabKey, string>>({
     radio: "",
     venue: "",
+    texts: "",
     events: "",
     merch: "",
     gallery: "",
@@ -175,6 +184,7 @@ export function AdminDashboard(props: AdminDashboardProps) {
   const [userForm, setUserForm] = useState(initialUserForm);
 
   const [radioDraft, setRadioDraft] = useState<RadioState>(() => cloneRadioState(props.radio));
+  const [textLang, setTextLang] = useState<Language>("en");
   const [venueDraft, setVenueDraft] = useState<VenueState>(() => structuredClone(props.venue));
   const [eventDrafts, setEventDrafts] = useState<EventItem[]>(() => props.events.map((item) => ({ ...item })));
   const [merchDrafts, setMerchDrafts] = useState<MerchItem[]>(() => props.merch.map((item) => ({ ...item })));
@@ -194,6 +204,7 @@ export function AdminDashboard(props: AdminDashboardProps) {
     () => ({
       radio: hasChanged(radioDraft, props.radio),
       venue: hasChanged(venueDraft, props.venue),
+      texts: hasChanged(venueDraft, props.venue),
       events: hasChanged(eventDrafts, props.events),
       merch: hasChanged(merchDrafts, props.merch),
       gallery: hasChanged(galleryDrafts, props.gallery),
@@ -231,6 +242,22 @@ export function AdminDashboard(props: AdminDashboardProps) {
     const changed = hasChanged(venueDraft, props.venue);
     if (changed) props.onUpdateVenue(venueDraft);
     setApplied("venue", changed);
+  }
+
+  function applyTextChanges() {
+    const changed = hasChanged(venueDraft, props.venue);
+    if (changed) props.onUpdateVenue(venueDraft);
+    setApplied("texts", changed);
+  }
+
+  function setCustomText(lang: Language, key: string, value: string) {
+    setVenueDraft((current) => {
+      const texts = { ...current.texts };
+      const id = textOverrideKey(lang, key);
+      if (value) texts[id] = value;
+      else delete texts[id];
+      return { ...current, texts };
+    });
   }
 
   function updateHours(day: number, patch: { open?: string; close?: string; closed?: boolean }) {
@@ -401,7 +428,7 @@ export function AdminDashboard(props: AdminDashboardProps) {
               <label className="admin-field"><span>TRACK</span><input type="text" value={radioDraft.nowPlaying?.track ?? ""} onChange={(event) => setRadioDraft({ ...radioDraft, nowPlaying: { artist: radioDraft.nowPlaying?.artist ?? "", album: radioDraft.nowPlaying?.album ?? "", track: event.target.value, coverImage: radioDraft.nowPlaying?.coverImage ?? "", duration: radioDraft.nowPlaying?.duration ?? "", progress: radioDraft.nowPlaying?.progress ?? 0, startedAt: radioDraft.nowPlaying?.startedAt ?? null } })} /></label>
               <label className="admin-field"><span>ARTIST</span><input type="text" value={radioDraft.nowPlaying?.artist ?? ""} onChange={(event) => setRadioDraft({ ...radioDraft, nowPlaying: { artist: event.target.value, album: radioDraft.nowPlaying?.album ?? "", track: radioDraft.nowPlaying?.track ?? "", coverImage: radioDraft.nowPlaying?.coverImage ?? "", duration: radioDraft.nowPlaying?.duration ?? "", progress: radioDraft.nowPlaying?.progress ?? 0, startedAt: radioDraft.nowPlaying?.startedAt ?? null } })} /></label>
               <label className="admin-field"><span>ALBUM</span><input type="text" value={radioDraft.nowPlaying?.album ?? ""} onChange={(event) => setRadioDraft({ ...radioDraft, nowPlaying: { artist: radioDraft.nowPlaying?.artist ?? "", album: event.target.value, track: radioDraft.nowPlaying?.track ?? "", coverImage: radioDraft.nowPlaying?.coverImage ?? "", duration: radioDraft.nowPlaying?.duration ?? "", progress: radioDraft.nowPlaying?.progress ?? 0, startedAt: radioDraft.nowPlaying?.startedAt ?? null } })} /></label>
-              <label className="admin-field"><span>COVER IMAGE URL</span><input type="text" value={radioDraft.nowPlaying?.coverImage ?? ""} onChange={(event) => setRadioDraft({ ...radioDraft, nowPlaying: { artist: radioDraft.nowPlaying?.artist ?? "", album: radioDraft.nowPlaying?.album ?? "", track: radioDraft.nowPlaying?.track ?? "", coverImage: event.target.value, duration: radioDraft.nowPlaying?.duration ?? "", progress: radioDraft.nowPlaying?.progress ?? 0, startedAt: radioDraft.nowPlaying?.startedAt ?? null } })} /></label>
+              <ImageField label="COVER PHOTO" value={radioDraft.nowPlaying?.coverImage ?? ""} onChange={(value) => setRadioDraft({ ...radioDraft, nowPlaying: { artist: radioDraft.nowPlaying?.artist ?? "", album: radioDraft.nowPlaying?.album ?? "", track: radioDraft.nowPlaying?.track ?? "", coverImage: value, duration: radioDraft.nowPlaying?.duration ?? "", progress: radioDraft.nowPlaying?.progress ?? 0, startedAt: radioDraft.nowPlaying?.startedAt ?? null } })} />
               {renderSectionApply("radio", applyRadioChanges)}
             </form>
           </AdminSection>
@@ -439,11 +466,52 @@ export function AdminDashboard(props: AdminDashboardProps) {
 
               <h4 className="admin-subhead">STICKER WALL</h4>
               <label className="admin-field"><span>ONE PER LINE: IMAGE PATH | ALT TEXT | WIDTH/HEIGHT RATIO, E.G. 1.5 (A LINE WITHOUT A PATH BECOMES A TEXT STICKER)</span><textarea rows={6} value={venueDraft.stickers.join("\n")} onChange={(event) => setVenueDraft({ ...venueDraft, stickers: event.target.value.split("\n").filter((line) => line.trim()) })} /></label>
+              <ImageUploadButton
+                label="Upload sticker image"
+                onUploaded={(image) =>
+                  setVenueDraft((current) => ({
+                    ...current,
+                    stickers: [...current.stickers, `${image.url} | Sticker | ${(image.width / image.height).toFixed(2)}`],
+                  }))
+                }
+              />
               {renderSectionApply("venue", applyVenueChanges)}
             </form>
           </AdminSection>
         )}
 
+        {activeTab === "texts" && (
+          <AdminSection title="SITE TEXTS" subtitle="REWRITE THE WORDS ON THE SITE. LEAVE A FIELD EMPTY TO USE THE ORIGINAL.">
+            <form className="admin-form" onSubmit={(event) => event.preventDefault()}>
+              <div className="admin-lang-switch" role="group" aria-label="Language">
+                {(["en", "da"] as const).map((code) => (
+                  <button key={code} type="button" className={textLang === code ? "is-active" : ""} onClick={() => setTextLang(code)}>
+                    {code === "en" ? "English" : "Dansk"}
+                  </button>
+                ))}
+              </div>
+              {EDITABLE_TEXT_KEYS.map((key) => (
+                <label className="admin-field" key={key}>
+                  <span>{humanize(key)}</span>
+                  <input
+                    type="text"
+                    value={venueDraft.texts[textOverrideKey(textLang, key)] ?? ""}
+                    placeholder={String(STRINGS[textLang][key as keyof typeof STRINGS.en])}
+                    onChange={(event) => setCustomText(textLang, key, event.target.value)}
+                  />
+                </label>
+              ))}
+              <h4 className="admin-subhead">ESCOBARBARIANS MEMBERSHIP</h4>
+              <p className="admin-hint">While this is off, the site shows "Coming soon". To open it, create the subscription page at your payment provider, paste its https link here and switch it on.</p>
+              <div className="admin-form-row">
+                <label className="admin-field admin-field-checkbox"><span>OPEN FOR SIGN-UPS</span><input type="checkbox" checked={venueDraft.membership.open} onChange={(event) => setVenueDraft({ ...venueDraft, membership: { ...venueDraft.membership, open: event.target.checked } })} /></label>
+                <label className="admin-field"><span>PRICE LABEL</span><input type="text" value={venueDraft.membership.priceLabel} placeholder="49 kr / month" onChange={(event) => setVenueDraft({ ...venueDraft, membership: { ...venueDraft.membership, priceLabel: event.target.value } })} /></label>
+              </div>
+              <label className="admin-field"><span>CHECKOUT LINK (HTTPS)</span><input type="text" value={venueDraft.membership.checkoutUrl} placeholder="https://" onChange={(event) => setVenueDraft({ ...venueDraft, membership: { ...venueDraft.membership, checkoutUrl: event.target.value } })} /></label>
+              {renderSectionApply("texts", applyTextChanges)}
+            </form>
+          </AdminSection>
+        )}
         {activeTab === "events" && (
           <AdminSection title="EVENTS" subtitle="CREATE / EDIT / LIVE STATUS WINDOW">
             <form className="admin-form" onSubmit={(event) => { event.preventDefault(); props.onCreateEvent({ ...eventForm, endsAt: eventForm.endsAt || null }); setEventForm(initialEventForm); }}>
@@ -453,11 +521,11 @@ export function AdminDashboard(props: AdminDashboardProps) {
               <div className="admin-form-row"><label className="admin-field"><span>STARTS AT</span><input type="datetime-local" value={eventForm.startsAt} onChange={(event) => setEventForm({ ...eventForm, startsAt: event.target.value })} /></label><label className="admin-field"><span>ENDS AT</span><input type="datetime-local" value={eventForm.endsAt ?? ""} onChange={(event) => setEventForm({ ...eventForm, endsAt: event.target.value })} /></label></div>
               <div className="admin-form-row"><label className="admin-field"><span>VENUE</span><input type="text" value={eventForm.venue} onChange={(event) => setEventForm({ ...eventForm, venue: event.target.value })} /></label><label className="admin-field"><span>CITY</span><input type="text" value={eventForm.city} onChange={(event) => setEventForm({ ...eventForm, city: event.target.value })} /></label></div>
               <div className="admin-form-row"><label className="admin-field"><span>COUNTRY</span><input type="text" value={eventForm.country} onChange={(event) => setEventForm({ ...eventForm, country: event.target.value })} /></label><label className="admin-field"><span>TICKET URL</span><input type="text" value={eventForm.ticketUrl} onChange={(event) => setEventForm({ ...eventForm, ticketUrl: event.target.value })} /></label></div>
-              <label className="admin-field"><span>COVER IMAGE URL</span><input type="text" value={eventForm.coverImage} onChange={(event) => setEventForm({ ...eventForm, coverImage: event.target.value })} /></label>
+              <ImageField label="COVER PHOTO" value={eventForm.coverImage} onChange={(value) => setEventForm({ ...eventForm, coverImage: value })} />
               <div className="admin-form-row"><label className="admin-field"><span>STATUS</span><select value={eventForm.status} onChange={(event) => setEventForm({ ...eventForm, status: event.target.value as EntityStatus })}>{renderStatusOptions()}</select></label><label className="admin-field admin-field-checkbox"><span>FEATURED</span><input type="checkbox" checked={eventForm.isFeatured} onChange={(event) => setEventForm({ ...eventForm, isFeatured: event.target.checked })} /></label></div>
               <button className="auth-solid-button" type="submit">CREATE EVENT</button>
             </form>
-            <div className="admin-list">{eventDrafts.map((item, index) => <article className="admin-card" key={item.id}><div className="admin-card-head"><strong>{item.title}</strong><div className="admin-inline-actions"><button type="button" onClick={() => props.onReorderEvents(index, index - 1)}>↑</button><button type="button" onClick={() => props.onReorderEvents(index, index + 1)}>↓</button><button type="button" onClick={() => props.onDeleteEvent(item.id)}>DELETE</button></div></div><div className="admin-card-grid"><input type="text" value={item.title} onChange={(event) => updateEventDraft(item.id, { title: event.target.value })} /><input type="text" value={item.date} onChange={(event) => updateEventDraft(item.id, { date: event.target.value })} /><input type="text" value={item.venue} onChange={(event) => updateEventDraft(item.id, { venue: event.target.value })} /><input type="text" value={item.city} onChange={(event) => updateEventDraft(item.id, { city: event.target.value })} /><input type="datetime-local" value={item.startsAt} onChange={(event) => updateEventDraft(item.id, { startsAt: event.target.value })} /><input type="datetime-local" value={item.endsAt ?? ""} onChange={(event) => updateEventDraft(item.id, { endsAt: event.target.value })} /><textarea value={item.excerpt} onChange={(event) => updateEventDraft(item.id, { excerpt: event.target.value })} /><input type="text" value={item.ticketUrl} onChange={(event) => updateEventDraft(item.id, { ticketUrl: event.target.value })} /><input type="text" value={item.coverImage} onChange={(event) => updateEventDraft(item.id, { coverImage: event.target.value })} /><select value={item.status} onChange={(event) => updateEventDraft(item.id, { status: event.target.value as EntityStatus })}>{renderStatusOptions()}</select></div></article>)}</div>
+            <div className="admin-list">{eventDrafts.map((item, index) => <article className="admin-card" key={item.id}><div className="admin-card-head"><strong>{item.title}</strong><div className="admin-inline-actions"><button type="button" onClick={() => props.onReorderEvents(index, index - 1)}>↑</button><button type="button" onClick={() => props.onReorderEvents(index, index + 1)}>↓</button><button type="button" onClick={() => props.onDeleteEvent(item.id)}>DELETE</button></div></div><div className="admin-card-grid"><input type="text" value={item.title} onChange={(event) => updateEventDraft(item.id, { title: event.target.value })} /><input type="text" value={item.date} onChange={(event) => updateEventDraft(item.id, { date: event.target.value })} /><input type="text" value={item.venue} onChange={(event) => updateEventDraft(item.id, { venue: event.target.value })} /><input type="text" value={item.city} onChange={(event) => updateEventDraft(item.id, { city: event.target.value })} /><input type="datetime-local" value={item.startsAt} onChange={(event) => updateEventDraft(item.id, { startsAt: event.target.value })} /><input type="datetime-local" value={item.endsAt ?? ""} onChange={(event) => updateEventDraft(item.id, { endsAt: event.target.value })} /><textarea value={item.excerpt} onChange={(event) => updateEventDraft(item.id, { excerpt: event.target.value })} /><input type="text" value={item.ticketUrl} onChange={(event) => updateEventDraft(item.id, { ticketUrl: event.target.value })} /><ImageField value={item.coverImage} onChange={(value) => updateEventDraft(item.id, { coverImage: value })} /><select value={item.status} onChange={(event) => updateEventDraft(item.id, { status: event.target.value as EntityStatus })}>{renderStatusOptions()}</select></div></article>)}</div>
             {renderSectionApply("events", applyEventChanges)}
           </AdminSection>
         )}
@@ -470,10 +538,10 @@ export function AdminDashboard(props: AdminDashboardProps) {
               <label className="admin-field"><span>SUBTITLE</span><input type="text" value={merchForm.subtitle} onChange={(event) => setMerchForm({ ...merchForm, subtitle: event.target.value })} /></label>
               <div className="admin-form-row"><label className="admin-field"><span>VARIANT</span><select value={merchForm.variant} onChange={(event) => setMerchForm({ ...merchForm, variant: event.target.value as MerchVariant })}>{renderMerchVariantOptions()}</select></label><label className="admin-field"><span>BADGE</span><input type="text" value={merchForm.badge} onChange={(event) => setMerchForm({ ...merchForm, badge: event.target.value })} /></label></div>
               <label className="admin-field"><span>PRODUCT URL</span><input type="text" value={merchForm.productUrl} onChange={(event) => setMerchForm({ ...merchForm, productUrl: event.target.value })} /></label>
-              <label className="admin-field"><span>IMAGE URL</span><input type="text" value={merchForm.image} onChange={(event) => setMerchForm({ ...merchForm, image: event.target.value })} /></label>
+              <ImageField label="PHOTO" value={merchForm.image} onChange={(value) => setMerchForm({ ...merchForm, image: value })} />
               <button className="auth-solid-button" type="submit">CREATE MERCH ITEM</button>
             </form>
-            <div className="admin-list">{merchDrafts.map((item, index) => <article className="admin-card" key={item.id}><div className="admin-card-head"><strong>{item.title}</strong><div className="admin-inline-actions"><button type="button" onClick={() => props.onReorderMerch(index, index - 1)}>↑</button><button type="button" onClick={() => props.onReorderMerch(index, index + 1)}>↓</button><button type="button" onClick={() => props.onDeleteMerch(item.id)}>DELETE</button></div></div><div className="admin-card-grid"><input type="text" value={item.title} onChange={(event) => updateMerchDraft(item.id, { title: event.target.value, name: event.target.value })} /><input type="text" value={item.price} onChange={(event) => updateMerchDraft(item.id, { price: event.target.value })} /><input type="text" value={item.subtitle} onChange={(event) => updateMerchDraft(item.id, { subtitle: event.target.value })} /><input type="text" value={item.image} onChange={(event) => updateMerchDraft(item.id, { image: event.target.value })} /><input type="text" value={item.productUrl} onChange={(event) => updateMerchDraft(item.id, { productUrl: event.target.value })} /><select value={item.status} onChange={(event) => updateMerchDraft(item.id, { status: event.target.value as EntityStatus })}>{renderStatusOptions()}</select></div></article>)}</div>
+            <div className="admin-list">{merchDrafts.map((item, index) => <article className="admin-card" key={item.id}><div className="admin-card-head"><strong>{item.title}</strong><div className="admin-inline-actions"><button type="button" onClick={() => props.onReorderMerch(index, index - 1)}>↑</button><button type="button" onClick={() => props.onReorderMerch(index, index + 1)}>↓</button><button type="button" onClick={() => props.onDeleteMerch(item.id)}>DELETE</button></div></div><div className="admin-card-grid"><input type="text" value={item.title} onChange={(event) => updateMerchDraft(item.id, { title: event.target.value, name: event.target.value })} /><input type="text" value={item.price} onChange={(event) => updateMerchDraft(item.id, { price: event.target.value })} /><input type="text" value={item.subtitle} onChange={(event) => updateMerchDraft(item.id, { subtitle: event.target.value })} /><ImageField value={item.image} onChange={(value) => updateMerchDraft(item.id, { image: value })} /><input type="text" value={item.productUrl} onChange={(event) => updateMerchDraft(item.id, { productUrl: event.target.value })} /><select value={item.status} onChange={(event) => updateMerchDraft(item.id, { status: event.target.value as EntityStatus })}>{renderStatusOptions()}</select></div></article>)}</div>
             {renderSectionApply("merch", applyMerchChanges)}
           </AdminSection>
         )}
@@ -482,12 +550,12 @@ export function AdminDashboard(props: AdminDashboardProps) {
           <AdminSection title="GALLERY" subtitle="MULTIPLE GALLERIES / IMAGE CRUD">
             <form className="admin-form" onSubmit={(event) => { event.preventDefault(); props.onCreateGalleryItem(galleryForm); setGalleryForm(initialGalleryForm); }}>
               <div className="admin-form-row"><label className="admin-field"><span>GALLERY NAME</span><input type="text" value={galleryForm.galleryName} onChange={(event) => setGalleryForm({ ...galleryForm, galleryName: event.target.value })} /></label><label className="admin-field"><span>TITLE</span><input type="text" value={galleryForm.title} onChange={(event) => setGalleryForm({ ...galleryForm, title: event.target.value })} /></label></div>
-              <label className="admin-field"><span>IMAGE URL</span><input type="text" value={galleryForm.image} onChange={(event) => setGalleryForm({ ...galleryForm, image: event.target.value })} /></label>
+              <ImageField label="PHOTO" value={galleryForm.image} onChange={(value) => setGalleryForm({ ...galleryForm, image: value })} />
               <label className="admin-field"><span>ALT</span><input type="text" value={galleryForm.alt} onChange={(event) => setGalleryForm({ ...galleryForm, alt: event.target.value })} /></label>
               <label className="admin-field"><span>CAPTION</span><textarea value={galleryForm.caption} onChange={(event) => setGalleryForm({ ...galleryForm, caption: event.target.value })} /></label>
               <button className="auth-solid-button" type="submit">ADD GALLERY IMAGE</button>
             </form>
-            <div className="admin-list">{galleryDrafts.map((item, index) => <article className="admin-card" key={item.id}><div className="admin-card-head"><strong>{item.galleryName} / {item.title}</strong><div className="admin-inline-actions"><button type="button" onClick={() => props.onReorderGallery(index, index - 1)}>↑</button><button type="button" onClick={() => props.onReorderGallery(index, index + 1)}>↓</button><button type="button" onClick={() => props.onDeleteGalleryItem(item.id)}>DELETE</button></div></div><div className="admin-card-grid"><input type="text" value={item.galleryName} onChange={(event) => updateGalleryDraft(item.id, { galleryName: event.target.value })} /><input type="text" value={item.title} onChange={(event) => updateGalleryDraft(item.id, { title: event.target.value })} /><input type="text" value={item.image} onChange={(event) => updateGalleryDraft(item.id, { image: event.target.value })} /><textarea value={item.caption} onChange={(event) => updateGalleryDraft(item.id, { caption: event.target.value })} /></div></article>)}</div>
+            <div className="admin-list">{galleryDrafts.map((item, index) => <article className="admin-card" key={item.id}><div className="admin-card-head"><strong>{item.galleryName} / {item.title}</strong><div className="admin-inline-actions"><button type="button" onClick={() => props.onReorderGallery(index, index - 1)}>↑</button><button type="button" onClick={() => props.onReorderGallery(index, index + 1)}>↓</button><button type="button" onClick={() => props.onDeleteGalleryItem(item.id)}>DELETE</button></div></div><div className="admin-card-grid"><input type="text" value={item.galleryName} onChange={(event) => updateGalleryDraft(item.id, { galleryName: event.target.value })} /><input type="text" value={item.title} onChange={(event) => updateGalleryDraft(item.id, { title: event.target.value })} /><ImageField value={item.image} onChange={(value) => updateGalleryDraft(item.id, { image: value })} /><textarea value={item.caption} onChange={(event) => updateGalleryDraft(item.id, { caption: event.target.value })} /></div></article>)}</div>
             {renderSectionApply("gallery", applyGalleryChanges)}
           </AdminSection>
         )}
@@ -498,12 +566,12 @@ export function AdminDashboard(props: AdminDashboardProps) {
               <label className="admin-field"><span>TITLE</span><input type="text" value={newsForm.title} onChange={(event) => setNewsForm({ ...newsForm, title: event.target.value })} /></label>
               <label className="admin-field"><span>EXCERPT</span><textarea value={newsForm.excerpt} onChange={(event) => setNewsForm({ ...newsForm, excerpt: event.target.value })} /></label>
               <label className="admin-field"><span>BODY</span><textarea value={newsForm.body} onChange={(event) => setNewsForm({ ...newsForm, body: event.target.value })} /></label>
-              <label className="admin-field"><span>IMAGE URL</span><input type="text" value={newsForm.image} onChange={(event) => setNewsForm({ ...newsForm, image: event.target.value })} /></label>
+              <ImageField label="PHOTO" value={newsForm.image} onChange={(value) => setNewsForm({ ...newsForm, image: value })} />
               <div className="admin-form-row"><label className="admin-field"><span>CTA LABEL</span><input type="text" value={newsForm.ctaLabel} onChange={(event) => setNewsForm({ ...newsForm, ctaLabel: event.target.value })} /></label><label className="admin-field"><span>CTA URL</span><input type="text" value={newsForm.ctaUrl} onChange={(event) => setNewsForm({ ...newsForm, ctaUrl: event.target.value })} /></label></div>
               <label className="admin-field"><span>PUBLISHED AT</span><input type="datetime-local" value={newsForm.publishedAt} onChange={(event) => setNewsForm({ ...newsForm, publishedAt: event.target.value })} /></label>
               <button className="auth-solid-button" type="submit">CREATE NEWS</button>
             </form>
-            <div className="admin-list">{newsDrafts.map((item, index) => <article className="admin-card" key={item.id}><div className="admin-card-head"><strong>{item.title}</strong><div className="admin-inline-actions"><button type="button" onClick={() => props.onReorderNews(index, index - 1)}>↑</button><button type="button" onClick={() => props.onReorderNews(index, index + 1)}>↓</button><button type="button" onClick={() => props.onDeleteNewsItem(item.id)}>DELETE</button></div></div><div className="admin-card-grid"><input type="text" value={item.title} onChange={(event) => updateNewsDraft(item.id, { title: event.target.value })} /><input type="text" value={item.image} onChange={(event) => updateNewsDraft(item.id, { image: event.target.value })} /><textarea value={item.excerpt} onChange={(event) => updateNewsDraft(item.id, { excerpt: event.target.value })} /><textarea value={item.body} onChange={(event) => updateNewsDraft(item.id, { body: event.target.value })} /></div></article>)}</div>
+            <div className="admin-list">{newsDrafts.map((item, index) => <article className="admin-card" key={item.id}><div className="admin-card-head"><strong>{item.title}</strong><div className="admin-inline-actions"><button type="button" onClick={() => props.onReorderNews(index, index - 1)}>↑</button><button type="button" onClick={() => props.onReorderNews(index, index + 1)}>↓</button><button type="button" onClick={() => props.onDeleteNewsItem(item.id)}>DELETE</button></div></div><div className="admin-card-grid"><input type="text" value={item.title} onChange={(event) => updateNewsDraft(item.id, { title: event.target.value })} /><ImageField value={item.image} onChange={(value) => updateNewsDraft(item.id, { image: value })} /><textarea value={item.excerpt} onChange={(event) => updateNewsDraft(item.id, { excerpt: event.target.value })} /><textarea value={item.body} onChange={(event) => updateNewsDraft(item.id, { body: event.target.value })} /></div></article>)}</div>
             {renderSectionApply("news", applyNewsChanges)}
           </AdminSection>
         )}
@@ -515,7 +583,7 @@ export function AdminDashboard(props: AdminDashboardProps) {
               <div className="admin-form-row"><label className="admin-field"><span>EMAIL</span><input type="email" value={userForm.email} onChange={(event) => setUserForm({ ...userForm, email: event.target.value })} /></label><label className="admin-field"><span>PASSWORD</span><input type="text" value={userForm.password} onChange={(event) => setUserForm({ ...userForm, password: event.target.value })} /></label></div>
               <button className="auth-solid-button" type="submit">CREATE USER</button>
             </form>
-            <div className="admin-list">{userDrafts.map((item, index) => <article className="admin-card" key={item.id}><div className="admin-card-head"><strong>{item.displayName}</strong><div className="admin-inline-actions"><button type="button" onClick={() => props.onReorderUsers(index, index - 1)}>↑</button><button type="button" onClick={() => props.onReorderUsers(index, index + 1)}>↓</button><button type="button" onClick={() => props.onDeleteUser(item.id)}>DELETE</button></div></div><div className="admin-card-grid"><input type="text" value={item.displayName} onChange={(event) => updateUserDraft(item.id, { displayName: event.target.value })} /><input type="email" value={item.email} onChange={(event) => updateUserDraft(item.id, { email: event.target.value })} /><input type="text" value={item.username} onChange={(event) => updateUserDraft(item.id, { username: event.target.value })} /></div></article>)}</div>
+            <div className="admin-list">{userDrafts.map((item, index) => <article className="admin-card" key={item.id}><div className="admin-card-head"><strong>{item.displayName}</strong><div className="admin-inline-actions"><button type="button" onClick={() => props.onReorderUsers(index, index - 1)}>↑</button><button type="button" onClick={() => props.onReorderUsers(index, index + 1)}>↓</button><button type="button" onClick={() => props.onDeleteUser(item.id)}>DELETE</button></div></div><div className="admin-card-grid"><input type="text" value={item.displayName} onChange={(event) => updateUserDraft(item.id, { displayName: event.target.value })} /><input type="email" value={item.email} onChange={(event) => updateUserDraft(item.id, { email: event.target.value })} />{item.role === "admin" ? null : <select value={item.role} onChange={(event) => updateUserDraft(item.id, { role: event.target.value as "vip" | "common" })}><option value="common">MEMBER</option><option value="vip">ESCOBARBARIAN</option></select>}<input type="text" value={item.username} onChange={(event) => updateUserDraft(item.id, { username: event.target.value })} /></div></article>)}</div>
             {renderSectionApply("users", applyUserChanges)}
           </AdminSection>
         )}
