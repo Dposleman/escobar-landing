@@ -1,5 +1,6 @@
 import { initialAppState } from "../data/appState";
-import { ADMIN_EMAIL, ADMIN_PASSWORD, CMS_API_ENDPOINT, CMS_STORAGE_KEY, CMS_STORAGE_VERSION } from "../config/cms";
+import { CMS_API_ENDPOINT, CMS_STORAGE_KEY, CMS_STORAGE_VERSION } from "../config/cms";
+import { adminHeaders } from "./adminSession";
 import { buildSpotifyEmbedUrl } from "../utils/spotify";
 import type {
   ChatMessage,
@@ -161,7 +162,7 @@ function normalizeState(candidate: Partial<LandingCmsState> | null | undefined):
     },
   };
 
-  return ensurePrimaryAdmin(merged);
+  return merged;
 }
 
 function parseStoredState(raw: string | null): LandingCmsState | null {
@@ -205,55 +206,6 @@ function writeState(state: LandingCmsState): LandingCmsState {
   return state;
 }
 
-function ensurePrimaryAdmin(state: LandingCmsState): LandingCmsState {
-  const now = new Date().toISOString();
-  const existingIndex = state.users.findIndex(
-    (user) => user.email.toLowerCase() === ADMIN_EMAIL
-  );
-
-  if (existingIndex >= 0) {
-    const users = state.users.map((user, index): UserRecord => {
-      if (index !== existingIndex) {
-        return user;
-      }
-
-      return {
-        ...user,
-        email: ADMIN_EMAIL,
-        password: ADMIN_PASSWORD,
-        role: "admin",
-        isBlocked: false,
-        updatedAt: now,
-      };
-    });
-
-    return {
-      ...state,
-      users: normalizeCollection(users),
-    };
-  }
-
-  return {
-    ...state,
-    users: normalizeCollection([
-      ...state.users,
-      {
-        id: "user-admin-dio",
-        order: state.users.length,
-        createdAt: now,
-        updatedAt: now,
-        email: ADMIN_EMAIL,
-        username: "dio_escobar",
-        displayName: "Dio Escobar",
-        password: ADMIN_PASSWORD,
-        role: "admin",
-        avatar: "",
-        isBlocked: false,
-      },
-    ]),
-  };
-}
-
 function mergeRemoteIntoLocal(
   remoteState: LandingCmsState | null | undefined,
   localState: LandingCmsState
@@ -278,12 +230,7 @@ async function fetchRemoteState(includePrivate = false): Promise<LandingCmsState
   try {
     const response = await fetch(CMS_API_ENDPOINT, {
       method: "GET",
-      headers: includePrivate
-        ? {
-            "x-admin-email": ADMIN_EMAIL,
-            "x-admin-password": ADMIN_PASSWORD,
-          }
-        : undefined,
+      headers: includePrivate ? adminHeaders() : undefined,
       cache: "no-store",
     });
 
@@ -308,12 +255,9 @@ async function persistRemoteState(state: LandingCmsState): Promise<boolean> {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "x-admin-email": ADMIN_EMAIL,
-        "x-admin-password": ADMIN_PASSWORD,
+        ...adminHeaders(),
       },
       body: JSON.stringify({
-        adminEmail: ADMIN_EMAIL,
-        adminPassword: ADMIN_PASSWORD,
         state,
       }),
     });

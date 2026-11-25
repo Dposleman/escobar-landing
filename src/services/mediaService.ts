@@ -1,4 +1,4 @@
-import { ADMIN_EMAIL, ADMIN_PASSWORD } from "../config/cms";
+import { adminHeaders } from "./adminSession";
 
 const MEDIA_ENDPOINT = "/api/media";
 const MAX_SIDE = 1800;
@@ -58,8 +58,7 @@ export async function uploadImage(file: File): Promise<UploadedImage> {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "x-admin-email": ADMIN_EMAIL,
-      "x-admin-password": ADMIN_PASSWORD,
+      ...adminHeaders(),
     },
     body: JSON.stringify({ name: file.name, contentType: "image/webp", data: await blobToBase64(blob) }),
   });

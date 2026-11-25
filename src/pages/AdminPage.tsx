@@ -1,11 +1,10 @@
 import "../styles/admin.css";
 import "../styles/admin-skin.css";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { AdminDashboard } from "../components/admin/AdminDashboard";
 import { useCms } from "../hooks/useCms";
-
-const ADMIN_EMAIL = "dio.escobar.aarhus@gmail.com";
-const ADMIN_PASSWORD = "Rasmus123";
+import { adminSignIn, adminSignOut } from "../services/adminSession";
+import { cmsService } from "../services/cmsService";
 
 const THEME_KEY = "escobar-admin-theme";
 
@@ -22,6 +21,8 @@ export function AdminPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [signingIn, setSigningIn] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">(readStoredTheme);
 
   function toggleTheme() {
@@ -33,14 +34,6 @@ export function AdminPage() {
       // private mode: the choice just isn't remembered
     }
   }
-
-  const isAuthorized = useMemo(() => {
-    return (
-      cms.state.auth.isAuthenticated &&
-      cms.state.auth.user?.role === "admin" &&
-      cms.state.auth.user.email.toLowerCase() === ADMIN_EMAIL
-    );
-  }, [cms.state.auth]);
 
   if (!isAuthorized) {
     return (
@@ -61,16 +54,24 @@ export function AdminPage() {
 
             <form
               className="auth-form"
-              onSubmit={(event) => {
+              onSubmit={async (event) => {
                 event.preventDefault();
-
-                if (email.trim().toLowerCase() !== ADMIN_EMAIL || password !== ADMIN_PASSWORD) {
-                  setError("INVALID ADMIN CREDENTIALS");
-                  return;
-                }
-
-                cms.login({ email, password });
+                setSigningIn(true);
                 setError("");
+                try {
+                  if (!(await adminSignIn(email, password))) {
+                    setError("INVALID ADMIN CREDENTIALS");
+                    return;
+                  }
+                  setPassword("");
+                  await cmsService.bootstrap(true);
+                  setIsAuthorized(true);
+                } catch {
+                  adminSignOut();
+                  setError("COULD NOT CONNECT. TRY AGAIN.");
+                } finally {
+                  setSigningIn(false);
+                }
               }}
             >
               <label className="auth-field">
@@ -93,7 +94,7 @@ export function AdminPage() {
 
               {error ? <p className="admin-login-error">{error}</p> : null}
 
-              <button className="auth-solid-button" type="submit">
+              <button className="auth-solid-button" type="submit" disabled={signingIn}>
                 ENTER ADMIN PANEL
               </button>
             </form>
@@ -106,6 +107,7 @@ export function AdminPage() {
   return (
     <div className="admin-skin" data-theme={theme}>
       <div className="admin-skin__bar">
+        <button type="button" onClick={() => { adminSignOut(); setIsAuthorized(false); }}>Log out</button>
         <button type="button" onClick={toggleTheme} aria-pressed={theme === "dark"}>
           {theme === "dark" ? "Light mode" : "Dark mode"}
         </button>
