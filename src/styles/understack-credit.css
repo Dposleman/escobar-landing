@@ -1,0 +1,40 @@
+/* UnderStack credit: logo that links to understack.dk (site footer and donation page). */
+
+.us-credit {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #f1f1ef;
+  text-decoration: none;
+  opacity: 0.92;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.us-credit:hover,
+.us-credit:focus-visible {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.us-credit:focus-visible {
+  outline: 2px solid #a5f3fc;
+  outline-offset: 4px;
+}
+
+.us-credit__label {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(241, 241, 239, 0.6);
+}
+
+.us-credit img {
+  display: block;
+  width: auto;
+  height: 30px;
+  max-width: 100%;
+}
+
+.site-footer .us-credit {
+  margin: 10px auto 4px;
+}
