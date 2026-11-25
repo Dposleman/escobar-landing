@@ -37,7 +37,7 @@ export default async function handler(req, res) {
 
   if (req.method !== "POST") return res.status(405).json({ ok: false, error: "method_not_allowed" });
 
-  const webhook = process.env.SUBMIT_WEBHOOK_URL;
+  const webhook = (req.env ?? process.env).SUBMIT_WEBHOOK_URL;
   if (!webhook) return res.status(503).json({ ok: false, error: "not_configured" });
 
   const ip = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim() || "unknown";
