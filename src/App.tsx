@@ -22,6 +22,8 @@ import { BeerMenu } from "./components/BeerMenu";
 import { FindUs } from "./components/FindUs";
 import { StickerWall } from "./components/StickerWall";
 import { JoinPanels } from "./components/JoinPanels";
+import { EscobarbarianPanel } from "./components/EscobarbarianPanel";
+import { setTextOverrides } from "./i18n/textStore";
 import "./styles/dynamic-panels.css";
 import "./styles/final-polish.css";
 import "./styles/admin.css";
@@ -56,6 +58,11 @@ function BodyClass({ name }: { name: string }) {
 
 function App() {
   const cms = useCms();
+  const customTexts = cms.state.venue.texts;
+
+  useEffect(() => {
+    setTextOverrides(customTexts);
+  }, [customTexts]);
 
   const routeState = useMemo(() => {
     if (typeof window === "undefined") {
@@ -176,6 +183,7 @@ function App() {
 
         <StickerWall venue={cms.state.venue} />
         <JoinPanels venue={cms.state.venue} />
+        <EscobarbarianPanel membership={cms.state.venue.membership} />
 
         <div className="esc-members">
           <section className="member-access-wrap">

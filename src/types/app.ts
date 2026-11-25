@@ -168,6 +168,18 @@ export interface VenueState {
   stickers: string[];
   /** Bumped in code when the default sticker wall changes; older saved walls are replaced. */
   stickersRev?: number;
+  /** Monthly "Escobarbarians" membership. Stays "coming soon" until `open` is on and a checkout link is set. */
+  membership: MembershipState;
+  /** Owner-edited copy, keyed "<lang>.<string key>" (see EDITABLE_TEXT_KEYS). */
+  texts: Record<string, string>;
+}
+
+export interface MembershipState {
+  open: boolean;
+  /** Shown on the join button, e.g. "49 kr / month" */
+  priceLabel: string;
+  /** https link to the payment page that starts the subscription */
+  checkoutUrl: string;
 }
 
 export interface LandingCmsState {
@@ -212,7 +224,6 @@ export interface RegisterPayload {
   username: string;
   displayName: string;
   password: string;
-  role: Exclude<UserRole, "admin">;
 }
 
 export interface VinylViewModel {

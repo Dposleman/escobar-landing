@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useT } from "../i18n/strings";
 import type { AuthSession, LoginPayload, RegisterPayload } from "../types";
 
 type AuthPanelProps = {
@@ -9,6 +10,7 @@ type AuthPanelProps = {
 };
 
 export function AuthPanel({ session, onLogin, onRegister, onLogout }: AuthPanelProps) {
+  const t = useT();
   const [mode, setMode] = useState<"login" | "register">("login");
   const [loginForm, setLoginForm] = useState<LoginPayload>({ email: "", password: "" });
   const [registerForm, setRegisterForm] = useState<RegisterPayload>({
@@ -16,7 +18,6 @@ export function AuthPanel({ session, onLogin, onRegister, onLogout }: AuthPanelP
     username: "",
     displayName: "",
     password: "",
-    role: "common",
   });
 
   if (session.isAuthenticated && session.user) {
@@ -25,7 +26,7 @@ export function AuthPanel({ session, onLogin, onRegister, onLogout }: AuthPanelP
         <div className="section-title"><span /><h3>MEMBER ACCESS</h3><span /></div>
         <div className="auth-session-card auth-session-card-centered">
           <div className="auth-session-copy">
-            <strong>{session.user.displayName}</strong><p>@{session.user.username}</p><span>{session.user.role.toUpperCase()}</span>
+            <strong>{session.user.displayName}</strong><p>@{session.user.username}</p><span>{session.user.role === "vip" ? t.bbRole.toUpperCase() : session.user.role.toUpperCase()}</span>
           </div>
           <div className="auth-session-actions auth-session-actions-centered">
             <a className="auth-ghost-button cinematic-button cinematic-button--small" href="#chat"><span>OPEN CHAT</span></a>
@@ -55,7 +56,6 @@ export function AuthPanel({ session, onLogin, onRegister, onLogout }: AuthPanelP
           <label className="auth-field"><span>USERNAME</span><input type="text" value={registerForm.username} onChange={(event) => setRegisterForm({ ...registerForm, username: event.target.value })} /></label>
           <label className="auth-field"><span>EMAIL</span><input type="email" value={registerForm.email} onChange={(event) => setRegisterForm({ ...registerForm, email: event.target.value })} /></label>
           <label className="auth-field"><span>PASSWORD</span><input type="password" value={registerForm.password} onChange={(event) => setRegisterForm({ ...registerForm, password: event.target.value })} /></label>
-          <label className="auth-field"><span>ROLE</span><select value={registerForm.role} onChange={(event) => setRegisterForm({ ...registerForm, role: event.target.value as "vip" | "common" })}><option value="common">COMMON</option><option value="vip">VIP</option></select></label>
           <button className="auth-solid-button cinematic-button" type="submit"><span>CREATE ACCOUNT</span></button>
         </form>
       )}

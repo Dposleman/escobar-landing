@@ -117,6 +117,8 @@ function mergeVenue(candidate: Partial<VenueState> | undefined): VenueState {
         ? candidate.stickers
         : base.stickers,
     stickersRev: base.stickersRev,
+    membership: { ...base.membership, ...candidate?.membership },
+    texts: { ...base.texts, ...candidate?.texts },
     happyHour: { ...base.happyHour, ...candidate?.happyHour },
   };
 }
@@ -505,7 +507,7 @@ class CmsService {
       username: payload.username,
       displayName: payload.displayName,
       password: payload.password,
-      role: payload.role,
+      role: "common",
       avatar: "",
       isBlocked: false,
     };

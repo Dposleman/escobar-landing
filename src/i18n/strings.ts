@@ -1,4 +1,6 @@
+import { useMemo } from "react";
 import { useLanguage, type Language } from "./langStore";
+import { useTextOverrides } from "./textStore";
 
 const en = {
   navHome: "Home",
@@ -84,6 +86,15 @@ const en = {
   fallbackNote: "The form is offline right now. We opened your email app instead.",
   errorGeneric: "Could not send. Please try again.",
   required: "Please fill in the required fields.",
+
+  bbKicker: "Coming soon",
+  bbTitle: "Escobarbarians",
+  bbIntro: "Join the Escobar family. A monthly membership is on its way, with exclusive benefits and gifts for the people who keep the place loud.",
+  bbBenefit1: "Exclusive member-only gifts",
+  bbBenefit2: "First access to events and merch drops",
+  bbBenefit3: "A place in the Escobar family",
+  bbJoin: "Become an Escobarbarian",
+  bbRole: "Escobarbarian",
 
   weekdays: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
   weekdaysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
@@ -176,13 +187,39 @@ const da: Strings = {
   errorGeneric: "Kunne ikke sendes. Prøv igen.",
   required: "Udfyld de påkrævede felter.",
 
+  bbKicker: "Kommer snart",
+  bbTitle: "Escobarbarians",
+  bbIntro: "Bliv en del af Escobar-familien. Et månedligt medlemskab er på vej med eksklusive fordele og gaver til dem, der holder stedet højt.",
+  bbBenefit1: "Eksklusive gaver kun til medlemmer",
+  bbBenefit2: "Først adgang til events og merch-drops",
+  bbBenefit3: "En plads i Escobar-familien",
+  bbJoin: "Bliv en Escobarbarian",
+  bbRole: "Escobarbarian",
+
   weekdays: ["søndag", "mandag", "tirsdag", "onsdag", "torsdag", "fredag", "lørdag"],
   weekdaysShort: ["søn", "man", "tir", "ons", "tor", "fre", "lør"],
 };
 
 export const STRINGS: Record<Language, Strings> = { en, da };
 
+/** Plain-text strings the owner can rewrite from the admin panel. */
+export const EDITABLE_TEXT_KEYS = (Object.keys(en) as Array<keyof Strings>).filter(
+  (key) => typeof en[key] === "string" && key !== "navLabel" && key !== "langLabel"
+) as string[];
+
+export function textOverrideKey(lang: Language, key: string) {
+  return `${lang}.${key}`;
+}
+
 export function useT(): Strings & { lang: Language } {
   const lang = useLanguage();
-  return { ...STRINGS[lang], lang };
+  const overrides = useTextOverrides();
+  return useMemo(() => {
+    const merged: Record<string, unknown> = { ...STRINGS[lang] };
+    for (const key of EDITABLE_TEXT_KEYS) {
+      const custom = overrides[textOverrideKey(lang, key)];
+      if (custom && custom.trim()) merged[key] = custom;
+    }
+    return { ...(merged as Strings), lang };
+  }, [lang, overrides]);
 }
