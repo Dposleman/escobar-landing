@@ -45,6 +45,7 @@ export const defaultVenue: VenueState = {
   ],
   beerFootnote: "No food, just loud music and cold beer.",
   // One per line: "image path | alt text | width/height ratio". A line without a path renders as a text sticker.
+  stickersRev: 2,
   stickers: [
     "/assets/stickers/katla.webp | Katla, Scandinavian Pain | 1.79",
     "/assets/stickers/avarice.webp | Avarice, Perpetual Ruin | 0.99",
