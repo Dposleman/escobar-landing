@@ -18,14 +18,7 @@ export function Footer() {
       target,
     });
 
-    const donationWindow = window.open(target, "_blank", "noopener,noreferrer");
-
-    if (donationWindow) {
-      donationWindow.opener = null;
-      return;
-    }
-
-    window.location.href = target;
+    window.open(target, "_blank", "noopener,noreferrer");
   };
 
   return (
