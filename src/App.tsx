@@ -23,6 +23,7 @@ import { FindUs } from "./components/FindUs";
 import { StickerWall } from "./components/StickerWall";
 import { JoinPanels } from "./components/JoinPanels";
 import { EscobarbarianPanel } from "./components/EscobarbarianPanel";
+import { EscoCastPanel } from "./components/EscoCastPanel";
 import { setTextOverrides } from "./i18n/textStore";
 import "./styles/dynamic-panels.css";
 import "./styles/final-polish.css";
@@ -183,6 +184,7 @@ function App() {
 
         <StickerWall venue={cms.state.venue} />
         <JoinPanels venue={cms.state.venue} />
+        <EscoCastPanel />
         <EscobarbarianPanel membership={cms.state.venue.membership} />
 
         <div className="esc-members">

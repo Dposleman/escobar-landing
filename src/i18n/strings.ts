@@ -95,6 +95,9 @@ const en = {
   bbBenefit3: "A place in the Escobar family",
   bbJoin: "Become an Escobarbarian",
   bbRole: "Escobarbarian",
+  castKicker: "Coming soon",
+  castTitle: "EscoCast",
+  castIntro: "The Escobar podcast. Stories, guests and noise straight from the bar. We hit record soon.",
 
   weekdays: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
   weekdaysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
@@ -195,6 +198,9 @@ const da: Strings = {
   bbBenefit3: "En plads i Escobar-familien",
   bbJoin: "Bliv en Escobarbarian",
   bbRole: "Escobarbarian",
+  castKicker: "Kommer snart",
+  castTitle: "EscoCast",
+  castIntro: "Escobars podcast. Historier, gæster og larm direkte fra baren. Vi trykker snart på optag.",
 
   weekdays: ["søndag", "mandag", "tirsdag", "onsdag", "torsdag", "fredag", "lørdag"],
   weekdaysShort: ["søn", "man", "tir", "ons", "tor", "fre", "lør"],
