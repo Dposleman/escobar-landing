@@ -14,6 +14,7 @@ import { createEmbers } from "./utils/embers";
 import { initMouseGlow } from "./utils/mouseGlow";
 import { AdminPage } from "./pages/AdminPage";
 import { DonationPage } from "./pages/DonationPage";
+import { MerchStorePage } from "./pages/MerchStorePage";
 import { setLang } from "./i18n/useLang";
 import { Footer } from "./components/Footer";
 import { DealBanner } from "./components/DealBanner";
@@ -70,6 +71,7 @@ function App() {
       return {
         isAdminRoute: false,
         isDonationRoute: false,
+        isMerchRoute: false,
       };
     }
 
@@ -77,6 +79,7 @@ function App() {
 
     return {
       isAdminRoute: window.location.pathname === "/admin" || params.get("admin") === "1",
+      isMerchRoute: window.location.pathname === "/merch-store",
       isDonationRoute:
         window.location.pathname === "/feed-the-dev" ||
         params.get("feed-the-dev") === "1" ||
@@ -95,7 +98,7 @@ function App() {
       console.warn("Escobar reveal animation disabled", error);
     }
 
-    const isHome = !routeState.isAdminRoute && !routeState.isDonationRoute;
+    const isHome = !routeState.isAdminRoute && !routeState.isDonationRoute && !routeState.isMerchRoute;
 
     if (!safariSafeMode && !isHome) {
       try {
@@ -124,6 +127,10 @@ function App() {
 
   if (routeState.isAdminRoute) {
     return <AdminPage />;
+  }
+
+  if (routeState.isMerchRoute) {
+    return <MerchStorePage />;
   }
 
   if (routeState.isDonationRoute) {
@@ -175,7 +182,7 @@ function App() {
 
         <EventsPanel events={cms.state.events} />
         <GalleryPanel images={cms.state.gallery} />
-        <MerchPanel items={cms.state.merch} />
+        <MerchPanel />
 
         <div className="esc-duo esc-duo--bar">
           <BeerMenu venue={cms.state.venue} />

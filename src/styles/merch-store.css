@@ -1,0 +1,26 @@
+.merch-collection-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.merch-collection-card { min-width: 0; position: relative; text-align: center; }
+.merch-collection-visual { position: relative; display: grid; place-items: center; aspect-ratio: 1 / 1.1; touch-action: pan-y; }
+.merch-collection-visual a { display: grid; place-items: center; width: 100%; height: 100%; }
+.merch-collection-visual img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 8px 12px #0009); transition: transform .25s ease; }
+.merch-collection-visual a:hover img { transform: scale(1.04); }
+.merch-carousel-arrow { position: absolute; top: 44%; width: 32px; height: 38px; border: 1px solid #a4673b; background: #170b06e8; color: #f7dfc2; font-size: 1.5rem; cursor: pointer; z-index: 1; }
+.merch-carousel-prev { left: 0; } .merch-carousel-next { right: 0; }
+.merch-collection-caption { display: flex; justify-content: space-between; gap: 5px; padding: 8px; color: #efd6bb; border: 1px solid #65462e; background: #1b0e09; text-transform: uppercase; font-size: .75rem; }
+.merch-carousel-count { display: block; color: #d2af8f; font-size: .75rem; margin-top: 6px; }
+.merch-store { min-height: 100vh; color: #f2dec8; background: radial-gradient(circle at 50% 0, #4b2110, #170c08 40%, #0e0907 100%); font-family: 'Barlow Semi Condensed', sans-serif; }
+.merch-store-inner { width: min(1200px, calc(100% - 32px)); margin: auto; padding: 28px 0 60px; }
+.merch-store-back { display: inline-block; color: #f4b174; text-decoration: none; padding: 10px 0; }
+.merch-store-header { text-align: center; padding: 36px 10px; border-bottom: 1px solid #7a4d31; }
+.merch-store-header h1 { margin: 8px 0; font-family: Cinzel, serif; font-size: clamp(2rem, 6vw, 4rem); color: #f8dfbd; }
+.merch-store-header p { color: #dfad83; }
+.merch-store-section { padding: 36px 0 0; scroll-margin-top: 20px; }
+.merch-store-section h2 { font-family: Cinzel, serif; color: #f5d7b5; border-bottom: 1px solid #6e452d; padding-bottom: 10px; }
+.merch-store-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; }
+.merch-store-product { min-width: 0; border: 1px solid #704832; background: #1d100bdd; padding: 12px; }
+.merch-store-product-image { height: 280px; display: grid; place-items: center; background: radial-gradient(circle, #56301955, transparent 70%); }
+.merch-store-product img { max-width: 100%; max-height: 100%; min-height: 0; width: auto; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 14px #0009); }
+.merch-store-product h3 { font-size: 1.05rem; margin: 14px 0 4px; } .merch-store-product p { margin: 0; color: #f3ad72; font-weight: 700; }
+.merch-store-note { color: #d9b898; text-align: center; padding-top: 40px; }
+@media (max-width: 900px) { .merch-collection-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } }
+@media (max-width: 600px) { .merch-collection-grid, .merch-store-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } .merch-store-product-image { height: 190px; } .merch-collection-caption { flex-direction: column; } }
