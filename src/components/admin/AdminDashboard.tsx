@@ -93,6 +93,9 @@ const initialNewsForm: Omit<NewsItem, "id" | "order" | "createdAt" | "updatedAt"
   ctaUrl: "#",
   publishedAt: "",
   status: "published",
+  scope: "dk",
+  eventDate: "",
+  venue: "",
 };
 
 const initialUserForm: Omit<UserRecord, "id" | "order" | "createdAt" | "updatedAt"> = {
@@ -357,6 +360,9 @@ export function AdminDashboard(props: AdminDashboardProps) {
           ctaUrl: draft.ctaUrl,
           publishedAt: draft.publishedAt,
           status: draft.status,
+          scope: draft.scope,
+          eventDate: draft.eventDate,
+          venue: draft.venue,
         });
       }
     });
@@ -568,10 +574,11 @@ export function AdminDashboard(props: AdminDashboardProps) {
               <label className="admin-field"><span>BODY</span><textarea value={newsForm.body} onChange={(event) => setNewsForm({ ...newsForm, body: event.target.value })} /></label>
               <ImageField label="PHOTO" value={newsForm.image} onChange={(value) => setNewsForm({ ...newsForm, image: value })} />
               <div className="admin-form-row"><label className="admin-field"><span>CTA LABEL</span><input type="text" value={newsForm.ctaLabel} onChange={(event) => setNewsForm({ ...newsForm, ctaLabel: event.target.value })} /></label><label className="admin-field"><span>CTA URL</span><input type="text" value={newsForm.ctaUrl} onChange={(event) => setNewsForm({ ...newsForm, ctaUrl: event.target.value })} /></label></div>
+              <div className="admin-form-row"><label className="admin-field"><span>SHOWN IN</span><select value={newsForm.scope ?? "dk"} onChange={(event) => setNewsForm({ ...newsForm, scope: event.target.value as "dk" | "aarhus" })}><option value="dk">DK (all Denmark)</option><option value="aarhus">AARHUS only</option></select></label><label className="admin-field"><span>EVENT DATE</span><input type="date" value={newsForm.eventDate ?? ""} onChange={(event) => setNewsForm({ ...newsForm, eventDate: event.target.value })} /></label><label className="admin-field"><span>VENUE / CITY</span><input type="text" value={newsForm.venue ?? ""} onChange={(event) => setNewsForm({ ...newsForm, venue: event.target.value })} /></label></div>
               <label className="admin-field"><span>PUBLISHED AT</span><input type="datetime-local" value={newsForm.publishedAt} onChange={(event) => setNewsForm({ ...newsForm, publishedAt: event.target.value })} /></label>
               <button className="auth-solid-button" type="submit">CREATE NEWS</button>
             </form>
-            <div className="admin-list">{newsDrafts.map((item, index) => <article className="admin-card" key={item.id}><div className="admin-card-head"><strong>{item.title}</strong><div className="admin-inline-actions"><button type="button" onClick={() => props.onReorderNews(index, index - 1)}>↑</button><button type="button" onClick={() => props.onReorderNews(index, index + 1)}>↓</button><button type="button" onClick={() => props.onDeleteNewsItem(item.id)}>DELETE</button></div></div><div className="admin-card-grid"><input type="text" value={item.title} onChange={(event) => updateNewsDraft(item.id, { title: event.target.value })} /><ImageField value={item.image} onChange={(value) => updateNewsDraft(item.id, { image: value })} /><textarea value={item.excerpt} onChange={(event) => updateNewsDraft(item.id, { excerpt: event.target.value })} /><textarea value={item.body} onChange={(event) => updateNewsDraft(item.id, { body: event.target.value })} /></div></article>)}</div>
+            <div className="admin-list">{newsDrafts.map((item, index) => <article className="admin-card" key={item.id}><div className="admin-card-head"><strong>{item.title}</strong><div className="admin-inline-actions"><button type="button" onClick={() => props.onReorderNews(index, index - 1)}>↑</button><button type="button" onClick={() => props.onReorderNews(index, index + 1)}>↓</button><button type="button" onClick={() => props.onDeleteNewsItem(item.id)}>DELETE</button></div></div><div className="admin-card-grid"><input type="text" value={item.title} onChange={(event) => updateNewsDraft(item.id, { title: event.target.value })} /><ImageField value={item.image} onChange={(value) => updateNewsDraft(item.id, { image: value })} /><textarea value={item.excerpt} onChange={(event) => updateNewsDraft(item.id, { excerpt: event.target.value })} /><textarea value={item.body} onChange={(event) => updateNewsDraft(item.id, { body: event.target.value })} /><select value={item.scope ?? "dk"} onChange={(event) => updateNewsDraft(item.id, { scope: event.target.value as "dk" | "aarhus" })}><option value="dk">DK (all Denmark)</option><option value="aarhus">AARHUS only</option></select><input type="date" value={item.eventDate ?? ""} onChange={(event) => updateNewsDraft(item.id, { eventDate: event.target.value })} /><input type="text" placeholder="Venue / city" value={item.venue ?? ""} onChange={(event) => updateNewsDraft(item.id, { venue: event.target.value })} /></div></article>)}</div>
             {renderSectionApply("news", applyNewsChanges)}
           </AdminSection>
         )}

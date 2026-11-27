@@ -1,4 +1,5 @@
 import { createCmsHandler, createMediaHandler } from "../api/cms.js";
+import { createEventsHandler } from "../api/events.js";
 import submitHandler from "../api/submit.js";
 
 const JSON_LIMIT = 1_000_000;
@@ -58,6 +59,7 @@ export default {
 
     if (pathname === "/api/cms") return runHandler(request, env, createCmsHandler(env));
     if (pathname === "/api/media") return runHandler(request, env, createMediaHandler(env), MEDIA_LIMIT);
+    if (pathname === "/api/events") return runHandler(request, env, createEventsHandler(env));
     if (pathname === "/api/submit") return runHandler(request, env, submitHandler);
     if (pathname.startsWith("/api/")) return Response.json({ error: "Not found" }, { status: 404 });
 

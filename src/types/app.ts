@@ -64,6 +64,10 @@ export interface NewsItem extends BaseEntity {
   ctaUrl: string;
   publishedAt: string;
   status: EntityStatus;
+  /** Where a pinned story applies: all of Denmark, or only Aarhus. */
+  scope?: "dk" | "aarhus";
+  eventDate?: string;
+  venue?: string;
 }
 
 export interface RadioTrackMeta {
