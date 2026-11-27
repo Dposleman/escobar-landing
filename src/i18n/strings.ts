@@ -108,6 +108,9 @@ const en = {
   newsTickets: "Tickets",
   newsMore: "More info",
   newsVia: "Listings via Ticketmaster",
+  castKicker: "Coming soon",
+  castTitle: "EscoCast",
+  castIntro: "The Escobar podcast. Stories, guests and noise straight from the bar. We hit record soon.",
 
   weekdays: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
   weekdaysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
@@ -221,6 +224,9 @@ const da: Strings = {
   newsTickets: "Billetter",
   newsMore: "Læs mere",
   newsVia: "Koncertliste via Ticketmaster",
+  castKicker: "Kommer snart",
+  castTitle: "EscoCast",
+  castIntro: "Escobars podcast. Historier, gæster og larm direkte fra baren. Vi trykker snart på optag.",
 
   weekdays: ["søndag", "mandag", "tirsdag", "onsdag", "torsdag", "fredag", "lørdag"],
   weekdaysShort: ["søn", "man", "tir", "ons", "tor", "fre", "lør"],
