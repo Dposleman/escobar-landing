@@ -1,0 +1,42 @@
+.esc-news { display: flex; flex-direction: column; gap: 1.6rem; }
+.esc-news__scope { display: inline-flex; align-self: center; gap: 0; border: 1px solid rgba(255, 106, 0, 0.45); border-radius: 999px; padding: 3px; background: rgba(0, 0, 0, 0.45); }
+.esc-news .esc-news__scope button { appearance: none; border: 0; background: transparent !important; box-shadow: none; text-shadow: none; min-width: 6.5rem; color: #cfc8bf; font: 600 0.95rem/1 "Rajdhani", sans-serif; letter-spacing: 0.18em; padding: 0.7rem 1.6rem; border-radius: 999px; cursor: pointer; transition: background 0.2s, color 0.2s; }
+.esc-news .esc-news__scope button:hover { color: #fff; }
+.esc-news .esc-news__scope button[aria-pressed="true"] { background: #ff6a00 !important; color: #120a04; }
+.esc-news .esc-news__scope button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+.esc-news__block { display: flex; flex-direction: column; gap: 1rem; }
+.esc-news__heading { margin: 0; font: 700 1.05rem/1.2 "Rajdhani", sans-serif; letter-spacing: 0.2em; text-transform: uppercase; color: #ff6a00; }
+
+.esc-news__pinned { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 440px), 1fr)); }
+.esc-news__grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); }
+
+.esc-news__card { display: flex; flex-direction: column; background: rgba(8, 8, 10, 0.72); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; overflow: hidden; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45); }
+.esc-news__card--pinned { border-color: rgba(255, 106, 0, 0.55); }
+.esc-news__poster { aspect-ratio: 16 / 9; background: #0b0b0d; overflow: hidden; }
+.esc-news__poster img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.esc-news__poster--empty { background: linear-gradient(135deg, #1b1209, #0b0b0d 60%); }
+.esc-news__copy { display: flex; flex-direction: column; gap: 0.4rem; padding: 0.9rem 1rem 1.1rem; flex: 1; }
+.esc-news__meta { margin: 0; font: 600 0.85rem/1.2 "Rajdhani", sans-serif; letter-spacing: 0.16em; text-transform: uppercase; color: #ff6a00; }
+.esc-news__copy h5 { margin: 0; font: 700 1.15rem/1.2 "Barlow Semi Condensed", sans-serif; color: #f3eee8; text-transform: uppercase; }
+.esc-news__where, .esc-news__excerpt { margin: 0; font: 400 0.95rem/1.4 "Barlow Semi Condensed", sans-serif; color: #b9b1a8; }
+.esc-news a.esc-news__cta { align-self: flex-start; margin-top: auto; padding: 0.6rem 1.1rem; margin-left: 0; border: 1px solid #ff6a00 !important; background: transparent; border-radius: 3px; color: #ff6a00; font: 700 0.85rem/1 "Rajdhani", sans-serif; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; transition: background 0.2s, color 0.2s; }
+.esc-news a.esc-news__cta:hover, .esc-news a.esc-news__cta:focus-visible { background: #ff6a00; color: #120a04; }
+
+.esc-news__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.esc-news__list li { display: grid; grid-template-columns: 7.5rem 1fr auto; gap: 0.2rem 1rem; align-items: baseline; padding: 0.7rem 0; border-top: 1px solid rgba(255, 255, 255, 0.08); font: 400 0.98rem/1.3 "Barlow Semi Condensed", sans-serif; color: #cfc8bf; }
+.esc-news__list time { font: 600 0.85rem/1.2 "Rajdhani", sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: #ff6a00; }
+.esc-news__list-title { color: #f3eee8; font-weight: 600; }
+.esc-news__list-where { grid-column: 2; color: #9b948b; font-size: 0.9rem; }
+.esc-news__list a { grid-row: 1 / span 2; grid-column: 3; color: #ff6a00; font: 700 0.8rem/1 "Rajdhani", sans-serif; letter-spacing: 0.14em; text-transform: uppercase; }
+
+.esc-news__status { margin: 0; text-align: center; color: #b9b1a8; font: 400 1rem/1.4 "Barlow Semi Condensed", sans-serif; padding: 1rem 0; }
+.esc-news__credit { margin: 0.4rem 0 0; text-align: right; font: 400 0.8rem/1 "Barlow Semi Condensed", sans-serif; }
+.esc-news__credit a { color: #8d867d; }
+
+@media (max-width: 640px) {
+  .esc-news__list li { grid-template-columns: 1fr auto; }
+  .esc-news__list time { grid-column: 1 / -1; }
+  .esc-news__list-where { grid-column: 1; }
+  .esc-news__list a { grid-row: 2 / span 2; grid-column: 2; }
+}
